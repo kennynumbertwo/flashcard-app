@@ -25,7 +25,6 @@ const styles = {
   buttonContainer: {
     height: '100px',
     width: '25vw',
-    // border: '1px solid black',
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
@@ -106,6 +105,7 @@ function FlashcardTray(props) {
           className={classes.showButton}
           variant="contained"
           onClick={toggleAnswer}
+          disabled={flashcardsEmpty}
         >{showAnswer ? 'Hide Answer' : 'Show Answer'}
 
         </Button>

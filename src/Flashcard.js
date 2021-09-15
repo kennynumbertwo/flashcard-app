@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/styles';
+import { CallReceived } from '@material-ui/icons';
 
 const styles = {
   Flashcard: {
@@ -14,7 +15,20 @@ const styles = {
     backgroundColor: 'white',
     boxShadow: '5px 5px 10px 5px rgba(0, 0, 0, .1)',
     color: 'rgb(30, 30, 30)',
-
+  },
+  question: {
+    // border: '1px solid black',
+    height: '15%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  answer: {
+    height: '10%',
+    // border: '1px solid black',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 };
 
@@ -35,8 +49,12 @@ function Flashcard(props) {
 
   return (
     <div className={classes.Flashcard}>
-      {props.empty ? 'No more cards. Start over?' : question}
-      {props.showAnswer && answer}
+      <div className={classes.question}>
+        {props.empty ? 'No more cards. Start over?' : question}
+      </div>
+      <div className={classes.answer}>
+        {props.showAnswer && answer}
+      </div>
     </div>
   );
 }
