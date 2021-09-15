@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { withStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
 import Flashcard from './Flashcard';
+import DrawerNav from './DrawerNav';
 
 const styles = {
   root: {
@@ -46,12 +47,17 @@ const styles = {
 };
 
 function FlashcardTray(props) {
-  const [flashcards, setFlashcards] = useState([
-    { question: 'What is my favorite color?', answer: 'Black' },
-    { question: "What is my pet's name?", answer: 'Mika' },
-    { question: "What's my age again?", answer: 34 },
-    { question: 'How may jackets do you own?', answer: 12 },
-  ]);
+  const [flashcards, setFlashcards] = useState(
+    {
+      setName: 'React',
+      cards: [
+        { question: 'What is my favorite color?', answer: 'Black' },
+        { question: "What is my pet's name?", answer: 'Mika' },
+        { question: "What's my age again?", answer: 34 },
+        { question: 'How may jackets do you own?', answer: 12 },
+      ],
+    },
+  );
   const [usedIndexes, setUsedIndexes] = useState([]);
   const [currentFlashcard, setCurrentFlashcard] = useState(0);
   const [cardCount, setCardCount] = useState(1);
@@ -59,17 +65,17 @@ function FlashcardTray(props) {
   const [showAnswer, setShowAnswer] = useState(false);
 
   const drawCard = () => {
-    const newIndex = Math.floor(Math.random() * flashcards.length);
+    const newIndex = Math.floor(Math.random() * flashcards.cards.length);
     let checking = [...usedIndexes];
     if (checking.includes(newIndex)) {
       drawCard();
     } else {
       setCurrentFlashcard(newIndex);
       checking = [...checking, newIndex];
-      if (checking.length === flashcards.length) {
+      if (checking.length === flashcards.cards.length) {
         setFlashcardsEmpty(true);
       }
-      if (cardCount !== flashcards.length) {
+      if (cardCount !== flashcards.cards.length) {
         setCardCount(cardCount + 1);
       }
       setShowAnswer(false);
@@ -86,16 +92,17 @@ function FlashcardTray(props) {
   const toggleAnswer = () => {
     setShowAnswer(!showAnswer);
   };
-
   const { classes } = props;
-  const totalCards = flashcards.length;
+  const totalCards = flashcards.cards.length;
   return (
     <div className={classes.root}>
+      <DrawerNav />
+      <h2>{flashcards.setName}</h2>
       <h4>Card {cardCount} of {totalCards}</h4>
       <div className={classes.FlashcardContainer}>
         <Flashcard
-          question={flashcards[currentFlashcard].question}
-          answer={flashcards[currentFlashcard].answer}
+          question={flashcards.cards[currentFlashcard].question}
+          answer={flashcards.cards[currentFlashcard].answer}
           empty={flashcardsEmpty}
           showAnswer={showAnswer}
         />
