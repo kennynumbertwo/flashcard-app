@@ -1,10 +1,11 @@
 import './App.css';
 import FlashcardTray from './FlashcardTray';
+import DrawerNav from './DrawerNav';
 
 function App() {
   return (
     <div className="App">
-      <h1>Flashcard Application</h1>
+      <DrawerNav />
       <FlashcardTray />
     </div>
   );

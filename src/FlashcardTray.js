@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/styles';
+import { Button } from '@material-ui/core';
 import Flashcard from './Flashcard';
 
 const styles = {
@@ -8,9 +9,40 @@ const styles = {
     height: '100vh',
     width: '100vw',
     display: 'flex',
-    backgroundColor: 'white',
+    backgroundColor: '#f0f7f7',
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'column',
+    '& button': {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  },
+  FlashcardContainer: {
+
+  },
+  buttonContainer: {
+    height: '100px',
+    width: '25vw',
+    // border: '1px solid black',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  nextButton: {
+    width: '160px',
+    backgroundColor: 'rgba(7, 177, 77, 0.9)',
+    color: 'white',
+    '&:hover': {
+      backgroundColor: 'rgba(7, 177, 77, 0.7)',
+    },
+  },
+  showButton: {
+    width: '160px',
+  },
+  startOverButton: {
+    width: '160px',
   },
 };
 
@@ -21,34 +53,85 @@ function FlashcardTray(props) {
     { question: "What's my age again?", answer: 34 },
     { question: 'How may jackets do you own?', answer: 12 },
   ]);
-  // const [reviewedCards, setReviewedCards] = useState([]);
+  const [usedIndexes, setUsedIndexes] = useState([]);
   const [currentFlashcard, setCurrentFlashcard] = useState(0);
+  const [cardCount, setCardCount] = useState(1);
   const [flashcardsEmpty, setFlashcardsEmpty] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false);
 
   const drawCard = () => {
-    const updatedFlashcards = [...flashcards];
-    // setReviewedCards([...reviewedCards, updatedFlashcards[currentFlashcard]]);
-    updatedFlashcards.splice(currentFlashcard, 1);
-    setFlashcards(updatedFlashcards);
-    if (flashcards.length === 1) {
-      setFlashcardsEmpty(true);
+    const newIndex = Math.floor(Math.random() * flashcards.length);
+    let checking = [...usedIndexes];
+    if (checking.includes(newIndex)) {
+      drawCard();
+    } else {
+      setCurrentFlashcard(newIndex);
+      checking = [...checking, newIndex];
+      if (checking.length === flashcards.length) {
+        setFlashcardsEmpty(true);
+      }
+      if (cardCount !== flashcards.length) {
+        setCardCount(cardCount + 1);
+      }
+      setShowAnswer(false);
+      setUsedIndexes(checking);
     }
-    const randomCard = Math.floor(Math.random() * flashcards.length);
-    setCurrentFlashcard(randomCard);
+  };
+
+  const startOver = () => {
+    setUsedIndexes([]);
+    setFlashcardsEmpty(false);
+    setCardCount(1);
+  };
+
+  const toggleAnswer = () => {
+    setShowAnswer(!showAnswer);
   };
 
   const { classes } = props;
-
+  const totalCards = flashcards.length;
   return (
     <div className={classes.root}>
-      {/* Things to show in the tray
-        - Name of the flashcard category
-        - n / total cards
-        - Flashcard
-      */}
-      <p>{flashcardsEmpty ? 'The End' : flashcards[currentFlashcard].question}</p>
-      <Flashcard />
-      <button type="button" onClick={drawCard}>Draw Card</button>
+      <h4>Card {cardCount} of {totalCards}</h4>
+      <div className={classes.FlashcardContainer}>
+        <Flashcard
+          question={flashcards[currentFlashcard].question}
+          answer={flashcards[currentFlashcard].answer}
+          empty={flashcardsEmpty}
+          showAnswer={showAnswer}
+        />
+      </div>
+      <div className={classes.buttonContainer}>
+        <Button
+          className={classes.showButton}
+          variant="contained"
+          onClick={toggleAnswer}
+        >{showAnswer ? 'Hide Answer' : 'Show Answer'}
+
+        </Button>
+        {!flashcardsEmpty
+          ? (
+            <Button
+              className={classes.nextButton}
+              variant="contained"
+              type="button"
+              onClick={drawCard}
+            >
+              Next Question
+            </Button>
+          )
+          : (
+            <Button
+              className={classes.startOverButton}
+              variant="contained"
+              color="secondary"
+              type="button"
+              onClick={startOver}
+            >
+              Start Over
+            </Button>
+          )}
+      </div>
     </div>
   );
 }
