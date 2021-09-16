@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -15,14 +15,21 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import NoteIcon from '@material-ui/icons/Note';
+import CreateIcon from '@material-ui/icons/Create';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import TextField from '@material-ui/core/TextField';
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -83,6 +90,13 @@ export default function DrawerNav() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [collection, setCollection] = useState({
+    coding: ['React', 'JavaScript', 'CSS', 'Python', 'HTML'],
+    tv: ['The Office', 'Seinfeld', 'Game of Throne', 'Entourage'],
+    movies: ['The Big Lebowski', 'Goodfellas', 'Shawshank Redemption'],
+  });
+  const [category, setCategory] = useState('Coding');
+  const [createNewDeck, setCreateNewDeck] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -90,6 +104,15 @@ export default function DrawerNav() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleButtonClick = (cat) => {
+    setCategory(cat);
+    setCreateNewDeck(false);
+  };
+
+  const handleCreateDeck = () => {
+    setCreateNewDeck(true);
   };
 
   return (
@@ -132,21 +155,45 @@ export default function DrawerNav() {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+          <ListItem button={false} key="My Flashcards">
+            <ListItemIcon><LibraryBooksIcon /></ListItemIcon>
+            <ListItemText primary="My Flashcards" />
+          </ListItem>
+          {['Coding', 'TV', 'Movies'].map((text) => (
+            <ListItem button key={text} onClick={() => handleButtonClick(text)}>
+              <ListItemIcon><NoteIcon /></ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
+          <ListItem button key="Create Deck" onClick={handleCreateDeck}>
+            <ListItemIcon><CreateIcon /></ListItemIcon>
+            <ListItemText primary="Create Deck" />
+          </ListItem>
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          {!createNewDeck && (
+          <ListItem button={false}>
+            <ListItemIcon><LibraryBooksIcon /></ListItemIcon>
+            <ListItemText primary={category} />
+          </ListItem>
+          )}
+          {!createNewDeck && (
+            collection[category.toLowerCase()].map((text) => (
+              <ListItem button key={text}>
+                <ListItemIcon><ArrowRightIcon /></ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))
+          )}
+          {createNewDeck && (
+          <TextField
+            id="outlined-password-input"
+            label="Name"
+            type="name"
+            variant="outlined"
+          />
+          )}
         </List>
       </Drawer>
     </div>

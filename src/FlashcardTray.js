@@ -1,50 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
 import Flashcard from './Flashcard';
 import DrawerNav from './DrawerNav';
-
-const styles = {
-  root: {
-    border: '1px solid black',
-    height: '100vh',
-    width: '100vw',
-    display: 'flex',
-    backgroundColor: '#f0f7f7',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-    '& button': {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-  },
-  FlashcardContainer: {
-
-  },
-  buttonContainer: {
-    height: '100px',
-    width: '25vw',
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
-  nextButton: {
-    width: '160px',
-    backgroundColor: 'rgba(7, 177, 77, 0.9)',
-    color: 'white',
-    '&:hover': {
-      backgroundColor: 'rgba(7, 177, 77, 0.7)',
-    },
-  },
-  showButton: {
-    width: '160px',
-  },
-  startOverButton: {
-    width: '160px',
-  },
-};
+import styles from './styles/FlashcardTrayStyles';
 
 function FlashcardTray(props) {
   const [flashcards, setFlashcards] = useState(
@@ -58,52 +17,64 @@ function FlashcardTray(props) {
       ],
     },
   );
-  const [usedIndexes, setUsedIndexes] = useState([]);
-  const [currentFlashcard, setCurrentFlashcard] = useState(0);
-  const [cardCount, setCardCount] = useState(1);
-  const [flashcardsEmpty, setFlashcardsEmpty] = useState(false);
+  const [shuffledDeck, setShuffledDeck] = useState([]);
+  const [cardCount, setCardCount] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [shuffling, setShuffling] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    let shuffled = shuffleDeck(flashcards.cards);
+    setShuffledDeck([...shuffled]);
+    if (!mounted) {
+      setMounted(true);
+    }
+  }, [shuffling]);
 
   const drawCard = () => {
-    const newIndex = Math.floor(Math.random() * flashcards.cards.length);
-    let checking = [...usedIndexes];
-    if (checking.includes(newIndex)) {
-      drawCard();
-    } else {
-      setCurrentFlashcard(newIndex);
-      checking = [...checking, newIndex];
-      if (checking.length === flashcards.cards.length) {
-        setFlashcardsEmpty(true);
-      }
-      if (cardCount !== flashcards.cards.length) {
-        setCardCount(cardCount + 1);
-      }
-      setShowAnswer(false);
-      setUsedIndexes(checking);
+    setCardCount(cardCount + 1);
+    setShowAnswer(false);
+  };
+
+  const shuffleDeck = (array) => {
+    let m = array.length;
+    let t;
+    let i;
+    // While there remain elements to shuffle…
+    while (m) {
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
     }
+    return array;
   };
 
   const startOver = () => {
-    setUsedIndexes([]);
-    setFlashcardsEmpty(false);
-    setCardCount(1);
+    setCardCount(0);
+    setShuffling(shuffling + 1);
   };
 
   const toggleAnswer = () => {
     setShowAnswer(!showAnswer);
   };
+
   const { classes } = props;
-  const totalCards = flashcards.cards.length;
+  const { cards, setName } = flashcards;
+  const totalCards = cards.length;
+
   return (
     <div className={classes.root}>
       <DrawerNav />
-      <h2>{flashcards.setName}</h2>
-      <h4>Card {cardCount} of {totalCards}</h4>
+      <h2>{setName}</h2>
+      <h4>Card {cardCount + 1} of {totalCards}</h4>
       <div className={classes.FlashcardContainer}>
         <Flashcard
-          question={flashcards.cards[currentFlashcard].question}
-          answer={flashcards.cards[currentFlashcard].answer}
-          empty={flashcardsEmpty}
+          question={mounted && shuffledDeck[cardCount].question}
+          answer={mounted && shuffledDeck[cardCount].answer}
           showAnswer={showAnswer}
         />
       </div>
@@ -112,11 +83,10 @@ function FlashcardTray(props) {
           className={classes.showButton}
           variant="contained"
           onClick={toggleAnswer}
-          disabled={flashcardsEmpty}
         >{showAnswer ? 'Hide Answer' : 'Show Answer'}
 
         </Button>
-        {!flashcardsEmpty
+        {(cardCount + 1) !== totalCards
           ? (
             <Button
               className={classes.nextButton}
