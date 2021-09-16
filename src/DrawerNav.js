@@ -5,21 +5,21 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import NoteIcon from '@material-ui/icons/Note';
-import CreateIcon from '@material-ui/icons/Create';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import TextField from '@material-ui/core/TextField';
+import CreateIcon from '@material-ui/icons/Create';
+import NestedListItem from './NestedListItem';
 
 const drawerWidth = 300;
 
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: '30ch',
     },
   },
   appBar: {
@@ -90,11 +90,11 @@ export default function DrawerNav() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [collection, setCollection] = useState({
-    coding: ['React', 'JavaScript', 'CSS', 'Python', 'HTML'],
-    tv: ['The Office', 'Seinfeld', 'Game of Throne', 'Entourage'],
-    movies: ['The Big Lebowski', 'Goodfellas', 'Shawshank Redemption'],
-  });
+  const [collection, setCollection] = useState([
+    { collectionName: 'Coding', categories: ['React', 'JavaScript', 'CSS', 'Python', 'HTML'] },
+    { collectionName: 'TV', categories: ['The Office', 'Seinfeld', 'Game of Throne', 'Entourage'] },
+    { collectionName: 'Movies', categories: ['The Big Lebowski', 'Goodfellas', 'Shawshank Redemption'] },
+  ]);
   const [category, setCategory] = useState('Coding');
   const [createNewDeck, setCreateNewDeck] = useState(false);
 
@@ -154,45 +154,30 @@ export default function DrawerNav() {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          <ListItem button={false} key="My Flashcards">
-            <ListItemIcon><LibraryBooksIcon /></ListItemIcon>
-            <ListItemText primary="My Flashcards" />
-          </ListItem>
-          {['Coding', 'TV', 'Movies'].map((text) => (
-            <ListItem button key={text} onClick={() => handleButtonClick(text)}>
-              <ListItemIcon><NoteIcon /></ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+        <List
+          sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+          subheader={(
+            <ListSubheader component="div" id="nested-list-subheader">
+              My Flashcards
+            </ListSubheader>
+          )}
+        >
+          {collection.map((col) => (
+            <NestedListItem collectionName={col.collectionName} categories={col.categories} />
           ))}
+        </List>
+        <Divider />
+        <List>
           <ListItem button key="Create Deck" onClick={handleCreateDeck}>
             <ListItemIcon><CreateIcon /></ListItemIcon>
             <ListItemText primary="Create Deck" />
           </ListItem>
-        </List>
-        <Divider />
-        <List>
-          {!createNewDeck && (
-          <ListItem button={false}>
-            <ListItemIcon><LibraryBooksIcon /></ListItemIcon>
-            <ListItemText primary={category} />
-          </ListItem>
-          )}
-          {!createNewDeck && (
-            collection[category.toLowerCase()].map((text) => (
-              <ListItem button key={text}>
-                <ListItemIcon><ArrowRightIcon /></ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))
-          )}
           {createNewDeck && (
-          <TextField
-            id="outlined-password-input"
-            label="Name"
-            type="name"
-            variant="outlined"
-          />
+          <div>
+            <TextField label="Deck Name" id="standard-size-small" size="small" />
+          </div>
           )}
         </List>
       </Drawer>
