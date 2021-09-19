@@ -32,6 +32,16 @@ export default {
       backgroundColor: 'rgba(7, 177, 77, 0.7)',
     },
   },
+  startButton: {
+    width: '200px',
+    height: '50px',
+    backgroundColor: 'rgba(7, 177, 77, 0.9)',
+    fontSize: '1.1rem',
+    color: 'white',
+    '&:hover': {
+      backgroundColor: 'rgba(7, 177, 77, 0.7)',
+    },
+  },
   showButton: {
     width: '160px',
   },

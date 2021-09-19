@@ -1,39 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
+import { collection, getDocs } from 'firebase/firestore/lite';
 import Flashcard from './Flashcard';
 import DrawerNav from './DrawerNav';
+import useToggle from './hooks/useToggle';
 import styles from './styles/FlashcardTrayStyles';
+import db from './firebase.config';
 
 function FlashcardTray(props) {
-  const [flashcards, setFlashcards] = useState(
-    {
-      setName: 'React',
-      cards: [
-        { question: 'What is my favorite color?', answer: 'Black' },
-        { question: "What is my pet's name?", answer: 'Mika' },
-        { question: "What's my age again?", answer: 34 },
-        { question: 'How may jackets do you own?', answer: 12 },
-      ],
-    },
-  );
+  const [flashcards, setFlashcards] = useState({});
   const [shuffledDeck, setShuffledDeck] = useState([]);
+  const [deckLength, setDeckLength] = useState(1);
   const [cardCount, setCardCount] = useState(0);
-  const [showAnswer, setShowAnswer] = useState(false);
-  const [shuffling, setShuffling] = useState(0);
-  const [mounted, setMounted] = useState(false);
+  const [showAnswer, toggleShowAnswer] = useToggle(false);
+  const [loading, setLoading] = useState(false);
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
-    let shuffled = shuffleDeck(flashcards.cards);
-    setShuffledDeck([...shuffled]);
-    if (!mounted) {
-      setMounted(true);
-    }
-  }, [shuffling]);
+    fetchCards();
+    setLoading(false);
+  }, []);
 
-  const drawCard = () => {
-    setCardCount(cardCount + 1);
-    setShowAnswer(false);
+  const fetchCards = async () => {
+    let cardArray = [];
+    const cardSet = collection(db, 'cardSets');
+    const cardData = await getDocs(cardSet);
+    cardData.docs.map(card => cardArray.push([...cardArray, card.data()]));
+    return setFlashcards(...cardArray[0]);
   };
 
   const shuffleDeck = (array) => {
@@ -53,40 +47,69 @@ function FlashcardTray(props) {
     return array;
   };
 
-  const startOver = () => {
-    setCardCount(0);
-    setShuffling(shuffling + 1);
+  const drawCard = () => {
+    setCardCount(cardCount + 1);
+    if (showAnswer) {
+      toggleShowAnswer();
+    }
   };
 
-  const toggleAnswer = () => {
-    setShowAnswer(!showAnswer);
+  const start = () => {
+    setCardCount(0);
+    setDeckLength(flashcards.cards.length);
+    const shuffled = (shuffleDeck(flashcards.cards));
+    setShuffledDeck(shuffled);
+    setStarted(true);
+  };
+
+  const startOver = () => {
+    setCardCount(0);
+    setDeckLength(flashcards.cards.length);
+    const shuffled = (shuffleDeck(flashcards.cards));
+    setShuffledDeck(shuffled);
   };
 
   const { classes } = props;
   const { cards, setName } = flashcards;
-  const totalCards = cards.length;
+
+  if (loading) {
+    return <h1>loading data...</h1>;
+  }
 
   return (
     <div className={classes.root}>
       <DrawerNav />
       <h2>{setName}</h2>
-      <h4>Card {cardCount + 1} of {totalCards}</h4>
+      {started && <h4>Card {cardCount + 1} of {deckLength}</h4>}
       <div className={classes.FlashcardContainer}>
-        <Flashcard
-          question={mounted && shuffledDeck[cardCount].question}
-          answer={mounted && shuffledDeck[cardCount].answer}
-          showAnswer={showAnswer}
-        />
+        {started
+          ? (
+            <Flashcard
+              question={shuffledDeck[cardCount].question}
+              answer={shuffledDeck[cardCount].answer}
+              showAnswer={showAnswer}
+            />
+          )
+          : (
+            <Button
+              className={classes.startButton}
+              variant="contained"
+              type="button"
+              onClick={start}
+            >
+              Start
+            </Button>
+          )}
       </div>
       <div className={classes.buttonContainer}>
         <Button
           className={classes.showButton}
           variant="contained"
-          onClick={toggleAnswer}
+          onClick={toggleShowAnswer}
         >{showAnswer ? 'Hide Answer' : 'Show Answer'}
 
         </Button>
-        {(cardCount + 1) !== totalCards
+        {(cardCount + 1) !== deckLength
           ? (
             <Button
               className={classes.nextButton}

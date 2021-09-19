@@ -16,8 +16,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import TextField from '@material-ui/core/TextField';
+import TextField from '@mui/material/TextField';
 import CreateIcon from '@material-ui/icons/Create';
 import NestedListItem from './NestedListItem';
 
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: '30ch',
+      width: '35ch',
     },
   },
   appBar: {
@@ -95,7 +94,6 @@ export default function DrawerNav() {
     { collectionName: 'TV', categories: ['The Office', 'Seinfeld', 'Game of Throne', 'Entourage'] },
     { collectionName: 'Movies', categories: ['The Big Lebowski', 'Goodfellas', 'Shawshank Redemption'] },
   ]);
-  const [category, setCategory] = useState('Coding');
   const [createNewDeck, setCreateNewDeck] = useState(false);
 
   const handleDrawerOpen = () => {
@@ -104,11 +102,6 @@ export default function DrawerNav() {
 
   const handleDrawerClose = () => {
     setOpen(false);
-  };
-
-  const handleButtonClick = (cat) => {
-    setCategory(cat);
-    setCreateNewDeck(false);
   };
 
   const handleCreateDeck = () => {
@@ -165,7 +158,11 @@ export default function DrawerNav() {
           )}
         >
           {collection.map((col) => (
-            <NestedListItem collectionName={col.collectionName} categories={col.categories} />
+            <NestedListItem
+              key={col.collectionName}
+              collectionName={col.collectionName}
+              categories={col.categories}
+            />
           ))}
         </List>
         <Divider />
@@ -176,7 +173,7 @@ export default function DrawerNav() {
           </ListItem>
           {createNewDeck && (
           <div>
-            <TextField label="Deck Name" id="standard-size-small" size="small" />
+            <TextField label="Deck Name" id="standard-size-small" size="medium" color="success" />
           </div>
           )}
         </List>
