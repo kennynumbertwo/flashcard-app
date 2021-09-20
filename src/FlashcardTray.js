@@ -47,7 +47,7 @@ function FlashcardTray(props) {
   };
 
   const getCardCollections = () => {
-    let collections = [{ collectionName: 'basketball', categories: ['players', 'rules'] }];
+    let collections = [];
     cardSetDatabase.forEach(cardSet => {
       const index = collections
         .findIndex(element => element.collectionName === cardSet.subCategory);
@@ -56,6 +56,7 @@ function FlashcardTray(props) {
       } else {
         let updatedCollections = [...collections];
         updatedCollections[index].categories.push(cardSet.setName);
+        collections = updatedCollections;
       }
     });
     console.log(collections);
