@@ -2,6 +2,7 @@
   "extends": ["airbnb"],
   "plugins": ["prettier"],
   "rules": {
+    "dot-notation": 0,
     "import/prefer-default-export": 0,
     "guard-for-in": 0,
     "prefer-const": 0,

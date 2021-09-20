@@ -39,16 +39,16 @@ export default function NestedListItem(props) {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          {props.categories.map(category => (
-            <ListItem button className={classes.nested}>
+        {/* <List component="div" disablePadding>
+          {props.categories.length && props.categories.map(category => (
+            <ListItem button key={props.primary} className={classes.nested}>
               <ListItemIcon>
                 <ArrowRightIcon />
               </ListItemIcon>
               <ListItemText primary={category} />
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Collapse>
     </List>
   );

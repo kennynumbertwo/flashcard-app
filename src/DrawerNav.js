@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -85,16 +85,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DrawerNav() {
+export default function DrawerNav(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [collection, setCollection] = useState([
-    { collectionName: 'Coding', categories: ['React', 'JavaScript', 'CSS', 'Python', 'HTML'] },
-    { collectionName: 'TV', categories: ['The Office', 'Seinfeld', 'Game of Throne', 'Entourage'] },
-    { collectionName: 'Movies', categories: ['The Big Lebowski', 'Goodfellas', 'Shawshank Redemption'] },
-  ]);
   const [createNewDeck, setCreateNewDeck] = useState(false);
+  // const [loading, setLoading] = useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -157,7 +153,7 @@ export default function DrawerNav() {
             </ListSubheader>
           )}
         >
-          {collection.map((col) => (
+          {props.cardCollections.map((col) => (
             <NestedListItem
               key={col.collectionName}
               collectionName={col.collectionName}
@@ -173,7 +169,12 @@ export default function DrawerNav() {
           </ListItem>
           {createNewDeck && (
           <div>
-            <TextField label="Deck Name" id="standard-size-small" size="medium" color="success" />
+            <TextField
+              label="Deck Name"
+              id="standard-size-small"
+              size="medium"
+              color="success"
+            />
           </div>
           )}
         </List>
