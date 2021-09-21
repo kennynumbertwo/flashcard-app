@@ -90,7 +90,6 @@ export default function DrawerNav(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [createNewDeck, setCreateNewDeck] = useState(false);
-  const [addKey, setAddKey] = useState(1);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -104,13 +103,7 @@ export default function DrawerNav(props) {
     setCreateNewDeck(true);
   };
 
-  const generateKey = (string) => {
-    const newKey = `${string}-${addKey}`;
-    const newKeyNum = addKey + 1;
-    setAddKey(newKeyNum);
-    return newKey;
-  };
-
+  const { findCardSet, cardCollections } = props;
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -160,11 +153,12 @@ export default function DrawerNav(props) {
             </ListSubheader>
           )}
         >
-          {props.cardCollections.map((col) => (
+          {cardCollections.map((col) => (
             <NestedListItem
               key={col.id}
               collectionName={col.collectionName}
               categories={col.categories}
+              findCardSet={findCardSet}
             />
           ))}
         </List>

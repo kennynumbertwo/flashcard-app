@@ -29,6 +29,7 @@ export default function NestedListItem(props) {
     setOpen(!open);
   };
 
+  const { categories, findCardSet } = props;
   return (
     <List>
       <ListItem button onClick={handleClick}>
@@ -40,10 +41,11 @@ export default function NestedListItem(props) {
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {props.categories.length && props.categories.map(category => (
+          {categories.length && categories.map(category => (
             <ListItem
               key={category}
               className={classes.nested}
+              onClick={findCardSet}
               button
             >
               <ListItemIcon>

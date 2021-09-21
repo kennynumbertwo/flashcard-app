@@ -18,6 +18,7 @@ function FlashcardTray(props) {
   const [showAnswer, toggleShowAnswer] = useToggle(false);
   const [loading, setLoading] = useState(false);
   const [started, setStarted] = useState(false);
+  const [selectedSet, setselectedSet] = useState(0);
 
   useEffect(() => {
     fetchCards();
@@ -26,8 +27,8 @@ function FlashcardTray(props) {
 
   useEffect(() => {
     getCardCollections();
-    getFlashcards(1);
-  }, [cardSetDatabase]);
+    getFlashcards(selectedSet);
+  }, [cardSetDatabase, selectedSet]);
 
   const fetchCards = async () => {
     let cardArray = [];
@@ -67,9 +68,16 @@ function FlashcardTray(props) {
     return setCardCollections(collections);
   };
 
-  const findCardSet = (id) => cardSetDatabase.find(function (cardSet) {
-    return cardSet.id === id;
-  });
+  const findCardSet = (e) => {
+    const nameToFind = e.target.textContent.toLowerCase();
+    let indexToSet;
+    cardSetDatabase.forEach(cardSet => {
+      if (cardSet.id === nameToFind) {
+        indexToSet = cardSetDatabase.indexOf(cardSet);
+      }
+    });
+    return setselectedSet(indexToSet);
+  };
 
   const shuffleDeck = (array) => {
     let m = array.length;
@@ -122,6 +130,7 @@ function FlashcardTray(props) {
       <DrawerNav
         cardSetDatabase={cardSetDatabase}
         cardCollections={cardCollections}
+        findCardSet={findCardSet}
       />
       <h2>{setName}</h2>
       {started && <h4>Card {cardCount + 1} of {deckLength}</h4>}
@@ -175,8 +184,9 @@ function FlashcardTray(props) {
               Start Over
             </Button>
           )}
-        <Button className={classes.nextButton} variant="contained" type="button" onClick={() => console.log(findCardSet('react'))}>Find Card
-        </Button>
+        {/* <Button className={classes.nextButton} variant="contained" type="button" onClick={() =>
+        console.log(findCardSet('react'))}>Find Card
+        </Button> */}
       </div>
     </div>
   );
