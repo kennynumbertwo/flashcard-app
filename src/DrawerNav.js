@@ -164,7 +164,11 @@ export default function DrawerNav(props) {
         </List>
         <Divider />
         <List>
-          <ListItem button key="Create Deck" onClick={handleCreateDeck}>
+          <ListItem
+            key="Create Deck"
+            onClick={handleCreateDeck}
+            button
+          >
             <ListItemIcon><CreateIcon /></ListItemIcon>
             <ListItemText primary="Create Deck" />
           </ListItem>

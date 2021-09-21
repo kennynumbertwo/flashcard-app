@@ -20,16 +20,19 @@ function FlashcardTray(props) {
   const [started, setStarted] = useState(false);
   const [selectedSet, setselectedSet] = useState(0);
 
+  // Fetches cards from Firebase on first render and set's them to the cardSetDatabase
   useEffect(() => {
     fetchCards();
     setLoading(false);
   }, []);
 
+  // Sets flashcards to the selectedSet
   useEffect(() => {
     getCardCollections();
     getFlashcards(selectedSet);
   }, [cardSetDatabase, selectedSet]);
 
+  // Function to fetch the Firebase DB and set it to cardSetDatabase
   const fetchCards = async () => {
     let cardArray = [];
     const cardSet = collection(db, 'cardSets');
@@ -68,6 +71,7 @@ function FlashcardTray(props) {
     return setCardCollections(collections);
   };
 
+  // Finds the cardSet selected from the DrawerNav
   const findCardSet = (e) => {
     const nameToFind = e.target.textContent.toLowerCase();
     let indexToSet;
@@ -79,6 +83,7 @@ function FlashcardTray(props) {
     return setselectedSet(indexToSet);
   };
 
+  // Function to shuffle the deck
   const shuffleDeck = (array) => {
     let m = array.length;
     let t;
@@ -96,6 +101,7 @@ function FlashcardTray(props) {
     return array;
   };
 
+  // Function to see the next card in shuffledDeck
   const drawCard = () => {
     setCardCount(cardCount + 1);
     if (showAnswer) {
@@ -103,6 +109,7 @@ function FlashcardTray(props) {
     }
   };
 
+  // Initializes the selected deck
   const start = () => {
     setCardCount(0);
     setDeckLength(flashcards.length);
@@ -111,6 +118,7 @@ function FlashcardTray(props) {
     setStarted(true);
   };
 
+  // Reshuffles the deck once you've drawn all cards
   const startOver = () => {
     setCardCount(0);
     setDeckLength(flashcards.length);
@@ -184,9 +192,6 @@ function FlashcardTray(props) {
               Start Over
             </Button>
           )}
-        {/* <Button className={classes.nextButton} variant="contained" type="button" onClick={() =>
-        console.log(findCardSet('react'))}>Find Card
-        </Button> */}
       </div>
     </div>
   );
