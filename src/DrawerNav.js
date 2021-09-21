@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -20,7 +20,7 @@ import TextField from '@mui/material/TextField';
 import CreateIcon from '@material-ui/icons/Create';
 import NestedListItem from './NestedListItem';
 
-const drawerWidth = 300;
+const drawerWidth = 350;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,7 +90,7 @@ export default function DrawerNav(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [createNewDeck, setCreateNewDeck] = useState(false);
-  // const [loading, setLoading] = useState(true);
+  const [addKey, setAddKey] = useState(1);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -102,6 +102,13 @@ export default function DrawerNav(props) {
 
   const handleCreateDeck = () => {
     setCreateNewDeck(true);
+  };
+
+  const generateKey = (string) => {
+    const newKey = `${string}-${addKey}`;
+    const newKeyNum = addKey + 1;
+    setAddKey(newKeyNum);
+    return newKey;
   };
 
   return (
@@ -155,7 +162,7 @@ export default function DrawerNav(props) {
         >
           {props.cardCollections.map((col) => (
             <NestedListItem
-              key={col.collectionName}
+              key={col.id}
               collectionName={col.collectionName}
               categories={col.categories}
             />

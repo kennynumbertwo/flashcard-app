@@ -41,7 +41,11 @@ export default function NestedListItem(props) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {props.categories.length && props.categories.map(category => (
-            <ListItem button key={props.primary} className={classes.nested}>
+            <ListItem
+              key={category}
+              className={classes.nested}
+              button
+            >
               <ListItemIcon>
                 <ArrowRightIcon />
               </ListItemIcon>

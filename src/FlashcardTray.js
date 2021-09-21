@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore/lite';
+import { collection, getDocs } from 'firebase/firestore/lite';
 import Flashcard from './Flashcard';
 import DrawerNav from './DrawerNav';
 import useToggle from './hooks/useToggle';
@@ -9,7 +9,6 @@ import styles from './styles/FlashcardTrayStyles';
 import db from './firebase.config';
 
 function FlashcardTray(props) {
-  const [setNames, setSetNames] = useState([]);
   const [cardSetDatabase, setCardSetDatabase] = useState([]);
   const [cardCollections, setCardCollections] = useState([]);
   const [flashcards, setFlashcards] = useState([]);
@@ -27,16 +26,8 @@ function FlashcardTray(props) {
 
   useEffect(() => {
     getCardCollections();
+    getFlashcards(1);
   }, [cardSetDatabase]);
-
-  // const fetchCards = async () => {
-  //   let fetchedSetNames = [];
-  //   const querySnapshot = await getDocs(collection(db, 'cardSets'));
-  //   querySnapshot.forEach((docItem) => {
-  //     fetchedSetNames.push(docItem.id);
-  //   });
-  //   setSetNames(fetchedSetNames);
-  // };
 
   const fetchCards = async () => {
     let cardArray = [];
@@ -46,13 +37,26 @@ function FlashcardTray(props) {
     return setCardSetDatabase(cardArray);
   };
 
+  // Set the specified flashcard deck, if it exists
+  const getFlashcards = (index) => {
+    let flashcardsToSet = [];
+    if (cardSetDatabase[index]) {
+      flashcardsToSet = cardSetDatabase[index].cards;
+    }
+    return (setFlashcards(flashcardsToSet));
+  };
+
+  // Gets the data structure needed to display the categories within the DrawerNav
   const getCardCollections = () => {
     let collections = [];
     cardSetDatabase.forEach(cardSet => {
       const index = collections
         .findIndex(element => element.collectionName === cardSet.subCategory);
       if (index < 0) {
-        collections.push({ collectionName: cardSet.subCategory, categories: [cardSet.setName] });
+        collections.push({
+          collectionName: cardSet.subCategory,
+          categories: [cardSet.setName],
+          id: `${cardSet.subCategory.replace(/\s+/g, '-')}` });
       } else {
         let updatedCollections = [...collections];
         updatedCollections[index].categories.push(cardSet.setName);
@@ -62,12 +66,6 @@ function FlashcardTray(props) {
     console.log(collections);
     return setCardCollections(collections);
   };
-  // const getCardCollections = () => {
-  //   const collections = cardSetDatabase.map(cardSet => (
-  //     { collectionName: cardSet.subCategory, categories: [] }));
-  //   console.log(collections);
-  //   return setCardCollections(collections);
-  // };
 
   const findCardSet = (id) => cardSetDatabase.find(function (cardSet) {
     return cardSet.id === id;
@@ -99,21 +97,21 @@ function FlashcardTray(props) {
 
   const start = () => {
     setCardCount(0);
-    setDeckLength(flashcards.cards.length);
-    const shuffled = (shuffleDeck(flashcards.cards));
+    setDeckLength(flashcards.length);
+    const shuffled = (shuffleDeck(flashcards));
     setShuffledDeck(shuffled);
     setStarted(true);
   };
 
   const startOver = () => {
     setCardCount(0);
-    setDeckLength(flashcards.cards.length);
-    const shuffled = (shuffleDeck(flashcards.cards));
+    setDeckLength(flashcards.length);
+    const shuffled = (shuffleDeck(flashcards));
     setShuffledDeck(shuffled);
   };
 
   const { classes } = props;
-  const { cards, setName } = flashcards;
+  const { setName } = flashcards;
 
   if (loading) {
     return <h1>loading data...</h1>;
