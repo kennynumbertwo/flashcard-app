@@ -7,6 +7,7 @@ import DrawerNav from './DrawerNav';
 import useToggle from './hooks/useToggle';
 import styles from './styles/FlashcardTrayStyles';
 import db from './firebase.config';
+import Modal from './Modal';
 
 function FlashcardTray(props) {
   const [cardSetDatabase, setCardSetDatabase] = useState([]);
@@ -16,6 +17,7 @@ function FlashcardTray(props) {
   const [deckLength, setDeckLength] = useState(1);
   const [cardCount, setCardCount] = useState(0);
   const [showAnswer, toggleShowAnswer] = useToggle(false);
+  const [isShowingModal, toggleModal] = useToggle(false);
   const [loading, setLoading] = useState(false);
   const [started, setStarted] = useState(false);
   const [selectedSet, setselectedSet] = useState(0);
@@ -67,7 +69,6 @@ function FlashcardTray(props) {
         collections = updatedCollections;
       }
     });
-    console.log(collections);
     return setCardCollections(collections);
   };
 
@@ -80,6 +81,7 @@ function FlashcardTray(props) {
         indexToSet = cardSetDatabase.indexOf(cardSet);
       }
     });
+    toggleModal();
     return setselectedSet(indexToSet);
   };
 
@@ -135,6 +137,7 @@ function FlashcardTray(props) {
 
   return (
     <div className={classes.root}>
+
       <DrawerNav
         cardSetDatabase={cardSetDatabase}
         cardCollections={cardCollections}
@@ -162,6 +165,8 @@ function FlashcardTray(props) {
             </Button>
           )}
       </div>
+      {started
+      && (
       <div className={classes.buttonContainer}>
         <Button
           className={classes.showButton}
@@ -193,6 +198,11 @@ function FlashcardTray(props) {
             </Button>
           )}
       </div>
+      )}
+      <Modal
+        isShowing={isShowingModal}
+        hide={toggleModal}
+      />
     </div>
   );
 }

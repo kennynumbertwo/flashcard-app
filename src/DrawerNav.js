@@ -103,7 +103,7 @@ export default function DrawerNav(props) {
     setCreateNewDeck(true);
   };
 
-  const { findCardSet, cardCollections } = props;
+  const { findCardSet, toggleModal, cardCollections } = props;
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -184,6 +184,13 @@ export default function DrawerNav(props) {
           )}
         </List>
       </Drawer>
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: open,
+        })}
+      >
+        <div>TEST</div>
+      </main>
     </div>
   );
 }
