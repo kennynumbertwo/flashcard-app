@@ -18,6 +18,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@mui/material/TextField';
 import CreateIcon from '@material-ui/icons/Create';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import { ThumbDown } from '@material-ui/icons';
 import NestedListItem from './NestedListItem';
 import FlashcardTray from './FlashcardTray';
 import Modal from './Modal';
@@ -227,8 +230,10 @@ export default function DrawerNav(props) {
           isShowing={isShowingModal}
           hide={toggleModal}
           messageText={`Would you like to load the ${currentCardSetName} flashcard deck?`}
-          buttonText="Yes"
+          buttonText={<ThumbUpIcon />}
+          secondButtonText={<ThumbDownIcon />}
           buttonAction={findCardSet}
+          secondButton
         />
       </main>
     </div>

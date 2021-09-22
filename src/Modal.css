@@ -3,6 +3,9 @@
   position: fixed;
   left: 0;
   top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
@@ -40,7 +43,6 @@
 }
 
 .modalContainer {
-  margin: 15rem auto;
   width: 300px;
   height: 125px;
   border-radius: 5px;
@@ -87,7 +89,7 @@
   line-height: 1.5;
 }
 
-.closeModal {
+.closeModalAccept {
   color: white;
   text-transform: uppercase;
   text-decoration: none;
@@ -103,9 +105,32 @@
   margin: auto;
 }
 
-.closeModal:hover {
+.closeModalAccept:hover {
   background: rgba(7, 177, 77, 0.7);
   border-color: rgba(7, 177, 77, 0.7);
+  transition: all 0.4s ease 0s;
+  cursor: pointer;
+}
+
+.closeModalDeny {
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  background: rgba(245, 0, 86, 0.9);
+  padding: 5px;
+  width: 80px;
+  border: 1.5px solid rgba(245, 0, 86, 0.9);
+  display: block;
+  transition: all 0.4s ease 0s;
+  border-radius: 2px;
+  margin: auto;
+}
+
+.closeModalAccept:hover {
+  background: rgba(245, 0, 86, 0.7);
+  border-color: rgba(245, 0, 86, 0.7);
   transition: all 0.4s ease 0s;
   cursor: pointer;
 }

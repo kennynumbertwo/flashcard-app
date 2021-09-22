@@ -4,7 +4,15 @@ import './Modal.css';
 
 function Modal(props) {
   const [animatingOut, setAnimatingOut] = useState(false);
-  const { isShowing, hide, messageText, buttonText, buttonAction } = props;
+  const {
+    isShowing,
+    hide,
+    messageText,
+    buttonText,
+    buttonAction,
+    secondButton,
+    secondButtonText,
+  } = props;
 
   const handleButtonClick = () => {
     buttonAction();
@@ -23,7 +31,14 @@ function Modal(props) {
           <div className={animatingOut ? 'modalOverlay fadeOut' : 'modalOverlay'}>
             <div className={animatingOut ? 'modalContainer slideOut' : 'modalContainer'}>
               <div className="modalMessage">{messageText}</div>
-              <button className="closeModal" onClick={handleButtonClick} type="button">{buttonText}</button>
+              {secondButton
+                ? (
+                  <div>
+                    <button className="closeModalDeny" onClick={handleButtonClick} type="button">{secondButtonText}</button>
+                    <button className="closeModalAccept" onClick={handleButtonClick} type="button">{buttonText}</button>
+                  </div>
+                )
+                : <button className="closeModal" onClick={handleButtonClick} type="button">{buttonText}</button>}
             </div>
           </div>
         </React.Fragment>, document.body,
