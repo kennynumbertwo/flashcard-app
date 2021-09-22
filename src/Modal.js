@@ -33,7 +33,7 @@ function Modal(props) {
               <div className="modalMessage">{messageText}</div>
               {secondButton
                 ? (
-                  <div>
+                  <div className="secondButtonContainer">
                     <button className="closeModalDeny" onClick={handleButtonClick} type="button">{secondButtonText}</button>
                     <button className="closeModalAccept" onClick={handleButtonClick} type="button">{buttonText}</button>
                   </div>
