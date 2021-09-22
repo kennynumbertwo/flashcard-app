@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.css';
 
-function Modal({ isShowing, hide }) {
+function Modal(props) {
   const [animatingOut, setAnimatingOut] = useState(false);
+  const { isShowing, hide, messageText, buttonText, buttonAction } = props;
 
   const handleButtonClick = () => {
+    buttonAction();
     setAnimatingOut(true);
     let timer = setTimeout(() => {
       hide();
@@ -20,8 +22,8 @@ function Modal({ isShowing, hide }) {
         <React.Fragment>
           <div className={animatingOut ? 'modalOverlay fadeOut' : 'modalOverlay'}>
             <div className={animatingOut ? 'modalContainer slideOut' : 'modalContainer'}>
-              <div className="modalMessage">THIS IS A MODAL</div>
-              <button className="closeModal" onClick={handleButtonClick} type="button">OK</button>
+              <div className="modalMessage">{messageText}</div>
+              <button className="closeModal" onClick={handleButtonClick} type="button">{buttonText}</button>
             </div>
           </div>
         </React.Fragment>, document.body,

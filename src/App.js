@@ -1,10 +1,10 @@
 import './App.css';
-import FlashcardTray from './FlashcardTray';
+import MainContainer from './MainContainer';
 
 function App() {
   return (
     <div className="App">
-      <FlashcardTray />
+      <MainContainer />
     </div>
   );
 }

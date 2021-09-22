@@ -1,12 +1,11 @@
 .modalOverlay {
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 1;
+  position: fixed;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
   opacity: 1;
   animation-name: modalFadeIn;
   animation-iteration-count: 1;
@@ -89,15 +88,15 @@
 }
 
 .closeModal {
-  color: #494949;
+  color: white;
   text-transform: uppercase;
   text-decoration: none;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
-  background: #ffffff;
+  background: rgba(7, 177, 77, 0.9);
   padding: 5px;
   width: 80px;
-  border: 1.5px solid #878686;
+  border: 1.5px solid rgba(7, 177, 77, 0.9);
   display: block;
   transition: all 0.4s ease 0s;
   border-radius: 2px;
@@ -105,9 +104,8 @@
 }
 
 .closeModal:hover {
-  color: #ffffff;
-  background: black;
-  border-color: black;
+  background: rgba(7, 177, 77, 0.7);
+  border-color: rgba(7, 177, 77, 0.7);
   transition: all 0.4s ease 0s;
   cursor: pointer;
 }

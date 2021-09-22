@@ -19,6 +19,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@mui/material/TextField';
 import CreateIcon from '@material-ui/icons/Create';
 import NestedListItem from './NestedListItem';
+import FlashcardTray from './FlashcardTray';
+import Modal from './Modal';
 
 const drawerWidth = 350;
 
@@ -90,6 +92,19 @@ export default function DrawerNav(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [createNewDeck, setCreateNewDeck] = useState(false);
+  // const [selectedSet, setselectedSet] = useState(0);
+  // const [isShowingModal, toggleModal] = useToggle(false);
+  // const [currentCardSetName, setCurrentCardSetName] = useState('');
+  const {
+    cardCollections,
+    cardSetDatabase,
+    updateCardSetName,
+    selectedSet,
+    currentCardSetName,
+    isShowingModal,
+    toggleModal,
+    findCardSet,
+  } = props;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -103,7 +118,25 @@ export default function DrawerNav(props) {
     setCreateNewDeck(true);
   };
 
-  const { findCardSet, toggleModal, cardCollections } = props;
+  // const updateCardSetName = (e) => {
+  //   const nameToFind = e.target.textContent;
+  //   console.log(nameToFind);
+  //   toggleModal();
+  //   return (setCurrentCardSetName(nameToFind));
+  // };
+
+  // Finds the cardSet selected from the DrawerNav
+  // const findCardSet = () => {
+  //   let indexToSet;
+  //   cardSetDatabase.forEach(cardSet => {
+  //     if (cardSet.id === currentCardSetName.toLowerCase()) {
+  //       indexToSet = cardSetDatabase.indexOf(cardSet);
+  //     }
+  //   });
+  //   toggleModal();
+  //   return setselectedSet(indexToSet);
+  // };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -158,7 +191,7 @@ export default function DrawerNav(props) {
               key={col.id}
               collectionName={col.collectionName}
               categories={col.categories}
-              findCardSet={findCardSet}
+              updateCardSetName={updateCardSetName}
             />
           ))}
         </List>
@@ -189,7 +222,14 @@ export default function DrawerNav(props) {
           [classes.contentShift]: open,
         })}
       >
-        <div>TEST</div>
+        <FlashcardTray cardSetDatabase={cardSetDatabase} selectedSet={selectedSet} />
+        <Modal
+          isShowing={isShowingModal}
+          hide={toggleModal}
+          messageText={`Would you like to load the ${currentCardSetName} flashcard deck?`}
+          buttonText="Yes"
+          buttonAction={findCardSet}
+        />
       </main>
     </div>
   );
