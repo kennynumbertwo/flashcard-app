@@ -1,6 +1,6 @@
 export default {
   root: {
-    border: '1px solid black',
+    // border: '1px solid black',
     height: '100vh',
     width: '100vw',
     display: 'flex',

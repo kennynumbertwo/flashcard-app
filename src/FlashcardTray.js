@@ -13,12 +13,12 @@ function FlashcardTray(props) {
   const [showAnswer, toggleShowAnswer] = useToggle(false);
   const [started, setStarted] = useState(false);
 
-  // Sets flashcards to the selectedSet
+  // Sets flashcards to the selectedSetIndex
   useEffect(() => {
-    getFlashcards(props.selectedSet);
+    getFlashcards(props.selectedSetIndex);
     setDeckLength(flashcards.length);
     setStarted(false);
-  }, [props.cardSetDatabase, flashcards.length, props.selectedSet]);
+  }, [props.cardSetDatabase, flashcards.length, props.selectedSetIndex]);
 
   // Set the specified flashcard deck, if it exists
   const getFlashcards = (index) => {
@@ -71,12 +71,11 @@ function FlashcardTray(props) {
     setShuffledDeck(shuffled);
   };
 
-  const { classes } = props;
-  const { setName } = flashcards;
+  const { classes, currentCardSetName } = props;
 
   return (
     <div className={classes.root}>
-      <h2>{setName}</h2>
+      {started && <h2>{currentCardSetName}</h2>}
       {started && <h4>Card {cardCount + 1} of {deckLength}</h4>}
       <div className={classes.FlashcardContainer}>
         {started

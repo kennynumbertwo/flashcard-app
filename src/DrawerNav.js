@@ -95,18 +95,18 @@ export default function DrawerNav(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [createNewDeck, setCreateNewDeck] = useState(false);
-  // const [selectedSet, setselectedSet] = useState(0);
-  // const [isShowingModal, toggleModal] = useToggle(false);
-  // const [currentCardSetName, setCurrentCardSetName] = useState('');
+
   const {
     cardCollections,
     cardSetDatabase,
     updateCardSetName,
-    selectedSet,
+    selectedSetIndex,
     currentCardSetName,
     isShowingModal,
     toggleModal,
-    findCardSet,
+    pendingSetName,
+    confirmPendingSetName,
+    denyPendingSetName,
   } = props;
 
   const handleDrawerOpen = () => {
@@ -120,25 +120,6 @@ export default function DrawerNav(props) {
   const handleCreateDeck = () => {
     setCreateNewDeck(true);
   };
-
-  // const updateCardSetName = (e) => {
-  //   const nameToFind = e.target.textContent;
-  //   console.log(nameToFind);
-  //   toggleModal();
-  //   return (setCurrentCardSetName(nameToFind));
-  // };
-
-  // Finds the cardSet selected from the DrawerNav
-  // const findCardSet = () => {
-  //   let indexToSet;
-  //   cardSetDatabase.forEach(cardSet => {
-  //     if (cardSet.id === currentCardSetName.toLowerCase()) {
-  //       indexToSet = cardSetDatabase.indexOf(cardSet);
-  //     }
-  //   });
-  //   toggleModal();
-  //   return setselectedSet(indexToSet);
-  // };
 
   return (
     <div className={classes.root}>
@@ -159,9 +140,9 @@ export default function DrawerNav(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          {/* <Typography variant="h6" noWrap>
             Flashcards
-          </Typography>
+          </Typography> */}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -225,14 +206,19 @@ export default function DrawerNav(props) {
           [classes.contentShift]: open,
         })}
       >
-        <FlashcardTray cardSetDatabase={cardSetDatabase} selectedSet={selectedSet} />
+        <FlashcardTray
+          cardSetDatabase={cardSetDatabase}
+          selectedSetIndex={selectedSetIndex}
+          currentCardSetName={currentCardSetName}
+        />
         <Modal
           isShowing={isShowingModal}
           hide={toggleModal}
-          messageText={`Would you like to load the ${currentCardSetName} flashcard deck?`}
+          messageText={`Would you like to load the ${pendingSetName} flashcard deck?`}
           buttonText={<ThumbUpIcon />}
           secondButtonText={<ThumbDownIcon />}
-          buttonAction={findCardSet}
+          buttonAction={confirmPendingSetName}
+          secondButtonAction={denyPendingSetName}
           secondButton
         />
       </main>

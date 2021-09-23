@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore/lite';
+import { withStyles } from '@material-ui/core';
 import DrawerNav from './DrawerNav';
 import db from './firebase.config';
 import useToggle from './hooks/useToggle';
 
-function MainContainer() {
+const styles = {
+  root: {
+
+  },
+};
+
+function MainContainer(props) {
   const [cardSetDatabase, setCardSetDatabase] = useState([]);
   const [cardCollections, setCardCollections] = useState([]);
-  const [selectedSet, setselectedSet] = useState(0);
+  const [pendingSetName, setPendingSetName] = useState('');
+  const [selectedSetIndex, setselectedSetIndex] = useState(0);
   const [currentCardSetName, setCurrentCardSetName] = useState('');
   const [isShowingModal, toggleModal] = useToggle(false);
   const [loading, setLoading] = useState(true);
@@ -18,11 +26,15 @@ function MainContainer() {
     setLoading(false);
   }, []);
 
-  // Sets flashcards to the selectedSet
+  // Sets flashcards to the selectedSetIndex
   useEffect(() => {
     getCardCollections();
-    // getFlashcards(selectedSet);
-  }, [cardSetDatabase, selectedSet]);
+    // getFlashcards(selectedSetIndex);
+  }, [cardSetDatabase, selectedSetIndex]);
+
+  useEffect(() => {
+    findCardSet();
+  }, [currentCardSetName]);
 
   // Function to fetch the Firebase DB and set it to cardSetDatabase
   const fetchCards = async () => {
@@ -57,7 +69,7 @@ function MainContainer() {
     const nameToFind = e.target.textContent;
     console.log(nameToFind);
     toggleModal();
-    return (setCurrentCardSetName(nameToFind));
+    return (setPendingSetName(nameToFind));
   };
 
   const findCardSet = () => {
@@ -67,25 +79,38 @@ function MainContainer() {
         indexToSet = cardSetDatabase.indexOf(cardSet);
       }
     });
-    toggleModal();
-    return setselectedSet(indexToSet);
+    return setselectedSetIndex(indexToSet);
   };
 
+  const confirmPendingSetName = () => {
+    setCurrentCardSetName(pendingSetName);
+    // toggleModal();
+  };
+
+  const denyPendingSetName = () => {
+    setPendingSetName('');
+    // toggleModal();
+  };
+
+  const { classes } = props;
   return (
-    <div>
+    <div className={classes.root}>
       <DrawerNav
         cardSetDatabase={cardSetDatabase}
         cardCollections={cardCollections}
         updateCardSetName={updateCardSetName}
         currentCardSetName={currentCardSetName}
-        selectedSet={selectedSet}
+        findCardSet={findCardSet}
+        selectedSetIndex={selectedSetIndex}
+        pendingSetName={pendingSetName}
+        confirmPendingSetName={confirmPendingSetName}
+        denyPendingSetName={denyPendingSetName}
         loading={loading}
         isShowingModal={isShowingModal}
         toggleModal={toggleModal}
-        findCardSet={findCardSet}
       />
     </div>
   );
 }
 
-export default MainContainer;
+export default withStyles(styles)(MainContainer);
