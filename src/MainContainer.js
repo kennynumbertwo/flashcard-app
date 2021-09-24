@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core';
 import DrawerNav from './DrawerNav';
 import db from './firebase.config';
 import useToggle from './hooks/useToggle';
-import CollectionsPage from './CollectionsPage';
 
 const styles = {
   root: {
@@ -110,7 +109,6 @@ function MainContainer(props) {
         isShowingModal={isShowingModal}
         toggleModal={toggleModal}
       />
-      <CollectionsPage />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core';
 
 const styles = {
@@ -11,11 +11,11 @@ const styles = {
   },
 };
 
-function CollectionsPage(props) {
+function About(props) {
   const { classes } = props;
   return (
-    <h2 className={classes.root}>Collections Page</h2>
+    <h2 className={classes.root}>About Page</h2>
   );
 }
 
-export default withStyles(styles)(CollectionsPage);
+export default withStyles(styles)(About);

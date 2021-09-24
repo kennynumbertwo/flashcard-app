@@ -5,7 +5,7 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -20,10 +20,11 @@ import TextField from '@mui/material/TextField';
 import CreateIcon from '@material-ui/icons/Create';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import { ThumbDown } from '@material-ui/icons';
+import { Route, Switch } from 'react-router-dom';
 import CollectionsPage from './CollectionsPage';
 import NestedListItem from './NestedListItem';
 import FlashcardTray from './FlashcardTray';
+import About from './About';
 import Modal from './Modal';
 
 const drawerWidth = 350;
@@ -207,11 +208,21 @@ export default function DrawerNav(props) {
           [classes.contentShift]: open,
         })}
       >
-        <FlashcardTray
-          cardSetDatabase={cardSetDatabase}
-          selectedSetIndex={selectedSetIndex}
-          currentCardSetName={currentCardSetName}
-        />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <FlashcardTray
+                cardSetDatabase={cardSetDatabase}
+                selectedSetIndex={selectedSetIndex}
+                currentCardSetName={currentCardSetName}
+              />
+            )}
+          />
+          <Route exact path="/collections" render={() => <CollectionsPage />} />
+          <Route exact path="/about" render={() => <About />} />
+        </Switch>
         <Modal
           isShowing={isShowingModal}
           hide={toggleModal}
