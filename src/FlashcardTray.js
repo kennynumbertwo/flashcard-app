@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
-import Flashcard from './Flashcard';
-import useToggle from './hooks/useToggle';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import styles from './styles/FlashcardTrayStyles';
+import useToggle from './hooks/useToggle';
+import Flashcard from './Flashcard';
 
 function FlashcardTray(props) {
   const [flashcards, setFlashcards] = useState([]);
@@ -12,11 +17,13 @@ function FlashcardTray(props) {
   const [cardCount, setCardCount] = useState(0);
   const [showAnswer, toggleShowAnswer] = useToggle(false);
   const [started, setStarted] = useState(false);
+  const [cardQuantity, setCardQuantity] = React.useState('');
 
   // Sets flashcards to the selectedSetIndex
   useEffect(() => {
     getFlashcards(props.selectedSetIndex);
     setDeckLength(flashcards.length);
+    setCardQuantity('');
     setStarted(false);
   }, [props.cardSetDatabase, flashcards.length, props.selectedSetIndex]);
 
@@ -71,12 +78,35 @@ function FlashcardTray(props) {
     setShuffledDeck(shuffled);
   };
 
+  // Handles Card Quantity Input Change
+  const handleChange = (event) => {
+    setCardQuantity(event.target.value);
+  };
+
+  const getCardQuantity = (num) => {
+    let cardQuantityArray = [];
+    if (num < 30) {
+      for (let i = 0; i < num; i++) {
+        if ((i + 1) % 5 === 0) {
+          cardQuantityArray.push(i + 1);
+        }
+      }
+    } else {
+      for (let i = 0; i < num; i++) {
+        if ((i + 1) % 10 === 0) {
+          cardQuantityArray.push(i + 1);
+        }
+      }
+    }
+    return cardQuantityArray;
+  };
+
   const { classes, currentCardSetName } = props;
 
   return (
     <div className={classes.root}>
       {started && <h2>{currentCardSetName}</h2>}
-      {started && <h4>Card {cardCount + 1} of {deckLength}</h4>}
+      {started && <h4>Card {cardCount + 1} of {cardQuantity}</h4>}
       <div className={classes.FlashcardContainer}>
         {started
           ? (
@@ -87,14 +117,33 @@ function FlashcardTray(props) {
             />
           )
           : (
-            <Button
-              className={classes.startButton}
-              variant="contained"
-              type="button"
-              onClick={start}
-            >
-              Start
-            </Button>
+            <di>
+              <h4>How many cards would you like to use?</h4>
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Card Qty</InputLabel>
+                  <Select
+                    labelId="card-quantity-label-input"
+                    id="card-quantity-label"
+                    value={cardQuantity}
+                    label="Card Qty"
+                    onChange={handleChange}
+                  >
+                    {getCardQuantity(deckLength).map(num => <MenuItem key={`cardQuantity${num}`} value={num}>{num}</MenuItem>)}
+                    <MenuItem value={deckLength}>All Cards</MenuItem>
+
+                  </Select>
+                </FormControl>
+              </Box>
+              <Button
+                className={classes.startButton}
+                variant="contained"
+                type="button"
+                onClick={start}
+              >
+                Start
+              </Button>
+            </di>
           )}
       </div>
       {started
@@ -107,7 +156,7 @@ function FlashcardTray(props) {
         >{showAnswer ? 'Hide Answer' : 'Show Answer'}
 
         </Button>
-        {(cardCount + 1) !== deckLength
+        {(cardCount + 1) !== cardQuantity
           ? (
             <Button
               className={classes.nextButton}
