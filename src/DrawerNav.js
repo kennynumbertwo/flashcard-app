@@ -183,13 +183,31 @@ export default function DrawerNav(props) {
         </List>
         <Divider />
         <List>
+          <ListSubheader component="div" id="navigation-header">
+            Navigation
+          </ListSubheader>
           <ListItem
-            key="Create Deck"
+            key="create-deck"
             onClick={handleCreateDeck}
             button
           >
             <ListItemIcon><CreateIcon /></ListItemIcon>
             <ListItemText primary="Create Deck" />
+          </ListItem>
+          <ListItem
+            key="collections"
+            button
+          >
+            <ListItemIcon><CreateIcon /></ListItemIcon>
+            <ListItemText primary="Collection" />
+          </ListItem>
+          <ListItem
+            key="about"
+            onClick={handleCreateDeck}
+            button
+          >
+            <ListItemIcon><CreateIcon /></ListItemIcon>
+            <ListItemText primary="About" />
           </ListItem>
           {createNewDeck && (
           <div>
