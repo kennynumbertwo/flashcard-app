@@ -140,6 +140,7 @@ function FlashcardTray(props) {
                 variant="contained"
                 type="button"
                 onClick={start}
+                disabled={!cardQuantity}
               >
                 Start
               </Button>

@@ -21,6 +21,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import { ThumbDown } from '@material-ui/icons';
+import CollectionsPage from './CollectionsPage';
 import NestedListItem from './NestedListItem';
 import FlashcardTray from './FlashcardTray';
 import Modal from './Modal';
