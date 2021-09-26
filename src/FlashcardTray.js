@@ -119,14 +119,15 @@ function FlashcardTray(props) {
           : (
             <di>
               <h4>How many cards would you like to use?</h4>
-              <Box sx={{ minWidth: 120 }}>
+              <Box sx={{ minWidth: 50, maxWidth: 100 }}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Card Qty</InputLabel>
+                  <InputLabel id="demo-simple-select-label">Cart Quantity</InputLabel>
                   <Select
+                    autoWidth
                     labelId="card-quantity-label-input"
                     id="card-quantity-label"
                     value={cardQuantity}
-                    label="Card Qty"
+                    label="Card Quantity"
                     onChange={handleChange}
                   >
                     {getCardQuantity(deckLength).map(num => <MenuItem key={`cardQuantity${num}`} value={num}>{num}</MenuItem>)}

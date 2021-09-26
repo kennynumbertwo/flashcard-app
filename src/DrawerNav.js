@@ -18,12 +18,16 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@mui/material/TextField';
 import CreateIcon from '@material-ui/icons/Create';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import { Route, Switch } from 'react-router-dom';
+import InfoIcon from '@material-ui/icons/Info';
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
+import { Route, Switch, Link } from 'react-router-dom';
 import CollectionsPage from './CollectionsPage';
 import NestedListItem from './NestedListItem';
 import FlashcardTray from './FlashcardTray';
+import CreateDeck from './CreateDeck';
 import About from './About';
 import Modal from './Modal';
 
@@ -90,13 +94,22 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  navLink: {
+    textDecoration: 'none',
+    color: 'rgba(0, 0, 0, .8)',
+    '& .navArrow': {
+      transition: 'transform .25s',
+    },
+    '&:hover .navArrow': {
+      transform: 'translateX(35%)',
+    },
+  },
 }));
 
 export default function DrawerNav(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [createNewDeck, setCreateNewDeck] = useState(false);
 
   const {
     cardCollections,
@@ -117,10 +130,6 @@ export default function DrawerNav(props) {
 
   const handleDrawerClose = () => {
     setOpen(false);
-  };
-
-  const handleCreateDeck = () => {
-    setCreateNewDeck(true);
   };
 
   return (
@@ -162,6 +171,43 @@ export default function DrawerNav(props) {
           </IconButton>
         </div>
         <Divider />
+        <List>
+          <ListSubheader component="div" id="navigation-header">
+            Navigation
+          </ListSubheader>
+          <Link to="/collections" className={classes.navLink}>
+            <ListItem
+              className={classes.navItem}
+              key="collections"
+              button
+            >
+              <ListItemIcon><LibraryBooksIcon /></ListItemIcon>
+              <ListItemText primary="Collections" />
+              <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
+            </ListItem>
+          </Link>
+          <Link to="/create-deck" className={classes.navLink}>
+            <ListItem
+              key="create-deck"
+              button
+            >
+              <ListItemIcon><CreateIcon /></ListItemIcon>
+              <ListItemText primary="Create Deck" />
+              <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
+            </ListItem>
+          </Link>
+          <Link to="/about" className={classes.navLink}>
+            <ListItem
+              key="about"
+              button
+            >
+              <ListItemIcon><InfoIcon /></ListItemIcon>
+              <ListItemText primary="About" />
+              <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
+            </ListItem>
+          </Link>
+        </List>
+        <Divider />
         <List
           sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
           component="nav"
@@ -180,45 +226,6 @@ export default function DrawerNav(props) {
               updateCardSetName={updateCardSetName}
             />
           ))}
-        </List>
-        <Divider />
-        <List>
-          <ListSubheader component="div" id="navigation-header">
-            Navigation
-          </ListSubheader>
-          <ListItem
-            key="create-deck"
-            onClick={handleCreateDeck}
-            button
-          >
-            <ListItemIcon><CreateIcon /></ListItemIcon>
-            <ListItemText primary="Create Deck" />
-          </ListItem>
-          <ListItem
-            key="collections"
-            button
-          >
-            <ListItemIcon><CreateIcon /></ListItemIcon>
-            <ListItemText primary="Collection" />
-          </ListItem>
-          <ListItem
-            key="about"
-            onClick={handleCreateDeck}
-            button
-          >
-            <ListItemIcon><CreateIcon /></ListItemIcon>
-            <ListItemText primary="About" />
-          </ListItem>
-          {createNewDeck && (
-          <div>
-            <TextField
-              label="Deck Name"
-              id="standard-size-small"
-              size="medium"
-              color="success"
-            />
-          </div>
-          )}
         </List>
       </Drawer>
       <main
@@ -239,6 +246,7 @@ export default function DrawerNav(props) {
             )}
           />
           <Route exact path="/collections" render={() => <CollectionsPage />} />
+          <Route exact path="/create-deck" render={() => <CreateDeck />} />
           <Route exact path="/about" render={() => <About />} />
         </Switch>
         <Modal

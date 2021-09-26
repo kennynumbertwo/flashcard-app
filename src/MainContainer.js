@@ -53,6 +53,7 @@ function MainContainer(props) {
         .findIndex(element => element.collectionName === cardSet.subCategory);
       if (index < 0) {
         collections.push({
+          genre: cardSet.category,
           collectionName: cardSet.subCategory,
           categories: [cardSet.setName],
           id: `${cardSet.subCategory.replace(/\s+/g, '-')}` });
