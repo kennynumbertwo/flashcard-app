@@ -45,7 +45,7 @@ export default function NestedListItem(props) {
             <ListItem
               key={setName.cardSetName}
               className={classes.nested}
-              onClick={updateCardSetName}
+              onClick={() => updateCardSetName(setName.cardSetName)}
               button
             >
               <ListItemIcon>

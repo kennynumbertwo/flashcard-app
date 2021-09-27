@@ -19,7 +19,7 @@ const styles = {
 
 function CardSets(props) {
   const [selectedSetNames, setSelectedSetNames] = useState([]);
-  const { classes, cardCollections, selectedCollection } = props;
+  const { classes, cardCollections, selectedCollection, updateCardSetName } = props;
   useEffect(() => {
     getSetNames();
   }, [cardCollections]);
@@ -37,7 +37,12 @@ function CardSets(props) {
   return (
     <div className={classes.root}>
       {selectedSetNames.map(setName => (
-        <CollectionCard cardText={setName.cardSetName} key={setName.cardSetId} url={`/collections/${selectedCollection}/${setName.cardSetId}`} />
+        <CollectionCard
+          cardText={setName.cardSetName}
+          key={setName.cardSetId}
+          url={`/collections/${selectedCollection}/${setName.cardSetId}`}
+          updateCardSetName={updateCardSetName}
+        />
       ))}
     </div>
   );

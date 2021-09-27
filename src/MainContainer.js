@@ -68,8 +68,7 @@ function MainContainer(props) {
     return setCardCollections(collections);
   };
 
-  const updateCardSetName = (e) => {
-    const nameToFind = e.target.textContent;
+  const updateCardSetName = (nameToFind) => {
     toggleModal();
     return (setPendingSetName(nameToFind));
   };

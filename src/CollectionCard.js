@@ -42,9 +42,13 @@ const styles = {
 };
 
 function CollectionCard(props) {
-  const { classes, category, cardText, id, setNames, url } = props;
+  const { classes, category, cardText, id, setNames, url, updateCardSetName } = props;
   return (
-    <Link className={classes.root} to={url}>
+    <Link
+      className={classes.root}
+      to={url}
+      onClick={updateCardSetName && ((e) => updateCardSetName(cardText))}
+    >
       <div className={classes.CollectionCardIcon}>
         <i className="fas fa-microscope" />
       </div>

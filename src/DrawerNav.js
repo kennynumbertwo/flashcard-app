@@ -99,9 +99,12 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     color: 'rgba(0, 0, 0, .8)',
     '& .navArrow': {
-      transition: 'transform .25s',
+      color: 'rgba(0, 0, 0, 0)',
+      transition: 'all .25s',
+      transitionTimingFunction: 'ease-in-out',
     },
     '&:hover .navArrow': {
+      color: 'rgba(0, 0, 0, .8)',
       transform: 'translateX(35%)',
     },
   },
@@ -237,7 +240,7 @@ export default function DrawerNav(props) {
         <Switch>
           <Route
             exact
-            path="/"
+            path="/collections/:subCategory/:setName"
             render={() => (
               <FlashcardTray
                 cardSetDatabase={cardSetDatabase}
@@ -254,6 +257,7 @@ export default function DrawerNav(props) {
               <CardSets
                 cardCollections={cardCollections}
                 selectedCollection={routeProps.match.params.subCategory}
+                updateCardSetName={updateCardSetName}
               />
             )}
           />

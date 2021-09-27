@@ -117,7 +117,7 @@ function FlashcardTray(props) {
             />
           )
           : (
-            <di>
+            <div>
               <h4>How many cards would you like to use?</h4>
               <Box sx={{ minWidth: 50, maxWidth: 100 }}>
                 <FormControl fullWidth>
@@ -145,7 +145,7 @@ function FlashcardTray(props) {
               >
                 Start
               </Button>
-            </di>
+            </div>
           )}
       </div>
       {started
