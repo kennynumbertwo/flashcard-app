@@ -37,7 +37,7 @@ function CardSets(props) {
   return (
     <div className={classes.root}>
       {selectedSetNames.map(setName => (
-        <CollectionCard cardText={setName} key={setName} url={`/collections/${selectedCollection}/${setName}`} />
+        <CollectionCard cardText={setName.cardSetName} key={setName.cardSetId} url={`/collections/${selectedCollection}/${setName.cardSetId}`} />
       ))}
     </div>
   );

@@ -55,12 +55,13 @@ function MainContainer(props) {
         collections.push({
           category: cardSet.category,
           subCategory: cardSet.subCategory,
-          setNames: [cardSet.setName],
+          setNames: [{ cardSetName: cardSet.setName, cardSetId: cardSet.id }],
           subCategoryId: `${cardSet.subCategory.toLowerCase().replace(/\s+/g, '-')}`,
         });
       } else {
         let updatedCollections = [...collections];
-        updatedCollections[index].setNames.push(cardSet.setName);
+        updatedCollections[index].setNames
+          .push({ cardSetName: cardSet.setName, cardSetId: cardSet.id });
         collections = updatedCollections;
       }
     });
@@ -69,7 +70,6 @@ function MainContainer(props) {
 
   const updateCardSetName = (e) => {
     const nameToFind = e.target.textContent;
-    console.log(nameToFind);
     toggleModal();
     return (setPendingSetName(nameToFind));
   };

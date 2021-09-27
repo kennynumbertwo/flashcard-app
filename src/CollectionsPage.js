@@ -23,7 +23,7 @@ function CollectionsPage(props) {
     <div className={classes.root}>
       {cardCollections.map(cardCollection => (
         <CollectionCard
-          key={cardCollection.id}
+          key={cardCollection.subCategoryId}
           subCategoryId={cardCollection.subCategoryId}
           category={cardCollection.category}
           cardText={cardCollection.subCategory}

@@ -43,7 +43,7 @@ export default function NestedListItem(props) {
         <List component="div" disablePadding>
           {setNames.length && setNames.map(setName => (
             <ListItem
-              key={setName}
+              key={setName.cardSetName}
               className={classes.nested}
               onClick={updateCardSetName}
               button
@@ -51,7 +51,7 @@ export default function NestedListItem(props) {
               <ListItemIcon>
                 <ArrowRightIcon />
               </ListItemIcon>
-              <ListItemText primary={setName} />
+              <ListItemText primary={setName.cardSetName} />
             </ListItem>
           ))}
         </List>
