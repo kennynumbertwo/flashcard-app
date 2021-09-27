@@ -18,15 +18,19 @@ const styles = {
 };
 
 function CollectionsPage(props) {
-  const { classes } = props;
+  const { classes, cardCollections } = props;
   return (
     <div className={classes.root}>
-      <CollectionCard />
-      <CollectionCard />
-      <CollectionCard />
-      <CollectionCard />
-      <CollectionCard />
-
+      {cardCollections.map(cardCollection => (
+        <CollectionCard
+          key={cardCollection.id}
+          subCategoryId={cardCollection.subCategoryId}
+          category={cardCollection.category}
+          cardText={cardCollection.subCategory}
+          setNames={cardCollection.setNames}
+          url={`/collections/${cardCollection.subCategoryId}`}
+        />
+      ))}
     </div>
   );
 }

@@ -29,21 +29,21 @@ export default function NestedListItem(props) {
     setOpen(!open);
   };
 
-  const { categories, updateCardSetName, collectionName } = props;
+  const { setNames, updateCardSetName, subCategory } = props;
   return (
     <List>
       <ListItem button onClick={handleClick}>
         <ListItemIcon>
           <NoteIcon />
         </ListItemIcon>
-        <ListItemText primary={collectionName} />
+        <ListItemText primary={subCategory} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {categories.length && categories.map(category => (
+          {setNames.length && setNames.map(setName => (
             <ListItem
-              key={category}
+              key={setName}
               className={classes.nested}
               onClick={updateCardSetName}
               button
@@ -51,7 +51,7 @@ export default function NestedListItem(props) {
               <ListItemIcon>
                 <ArrowRightIcon />
               </ListItemIcon>
-              <ListItemText primary={category} />
+              <ListItemText primary={setName} />
             </ListItem>
           ))}
         </List>

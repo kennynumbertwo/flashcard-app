@@ -50,16 +50,17 @@ function MainContainer(props) {
     let collections = [];
     cardSetDatabase.forEach(cardSet => {
       const index = collections
-        .findIndex(element => element.collectionName === cardSet.subCategory);
+        .findIndex(element => element.subCategory === cardSet.subCategory);
       if (index < 0) {
         collections.push({
-          genre: cardSet.category,
-          collectionName: cardSet.subCategory,
-          categories: [cardSet.setName],
-          id: `${cardSet.subCategory.replace(/\s+/g, '-')}` });
+          category: cardSet.category,
+          subCategory: cardSet.subCategory,
+          setNames: [cardSet.setName],
+          subCategoryId: `${cardSet.subCategory.toLowerCase().replace(/\s+/g, '-')}`,
+        });
       } else {
         let updatedCollections = [...collections];
-        updatedCollections[index].categories.push(cardSet.setName);
+        updatedCollections[index].setNames.push(cardSet.setName);
         collections = updatedCollections;
       }
     });

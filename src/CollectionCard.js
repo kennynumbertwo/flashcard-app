@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const styles = {
   root: {
@@ -14,6 +15,7 @@ const styles = {
     color: 'rgba(0, 0, 0, 0.7)',
     fontSize: '1.5rem',
     transition: 'all .2s',
+    textDecoration: 'none',
     '& i': {
       transition: 'all .12s',
     },
@@ -40,16 +42,16 @@ const styles = {
 };
 
 function CollectionCard(props) {
-  const { classes } = props;
+  const { classes, category, cardText, id, setNames, url } = props;
   return (
-    <div className={classes.root}>
+    <Link className={classes.root} to={url}>
       <div className={classes.CollectionCardIcon}>
         <i className="fas fa-microscope" />
       </div>
       <div>
-        <h4 className={classes.CollectionCardName}>Biology</h4>
+        <h4 className={classes.CollectionCardName}>{cardText}</h4>
       </div>
-    </div>
+    </Link>
   );
 }
 

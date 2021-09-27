@@ -25,6 +25,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { Route, Switch, Link } from 'react-router-dom';
 import CollectionsPage from './CollectionsPage';
+import CardSets from './CardSets';
 import NestedListItem from './NestedListItem';
 import FlashcardTray from './FlashcardTray';
 import CreateDeck from './CreateDeck';
@@ -220,9 +221,9 @@ export default function DrawerNav(props) {
         >
           {cardCollections.map((col) => (
             <NestedListItem
-              key={col.id}
-              collectionName={col.collectionName}
-              categories={col.categories}
+              key={col.subCategoryId}
+              subCategory={col.subCategory}
+              setNames={col.setNames}
               updateCardSetName={updateCardSetName}
             />
           ))}
@@ -245,7 +246,17 @@ export default function DrawerNav(props) {
               />
             )}
           />
-          <Route exact path="/collections" render={() => <CollectionsPage />} />
+          <Route exact path="/collections" render={() => <CollectionsPage cardCollections={cardCollections} />} />
+          <Route
+            exact
+            path="/collections/:subCategory"
+            render={(routeProps) => (
+              <CardSets
+                cardCollections={cardCollections}
+                selectedCollection={routeProps.match.params.subCategory}
+              />
+            )}
+          />
           <Route exact path="/create-deck" render={() => <CreateDeck />} />
           <Route exact path="/about" render={() => <About />} />
         </Switch>
