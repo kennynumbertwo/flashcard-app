@@ -1,10 +1,9 @@
 export default {
   root: {
     // border: '1px solid black',
-    height: '100vh',
-    width: '100vw',
+    height: '100%',
+    width: '100%',
     display: 'flex',
-    backgroundColor: '#f0f7f7',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
@@ -14,8 +13,21 @@ export default {
       alignItems: 'center',
     },
   },
-  FlashcardContainer: {
-
+  preStart: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    height: '100%',
+    width: '100%',
+  },
+  cardQuantitySelect: {
+    display: 'flex',
+    width: '100%',
+    height: '100px',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    margin: '3rem',
   },
   buttonContainer: {
     height: '100px',

@@ -7,7 +7,9 @@ import useToggle from './hooks/useToggle';
 
 const styles = {
   root: {
-
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#f0f7f7',
   },
 };
 
@@ -68,10 +70,12 @@ function MainContainer(props) {
     return setCardCollections(collections);
   };
 
-  const updateCardSetName = (nameToFind) => {
-    toggleModal();
-    return (setPendingSetName(nameToFind));
-  };
+  const updateCardSetName = (nameToFind) => (setCurrentCardSetName(nameToFind));
+
+  // const updateCardSetName = (nameToFind) => {
+  //   toggleModal();
+  //   return (setPendingSetName(nameToFind));
+  // };
 
   const findCardSet = () => {
     let indexToSet;
@@ -85,12 +89,10 @@ function MainContainer(props) {
 
   const confirmPendingSetName = () => {
     setCurrentCardSetName(pendingSetName);
-    // toggleModal();
   };
 
   const denyPendingSetName = () => {
     setPendingSetName('');
-    // toggleModal();
   };
 
   const { classes } = props;

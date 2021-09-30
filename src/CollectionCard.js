@@ -8,11 +8,14 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '20%',
-    height: '25%',
+    width: '350px',
+    height: '250px',
+    padding: '0px 0px 0px 0px',
+    margin: '20px 40px 20px 40px',
     borderRadius: '10px',
     boxShadow: '0px 5px 10px 3px rgba(0, 0, 0, 0.3)',
     color: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'white',
     fontSize: '1.5rem',
     transition: 'all .2s',
     textDecoration: 'none',
@@ -42,12 +45,12 @@ const styles = {
 };
 
 function CollectionCard(props) {
-  const { classes, category, cardText, id, setNames, url, updateCardSetName } = props;
+  const { classes, cardText, url, updateCardSetName } = props;
   return (
     <Link
       className={classes.root}
       to={url}
-      onClick={updateCardSetName && ((e) => updateCardSetName(cardText))}
+      onClick={updateCardSetName && (() => updateCardSetName(cardText))}
     >
       <div className={classes.CollectionCardIcon}>
         <i className="fas fa-microscope" />

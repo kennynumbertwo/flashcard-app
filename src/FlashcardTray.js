@@ -107,47 +107,43 @@ function FlashcardTray(props) {
     <div className={classes.root}>
       {started && <h2>{currentCardSetName}</h2>}
       {started && <h4>Card {cardCount + 1} of {cardQuantity}</h4>}
-      <div className={classes.FlashcardContainer}>
-        {started
-          ? (
-            <Flashcard
-              question={shuffledDeck[cardCount].question}
-              answer={shuffledDeck[cardCount].answer}
-              showAnswer={showAnswer}
-            />
-          )
-          : (
-            <div>
+      {started
+        ? (
+          <Flashcard
+            question={shuffledDeck[cardCount].question}
+            answer={shuffledDeck[cardCount].answer}
+            showAnswer={showAnswer}
+          />
+        )
+        : (
+          <div className={classes.preStart}>
+            <h2>{currentCardSetName}</h2>
+            <div className={classes.cardQuantitySelect}>
               <h4>How many cards would you like to use?</h4>
-              <Box sx={{ minWidth: 50, maxWidth: 100 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Cart Quantity</InputLabel>
-                  <Select
-                    autoWidth
-                    labelId="card-quantity-label-input"
-                    id="card-quantity-label"
-                    value={cardQuantity}
-                    label="Card Quantity"
-                    onChange={handleChange}
-                  >
-                    {getCardQuantity(deckLength).map(num => <MenuItem key={`cardQuantity${num}`} value={num}>{num}</MenuItem>)}
-                    <MenuItem value={deckLength}>All Cards</MenuItem>
-
-                  </Select>
-                </FormControl>
-              </Box>
-              <Button
-                className={classes.startButton}
-                variant="contained"
-                type="button"
-                onClick={start}
-                disabled={!cardQuantity}
-              >
-                Start
-              </Button>
+              <FormControl variant="standard" sx={{ m: 2, minWidth: 75 }}>
+                <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  value={cardQuantity}
+                  onChange={handleChange}
+                  displayEmpty
+                >
+                  {getCardQuantity(deckLength).map(num => <MenuItem key={`cardQuantity${num}`} value={num}>{num}</MenuItem>)}
+                  <MenuItem value={deckLength}>All Cards</MenuItem>
+                </Select>
+              </FormControl>
             </div>
-          )}
-      </div>
+            <Button
+              className={classes.startButton}
+              variant="contained"
+              type="button"
+              onClick={start}
+              disabled={!cardQuantity}
+            >
+              Start
+            </Button>
+          </div>
+        )}
       {started
       && (
       <div className={classes.buttonContainer}>

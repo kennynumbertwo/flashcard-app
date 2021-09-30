@@ -25,7 +25,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { Route, Switch, Link } from 'react-router-dom';
 import CollectionsPage from './CollectionsPage';
-import CardSets from './CardSets';
+import CardSetsPage from './CardSetsPage';
 import NestedListItem from './NestedListItem';
 import FlashcardTray from './FlashcardTray';
 import CreateDeck from './CreateDeck';
@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       width: '35ch',
     },
+    height: '100%',
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -226,6 +227,7 @@ export default function DrawerNav(props) {
             <NestedListItem
               key={col.subCategoryId}
               subCategory={col.subCategory}
+              subCategoryId={col.subCategoryId}
               setNames={col.setNames}
               updateCardSetName={updateCardSetName}
             />
@@ -240,24 +242,28 @@ export default function DrawerNav(props) {
         <Switch>
           <Route
             exact
+            path="/collections"
+            render={() => <CollectionsPage cardCollections={cardCollections} />}
+          />
+          <Route
+            exact
+            path="/collections/:subCategory"
+            render={(routeProps) => (
+              <CardSetsPage
+                cardCollections={cardCollections}
+                selectedCollection={routeProps.match.params.subCategory}
+                updateCardSetName={updateCardSetName}
+              />
+            )}
+          />
+          <Route
+            exact
             path="/collections/:subCategory/:setName"
             render={() => (
               <FlashcardTray
                 cardSetDatabase={cardSetDatabase}
                 selectedSetIndex={selectedSetIndex}
                 currentCardSetName={currentCardSetName}
-              />
-            )}
-          />
-          <Route exact path="/collections" render={() => <CollectionsPage cardCollections={cardCollections} />} />
-          <Route
-            exact
-            path="/collections/:subCategory"
-            render={(routeProps) => (
-              <CardSets
-                cardCollections={cardCollections}
-                selectedCollection={routeProps.match.params.subCategory}
-                updateCardSetName={updateCardSetName}
               />
             )}
           />

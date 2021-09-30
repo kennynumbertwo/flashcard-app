@@ -8,12 +8,11 @@ const styles = {
     padding: '0px 50px 10px 50px',
     display: 'flex',
     flexWrap: 'wrap',
-    width: '100vw',
-    height: '100vh',
-    border: '2px solid black',
+    width: '100%',
+    height: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
-    gap: '5%',
+    alignItems: 'flex-start',
+    // border: '1px solid red',
   },
 };
 

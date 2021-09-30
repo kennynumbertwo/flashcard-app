@@ -9,6 +9,7 @@ import NoteIcon from '@material-ui/icons/Note';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
   },
   nested: {
     paddingLeft: theme.spacing(4),
+  },
+  nestedLink: {
+    textDecoration: 'none',
+    color: 'rgba(0, 0, 0, 0.8)',
   },
 }));
 
@@ -29,7 +34,7 @@ export default function NestedListItem(props) {
     setOpen(!open);
   };
 
-  const { setNames, updateCardSetName, subCategory } = props;
+  const { setNames, updateCardSetName, subCategory, subCategoryId } = props;
   return (
     <List>
       <ListItem button onClick={handleClick}>
@@ -42,17 +47,23 @@ export default function NestedListItem(props) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {setNames.length && setNames.map(setName => (
-            <ListItem
-              key={setName.cardSetName}
-              className={classes.nested}
-              onClick={() => updateCardSetName(setName.cardSetName)}
-              button
+            <Link
+              className={classes.nestedLink}
+              to={`/collections/${subCategoryId}/${setName.cardSetId}`}
+              key={setName.cardSetId}
             >
-              <ListItemIcon>
-                <ArrowRightIcon />
-              </ListItemIcon>
-              <ListItemText primary={setName.cardSetName} />
-            </ListItem>
+              <ListItem
+                key={setName.cardSetName}
+                className={classes.nested}
+                onClick={() => updateCardSetName(setName.cardSetName)}
+                button
+              >
+                <ListItemIcon>
+                  <ArrowRightIcon />
+                </ListItemIcon>
+                <ListItemText primary={setName.cardSetName} />
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Collapse>
