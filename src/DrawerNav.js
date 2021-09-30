@@ -24,6 +24,7 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import InfoIcon from '@material-ui/icons/Info';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { Route, Switch, Link } from 'react-router-dom';
+import { getAuth, signInWithPopup, FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, EmailAuthProvider } from 'firebase/auth';
 import CollectionsPage from './CollectionsPage';
 import CardSetsPage from './CardSetsPage';
 import NestedListItem from './NestedListItem';
@@ -31,6 +32,7 @@ import FlashcardTray from './FlashcardTray';
 import CreateDeck from './CreateDeck';
 import About from './About';
 import Modal from './Modal';
+import Login from './Login';
 
 const drawerWidth = 350;
 
@@ -137,6 +139,75 @@ export default function DrawerNav(props) {
     setOpen(false);
   };
 
+  const authenticateFacebook = () => {
+    const provider = new FacebookAuthProvider();
+    provider.setCustomParameters({
+      display: 'popup',
+    });
+    const auth = getAuth();
+    signInWithPopup(auth, provider).then((result) => {
+      // The signed-in user
+      const { user } = result;
+      console.log(user);
+      // This gives you a Facebook Access Token used to access the Facebook API
+      const credential = FacebookAuthProvider.credentialFromResult(result);
+      const { accessToken } = credential;
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's accound used
+      const { email } = error;
+      const credential = FacebookAuthProvider.credentialFromError(error);
+      console.log(error);
+    });
+  };
+
+  const authenticateGithub = () => {
+    const provider = new GithubAuthProvider();
+    provider.setCustomParameters({
+      display: 'popup',
+    });
+    const auth = getAuth();
+    signInWithPopup(auth, provider).then((result) => {
+      // The signed-in user
+      const { user } = result;
+      console.log(user);
+      // This gives you a Github Access Token used to access the Github API
+      const credential = GithubAuthProvider.credentialFromResult(result);
+      const { accessToken } = credential;
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's accound used
+      const { email } = error;
+      const credential = GithubAuthProvider.credentialFromError(error);
+      console.log(error);
+    });
+  };
+
+  const authenticateGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({
+      display: 'popup',
+    });
+    const auth = getAuth();
+    signInWithPopup(auth, provider).then((result) => {
+      // The signed-in user
+      const { user } = result;
+      console.log(user);
+      // This gives you a Google Access Token used to access the Google API
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const { accessToken } = credential;
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's accound used
+      const { email } = error;
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      console.log(error);
+    });
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -239,6 +310,11 @@ export default function DrawerNav(props) {
           [classes.contentShift]: open,
         })}
       >
+        <Login
+          authenticateFacebook={authenticateFacebook}
+          authenticateGithub={authenticateGithub}
+          authenticateGoogle={authenticateGoogle}
+        />
         <Switch>
           <Route
             exact

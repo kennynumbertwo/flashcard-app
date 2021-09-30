@@ -1,0 +1,81 @@
+import React from 'react';
+import { withStyles } from '@material-ui/core';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import GithubIcon from '@material-ui/icons/GitHub';
+import GoogleIcon from '@mui/icons-material/Google';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+
+const styles = {
+  Login: {
+    marginTop: '64px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+  loginButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
+    textTransform: 'uppercase',
+    textDecoration: 'none',
+    fontFamily: "'Open Sans', sans-serif",
+    fontSize: '16px',
+    fontWeight: '600',
+    background: 'rgba(0, 0, 0, 0.7)',
+    width: '200px',
+    height: '50px',
+    margin: '10px',
+    border: '1.5px solid rgba(0, 0, 0, 0.7)',
+    transition: 'all 0.4s ease 0s',
+    borderRadius: '5px',
+    '& svg': {
+      fontSize: '30px',
+    },
+    '&:hover': {
+      background: 'rgba(7, 177, 77, 0.7)',
+      borderColor: 'rgba(7, 177, 77, 0.7)',
+      transition: 'all 0.4s ease 0s',
+      cursor: 'pointer',
+    },
+  },
+  buttonText: {
+    padding: '5px 10px 0px 0px',
+  },
+};
+
+const Login = (props) => {
+  const { classes } = props;
+  return (
+    <nav className={classes.Login}>
+      <h2>Login</h2>
+      <p>Sign in to access your flashcards</p>
+      <button
+        className={classes.loginButton}
+        onClick={() => props.authenticateGithub()}
+        type="button"
+      ><span className={classes.buttonText}>Github</span><GithubIcon />
+      </button>
+      <button
+        className={classes.loginButton}
+        onClick={() => props.authenticateFacebook()}
+        type="button"
+      ><span className={classes.buttonText}>Facebook</span><FacebookIcon />
+      </button>
+      <button
+        className={classes.loginButton}
+        onClick={() => props.authenticateGoogle()}
+        type="button"
+      ><span className={classes.buttonText}>Google</span><GoogleIcon />
+      </button>
+      <button
+        className={classes.loginButton}
+        onClick={() => props.authenticate('Email')}
+        type="button"
+      ><span className={classes.buttonText}>Email</span><AlternateEmailIcon />
+      </button>
+    </nav>
+  );
+};
+export default withStyles(styles)(Login);
