@@ -9,7 +9,7 @@ const styles = {
   root: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#f0f7f7',
+    backgroundImage: 'linear-gradient(#f0f7f7, #e9f0f0)',
   },
 };
 

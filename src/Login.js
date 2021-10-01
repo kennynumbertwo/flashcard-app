@@ -7,11 +7,36 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 
 const styles = {
   Login: {
-    marginTop: '64px',
+    height: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
+  },
+  LoginCard: {
+    height: '500px',
+    width: '375px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    borderRadius: '5px',
+    boxShadow: '0px 5px 10px 3px rgba(0, 0, 0, 0.3)',
+    '& h2': {
+      fontSize: '2rem',
+      margin: '0px 0px 0px 0px',
+    },
+    '& p': {
+      fontSize: '1.2rem',
+    },
+  },
+  buttonWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    paddingTop: '15px',
   },
   loginButton: {
     display: 'flex',
@@ -20,9 +45,9 @@ const styles = {
     color: 'white',
     textTransform: 'uppercase',
     textDecoration: 'none',
-    fontFamily: "'Open Sans', sans-serif",
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     fontSize: '16px',
-    fontWeight: '600',
+    fontWeight: '400',
     background: 'rgba(0, 0, 0, 0.7)',
     width: '200px',
     height: '50px',
@@ -41,7 +66,7 @@ const styles = {
     },
   },
   buttonText: {
-    padding: '5px 10px 0px 0px',
+    padding: '2px 10px 0px 0px',
   },
 };
 
@@ -49,32 +74,42 @@ const Login = (props) => {
   const { classes } = props;
   return (
     <nav className={classes.Login}>
-      <h2>Login</h2>
-      <p>Sign in to access your flashcards</p>
-      <button
-        className={classes.loginButton}
-        onClick={() => props.authenticateGithub()}
-        type="button"
-      ><span className={classes.buttonText}>Github</span><GithubIcon />
-      </button>
-      <button
-        className={classes.loginButton}
-        onClick={() => props.authenticateFacebook()}
-        type="button"
-      ><span className={classes.buttonText}>Facebook</span><FacebookIcon />
-      </button>
-      <button
-        className={classes.loginButton}
-        onClick={() => props.authenticateGoogle()}
-        type="button"
-      ><span className={classes.buttonText}>Google</span><GoogleIcon />
-      </button>
-      <button
-        className={classes.loginButton}
-        onClick={() => props.authenticate('Email')}
-        type="button"
-      ><span className={classes.buttonText}>Email</span><AlternateEmailIcon />
-      </button>
+      <div className={classes.LoginCard}>
+        <h2>Sign In</h2>
+        <p>Please sign in or create an account</p>
+        <div className={classes.buttonWrapper}>
+          <button
+            className={classes.loginButton}
+            onClick={() => props.authenticateGithub()}
+            type="button"
+          ><span className={classes.buttonText}>Github</span><GithubIcon />
+          </button>
+          <button
+            className={classes.loginButton}
+            onClick={() => props.authenticateFacebook()}
+            type="button"
+          ><span className={classes.buttonText}>Facebook</span><FacebookIcon />
+          </button>
+          <button
+            className={classes.loginButton}
+            onClick={() => props.authenticateGoogle()}
+            type="button"
+          ><span className={classes.buttonText}>Google</span><GoogleIcon />
+          </button>
+          <button
+            className={classes.loginButton}
+            onClick={() => props.authenticateEmail()}
+            type="button"
+          ><span className={classes.buttonText}>Email</span><AlternateEmailIcon />
+          </button>
+          <button
+            className={classes.loginButton}
+            onClick={() => props.logoutUser()}
+            type="button"
+          ><span className={classes.buttonText}>Logout</span>
+          </button>
+        </div>
+      </div>
     </nav>
   );
 };
