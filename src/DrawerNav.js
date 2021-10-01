@@ -25,7 +25,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { Route, Switch, Link } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
-import { authenticateEmail, authenticateFacebook, authenticateGithub, authenticateGoogle } from './authentication';
 import CollectionsPage from './CollectionsPage';
 import CardSetsPage from './CardSetsPage';
 import NestedListItem from './NestedListItem';
@@ -114,17 +113,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const logoutUser = async () => {
-  const auth = getAuth();
-  console.log(auth);
-  await auth.signOut();
-  console.log(getAuth());
-};
-
 export default function DrawerNav(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [user, setUser] = useState('');
 
   const {
     cardCollections,
@@ -145,6 +138,22 @@ export default function DrawerNav(props) {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const initializeUser = (login) => {
+    if (user === '') {
+      setUser(login);
+    } else {
+      console.log('User already signed in');
+    }
+  };
+
+  const logoutUser = async () => {
+    const auth = getAuth();
+    console.log(auth);
+    await auth.signOut();
+    setUser('');
+    console.log(getAuth());
   };
 
   return (
@@ -249,13 +258,7 @@ export default function DrawerNav(props) {
           [classes.contentShift]: open,
         })}
       >
-        <Login
-          authenticateFacebook={authenticateFacebook}
-          authenticateGithub={authenticateGithub}
-          authenticateGoogle={authenticateGoogle}
-          authenticateEmail={authenticateEmail}
-          logoutUser={logoutUser}
-        />
+        <Login initializeUser={initializeUser} logoutUser={logoutUser} />
         <Switch>
           <Route
             exact

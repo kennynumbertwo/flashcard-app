@@ -6,9 +6,11 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword }
   from 'firebase/auth';
+import db from './firebase.config';
 
-const authHandler = async authData => {
-  console.log(authData.user.email);
+const authHandler = authData => {
+  const login = authData.user.email;
+  return props.initializeUser(login);
 };
 
 const authenticateGithub = () => {

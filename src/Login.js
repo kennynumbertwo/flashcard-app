@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import GithubIcon from '@material-ui/icons/GitHub';
 import GoogleIcon from '@mui/icons-material/Google';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import {
+  getAuth,
+  signInWithPopup,
+  FacebookAuthProvider,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword }
+  from 'firebase/auth';
 
 const styles = {
   Login: {
@@ -11,7 +19,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column',
   },
   LoginCard: {
     height: '500px',
@@ -70,47 +77,222 @@ const styles = {
   },
 };
 
-const Login = (props) => {
+function Login(props) {
   const { classes } = props;
-  return (
-    <nav className={classes.Login}>
-      <div className={classes.LoginCard}>
-        <h2>Sign In</h2>
-        <p>Please sign in or create an account</p>
-        <div className={classes.buttonWrapper}>
-          <button
-            className={classes.loginButton}
-            onClick={() => props.authenticateGithub()}
-            type="button"
-          ><span className={classes.buttonText}>Github</span><GithubIcon />
-          </button>
-          <button
-            className={classes.loginButton}
-            onClick={() => props.authenticateFacebook()}
-            type="button"
-          ><span className={classes.buttonText}>Facebook</span><FacebookIcon />
-          </button>
-          <button
-            className={classes.loginButton}
-            onClick={() => props.authenticateGoogle()}
-            type="button"
-          ><span className={classes.buttonText}>Google</span><GoogleIcon />
-          </button>
-          <button
-            className={classes.loginButton}
-            onClick={() => props.authenticateEmail()}
-            type="button"
-          ><span className={classes.buttonText}>Email</span><AlternateEmailIcon />
-          </button>
-          <button
-            className={classes.loginButton}
-            onClick={() => props.logoutUser()}
-            type="button"
-          ><span className={classes.buttonText}>Logout</span>
-          </button>
+
+  const [loginWithEmail, setLoginWithEmail] = useState(false);
+  const [creatingEmailLogin, setCreatingEmailLogin] = useState(false);
+
+  const authHandler = authData => {
+    const login = authData.user.email;
+    return props.initializeUser(login);
+  };
+
+  const authenticateGithub = () => {
+    const provider = new GithubAuthProvider();
+    provider.setCustomParameters({
+      display: 'popup',
+    });
+    const auth = getAuth();
+    signInWithPopup(auth, provider).then(authHandler).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's accound used
+      const { email } = error;
+      const credential = GithubAuthProvider.credentialFromError(error);
+      console.log(
+        `Error Code: ${errorCode}`,
+        `Error Message: ${errorMessage}`,
+        `Email: ${email}`,
+        `Credential: ${credential}`,
+      );
+    });
+  };
+
+  const authenticateFacebook = () => {
+    const provider = new FacebookAuthProvider();
+    provider.setCustomParameters({
+      display: 'popup',
+    });
+    const auth = getAuth();
+    signInWithPopup(auth, provider).then(authHandler).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's accound used
+      const { email } = error;
+      const credential = FacebookAuthProvider.credentialFromError(error);
+      console.log(
+        `Error Code: ${errorCode}`,
+        `Error Message: ${errorMessage}`,
+        `Email: ${email}`,
+        `Credential: ${credential}`,
+      );
+    });
+  };
+
+  const authenticateGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({
+      display: 'popup',
+    });
+    const auth = getAuth();
+    signInWithPopup(auth, provider).then(authHandler).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's accound used
+      const { email } = error;
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      console.log(
+        `Error Code: ${errorCode}`,
+        `Error Message: ${errorMessage}`,
+        `Email: ${email}`,
+        `Credential: ${credential}`,
+      );
+    });
+  };
+
+  const authenticateEmail = (email, password) => {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const { user } = userCredential;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's accound used
+        console.log(
+          `Error Code: ${errorCode}`,
+          `Error Message: ${errorMessage}`,
+        );
+      });
+  };
+
+  if (!loginWithEmail) {
+    return (
+      <nav className={classes.Login}>
+        <div className={classes.LoginCard}>
+          <h2>Sign In</h2>
+          <p>Please sign in or create an account</p>
+          <div className={classes.buttonWrapper}>
+            <button
+              className={classes.loginButton}
+              onClick={() => authenticateGithub()}
+              type="button"
+            ><span className={classes.buttonText}>Github</span><GithubIcon />
+            </button>
+            <button
+              className={classes.loginButton}
+              onClick={() => authenticateFacebook()}
+              type="button"
+            ><span className={classes.buttonText}>Facebook</span><FacebookIcon />
+            </button>
+            <button
+              className={classes.loginButton}
+              onClick={() => authenticateGoogle()}
+              type="button"
+            ><span className={classes.buttonText}>Google</span><GoogleIcon />
+            </button>
+            <button
+              className={classes.loginButton}
+              onClick={() => setLoginWithEmail(true)}
+              type="button"
+            ><span className={classes.buttonText}>Email</span><AlternateEmailIcon />
+            </button>
+            <button
+              className={classes.loginButton}
+              onClick={() => props.logoutUser()}
+              type="button"
+            ><span className={classes.buttonText}>Logout</span>
+            </button>
+          </div>
         </div>
-      </div>
-    </nav>
-  );
-};
+      </nav>
+    );
+  }
+  if (!creatingEmailLogin && loginWithEmail) {
+    return (
+      <nav className={classes.Login}>
+        <div className={classes.LoginCard}>
+          <h2>Login with Email</h2>
+          <p>Please sign in or create an account</p>
+          <div className={classes.buttonWrapper}>
+            <button
+              className={classes.loginButton}
+              onClick={() => authenticateGithub()}
+              type="button"
+            ><span className={classes.buttonText}>Github</span><GithubIcon />
+            </button>
+            <button
+              className={classes.loginButton}
+              onClick={() => authenticateFacebook()}
+              type="button"
+            ><span className={classes.buttonText}>Facebook</span><FacebookIcon />
+            </button>
+            <button
+              className={classes.loginButton}
+              onClick={() => authenticateGoogle()}
+              type="button"
+            ><span className={classes.buttonText}>Google</span><GoogleIcon />
+            </button>
+            <button
+              className={classes.loginButton}
+              onClick={() => setCreatingEmailLogin(true)}
+              type="button"
+            ><span className={classes.buttonText}>Email</span><AlternateEmailIcon />
+            </button>
+            <button
+              className={classes.loginButton}
+              onClick={() => props.logoutUser()}
+              type="button"
+            ><span className={classes.buttonText}>Logout</span>
+            </button>
+          </div>
+        </div>
+      </nav>
+    );
+  }
+  if (creatingEmailLogin) {
+    return (
+      <nav className={classes.Login}>
+        <div className={classes.LoginCard}>
+          <h2>Create New Account</h2>
+          <p>Please sign in or create an account</p>
+          <div className={classes.buttonWrapper}>
+            <button
+              className={classes.loginButton}
+              onClick={() => authenticateGithub()}
+              type="button"
+            ><span className={classes.buttonText}>Github</span><GithubIcon />
+            </button>
+            <button
+              className={classes.loginButton}
+              onClick={() => authenticateFacebook()}
+              type="button"
+            ><span className={classes.buttonText}>Facebook</span><FacebookIcon />
+            </button>
+            <button
+              className={classes.loginButton}
+              onClick={() => authenticateGoogle()}
+              type="button"
+            ><span className={classes.buttonText}>Google</span><GoogleIcon />
+            </button>
+            <button
+              className={classes.loginButton}
+              onClick={() => authenticateEmail()}
+              type="button"
+            ><span className={classes.buttonText}>Email</span><AlternateEmailIcon />
+            </button>
+            <button
+              className={classes.loginButton}
+              onClick={() => props.logoutUser()}
+              type="button"
+            ><span className={classes.buttonText}>Logout</span>
+            </button>
+          </div>
+        </div>
+      </nav>
+    );
+  }
+}
 export default withStyles(styles)(Login);
