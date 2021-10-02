@@ -12,6 +12,8 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword }
   from 'firebase/auth';
+import CreateEmailLogin from './CreateEmailForm';
+import LoginEmailForm from './LoginEmailForm';
 
 const styles = {
   Login: {
@@ -212,86 +214,12 @@ function Login(props) {
   }
   if (!creatingEmailLogin && loginWithEmail) {
     return (
-      <nav className={classes.Login}>
-        <div className={classes.LoginCard}>
-          <h2>Login with Email</h2>
-          <p>Please sign in or create an account</p>
-          <div className={classes.buttonWrapper}>
-            <button
-              className={classes.loginButton}
-              onClick={() => authenticateGithub()}
-              type="button"
-            ><span className={classes.buttonText}>Github</span><GithubIcon />
-            </button>
-            <button
-              className={classes.loginButton}
-              onClick={() => authenticateFacebook()}
-              type="button"
-            ><span className={classes.buttonText}>Facebook</span><FacebookIcon />
-            </button>
-            <button
-              className={classes.loginButton}
-              onClick={() => authenticateGoogle()}
-              type="button"
-            ><span className={classes.buttonText}>Google</span><GoogleIcon />
-            </button>
-            <button
-              className={classes.loginButton}
-              onClick={() => setCreatingEmailLogin(true)}
-              type="button"
-            ><span className={classes.buttonText}>Email</span><AlternateEmailIcon />
-            </button>
-            <button
-              className={classes.loginButton}
-              onClick={() => props.logoutUser()}
-              type="button"
-            ><span className={classes.buttonText}>Logout</span>
-            </button>
-          </div>
-        </div>
-      </nav>
+      <LoginEmailForm setCreatingEmailLogin={setCreatingEmailLogin} />
     );
   }
   if (creatingEmailLogin) {
     return (
-      <nav className={classes.Login}>
-        <div className={classes.LoginCard}>
-          <h2>Create New Account</h2>
-          <p>Please sign in or create an account</p>
-          <div className={classes.buttonWrapper}>
-            <button
-              className={classes.loginButton}
-              onClick={() => authenticateGithub()}
-              type="button"
-            ><span className={classes.buttonText}>Github</span><GithubIcon />
-            </button>
-            <button
-              className={classes.loginButton}
-              onClick={() => authenticateFacebook()}
-              type="button"
-            ><span className={classes.buttonText}>Facebook</span><FacebookIcon />
-            </button>
-            <button
-              className={classes.loginButton}
-              onClick={() => authenticateGoogle()}
-              type="button"
-            ><span className={classes.buttonText}>Google</span><GoogleIcon />
-            </button>
-            <button
-              className={classes.loginButton}
-              onClick={() => authenticateEmail()}
-              type="button"
-            ><span className={classes.buttonText}>Email</span><AlternateEmailIcon />
-            </button>
-            <button
-              className={classes.loginButton}
-              onClick={() => props.logoutUser()}
-              type="button"
-            ><span className={classes.buttonText}>Logout</span>
-            </button>
-          </div>
-        </div>
-      </nav>
+      <CreateEmailLogin />
     );
   }
 }
