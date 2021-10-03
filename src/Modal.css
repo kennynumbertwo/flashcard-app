@@ -87,13 +87,38 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60%;
+  height: 50%;
   font-family: 'Roboto', sans-serif;
   color: #878686;
   text-align: center;
   line-height: 1.5;
+  font-size: 0.9rem;
+  padding: 0px 15px 10px 15px;
 }
 
+.closeModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.7);
+  width: 75px;
+  height: 40px;
+  border: 1.5px solid rgba(0, 0, 0, 0.7);
+  transition: all 0.4s ease 0s;
+  border-radius: 5px;
+}
+
+.closeModal:hover {
+  background: rgba(7, 177, 77, 0.7);
+  border-color: rgba(7, 177, 77, 0.7);
+  transition: all 0.4s ease 0s;
+  cursor: pointer;
+}
 .closeModalAccept {
   display: flex;
   justify-content: center;

@@ -33,6 +33,7 @@ import CreateDeck from './CreateDeck';
 import About from './About';
 import Modal from './Modal';
 import Login from './Login';
+import AccountMenu from './AccountMenu';
 
 const drawerWidth = 350;
 
@@ -178,6 +179,7 @@ export default function DrawerNav(props) {
           {/* <Typography variant="h6" noWrap>
             Flashcards
           </Typography> */}
+          <AccountMenu logoutUser={logoutUser} />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -258,7 +260,7 @@ export default function DrawerNav(props) {
           [classes.contentShift]: open,
         })}
       >
-        <Login initializeUser={initializeUser} logoutUser={logoutUser} />
+        <Login initializeUser={initializeUser} />
         <Switch>
           <Route
             exact

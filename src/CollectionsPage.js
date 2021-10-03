@@ -12,7 +12,6 @@ const styles = {
     height: '100%',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    // border: '1px solid red',
   },
 };
 

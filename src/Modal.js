@@ -15,7 +15,9 @@ function Modal(props) {
   } = props;
 
   const handleButtonClick = () => {
-    buttonAction();
+    if (buttonAction) {
+      buttonAction();
+    }
     setAnimatingOut(true);
     let timer = setTimeout(() => {
       hide();

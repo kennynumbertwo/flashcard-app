@@ -1,8 +1,4 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core';
-import useInputState from './hooks/useInputState';
-
-const styles = {
+export default {
   Login: {
     height: '100%',
     display: 'flex',
@@ -65,31 +61,3 @@ const styles = {
     padding: '2px 10px 0px 0px',
   },
 };
-
-function CreateEmailForm(props) {
-  const [email, updateEmail, resetEmail] = useInputState('');
-  const [password, updatePassword, resetPassword] = useInputState('');
-  const [confirmPassword, updateConfirmPassword, resetConfirmPassword] = useInputState('');
-  const { classes, setCreatingEmailLogin } = props;
-  return (
-    <nav className={classes.Login}>
-      <div className={classes.LoginCard}>
-        <h2>Create An Account</h2>
-        <p>Please sign</p>
-        <input type="text" value={email} onChange={updateEmail} />
-        <input type="text" value={password} onChange={updatePassword} />
-        <input type="text" value={confirmPassword} onChange={updateConfirmPassword} />
-        <div className={classes.buttonWrapper}>
-          <button
-            className={classes.loginButton}
-            onClick={() => setCreatingEmailLogin(true)}
-            type="button"
-          ><span className={classes.buttonText}>Create Account</span>
-          </button>
-        </div>
-      </div>
-    </nav>
-  );
-}
-
-export default withStyles(styles)(CreateEmailForm);
