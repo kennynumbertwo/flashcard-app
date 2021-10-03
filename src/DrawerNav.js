@@ -168,6 +168,7 @@ export default function DrawerNav(props) {
         })}
       >
         <Toolbar>
+          {isLoggedIn && (
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -177,10 +178,8 @@ export default function DrawerNav(props) {
           >
             <MenuIcon />
           </IconButton>
-          {/* <Typography variant="h6" noWrap>
-            Flashcards
-          </Typography> */}
-          <AccountMenu logoutUser={logoutUser} />
+          )}
+          <AccountMenu logoutUser={logoutUser} isLoggedIn={isLoggedIn} />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -198,69 +197,77 @@ export default function DrawerNav(props) {
           </IconButton>
         </div>
         <Divider />
-        <List>
-          <ListSubheader component="div" id="navigation-header">
-            Navigation
-          </ListSubheader>
-          <Link to="/collections" className={classes.navLink}>
-            <ListItem
-              className={classes.navItem}
-              key="collections"
-              button
-            >
-              <ListItemIcon><LibraryBooksIcon /></ListItemIcon>
-              <ListItemText primary="Collections" />
-              <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
-            </ListItem>
-          </Link>
-          <Link to="/create-deck" className={classes.navLink}>
-            <ListItem
-              key="create-deck"
-              button
-            >
-              <ListItemIcon><CreateIcon /></ListItemIcon>
-              <ListItemText primary="Create Deck" />
-              <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
-            </ListItem>
-          </Link>
-          <Link to="/about" className={classes.navLink}>
-            <ListItem
-              key="about"
-              button
-            >
-              <ListItemIcon><InfoIcon /></ListItemIcon>
-              <ListItemText primary="About" />
-              <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
-            </ListItem>
-          </Link>
-        </List>
-        <Divider />
-        <List
-          sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-          component="nav"
-          aria-labelledby="nested-list-subheader"
-          subheader={(
-            <ListSubheader component="div" id="nested-list-subheader">
-              My Flashcards
+        {/* Creates the main nav links at the top of the drawer */}
+        {isLoggedIn && (
+        <>
+          <List>
+            <ListSubheader component="div" id="navigation-header">
+              Navigation
             </ListSubheader>
+            <Link to="/collections" className={classes.navLink}>
+              <ListItem
+                className={classes.navItem}
+                key="collections"
+                button
+              >
+                <ListItemIcon><LibraryBooksIcon /></ListItemIcon>
+                <ListItemText primary="Collections" />
+                <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
+              </ListItem>
+            </Link>
+            <Link to="/create-deck" className={classes.navLink}>
+              <ListItem
+                key="create-deck"
+                button
+              >
+                <ListItemIcon><CreateIcon /></ListItemIcon>
+                <ListItemText primary="Create Deck" />
+                <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
+              </ListItem>
+            </Link>
+            <Link to="/about" className={classes.navLink}>
+              <ListItem
+                key="about"
+                button
+              >
+                <ListItemIcon><InfoIcon /></ListItemIcon>
+                <ListItemText primary="About" />
+                <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
+              </ListItem>
+            </Link>
+          </List>
+          <Divider />
+          {/* Create Nested Lists for "My Flashcards" section in drawer */}
+          <List
+            sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+            component="nav"
+            aria-labelledby="nested-list-subheader"
+            subheader={(
+              <ListSubheader component="div" id="nested-list-subheader">
+                My Flashcards
+              </ListSubheader>
           )}
-        >
-          {cardCollections.map((col) => (
-            <NestedListItem
-              key={col.subCategoryId}
-              subCategory={col.subCategory}
-              subCategoryId={col.subCategoryId}
-              setNames={col.setNames}
-              updateCardSetName={updateCardSetName}
-            />
-          ))}
-        </List>
+          >
+            {cardCollections.map((col) => (
+              <NestedListItem
+                key={col.subCategoryId}
+                subCategory={col.subCategory}
+                subCategoryId={col.subCategoryId}
+                setNames={col.setNames}
+                updateCardSetName={updateCardSetName}
+              />
+            ))}
+          </List>
+        </>
+        )}
       </Drawer>
+      {/* Main Page Content */}
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
       >
+        {/* Routes for Main Page */}
         <Switch>
           <Route
             exact

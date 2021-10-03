@@ -3,7 +3,6 @@ import { collection, getDocs } from 'firebase/firestore/lite';
 import { withStyles } from '@material-ui/core';
 import DrawerNav from './DrawerNav';
 import db from './firebase.config';
-import useToggle from './hooks/useToggle';
 
 const styles = {
   root: {
@@ -19,7 +18,6 @@ function MainContainer(props) {
   const [pendingSetName, setPendingSetName] = useState('');
   const [selectedSetIndex, setselectedSetIndex] = useState(0);
   const [currentCardSetName, setCurrentCardSetName] = useState('');
-  const [isShowingModal, toggleModal] = useToggle(false);
   const [loading, setLoading] = useState(true);
 
   // Fetches cards from Firebase on first render and set's them to the cardSetDatabase
@@ -72,11 +70,6 @@ function MainContainer(props) {
 
   const updateCardSetName = (nameToFind) => (setCurrentCardSetName(nameToFind));
 
-  // const updateCardSetName = (nameToFind) => {
-  //   toggleModal();
-  //   return (setPendingSetName(nameToFind));
-  // };
-
   const findCardSet = () => {
     let indexToSet;
     cardSetDatabase.forEach(cardSet => {
@@ -109,8 +102,6 @@ function MainContainer(props) {
         confirmPendingSetName={confirmPendingSetName}
         denyPendingSetName={denyPendingSetName}
         loading={loading}
-        isShowingModal={isShowingModal}
-        toggleModal={toggleModal}
       />
     </div>
   );

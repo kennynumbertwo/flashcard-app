@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import useInputState from './hooks/useInputState';
+import './styles/LoginEmailFormStyles.css';
 
 const styles = {
   Login: {
@@ -8,24 +9,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  LoginCard: {
-    height: '500px',
-    width: '375px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    backgroundColor: 'white',
-    borderRadius: '5px',
-    boxShadow: '0px 5px 10px 3px rgba(0, 0, 0, 0.3)',
-    '& h2': {
-      fontSize: '2rem',
-      margin: '0px 0px 0px 0px',
-    },
-    '& p': {
-      fontSize: '1.2rem',
-    },
   },
   buttonWrapper: {
     display: 'flex',
@@ -69,10 +52,21 @@ const styles = {
 function LoginEmailForm(props) {
   const [email, updateEmail, resetEmail] = useInputState('');
   const [password, updatePassword, resetPassword] = useInputState('');
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
   const { classes, setCreatingEmailLogin } = props;
+
+  const handleCreateEmailLogin = () => {
+    setIsAnimatingOut(true);
+    let timer = setTimeout(() => {
+      setCreatingEmailLogin(true);
+      setIsAnimatingOut(false);
+    }, 190);
+    return () => clearTimeout(timer);
+  };
+
   return (
     <nav className={classes.Login}>
-      <div className={classes.LoginCard}>
+      <div className={isAnimatingOut ? 'LoginEmailFormCard animateOut' : 'LoginEmailFormCard'}>
         <h2>Sign In</h2>
         <p>Please sign</p>
         <input type="text" value={email} onChange={updateEmail} />
@@ -80,7 +74,7 @@ function LoginEmailForm(props) {
         <div className={classes.buttonWrapper}>
           <button
             className={classes.loginButton}
-            onClick={() => setCreatingEmailLogin(true)}
+            onClick={handleCreateEmailLogin}
             type="button"
           ><span className={classes.buttonText}>Sign In</span>
           </button>

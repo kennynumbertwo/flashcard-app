@@ -1,0 +1,58 @@
+.LoginEmailFormCard {
+  height: 500px;
+  width: 375px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px 3px rgba(0, 0, 0, 0.3);
+  animation-name: LoginCardEmailFormAnimateIn;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.2s;
+}
+@keyframes LoginCardEmailFormAnimateIn {
+  0% {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+  60% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+.LoginEmailFormCard.animateOut {
+  animation-name: LoginEmailFormCardAnimateOut;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  animation-duration: 0.2s;
+}
+
+@keyframes LoginEmailFormCardAnimateOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+  30% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+}
+
+.LoginEmailFormCard h2 {
+  font-size: 2rem;
+  margin: 0px 0px 0px 0px;
+}
+
+.LoginEmailFormCard p {
+  font-size: 1.2rem;
+}

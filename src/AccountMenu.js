@@ -59,7 +59,7 @@ function AccountMenu(props) {
     prevOpen.current = open;
   }, [open]);
 
-  const { classes, logoutUser } = props;
+  const { classes, logoutUser, isLoggedIn } = props;
   return (
     <div className={classes.accountMenuWrapper}>
       <Button
@@ -97,9 +97,16 @@ function AccountMenu(props) {
                   aria-labelledby="composition-button"
                   onKeyDown={() => handleListKeyDown}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>My account</MenuItem>
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                  {isLoggedIn && (
+                    <>
+                      <MenuItem onClick={handleClose}>Profile</MenuItem>
+                      <MenuItem onClick={handleClose}>My account</MenuItem>
+                      <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    </>
+                  )}
+                  {!isLoggedIn && (
+                    <MenuItem>Not Signed In</MenuItem>
+                  )}
                 </MenuList>
               </ClickAwayListener>
             </Paper>

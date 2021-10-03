@@ -17,6 +17,7 @@ import CreateEmailLogin from './CreateEmailForm';
 import LoginEmailForm from './LoginEmailForm';
 import Modal from './Modal';
 import styles from './styles/LoginStyles';
+import './styles/LoginStyles.css';
 
 function Login(props) {
   const { classes, isLoggedIn } = props;
@@ -24,6 +25,7 @@ function Login(props) {
   const [loginWithEmail, setLoginWithEmail] = useState(false);
   const [isShowingModal, setIsShowingModal] = useState(false);
   const [creatingEmailLogin, setCreatingEmailLogin] = useState(false);
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
   const toggleModal = () => {
     setIsShowingModal(!isShowingModal);
@@ -119,13 +121,22 @@ function Login(props) {
       });
   };
 
+  const handleLoginWithEmail = () => {
+    setIsAnimatingOut(true);
+    let timer = setTimeout(() => {
+      setLoginWithEmail(true);
+      setIsAnimatingOut(false);
+    }, 195);
+    return () => clearTimeout(timer);
+  };
+
   if (isLoggedIn) {
     return <Redirect to="/collections" />;
   }
   if (!loginWithEmail) {
     return (
       <nav className={classes.Login}>
-        <div className={classes.LoginCard}>
+        <div className={isAnimatingOut ? 'LoginCard animateOut' : 'LoginCard'}>
           <h2>Sign In</h2>
           <p>Please sign in or create an account</p>
           <div className={classes.buttonWrapper}>
@@ -149,7 +160,7 @@ function Login(props) {
             </button>
             <button
               className={classes.loginButton}
-              onClick={() => setLoginWithEmail(true)}
+              onClick={handleLoginWithEmail}
               type="button"
             ><span className={classes.buttonText}>Email</span><AlternateEmailIcon />
             </button>

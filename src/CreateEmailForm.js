@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import useInputState from './hooks/useInputState';
+import './styles/CreateEmailFormStyles.css';
 
 const styles = {
   Login: {
@@ -70,10 +71,20 @@ function CreateEmailForm(props) {
   const [email, updateEmail, resetEmail] = useInputState('');
   const [password, updatePassword, resetPassword] = useInputState('');
   const [confirmPassword, updateConfirmPassword, resetConfirmPassword] = useInputState('');
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+
+  const handleSubmitCreateEmail = () => {
+    setIsAnimatingOut(true);
+    let timer = setTimeout(() => {
+      setIsAnimatingOut(false);
+    }, 195);
+    return () => clearTimeout(timer);
+  };
+
   const { classes, setCreatingEmailLogin } = props;
   return (
     <nav className={classes.Login}>
-      <div className={classes.LoginCard}>
+      <div className={isAnimatingOut ? 'CreateEmailFormCard animateOut' : 'CreateEmailFormCard'}>
         <h2>Create An Account</h2>
         <p>Please sign</p>
         <input type="text" value={email} onChange={updateEmail} />
@@ -82,7 +93,7 @@ function CreateEmailForm(props) {
         <div className={classes.buttonWrapper}>
           <button
             className={classes.loginButton}
-            onClick={() => setCreatingEmailLogin(true)}
+            onClick={handleSubmitCreateEmail}
             type="button"
           ><span className={classes.buttonText}>Create Account</span>
           </button>

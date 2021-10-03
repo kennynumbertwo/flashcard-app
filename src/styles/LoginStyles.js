@@ -5,24 +5,6 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
   },
-  LoginCard: {
-    height: '500px',
-    width: '375px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    backgroundColor: 'white',
-    borderRadius: '5px',
-    boxShadow: '0px 5px 10px 3px rgba(0, 0, 0, 0.3)',
-    '& h2': {
-      fontSize: '2rem',
-      margin: '0px 0px 0px 0px',
-    },
-    '& p': {
-      fontSize: '1.2rem',
-    },
-  },
   buttonWrapper: {
     display: 'flex',
     alignItems: 'center',
