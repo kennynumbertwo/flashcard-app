@@ -5,8 +5,6 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-// import Typography from '@material-ui/core/Typography';
-// import TextField from '@mui/material/TextField';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -259,8 +257,9 @@ export default function DrawerNav(props) {
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
-      >
-        <Login initializeUser={initializeUser} />
+      > {user === '' && <Login initializeUser={initializeUser} />}
+        {user !== '' && (
+
         <Switch>
           <Route
             exact
@@ -292,6 +291,7 @@ export default function DrawerNav(props) {
           <Route exact path="/create-deck" render={() => <CreateDeck />} />
           <Route exact path="/about" render={() => <About />} />
         </Switch>
+        )}
         <Modal
           isShowing={isShowingModal}
           hide={toggleModal}
