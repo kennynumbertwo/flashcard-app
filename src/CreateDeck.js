@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
 
 const styles = {
   root: {
@@ -12,7 +13,10 @@ const styles = {
 };
 
 function CreateDeck(props) {
-  const { classes } = props;
+  const { classes, isLoggedIn } = props;
+  if (!isLoggedIn) {
+    return <Redirect to="/login" />;
+  }
   return (
     <h2 className={classes.root}>Create Deck Page</h2>
   );

@@ -82,8 +82,9 @@ function LoginEmailForm(props) {
             className={classes.loginButton}
             onClick={() => setCreatingEmailLogin(true)}
             type="button"
-          ><span className={classes.buttonText}>Dont Have An Account?</span>
+          ><span className={classes.buttonText}>Sign In</span>
           </button>
+          <p>Don&apos;t Have An Account?</p>
         </div>
       </div>
     </nav>

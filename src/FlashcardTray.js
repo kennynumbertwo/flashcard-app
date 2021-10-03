@@ -6,6 +6,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { Redirect } from 'react-router-dom';
 import styles from './styles/FlashcardTrayStyles';
 import useToggle from './hooks/useToggle';
 import Flashcard from './Flashcard';
@@ -101,8 +102,11 @@ function FlashcardTray(props) {
     return cardQuantityArray;
   };
 
-  const { classes, currentCardSetName } = props;
+  const { classes, currentCardSetName, isLoggedIn } = props;
 
+  if (!isLoggedIn) {
+    return <Redirect to="/login" />;
+  }
   return (
     <div className={classes.root}>
       {started && <h2>{currentCardSetName}</h2>}

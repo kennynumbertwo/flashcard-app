@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
 import CollectionCard from './CollectionCard';
 
 const styles = {
@@ -16,7 +17,10 @@ const styles = {
 };
 
 function CollectionsPage(props) {
-  const { classes, cardCollections } = props;
+  const { classes, cardCollections, isLoggedIn } = props;
+  if (!isLoggedIn) {
+    return <Redirect to="/login" />;
+  }
   return (
     <div className={classes.root}>
       {cardCollections.map(cardCollection => (

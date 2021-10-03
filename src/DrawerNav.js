@@ -117,6 +117,7 @@ export default function DrawerNav(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const {
     cardCollections,
@@ -142,6 +143,7 @@ export default function DrawerNav(props) {
   const initializeUser = (login) => {
     if (user === '') {
       setUser(login);
+      setIsLoggedIn(true);
     } else {
       console.log('User already signed in');
     }
@@ -152,7 +154,8 @@ export default function DrawerNav(props) {
     console.log(auth);
     await auth.signOut();
     setUser('');
-    console.log(getAuth());
+    setIsLoggedIn(false);
+    console.log(auth);
   };
 
   return (
@@ -257,14 +260,22 @@ export default function DrawerNav(props) {
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
-      > {user === '' && <Login initializeUser={initializeUser} />}
-        {user !== '' && (
-
+      >
         <Switch>
           <Route
             exact
+            path="/login"
+            render={() => <Login initializeUser={initializeUser} isLoggedIn={isLoggedIn} />}
+          />
+          <Route
+            exact
             path="/collections"
-            render={() => <CollectionsPage cardCollections={cardCollections} />}
+            render={() => (
+              <CollectionsPage
+                cardCollections={cardCollections}
+                isLoggedIn={isLoggedIn}
+              />
+            )}
           />
           <Route
             exact
@@ -274,6 +285,7 @@ export default function DrawerNav(props) {
                 cardCollections={cardCollections}
                 selectedCollection={routeProps.match.params.subCategory}
                 updateCardSetName={updateCardSetName}
+                isLoggedIn={isLoggedIn}
               />
             )}
           />
@@ -285,13 +297,13 @@ export default function DrawerNav(props) {
                 cardSetDatabase={cardSetDatabase}
                 selectedSetIndex={selectedSetIndex}
                 currentCardSetName={currentCardSetName}
+                isLoggedIn={isLoggedIn}
               />
             )}
           />
-          <Route exact path="/create-deck" render={() => <CreateDeck />} />
+          <Route exact path="/create-deck" render={() => <CreateDeck isLoggedIn={isLoggedIn} />} />
           <Route exact path="/about" render={() => <About />} />
         </Switch>
-        )}
         <Modal
           isShowing={isShowingModal}
           hide={toggleModal}

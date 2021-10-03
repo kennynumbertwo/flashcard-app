@@ -12,13 +12,14 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword }
   from 'firebase/auth';
+import { Redirect } from 'react-router-dom';
 import CreateEmailLogin from './CreateEmailForm';
 import LoginEmailForm from './LoginEmailForm';
 import Modal from './Modal';
 import styles from './styles/LoginStyles';
 
 function Login(props) {
-  const { classes } = props;
+  const { classes, isLoggedIn } = props;
 
   const [loginWithEmail, setLoginWithEmail] = useState(false);
   const [isShowingModal, setIsShowingModal] = useState(false);
@@ -118,6 +119,9 @@ function Login(props) {
       });
   };
 
+  if (isLoggedIn) {
+    return <Redirect to="/collections" />;
+  }
   if (!loginWithEmail) {
     return (
       <nav className={classes.Login}>

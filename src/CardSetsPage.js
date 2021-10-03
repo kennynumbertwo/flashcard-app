@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
 import CollectionCard from './CollectionCard';
 
 const styles = {
@@ -17,7 +18,7 @@ const styles = {
 
 function CardSets(props) {
   const [selectedSetNames, setSelectedSetNames] = useState([]);
-  const { classes, cardCollections, selectedCollection, updateCardSetName } = props;
+  const { classes, cardCollections, selectedCollection, updateCardSetName, isLoggedIn } = props;
   useEffect(() => {
     getSetNames();
   }, [cardCollections]);
@@ -31,7 +32,9 @@ function CardSets(props) {
     });
     return setSelectedSetNames(pendingSetNames);
   };
-
+  if (!isLoggedIn) {
+    return <Redirect to="/login" />;
+  }
   return (
     <div className={classes.root}>
       {selectedSetNames.map(setName => (
