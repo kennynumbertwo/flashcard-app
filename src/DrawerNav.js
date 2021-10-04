@@ -31,6 +31,7 @@ import CreateDeck from './CreateDeck';
 import About from './About';
 import Modal from './Modal';
 import Login from './Login';
+import HomePage from './HomePage';
 import AccountMenu from './AccountMenu';
 
 const drawerWidth = 350;
@@ -269,6 +270,11 @@ export default function DrawerNav(props) {
       >
         {/* Routes for Main Page */}
         <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => <HomePage isLoggedIn={isLoggedIn} />}
+          />
           <Route
             exact
             path="/login"

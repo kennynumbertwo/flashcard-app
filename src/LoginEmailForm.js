@@ -13,6 +13,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import GithubIcon from '@material-ui/icons/GitHub';
 import GoogleIcon from '@mui/icons-material/Google';
+import Modal from './Modal';
 
 const styles = {
   Login: {
@@ -179,7 +180,14 @@ function LoginEmailForm(props) {
     showPassword: false,
     showConfirmPassword: false,
   });
-  const { classes, setCreatingEmailLogin } = props;
+  const {
+    classes,
+    setCreatingEmailLogin,
+    authenticateGithub,
+    authenticateFacebook,
+    authenticateGoogle,
+    isShowingModal,
+    toggleModal } = props;
 
   const handleCreateEmailLogin = () => {
     setIsAnimatingOut(true);
@@ -267,11 +275,17 @@ function LoginEmailForm(props) {
           <span className={classes.dividerLine} />
         </div>
         <div className={classes.iconsWrapper}>
-          <GoogleIcon className="google" />
-          <FacebookIcon className="facebook" />
-          <GithubIcon className="github" />
+          <GoogleIcon className="google" onClick={authenticateGoogle} />
+          <FacebookIcon className="facebook" onClick={authenticateFacebook} />
+          <GithubIcon className="github" onClick={authenticateGithub} />
         </div>
       </div>
+      <Modal
+        isShowing={isShowingModal}
+        hide={toggleModal}
+        messageText="You have signed up with a different provider for that email"
+        buttonText="Close"
+      />
     </nav>
   );
 }
