@@ -1,5 +1,5 @@
 .LoginEmailFormCard {
-  height: 500px;
+  height: 600px;
   width: 375px;
   display: flex;
   align-items: center;
@@ -51,8 +51,4 @@
 .LoginEmailFormCard h2 {
   font-size: 2rem;
   margin: 0px 0px 0px 0px;
-}
-
-.LoginEmailFormCard p {
-  font-size: 1.2rem;
 }

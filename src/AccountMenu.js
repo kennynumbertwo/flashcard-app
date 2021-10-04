@@ -98,11 +98,11 @@ function AccountMenu(props) {
                   onKeyDown={() => handleListKeyDown}
                 >
                   {isLoggedIn && (
-                    <>
+                    <div>
                       <MenuItem onClick={handleClose}>Profile</MenuItem>
                       <MenuItem onClick={handleClose}>My account</MenuItem>
                       <MenuItem onClick={handleClose}>Logout</MenuItem>
-                    </>
+                    </div>
                   )}
                   {!isLoggedIn && (
                     <MenuItem>Not Signed In</MenuItem>

@@ -10,6 +10,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import GithubIcon from '@material-ui/icons/GitHub';
+import GoogleIcon from '@mui/icons-material/Google';
 
 const styles = {
   Login: {
@@ -106,6 +109,66 @@ const styles = {
       transform: 'translateX(35%)',
     },
   },
+  dividerBlock: {
+    display: 'flex',
+    justifyContent: 'center',
+    alightItems: 'center',
+    height: '50px',
+    width: '100%',
+    // border: '1px solid black',
+  },
+  dividerLine: {
+    display: 'flex',
+    alignSelf: 'center',
+    height: '1px',
+    width: '40%',
+    borderBottom: '1px solid rgba(0, 0, 0, 0.4)',
+  },
+  dividerText: {
+    display: 'flex',
+    alignSelf: 'center',
+    padding: '0px 10px 0px 10px',
+    fontSize: '14px',
+  },
+  iconsWrapper: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    height: '100px',
+    width: '75%',
+    marginBottom: '15px',
+    '& svg': {
+      fontSize: '35px',
+      color: 'rgba(0, 0, 0, 0.7)',
+      '&.facebook': {
+        fontSize: '42px',
+        transition: 'all 0.4s ease 0s',
+        '&:hover': {
+          color: 'rgba(7, 177, 77, 0.7)',
+          transition: 'all 0.4s ease 0s',
+          cursor: 'pointer',
+        },
+      },
+      '&.google': {
+        fontSize: '39px',
+        transition: 'all 0.4s ease 0s',
+        '&:hover': {
+          color: 'rgba(7, 177, 77, 0.7)',
+          transition: 'all 0.4s ease 0s',
+          cursor: 'pointer',
+        },
+      },
+      '&.github': {
+        transition: 'all 0.4s ease 0s',
+        '&:hover': {
+          color: 'rgba(7, 177, 77, 0.7)',
+          transition: 'all 0.4s ease 0s',
+          cursor: 'pointer',
+        },
+
+      },
+    },
+  },
 };
 
 function LoginEmailForm(props) {
@@ -197,6 +260,16 @@ function LoginEmailForm(props) {
             onClick={handleCreateEmailLogin}
           >Don&apos;t Have An Account? <ArrowRightAltIcon className="navArrow" />
           </a>
+        </div>
+        <div className={classes.dividerBlock}>
+          <span className={classes.dividerLine} />
+          <p className={classes.dividerText}>OR</p>
+          <span className={classes.dividerLine} />
+        </div>
+        <div className={classes.iconsWrapper}>
+          <GoogleIcon className="google" />
+          <FacebookIcon className="facebook" />
+          <GithubIcon className="github" />
         </div>
       </div>
     </nav>

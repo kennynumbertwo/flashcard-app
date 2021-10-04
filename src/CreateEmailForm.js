@@ -18,7 +18,6 @@ const styles = {
     justifyContent: 'center',
   },
   LoginCardTop: {
-    // border: '1px solid black',
     display: 'flex',
     justifyContent: 'center',
     alightItems: 'center',
@@ -39,7 +38,6 @@ const styles = {
     justifyContent: 'space-evenly',
     alignItems: 'center',
     flexDirection: 'column',
-    // border: '1px solid black',
     width: '100%',
     height: '40%',
     paddingBottom: '0px',
@@ -49,7 +47,6 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    // border: '1px solid black',
     height: '25%',
     width: '100%',
   },
@@ -66,7 +63,6 @@ const styles = {
     background: 'rgba(0, 0, 0, 0.7)',
     width: '125px',
     height: '50px',
-    // margin: '25px',
     border: '1.5px solid rgba(0, 0, 0, 0.7)',
     transition: 'all 0.4s ease 0s',
     borderRadius: '5px',
@@ -87,7 +83,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    // border: '1px solid black',
     height: '10%',
     width: '100%',
   },
@@ -120,11 +115,12 @@ function CreateEmailForm(props) {
     showConfirmPassword: false,
   });
 
-  const handleSubmitCreateEmail = () => {
+  const handleSubmitCreateEmail = (e) => {
+    e.preventDefault();
     setIsAnimatingOut(true);
     let timer = setTimeout(() => {
       setIsAnimatingOut(false);
-      createEmailAccount();
+      createEmailAccount(email, values.password);
     }, 195);
     return () => clearTimeout(timer);
   };
@@ -231,8 +227,8 @@ function CreateEmailForm(props) {
           <button
             className={classes.loginButton}
             onClick={handleSubmitCreateEmail}
-            type="button"
-          ><span className={classes.buttonText}>Create</span>
+            type="submit"
+          ><span className={classes.buttonText}>Submit</span>
           </button>
         </div>
       </div>

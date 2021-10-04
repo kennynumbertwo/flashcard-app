@@ -54,34 +54,44 @@
   border-radius: 5px;
   background-color: #fff;
   box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.1);
-  animation-name: slideIn;
+  animation-name: modalSlideIn;
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
-  animation-duration: 0.2s;
+  animation-duration: 0.25s;
 }
 
-@keyframes slideIn {
+@keyframes modalSlideIn {
   0% {
-    transform: translateY(100%);
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  60% {
+    opacity: 0.3;
   }
   100% {
+    opacity: 1;
     transform: translateY(0%);
   }
 }
 
-.modalContainer.slideOut {
-  animation-name: slideOut;
+.modalContainer.modalSlideOut {
+  animation-name: modalSlideOut;
   animation-iteration-count: 1;
   animation-timing-function: ease-out;
-  animation-duration: 0.2s;
+  animation-duration: 0.25s;
 }
 
-@keyframes slideOut {
+@keyframes modalSlideOut {
   0% {
+    opacity: 1;
     transform: translateY(0%);
   }
+  30% {
+    opacity: 0.7;
+  }
   100% {
-    transform: translateY(150%);
+    opacity: 0;
+    transform: translateY(50%);
   }
 }
 

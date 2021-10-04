@@ -20,8 +20,8 @@ function Modal(props) {
     }
     setAnimatingOut(true);
     let timer = setTimeout(() => {
-      hide();
       setAnimatingOut(false);
+      hide();
     }, 200);
     return () => clearTimeout(timer);
   };
@@ -30,8 +30,8 @@ function Modal(props) {
     return (
       ReactDOM.createPortal(
         <React.Fragment>
-          <div className={animatingOut ? 'modalOverlay fadeOut' : 'modalOverlay'}>
-            <div className={animatingOut ? 'modalContainer slideOut' : 'modalContainer'}>
+          <div className={animatingOut ? 'modalOverlay modalFadeOut' : 'modalOverlay'}>
+            <div className={animatingOut ? 'modalContainer modalSlideOut' : 'modalContainer'}>
               <div className="modalMessage">{messageText}</div>
               {secondButton
                 ? (

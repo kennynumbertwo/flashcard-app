@@ -36,8 +36,8 @@ function Login(props) {
     const login = authData.user.email;
     setIsAnimatingOut(true);
     let timer = setTimeout(() => {
-      props.initializeUser(login);
       setIsAnimatingOut(false);
+      props.initializeUser(login);
     }, 190);
     return () => clearTimeout(timer);
   };
@@ -48,24 +48,25 @@ function Login(props) {
       display: 'popup',
     });
     const auth = getAuth();
-    signInWithPopup(auth, provider).then(authHandler).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's accound used
-      const { email } = error;
-      const credential = GithubAuthProvider.credentialFromError(error);
-      if (errorCode === 'auth/account-exists-with-different-credential') {
-        setIsShowingModal(true);
+    signInWithPopup(auth, provider).then(authHandler)
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's accound used
+        const { email } = error;
+        const credential = GithubAuthProvider.credentialFromError(error);
+        if (errorCode === 'auth/account-exists-with-different-credential') {
+          setIsShowingModal(true);
         // Handle linking here if your app allows it.
-      } else {
-        console.log(
-          `Error Code: ${errorCode}`,
-          `Error Message: ${errorMessage}`,
-          `Email: ${email}`,
-          `Credential: ${credential}`,
-        );
-      }
-    });
+        } else {
+          console.log(
+            `Error Code: ${errorCode}`,
+            `Error Message: ${errorMessage}`,
+            `Email: ${email}`,
+            `Credential: ${credential}`,
+          );
+        }
+      });
   };
 
   const authenticateFacebook = () => {
@@ -74,19 +75,21 @@ function Login(props) {
       display: 'popup',
     });
     const auth = getAuth();
-    signInWithPopup(auth, provider).then(authHandler).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's accound used
-      const { email } = error;
-      const credential = FacebookAuthProvider.credentialFromError(error);
-      console.log(
-        `Error Code: ${errorCode}`,
-        `Error Message: ${errorMessage}`,
-        `Email: ${email}`,
-        `Credential: ${credential}`,
-      );
-    });
+    signInWithPopup(auth, provider)
+      .then(authHandler)
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's accound used
+        const { email } = error;
+        const credential = FacebookAuthProvider.credentialFromError(error);
+        console.log(
+          `Error Code: ${errorCode}`,
+          `Error Message: ${errorMessage}`,
+          `Email: ${email}`,
+          `Credential: ${credential}`,
+        );
+      });
   };
 
   const authenticateGoogle = () => {
@@ -113,9 +116,7 @@ function Login(props) {
   const createEmailAccount = (email, password) => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const { user } = userCredential;
-      })
+      .then(authHandler)
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
