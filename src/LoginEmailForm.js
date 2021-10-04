@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import TextField from '@mui/material/TextField';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-import useInputState from './hooks/useInputState';
 import './styles/LoginEmailFormStyles.css';
-import PasswordInput from './PasswordInput';
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const styles = {
   Login: {
@@ -104,18 +109,39 @@ const styles = {
 };
 
 function LoginEmailForm(props) {
-  const [email, updateEmail, resetEmail] = useInputState('');
-  const [password, updatePassword, resetPassword] = useInputState('');
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+  const [values, setValues] = React.useState({
+    password: '',
+    confirmPassword: '',
+    showPassword: false,
+    showConfirmPassword: false,
+  });
   const { classes, setCreatingEmailLogin } = props;
 
   const handleCreateEmailLogin = () => {
     setIsAnimatingOut(true);
     let timer = setTimeout(() => {
-      setCreatingEmailLogin(true);
       setIsAnimatingOut(false);
+      setCreatingEmailLogin(true);
     }, 190);
     return () => clearTimeout(timer);
+  };
+
+  // PasswordInputFunctions
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -134,10 +160,29 @@ function LoginEmailForm(props) {
             autoComplete="current-email"
             variant="standard"
           />
-          <PasswordInput />
+          <FormControl variant="standard">
+            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+            <Input
+              sx={{ width: '275px' }}
+              id="standard-adornment-password"
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              onChange={handleChange('password')}
+              variant="standard"
+              endAdornment={(
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              )}
+            />
+          </FormControl>
         </div>
-        {/* <input type="text" value={email} onChange={updateEmail} /> */}
-        {/* <input type="text" value={password} onChange={updatePassword} /> */}
         <div className={classes.buttonWrapper}>
           <button
             className={classes.loginButton}

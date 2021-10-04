@@ -110,7 +110,7 @@ function Login(props) {
     });
   };
 
-  const authenticateEmail = (email, password) => {
+  const createEmailAccount = (email, password) => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -189,7 +189,7 @@ function Login(props) {
   }
   if (creatingEmailLogin) {
     return (
-      <CreateEmailLogin />
+      <CreateEmailLogin createEmailAccount={createEmailAccount} />
     );
   }
 }
