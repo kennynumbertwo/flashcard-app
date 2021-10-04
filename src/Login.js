@@ -26,6 +26,7 @@ function Login(props) {
   const [isShowingModal, setIsShowingModal] = useState(false);
   const [creatingEmailLogin, setCreatingEmailLogin] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+  const [animationClass, setAnimationClass] = useState('provider');
 
   const toggleModal = () => {
     setIsShowingModal(!isShowingModal);
@@ -33,7 +34,12 @@ function Login(props) {
 
   const authHandler = authData => {
     const login = authData.user.email;
-    props.initializeUser(login);
+    setIsAnimatingOut(true);
+    let timer = setTimeout(() => {
+      props.initializeUser(login);
+      setIsAnimatingOut(false);
+    }, 190);
+    return () => clearTimeout(timer);
   };
 
   const authenticateGithub = () => {
@@ -122,6 +128,7 @@ function Login(props) {
   };
 
   const handleLoginWithEmail = () => {
+    setAnimationClass('animateOut');
     setIsAnimatingOut(true);
     let timer = setTimeout(() => {
       setLoginWithEmail(true);
@@ -136,7 +143,7 @@ function Login(props) {
   if (!loginWithEmail) {
     return (
       <nav className={classes.Login}>
-        <div className={isAnimatingOut ? 'LoginCard animateOut' : 'LoginCard'}>
+        <div className={isAnimatingOut ? `LoginCard ${animationClass}` : 'LoginCard'}>
           <h2>Sign In</h2>
           <p>Please sign in or create an account</p>
           <div className={classes.buttonWrapper}>

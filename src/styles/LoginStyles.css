@@ -48,6 +48,25 @@
   }
 }
 
+.LoginCard.provider {
+  animation-name: loginCardProvider;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  animation-duration: 0.2s;
+}
+
+@keyframes loginCardProvider {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .LoginCard h2 {
   font-size: 2rem;
   margin: 0px 0px 0px 0px;

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core';
+import TextField from '@mui/material/TextField';
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import useInputState from './hooks/useInputState';
 import './styles/LoginEmailFormStyles.css';
+import PasswordInput from './PasswordInput';
 
 const styles = {
   Login: {
@@ -10,12 +13,41 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  LoginCardTop: {
+    // border: '1px solid black',
+    display: 'flex',
+    justifyContent: 'center',
+    alightItems: 'center',
+    height: '30%',
+    width: '100%',
+  },
+  LoginCardTopTextWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alightItems: 'center',
+    flexDirection: 'column',
+  },
+  signInText: {
+    paddingTop: '25px',
+  },
+  inputWrapper: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    flexDirection: 'column',
+    // border: '1px solid black',
+    width: '100%',
+    height: '35%',
+    paddingBottom: '0px',
+  },
   buttonWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    paddingTop: '15px',
+    // border: '1px solid black',
+    height: '25%',
+    width: '100%',
   },
   loginButton: {
     display: 'flex',
@@ -28,9 +60,9 @@ const styles = {
     fontSize: '16px',
     fontWeight: '400',
     background: 'rgba(0, 0, 0, 0.7)',
-    width: '200px',
+    width: '125px',
     height: '50px',
-    margin: '10px',
+    // margin: '25px',
     border: '1.5px solid rgba(0, 0, 0, 0.7)',
     transition: 'all 0.4s ease 0s',
     borderRadius: '5px',
@@ -44,8 +76,30 @@ const styles = {
       cursor: 'pointer',
     },
   },
-  buttonText: {
-    padding: '2px 10px 0px 0px',
+  noAccountWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    // border: '1px solid black',
+    height: '10%',
+    width: '100%',
+  },
+  noAccountText: {
+    display: 'flex',
+    paddingLeft: '25px',
+    '&:hover': {
+      cursor: 'pointer',
+    },
+    '& .navArrow': {
+      color: 'rgba(0, 0, 0, 0)',
+      paddingBottom: '4px',
+      transition: 'all .25s',
+      transitionTimingFunction: 'ease-in-out',
+    },
+    '&:hover .navArrow': {
+      color: 'rgba(0, 0, 0, .8)',
+      transform: 'translateX(35%)',
+    },
   },
 };
 
@@ -67,10 +121,23 @@ function LoginEmailForm(props) {
   return (
     <nav className={classes.Login}>
       <div className={isAnimatingOut ? 'LoginEmailFormCard animateOut' : 'LoginEmailFormCard'}>
-        <h2>Sign In</h2>
-        <p>Please sign</p>
-        <input type="text" value={email} onChange={updateEmail} />
-        <input type="text" value={password} onChange={updatePassword} />
+        <div className={classes.LoginCardTop}>
+          <div className={classes.LoginCardTopTextWrapper}>
+            <h2 className={classes.signInText}>Sign In</h2>
+          </div>
+        </div>
+        <div className={classes.inputWrapper}>
+          <TextField
+            id="standard-email-input"
+            label="Email"
+            type="email"
+            autoComplete="current-email"
+            variant="standard"
+          />
+          <PasswordInput />
+        </div>
+        {/* <input type="text" value={email} onChange={updateEmail} /> */}
+        {/* <input type="text" value={password} onChange={updatePassword} /> */}
         <div className={classes.buttonWrapper}>
           <button
             className={classes.loginButton}
@@ -78,7 +145,13 @@ function LoginEmailForm(props) {
             type="button"
           ><span className={classes.buttonText}>Sign In</span>
           </button>
-          <p>Don&apos;t Have An Account?</p>
+        </div>
+        <div className={classes.noAccountWrapper}>
+          <a
+            className={classes.noAccountText}
+            onClick={handleCreateEmailLogin}
+          >Don&apos;t Have An Account? <ArrowRightAltIcon className="navArrow" />
+          </a>
         </div>
       </div>
     </nav>
