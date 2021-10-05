@@ -117,7 +117,7 @@ export default function DrawerNav(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const {
@@ -151,7 +151,7 @@ export default function DrawerNav(props) {
     const auth = getAuth();
     console.log(auth);
     await auth.signOut();
-    setUser('');
+    setUser({});
     setIsLoggedIn(false);
     console.log(auth);
   };

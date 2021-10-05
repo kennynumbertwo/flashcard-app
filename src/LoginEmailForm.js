@@ -192,18 +192,21 @@ function LoginEmailForm(props) {
     toggleModal } = props;
 
   useEffect(() => {
-    if (props.userToLogIn !== '' && props.user === '') {
+    console.log(Object.keys(props.userToLogIn).length);
+    console.log(Object.keys(props.user).length);
+    if (Object.keys(props.userToLogIn).length !== 0 && Object.keys(props.user).length === 0) {
+      console.log('passed');
       if (props.firstSignIn) {
         setAnimateClass('Login');
         setIsAnimatingOut(true);
         setTimeout(() => {
           setIsAnimatingOut(false);
           props.setUser(props.userToLogIn);
-          props.setIsLoggedIn('true');
+          props.setIsLoggedIn(true);
         }, 500);
       } else {
         props.setUser(props.userToLogIn);
-        props.setIsLoggedIn('true');
+        props.setIsLoggedIn(true);
       }
     }
   }, [props.userToLogIn]);

@@ -16,7 +16,7 @@ function Login(props) {
   const { isLoggedIn } = props;
   const [isShowingModal, setIsShowingModal] = useState(false);
   const [creatingEmailLogin, setCreatingEmailLogin] = useState(false);
-  const [userToLogIn, setUserToLogIn] = useState('');
+  const [userToLogIn, setUserToLogIn] = useState({});
   const [userIsLoaded, setUserIsLoaded] = useState(false);
   const [firstSignIn, setFirstSignIn] = useState(false);
 
@@ -25,7 +25,10 @@ function Login(props) {
     auth.onAuthStateChanged((userAuth) => {
       if (userAuth) {
         setUserIsLoaded(true);
-        setUserToLogIn(userAuth.email);
+        setUserToLogIn({
+          email: userAuth.email,
+          uid: userAuth.uid,
+        });
       }
       if (!userAuth) {
         setUserIsLoaded(true);
@@ -39,7 +42,8 @@ function Login(props) {
   };
 
   const authHandler = authData => {
-    const login = authData.user.email;
+    console.log(authData.user);
+    const login = { email: authData.user.email, uid: authData.user.uid };
     setUserToLogIn(login);
   };
 
