@@ -6,7 +6,6 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword }
   from 'firebase/auth';
-import db from './firebase.config';
 
 const authHandler = authData => {
   const login = authData.user.email;

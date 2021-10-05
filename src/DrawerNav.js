@@ -151,6 +151,7 @@ export default function DrawerNav(props) {
     const auth = getAuth();
     console.log(auth);
     await auth.signOut();
+    setOpen(false);
     setUser({});
     setIsLoggedIn(false);
     console.log(auth);

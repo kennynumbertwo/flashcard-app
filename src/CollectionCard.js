@@ -53,7 +53,7 @@ function CollectionCard(props) {
       onClick={updateCardSetName && (() => updateCardSetName(cardText))}
     >
       <div className={classes.CollectionCardIcon}>
-        <i className="fas fa-microscope" />
+        <i className={props.iconClass} />
       </div>
       <div>
         <h4 className={classes.CollectionCardName}>{cardText}</h4>

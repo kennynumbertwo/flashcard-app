@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import CollectionCard from './CollectionCard';
+import icons from './icons';
 
 const styles = {
   root: {
@@ -29,6 +30,7 @@ function CollectionsPage(props) {
           subCategoryId={cardCollection.subCategoryId}
           category={cardCollection.category}
           cardText={cardCollection.subCategory}
+          iconClass={cardCollection.subCategoryClass}
           setNames={cardCollection.setNames}
           url={`/collections/${cardCollection.subCategoryId}`}
         />

@@ -55,6 +55,7 @@ function MainContainer(props) {
         collections.push({
           category: cardSet.category,
           subCategory: cardSet.subCategory,
+          subCategoryClass: cardSet.subCategoryClass,
           setNames: [{ cardSetName: cardSet.setName, cardSetId: cardSet.id }],
           subCategoryId: `${cardSet.subCategory.toLowerCase().replace(/\s+/g, '-')}`,
         });

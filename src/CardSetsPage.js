@@ -18,6 +18,7 @@ const styles = {
 
 function CardSets(props) {
   const [selectedSetNames, setSelectedSetNames] = useState([]);
+  const [selectedClass, setSelectedClass] = useState('');
   const { classes, cardCollections, selectedCollection, updateCardSetName, isLoggedIn } = props;
   useEffect(() => {
     getSetNames();
@@ -28,6 +29,7 @@ function CardSets(props) {
     cardCollections.forEach(collection => {
       if (collection.subCategoryId === selectedCollection) {
         pendingSetNames = collection.setNames;
+        setSelectedClass(collection.subCategoryClass);
       }
     });
     return setSelectedSetNames(pendingSetNames);
@@ -43,6 +45,7 @@ function CardSets(props) {
           key={setName.cardSetId}
           url={`/collections/${selectedCollection}/${setName.cardSetId}`}
           updateCardSetName={updateCardSetName}
+          iconClass={selectedClass}
         />
       ))}
     </div>
