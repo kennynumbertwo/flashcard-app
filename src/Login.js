@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   getAuth,
   signInWithPopup,
@@ -17,6 +17,22 @@ function Login(props) {
   const [isShowingModal, setIsShowingModal] = useState(false);
   const [creatingEmailLogin, setCreatingEmailLogin] = useState(false);
   const [userToLogIn, setUserToLogIn] = useState('');
+  const [userIsLoaded, setUserIsLoaded] = useState(false);
+  const [firstSignIn, setFirstSignIn] = useState(false);
+
+  useEffect(() => {
+    let auth = getAuth();
+    auth.onAuthStateChanged((userAuth) => {
+      if (userAuth) {
+        setUserIsLoaded(true);
+        setUserToLogIn(userAuth.email);
+      }
+      if (!userAuth) {
+        setUserIsLoaded(true);
+        setFirstSignIn(true);
+      }
+    });
+  }, []);
 
   const toggleModal = () => {
     setIsShowingModal(!isShowingModal);
@@ -144,22 +160,28 @@ function Login(props) {
       <CreateEmailLogin createEmailAccount={createEmailAccount} />
     );
   }
-  return (
-    <LoginEmailForm
-      setCreatingEmailLogin={setCreatingEmailLogin}
-      signInWithEmail={signInWithEmail}
-      authenticateGithub={authenticateGithub}
-      authenticateFacebook={authenticateFacebook}
-      authenticateGoogle={authenticateGoogle}
-      toggleModal={toggleModal}
-      isShowingModal={isShowingModal}
-      initializeUser={props.initializeUser}
-      isLoggedIn={props.isLoggedIn}
-      user={props.user}
-      setUser={props.setUser}
-      setIsLoggedIn={props.setIsLoggedIn}
-      userToLogIn={userToLogIn}
-    />
-  );
+  if (userIsLoaded) {
+    return (
+      <LoginEmailForm
+        setCreatingEmailLogin={setCreatingEmailLogin}
+        signInWithEmail={signInWithEmail}
+        authenticateGithub={authenticateGithub}
+        authenticateFacebook={authenticateFacebook}
+        authenticateGoogle={authenticateGoogle}
+        toggleModal={toggleModal}
+        isShowingModal={isShowingModal}
+        initializeUser={props.initializeUser}
+        isLoggedIn={props.isLoggedIn}
+        user={props.user}
+        setUser={props.setUser}
+        setIsLoggedIn={props.setIsLoggedIn}
+        userToLogIn={userToLogIn}
+        firstSignIn={firstSignIn}
+      />
+    );
+  }
+  if (!userIsLoaded) {
+    return null;
+  }
 }
 export default Login;

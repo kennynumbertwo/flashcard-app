@@ -134,10 +134,10 @@ export default function DrawerNav(props) {
   } = props;
 
   // useEffect(() => {
-  //   getAuth().onAuthStateChanged((userAuth) => {
-  //     console.log(userAuth);
-  //   });
-  // });
+  //   if (user) {
+  //     setIsLoggedIn(true);
+  //   }
+  // }, [user]);
 
   const handleDrawerOpen = () => {
     setOpen(true);

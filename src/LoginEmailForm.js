@@ -193,13 +193,18 @@ function LoginEmailForm(props) {
 
   useEffect(() => {
     if (props.userToLogIn !== '' && props.user === '') {
-      setAnimateClass('Login');
-      setIsAnimatingOut(true);
-      setTimeout(() => {
-        setIsAnimatingOut(false);
+      if (props.firstSignIn) {
+        setAnimateClass('Login');
+        setIsAnimatingOut(true);
+        setTimeout(() => {
+          setIsAnimatingOut(false);
+          props.setUser(props.userToLogIn);
+          props.setIsLoggedIn('true');
+        }, 500);
+      } else {
         props.setUser(props.userToLogIn);
         props.setIsLoggedIn('true');
-      }, 500);
+      }
     }
   }, [props.userToLogIn]);
 
