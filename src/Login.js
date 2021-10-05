@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { withStyles } from '@material-ui/core';
 import {
   getAuth,
   signInWithPopup,
@@ -11,14 +10,13 @@ import {
 import { Redirect } from 'react-router-dom';
 import CreateEmailLogin from './CreateEmailForm';
 import LoginEmailForm from './LoginEmailForm';
-import styles from './styles/LoginStyles';
 import './styles/LoginStyles.css';
 
 function Login(props) {
-  const { classes, isLoggedIn } = props;
-
+  const { isLoggedIn } = props;
   const [isShowingModal, setIsShowingModal] = useState(false);
   const [creatingEmailLogin, setCreatingEmailLogin] = useState(false);
+  const [userToLogIn, setUserToLogIn] = useState('');
 
   const toggleModal = () => {
     setIsShowingModal(!isShowingModal);
@@ -26,12 +24,7 @@ function Login(props) {
 
   const authHandler = authData => {
     const login = authData.user.email;
-    setIsAnimatingOut(true);
-    let timer = setTimeout(() => {
-      setIsAnimatingOut(false);
-      props.initializeUser(login);
-    }, 190);
-    return () => clearTimeout(timer);
+    setUserToLogIn(login);
   };
 
   const authenticateGithub = () => {
@@ -75,12 +68,17 @@ function Login(props) {
         // The email of the user's accound used
         const { email } = error;
         const credential = FacebookAuthProvider.credentialFromError(error);
-        console.log(
-          `Error Code: ${errorCode}`,
-          `Error Message: ${errorMessage}`,
-          `Email: ${email}`,
-          `Credential: ${credential}`,
-        );
+        if (errorCode === 'auth/account-exists-with-different-credential') {
+          setIsShowingModal(true);
+        // Handle linking here if your app allows it.
+        } else {
+          console.log(
+            `Error Code: ${errorCode}`,
+            `Error Message: ${errorMessage}`,
+            `Email: ${email}`,
+            `Credential: ${credential}`,
+          );
+        }
       });
   };
 
@@ -136,9 +134,15 @@ function Login(props) {
       authenticateGithub={authenticateGithub}
       authenticateFacebook={authenticateFacebook}
       authenticateGoogle={authenticateGoogle}
-      isShowingModal={isShowingModal}
       toggleModal={toggleModal}
+      isShowingModal={isShowingModal}
+      initializeUser={props.initializeUser}
+      isLoggedIn={props.isLoggedIn}
+      user={props.user}
+      setUser={props.setUser}
+      setIsLoggedIn={props.setIsLoggedIn}
+      userToLogIn={userToLogIn}
     />
   );
 }
-export default withStyles(styles)(Login);
+export default Login;

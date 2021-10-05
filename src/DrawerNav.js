@@ -141,14 +141,14 @@ export default function DrawerNav(props) {
     setOpen(false);
   };
 
-  const initializeUser = (login) => {
-    if (user === '') {
-      setUser(login);
-      setIsLoggedIn(true);
-    } else {
-      console.log('User already signed in');
-    }
-  };
+  // const initializeUser = (login) => {
+  //   if (user === '') {
+  //     setUser(login);
+  //     setIsLoggedIn(true);
+  //   } else {
+  //     console.log('User already signed in');
+  //   }
+  // };
 
   const logoutUser = async () => {
     const auth = getAuth();
@@ -278,7 +278,14 @@ export default function DrawerNav(props) {
           <Route
             exact
             path="/login"
-            render={() => <Login initializeUser={initializeUser} isLoggedIn={isLoggedIn} />}
+            render={() => (
+              <Login
+                isLoggedIn={isLoggedIn}
+                user={user}
+                setUser={setUser}
+                setIsLoggedIn={setIsLoggedIn}
+              />
+            )}
           />
           <Route
             exact

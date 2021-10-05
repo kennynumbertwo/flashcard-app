@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
 import TextField from '@mui/material/TextField';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
@@ -122,7 +122,7 @@ const styles = {
     display: 'flex',
     alignSelf: 'center',
     height: '1px',
-    width: '40%',
+    width: '38%',
     borderBottom: '1px solid rgba(0, 0, 0, 0.4)',
   },
   dividerText: {
@@ -174,6 +174,7 @@ const styles = {
 
 function LoginEmailForm(props) {
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+  const [animateClass, setAnimateClass] = useState('');
   const [values, setValues] = React.useState({
     password: '',
     confirmPassword: '',
@@ -189,6 +190,18 @@ function LoginEmailForm(props) {
     isShowingModal,
     toggleModal } = props;
 
+  useEffect(() => {
+    if (props.userToLogIn !== '' && props.user === '') {
+      setAnimateClass('Login');
+      setIsAnimatingOut(true);
+      setTimeout(() => {
+        setIsAnimatingOut(false);
+        props.setUser(props.userToLogIn);
+        props.setIsLoggedIn('true');
+      }, 500);
+    }
+  }, [props.userToLogIn]);
+
   const handleCreateEmailLogin = () => {
     setIsAnimatingOut(true);
     let timer = setTimeout(() => {
@@ -197,6 +210,15 @@ function LoginEmailForm(props) {
     }, 190);
     return () => clearTimeout(timer);
   };
+
+  // const initializeUser = (login) => {
+  //   if (props.user === '') {
+  //     props.setUser(login);
+  //     props.setIsLoggedIn(true);
+  //   } else {
+  //     console.log('User already signed in');
+  //   }
+  // };
 
   // PasswordInputFunctions
 
@@ -217,7 +239,7 @@ function LoginEmailForm(props) {
 
   return (
     <nav className={classes.Login}>
-      <div className={isAnimatingOut ? 'LoginEmailFormCard animateOut' : 'LoginEmailFormCard'}>
+      <div className={isAnimatingOut ? `LoginEmailFormCard animateOut${animateClass}` : 'LoginEmailFormCard'}>
         <div className={classes.LoginCardTop}>
           <div className={classes.LoginCardTopTextWrapper}>
             <h2 className={classes.signInText}>Sign In</h2>
@@ -257,7 +279,6 @@ function LoginEmailForm(props) {
         <div className={classes.buttonWrapper}>
           <button
             className={classes.loginButton}
-            onClick={handleCreateEmailLogin}
             type="button"
           ><span className={classes.buttonText}>Sign In</span>
           </button>
