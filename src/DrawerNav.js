@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -133,6 +133,12 @@ export default function DrawerNav(props) {
     denyPendingSetName,
   } = props;
 
+  // useEffect(() => {
+  //   getAuth().onAuthStateChanged((userAuth) => {
+  //     console.log(userAuth);
+  //   });
+  // });
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -140,15 +146,6 @@ export default function DrawerNav(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  // const initializeUser = (login) => {
-  //   if (user === '') {
-  //     setUser(login);
-  //     setIsLoggedIn(true);
-  //   } else {
-  //     console.log('User already signed in');
-  //   }
-  // };
 
   const logoutUser = async () => {
     const auth = getAuth();

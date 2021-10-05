@@ -175,6 +175,7 @@ const styles = {
 function LoginEmailForm(props) {
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
   const [animateClass, setAnimateClass] = useState('');
+  const [email, setEmail] = useState('');
   const [values, setValues] = React.useState({
     password: '',
     confirmPassword: '',
@@ -211,19 +212,18 @@ function LoginEmailForm(props) {
     return () => clearTimeout(timer);
   };
 
-  // const initializeUser = (login) => {
-  //   if (props.user === '') {
-  //     props.setUser(login);
-  //     props.setIsLoggedIn(true);
-  //   } else {
-  //     console.log('User already signed in');
-  //   }
-  // };
-
   // PasswordInputFunctions
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleSignIn = () => {
+    props.signInWithEmail(email, values.password);
   };
 
   const handleClickShowPassword = () => {
@@ -252,6 +252,8 @@ function LoginEmailForm(props) {
             type="email"
             autoComplete="current-email"
             variant="standard"
+            value={email}
+            onChange={handleEmailChange}
           />
           <FormControl variant="standard">
             <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
@@ -280,6 +282,7 @@ function LoginEmailForm(props) {
           <button
             className={classes.loginButton}
             type="button"
+            onClick={handleSignIn}
           ><span className={classes.buttonText}>Sign In</span>
           </button>
         </div>

@@ -5,7 +5,7 @@ import {
   FacebookAuthProvider,
   GithubAuthProvider,
   GoogleAuthProvider,
-  createUserWithEmailAndPassword }
+  createUserWithEmailAndPassword, signInWithEmailAndPassword }
   from 'firebase/auth';
 import { Redirect } from 'react-router-dom';
 import CreateEmailLogin from './CreateEmailForm';
@@ -33,7 +33,8 @@ function Login(props) {
       display: 'popup',
     });
     const auth = getAuth();
-    signInWithPopup(auth, provider).then(authHandler)
+    signInWithPopup(auth, provider)
+      .then(authHandler)
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -120,6 +121,21 @@ function Login(props) {
       });
   };
 
+  const signInWithEmail = (email, password) => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(authHandler)
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's accound used
+        console.log(
+          `Error Code: ${errorCode}`,
+          `Error Message: ${errorMessage}`,
+        );
+      });
+  };
+
   if (isLoggedIn) {
     return <Redirect to="/collections" />;
   }
@@ -131,6 +147,7 @@ function Login(props) {
   return (
     <LoginEmailForm
       setCreatingEmailLogin={setCreatingEmailLogin}
+      signInWithEmail={signInWithEmail}
       authenticateGithub={authenticateGithub}
       authenticateFacebook={authenticateFacebook}
       authenticateGoogle={authenticateGoogle}
