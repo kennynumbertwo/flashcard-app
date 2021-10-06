@@ -6,6 +6,7 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import Divider from '@material-ui/core/Divider';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { withStyles } from '@material-ui/core';
 
@@ -19,6 +20,23 @@ const styles = {
   accountIcon: {
     color: 'rgba(0, 0, 0, 0.7)',
     margin: '0px 0px 0px 0px',
+  },
+  signedInAsWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    flexDirection: 'column',
+    padding: '0px 10px 0px 10px',
+    color: 'rgba(0, 0, 0, 0.7)',
+  },
+  signedInAs: {
+    margin: '0px 0px 0px 0px',
+    padding: '10px 0px 10px 0px',
+  },
+  signedInAsEmail: {
+    margin: '0px 0px 0px 0px',
+    padding: '0px 0px 20px 0px',
+    fontWeight: '500',
   },
 };
 
@@ -35,6 +53,7 @@ function AccountMenu(props) {
       return;
     }
     if (event.target.innerText === 'Logout') {
+      setOpen(false);
       logoutUser();
     }
     setOpen(false);
@@ -59,62 +78,67 @@ function AccountMenu(props) {
     prevOpen.current = open;
   }, [open]);
 
-  const { classes, logoutUser, isLoggedIn } = props;
-  return (
-    <div className={classes.accountMenuWrapper}>
-      <Button
-        ref={anchorRef}
-        id="composition-button"
-        aria-controls={open ? 'composition-menu' : undefined}
-        aria-expanded={open ? 'true' : undefined}
-        aria-haspopup="true"
-        onClick={handleToggle}
-        sx={{ width: '30px', height: '36px', minWidth: '36px', borderRadius: '50px' }}
-      >
-        <AccountCircleIcon className={classes.accountIcon} sx={{ fontSize: '1.9rem' }} />
-      </Button>
-      <Popper
-        open={open}
-        anchorEl={anchorRef.current}
-        role={undefined}
-        placement="bottom-start"
-        transition
-        disablePortal
-      >
-        {({ TransitionProps, placement }) => (
-          <Grow
-            {...TransitionProps}
-            style={{
-              transformOrigin:
-                  placement === 'bottom-start' ? 'left top' : 'left bottom',
-            }}
-          >
-            <Paper>
-              <ClickAwayListener onClickAway={handleClose}>
-                <MenuList
-                  autoFocusItem={open}
-                  id="composition-menu"
-                  aria-labelledby="composition-button"
-                  onKeyDown={() => handleListKeyDown}
-                >
-                  {isLoggedIn && (
-                    <div>
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
-                      <MenuItem onClick={handleClose}>My account</MenuItem>
-                      <MenuItem onClick={handleClose}>Logout</MenuItem>
-                    </div>
-                  )}
-                  {!isLoggedIn && (
-                    <MenuItem>Not Signed In</MenuItem>
-                  )}
-                </MenuList>
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
-        )}
-      </Popper>
-    </div>
-  );
+  const { classes, logoutUser, isLoggedIn, user } = props;
+
+  if (isLoggedIn) {
+    return (
+      <div className={classes.accountMenuWrapper}>
+        <Button
+          ref={anchorRef}
+          id="composition-button"
+          aria-controls={open ? 'composition-menu' : undefined}
+          aria-expanded={open ? 'true' : undefined}
+          aria-haspopup="true"
+          onClick={handleToggle}
+          sx={{ width: '30px', height: '36px', minWidth: '36px', borderRadius: '50px' }}
+        >
+          <AccountCircleIcon className={classes.accountIcon} sx={{ fontSize: '1.9rem' }} />
+        </Button>
+        <Popper
+          open={open}
+          anchorEl={anchorRef.current}
+          role={undefined}
+          placement="bottom-start"
+          transition
+          disablePortal
+        >
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{
+                transformOrigin:
+                    placement === 'bottom-start' ? 'left top' : 'left bottom',
+              }}
+            >
+              <Paper>
+                <ClickAwayListener onClickAway={handleClose}>
+                  <MenuList
+                    autoFocusItem={open}
+                    id="composition-menu"
+                    aria-labelledby="composition-button"
+                    onKeyDown={() => handleListKeyDown}
+                  >
+                    {isLoggedIn && (
+                      <div>
+                        <div className={classes.signedInAsWrapper}>
+                          <p className={classes.signedInAs}>Signed in as:</p>
+                          <p className={classes.signedInAsEmail}>{user.email}</p>
+                        </div>
+                        <Divider />
+                        <MenuItem sx={{ paddingTop: '20px' }} onClick={handleClose}>My account</MenuItem>
+                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                      </div>
+                    )}
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+      </div>
+    );
+  }
+  return null;
 }
 
 export default withStyles(styles)(AccountMenu);

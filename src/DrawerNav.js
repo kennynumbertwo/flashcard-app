@@ -174,7 +174,7 @@ export default function DrawerNav(props) {
             <MenuIcon />
           </IconButton>
           )}
-          <AccountMenu logoutUser={logoutUser} isLoggedIn={isLoggedIn} />
+          <AccountMenu logoutUser={logoutUser} isLoggedIn={isLoggedIn} user={user} />
         </Toolbar>
       </AppBar>
       <Drawer
