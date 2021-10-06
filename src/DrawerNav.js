@@ -321,7 +321,13 @@ export default function DrawerNav(props) {
             )}
           />
           {/* CREATE DECK PAGE */}
-          <Route exact path="/create-deck" render={() => <CreateDeck isLoggedIn={isLoggedIn} />} />
+          <Route
+            exact
+            path="/create-deck"
+            render={() => (
+              <CreateDeck isLoggedIn={isLoggedIn} />
+            )}
+          />
           {/* ABOUT PAGE */}
           <Route exact path="/about" render={() => <About />} />
         </Switch>
