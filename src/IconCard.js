@@ -8,8 +8,8 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     // border: '1px solid black',
-    width: '125px',
-    height: '125px',
+    width: '80px',
+    height: '80px',
   },
   IconCardInner: {
     display: 'flex',
@@ -17,18 +17,18 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     // border: '1px solid black',
-    width: '110px',
-    height: '110px',
+    width: '65px',
+    height: '65px',
     borderRadius: '10px',
     transition: 'all .2s',
     '& i': {
       transition: 'all .12s',
-      fontSize: '75px',
+      fontSize: '50px',
     },
     '&:hover': {
       cursor: 'pointer',
       color: 'rgba(7, 177, 77, 1)',
-      boxShadow: '0px 5px 10px 3px rgba(0, 0, 0, 0.3)',
+      boxShadow: '0px 2px 5px 1px rgba(0, 0, 0, 0.3)',
     },
   },
 };

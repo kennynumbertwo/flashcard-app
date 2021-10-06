@@ -45,6 +45,7 @@ const getIconNames = (iconList) => {
       filters.push(icon.filter);
     }
   });
+  filters.sort((a, b) => (a > b ? 1 : -1));
   return filters;
 };
 
