@@ -13,13 +13,17 @@ import LoginEmailForm from './LoginEmailForm';
 import './styles/LoginStyles.css';
 
 function Login(props) {
-  const { isLoggedIn } = props;
+  // State
   const [isShowingModal, setIsShowingModal] = useState(false);
   const [creatingEmailLogin, setCreatingEmailLogin] = useState(false);
   const [userToLogIn, setUserToLogIn] = useState({});
   const [userIsLoaded, setUserIsLoaded] = useState(false);
   const [firstSignIn, setFirstSignIn] = useState(false);
 
+  // Destructured props
+  const { isLoggedIn } = props;
+
+  // Gets auth status on page load. If user is logged in with firebase, bypass login screen
   useEffect(() => {
     let auth = getAuth();
     auth.onAuthStateChanged((userAuth) => {
@@ -37,12 +41,14 @@ function Login(props) {
     });
   }, []);
 
+  // Toggles the modal shown when an email has been used with another provider
   const toggleModal = () => {
     setIsShowingModal(!isShowingModal);
   };
 
+  // Handles the auth data returned from an auth request by each provider and set's userToLogIn
+  // userToLogin is being watched by useEffect in the LoginEmailForm component
   const authHandler = authData => {
-    console.log(authData.user);
     const login = { email: authData.user.email, uid: authData.user.uid };
     setUserToLogIn(login);
   };
@@ -156,14 +162,17 @@ function Login(props) {
       });
   };
 
+  // If a user is logged in, redirect to the stock collections page
   if (isLoggedIn) {
     return <Redirect to="/collections" />;
   }
+  // If a user clicked 'Don't Have An Account?', show CreateEmailForm
   if (creatingEmailLogin) {
     return (
       <CreateEmailLogin createEmailAccount={createEmailAccount} />
     );
   }
+  // Once auth is loaded, show the Login page if a user is not logged in
   if (userIsLoaded) {
     return (
       <LoginEmailForm
@@ -184,6 +193,7 @@ function Login(props) {
       />
     );
   }
+  // Update this to a loading page
   if (!userIsLoaded) {
     return null;
   }

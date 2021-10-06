@@ -118,6 +118,7 @@ export default function DrawerNav(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = useState({});
+  // Checks if user is logged in, if not, login page is shown
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const {
@@ -133,28 +134,23 @@ export default function DrawerNav(props) {
     denyPendingSetName,
   } = props;
 
-  // useEffect(() => {
-  //   if (user) {
-  //     setIsLoggedIn(true);
-  //   }
-  // }, [user]);
-
+  // Opens Material UI Drawer
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
+  // Closes Material UI Drawer
   const handleDrawerClose = () => {
     setOpen(false);
   };
 
+  // Function to logout user and reset state
   const logoutUser = async () => {
     const auth = getAuth();
-    console.log(auth);
     await auth.signOut();
-    setOpen(false);
     setUser({});
+    setOpen(false);
     setIsLoggedIn(false);
-    console.log(auth);
   };
 
   return (
@@ -266,13 +262,15 @@ export default function DrawerNav(props) {
           [classes.contentShift]: open,
         })}
       >
-        {/* Routes for Main Page */}
+        {/* ROUTES */}
         <Switch>
+          {/* HOME PAGE */}
           <Route
             exact
             path="/"
             render={() => <HomePage isLoggedIn={isLoggedIn} />}
           />
+          {/* LOGIN PAGE */}
           <Route
             exact
             path="/login"
@@ -285,6 +283,7 @@ export default function DrawerNav(props) {
               />
             )}
           />
+          {/* COLLECTION PAGE */}
           <Route
             exact
             path="/collections"
@@ -295,6 +294,7 @@ export default function DrawerNav(props) {
               />
             )}
           />
+          {/* CARD SETS PAGE PAGE */}
           <Route
             exact
             path="/collections/:subCategory"
@@ -307,6 +307,7 @@ export default function DrawerNav(props) {
               />
             )}
           />
+          {/* INDIVIDUAL SET / FLASHCARD PAGE */}
           <Route
             exact
             path="/collections/:subCategory/:setName"
@@ -319,9 +320,12 @@ export default function DrawerNav(props) {
               />
             )}
           />
+          {/* CREATE DECK PAGE */}
           <Route exact path="/create-deck" render={() => <CreateDeck isLoggedIn={isLoggedIn} />} />
+          {/* ABOUT PAGE */}
           <Route exact path="/about" render={() => <About />} />
         </Switch>
+        {/* MODAL */}
         <Modal
           isShowing={isShowingModal}
           hide={toggleModal}

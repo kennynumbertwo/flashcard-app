@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import './Modal.css';
+import './styles/Modal.css';
 
 function Modal(props) {
   const [animatingOut, setAnimatingOut] = useState(false);
