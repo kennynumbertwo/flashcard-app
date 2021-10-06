@@ -154,4 +154,28 @@ export default {
       },
     },
   },
+  '@keyframes fadeIn': {
+    '0%': {
+      opacity: 0,
+      transform: 'translateY(25%)',
+    },
+    '100%': {
+      opacity: 1,
+      transform: 'translateY(0%)',
+    },
+  },
+
+  incorrectPasswordWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '10px',
+    width: '100%',
+    '& p': {
+      fontSize: '14px',
+      color: '#f66666',
+      paddingTop: '10px',
+      animation: '$fadeIn .5s',
+    },
+  },
 };

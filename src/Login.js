@@ -19,6 +19,7 @@ function Login(props) {
   const [userToLogIn, setUserToLogIn] = useState({});
   const [userIsLoaded, setUserIsLoaded] = useState(false);
   const [firstSignIn, setFirstSignIn] = useState(false);
+  const [incorrectPassword, setIncorrectPassword] = useState(false);
 
   // Destructured props
   const { isLoggedIn } = props;
@@ -123,12 +124,17 @@ function Login(props) {
         // The email of the user's accound used
         const { email } = error;
         const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(
-          `Error Code: ${errorCode}`,
-          `Error Message: ${errorMessage}`,
-          `Email: ${email}`,
-          `Credential: ${credential}`,
-        );
+        if (errorCode === 'auth/account-exists-with-different-credential') {
+          setIsShowingModal(true);
+        // Handle linking here if your app allows it.
+        } else {
+          console.log(
+            `Error Code: ${errorCode}`,
+            `Error Message: ${errorMessage}`,
+            `Email: ${email}`,
+            `Credential: ${credential}`,
+          );
+        }
       });
   };
 
@@ -156,10 +162,15 @@ function Login(props) {
         const errorCode = error.code;
         const errorMessage = error.message;
         // The email of the user's accound used
-        console.log(
-          `Error Code: ${errorCode}`,
-          `Error Message: ${errorMessage}`,
-        );
+        if (errorCode === 'auth/wrong-password') {
+          setIncorrectPassword(true);
+        // Handle linking here if your app allows it.
+        } else {
+          console.log(
+            `Error Code: ${errorCode}`,
+            `Error Message: ${errorMessage}`,
+          );
+        }
       });
   };
 
@@ -198,6 +209,7 @@ function Login(props) {
         setIsLoggedIn={props.setIsLoggedIn}
         userToLogIn={userToLogIn}
         firstSignIn={firstSignIn}
+        incorrectPassword={incorrectPassword}
       />
     );
   }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -147,9 +147,9 @@ export default function DrawerNav(props) {
   // Function to logout user and reset state
   const logoutUser = async () => {
     const auth = getAuth();
-    await auth.signOut();
     setUser({});
     setOpen(false);
+    await auth.signOut();
     setIsLoggedIn(false);
   };
 

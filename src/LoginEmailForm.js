@@ -35,7 +35,10 @@ function LoginEmailForm(props) {
     authenticateFacebook,
     authenticateGoogle,
     isShowingModal,
-    toggleModal } = props;
+    toggleModal,
+    incorrectPassword,
+
+  } = props;
 
   // Checks if there is a user to login AND if there is an authenticated user already signed in
   useEffect(() => {
@@ -129,6 +132,9 @@ function LoginEmailForm(props) {
               )}
             />
           </FormControl>
+        </div>
+        <div className={classes.incorrectPasswordWrapper}>
+          {incorrectPassword && <p className={classes.incorrectPasswordText}>Incorrect password</p>}
         </div>
         <div className={classes.buttonWrapper}>
           <button
