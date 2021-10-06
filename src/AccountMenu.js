@@ -9,36 +9,7 @@ import MenuList from '@mui/material/MenuList';
 import Divider from '@material-ui/core/Divider';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { withStyles } from '@material-ui/core';
-
-const styles = {
-  accountMenuWrapper: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  accountIcon: {
-    color: 'rgba(0, 0, 0, 0.7)',
-    margin: '0px 0px 0px 0px',
-  },
-  signedInAsWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    flexDirection: 'column',
-    padding: '0px 10px 0px 10px',
-    color: 'rgba(0, 0, 0, 0.7)',
-  },
-  signedInAs: {
-    margin: '0px 0px 0px 0px',
-    padding: '10px 0px 10px 0px',
-  },
-  signedInAsEmail: {
-    margin: '0px 0px 0px 0px',
-    padding: '0px 0px 20px 0px',
-    fontWeight: '500',
-  },
-};
+import styles from './styles/AccountMenuStyles';
 
 function AccountMenu(props) {
   const [open, setOpen] = React.useState(false);
@@ -124,8 +95,10 @@ function AccountMenu(props) {
                           <p className={classes.signedInAs}>Signed in as:</p>
                           <p className={classes.signedInAsEmail}>{user.email}</p>
                         </div>
-                        <Divider />
-                        <MenuItem sx={{ paddingTop: '20px' }} onClick={handleClose}>My account</MenuItem>
+                        <div className={classes.dividerWrapper}>
+                          <Divider />
+                        </div>
+                        <MenuItem onClick={handleClose}>My account</MenuItem>
                         <MenuItem onClick={handleClose}>Logout</MenuItem>
                       </div>
                     )}

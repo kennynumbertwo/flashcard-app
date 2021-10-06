@@ -28,7 +28,8 @@ export default {
     flexDirection: 'column',
     width: '100%',
     height: '40%',
-    paddingBottom: '0px',
+    marginBottom: '0px',
+    // border: '1px solid black',
   },
   buttonWrapper: {
     display: 'flex',
@@ -37,6 +38,8 @@ export default {
     flexDirection: 'column',
     height: '25%',
     width: '100%',
+    // border: '1px solid black',
+    // marginBottom: '20px',
   },
   loginButton: {
     display: 'flex',
@@ -65,30 +68,31 @@ export default {
     },
   },
   confirmInput: {
-    marginTop: '13px',
+    marginTop: '11px',
   },
-  noAccountWrapper: {
+
+  '@keyframes fadeIn': {
+    '0%': {
+      opacity: 0,
+      transform: 'translateY(25%)',
+    },
+    '100%': {
+      opacity: 1,
+      transform: 'translateY(0%)',
+    },
+  },
+
+  noMatchWrapper: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'flex-start',
-    height: '10%',
+    alignItems: 'center',
+    height: '10px',
     width: '100%',
-  },
-  noAccountText: {
-    display: 'flex',
-    paddingLeft: '25px',
-    '&:hover': {
-      cursor: 'pointer',
-    },
-    '& .navArrow': {
-      color: 'rgba(0, 0, 0, 0)',
-      paddingBottom: '4px',
-      transition: 'all .25s',
-      transitionTimingFunction: 'ease-in-out',
-    },
-    '&:hover .navArrow': {
-      color: 'rgba(0, 0, 0, .8)',
-      transform: 'translateX(35%)',
+    '& p': {
+      fontSize: '14px',
+      color: '#f66666',
+      paddingTop: '10px',
+      animation: '$fadeIn .5s',
     },
   },
 };

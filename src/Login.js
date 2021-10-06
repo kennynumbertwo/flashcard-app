@@ -134,6 +134,7 @@ function Login(props) {
 
   const createEmailAccount = (email, password) => {
     const auth = getAuth();
+    console.log(auth);
     createUserWithEmailAndPassword(auth, email, password)
       .then(authHandler)
       .catch((error) => {
@@ -169,7 +170,14 @@ function Login(props) {
   // If a user clicked 'Don't Have An Account?', show CreateEmailForm
   if (creatingEmailLogin) {
     return (
-      <CreateEmailLogin createEmailAccount={createEmailAccount} />
+      <CreateEmailLogin
+        createEmailAccount={createEmailAccount}
+        userToLogIn={userToLogIn}
+        user={props.user}
+        setUser={props.setUser}
+        firstSignIn={firstSignIn}
+        setIsLoggedIn={props.setIsLoggedIn}
+      />
     );
   }
   // Once auth is loaded, show the Login page if a user is not logged in

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
 import TextField from '@mui/material/TextField';
 import './styles/CreateEmailFormStyles.css';
@@ -14,6 +14,7 @@ import styles from './styles/CreateEmailFormStyles';
 function CreateEmailForm(props) {
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
   const [email, setEmail] = useState('');
+  const [noPasswordMatch, setNoPasswordMatch] = useState(false);
   const [values, setValues] = React.useState({
     password: '',
     confirmPassword: '',
@@ -21,14 +22,41 @@ function CreateEmailForm(props) {
     showConfirmPassword: false,
   });
 
+  // Destructured props
+  const {
+    classes,
+    createEmailAccount,
+    userToLogIn,
+    user,
+    firstSignIn,
+    setUser,
+    setIsLoggedIn,
+  } = props;
+
+  useEffect(() => {
+    if (Object.keys(userToLogIn).length !== 0 && Object.keys(user).length === 0) {
+      if (firstSignIn) {
+        // setAnimateClass('Login');
+        setIsAnimatingOut(true);
+        setTimeout(() => {
+          setIsAnimatingOut(false);
+          setUser(userToLogIn);
+          setIsLoggedIn(true);
+        }, 200);
+      } else {
+        setUser(props.userToLogIn);
+        setIsLoggedIn(true);
+      }
+    }
+  }, [userToLogIn]);
+
   const handleSubmitCreateEmail = (e) => {
     e.preventDefault();
-    setIsAnimatingOut(true);
-    let timer = setTimeout(() => {
-      setIsAnimatingOut(false);
+    if (values.password === values.confirmPassword) {
       createEmailAccount(email, values.password);
-    }, 195);
-    return () => clearTimeout(timer);
+    } else {
+      setNoPasswordMatch(true);
+    }
   };
 
   const handleEmailChange = (e) => {
@@ -63,7 +91,6 @@ function CreateEmailForm(props) {
     event.preventDefault();
   };
 
-  const { classes, createEmailAccount } = props;
   return (
     <nav className={classes.Login}>
       <div className={isAnimatingOut ? 'CreateEmailFormCard animateOut' : 'CreateEmailFormCard'}>
@@ -128,6 +155,9 @@ function CreateEmailForm(props) {
               />
             </FormControl>
           </div>
+        </div>
+        <div className={classes.noMatchWrapper}>
+          {noPasswordMatch && <p className={classes.noMatchText}>Passwords do not match</p>}
         </div>
         <div className={classes.buttonWrapper}>
           <button

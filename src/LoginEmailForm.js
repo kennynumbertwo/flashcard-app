@@ -40,7 +40,6 @@ function LoginEmailForm(props) {
   // Checks if there is a user to login AND if there is an authenticated user already signed in
   useEffect(() => {
     if (Object.keys(props.userToLogIn).length !== 0 && Object.keys(props.user).length === 0) {
-      console.log('passed');
       if (props.firstSignIn) {
         setAnimateClass('Login');
         setIsAnimatingOut(true);

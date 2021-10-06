@@ -2,7 +2,6 @@ import React from 'react';
 import { withStyles } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import CollectionCard from './CollectionCard';
-import icons from './icons';
 
 const styles = {
   root: {
