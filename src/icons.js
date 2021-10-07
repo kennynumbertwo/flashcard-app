@@ -1,4 +1,4 @@
-export default [
+const icons = [
   {
     id: 'microscope',
     name: 'Microscope',
@@ -108,8 +108,8 @@ export default [
     filter: 'Entertainment',
   },
   {
-    id: 'globeAmericas',
-    name: 'Globe Americas',
+    id: 'globe',
+    name: 'Globe',
     class: 'fas fa-globe-americas',
     filter: 'Historic',
   },
@@ -120,8 +120,8 @@ export default [
     filter: 'Music',
   },
   {
-    id: 'recordVinyl',
-    name: 'Record Vinyl',
+    id: 'vinyl',
+    name: 'Vinyl',
     class: 'fas fa-record-vinyl',
     filter: 'Music',
   },
@@ -150,8 +150,8 @@ export default [
     filter: 'Education',
   },
   {
-    id: 'graduationCap',
-    name: 'Graduation Cap',
+    id: 'graduation',
+    name: 'Graduation',
     class: 'fas fa-graduation-cap',
     filter: 'Education',
   },
@@ -162,8 +162,8 @@ export default [
     filter: 'Education',
   },
   {
-    id: 'theaterMasks',
-    name: 'Theater Masks',
+    id: 'theater',
+    name: 'Theater',
     class: 'fas fa-theater-masks',
     filter: 'Entertainment',
   },
@@ -234,23 +234,168 @@ export default [
     filter: 'Food',
   },
   {
-    id: 'pepperHot',
-    name: 'Pepper Hot',
+    id: 'pepper',
+    name: 'Pepper',
     class: 'fas fa-pepper-hot',
     filter: 'Food',
   },
   {
-    id: 'pizzaSlice',
-    name: 'Pizza Slice',
+    id: 'pizza',
+    name: 'Pizza',
     class: 'fas fa-pizza-slice',
     filter: 'Food',
   },
-  // {
-  //   id: '',
-  //   name: '',
-  //   class: 'fas fa-',
-  //   filter: '',
-  // },
+  {
+    id: 'medical',
+    name: 'Medical',
+    class: 'fas fa-briefcase-medical',
+    filter: 'Health & Medicine',
+  },
+  {
+    id: 'campground',
+    name: 'Campground',
+    class: 'fas fa-campground',
+    filter: 'Nature',
+  },
+  {
+    id: 'church',
+    name: 'Church',
+    class: 'fas fa-church',
+    filter: 'Religion',
+  },
+  {
+    id: 'hospital',
+    name: 'Hospital',
+    class: 'fas fa-hospital',
+    filter: 'Health & Medicine',
+  },
+  {
+    id: 'volleyball',
+    name: 'Volleyball',
+    class: 'fas fa-volleyball-ball',
+    filter: 'Sports',
+  },
+  {
+    id: 'hockey',
+    name: 'Hockey',
+    class: 'fas fa-hockey-puck',
+    filter: 'Sports',
+  },
+  {
+    id: 'golf',
+    name: 'Golf',
+    class: 'fas fa-golf-ball',
+    filter: 'Sports',
+  },
+  {
+    id: 'football',
+    name: 'Football',
+    class: 'fas fa-football-ball',
+    filter: 'Sports',
+  },
+  {
+    id: 'basketball',
+    name: 'Basketball',
+    class: 'fas fa-basketball-ball',
+    filter: 'Sports',
+  },
+  {
+    id: 'soccer',
+    name: 'Soccer',
+    class: 'fas fa-futbol',
+    filter: 'Sports',
+  },
+  {
+    id: 'snowboarding',
+    name: 'Snowboarding',
+    class: 'fas fa-snowboarding',
+    filter: 'Sports',
+  },
+  {
+    id: 'robot',
+    name: 'Robot',
+    class: 'fas fa-robot',
+    filter: 'Technology',
+  },
+  {
+    id: 'shuttle',
+    name: 'Shuttle',
+    class: 'fas fa-space-shuttle',
+    filter: 'Space',
+  },
+  {
+    id: 'iceCream',
+    name: 'Ice Cream',
+    class: 'fas fa-ice-cream',
+    filter: 'Food',
+  },
+  {
+    id: 'hotdog',
+    name: 'Hotdog',
+    class: 'fas fa-hotdog',
+    filter: 'Food',
+  },
+  {
+    id: 'sun',
+    name: 'Sun',
+    class: 'fas fa-sun',
+    filter: 'Space',
+  },
+  {
+    id: 'fire',
+    name: 'Fire',
+    class: 'fas fa-fire',
+    filter: 'Nature',
+  },
+  {
+    id: 'compass',
+    name: 'Compass',
+    class: 'fas fa-compass',
+    filter: 'Nature',
+  },
+  {
+    id: 'signs',
+    name: 'Signs',
+    class: 'fas fa-map-signs',
+    filter: 'Nature',
+  },
+  {
+    id: 'hiking',
+    name: 'Hiking',
+    class: 'fas fa-hiking',
+    filter: 'Nature',
+  },
+  {
+    id: 'bus',
+    name: 'Bus',
+    class: 'fas fa-bus-alt',
+    filter: 'Transportation',
+  },
+  {
+    id: 'car',
+    name: 'Car',
+    class: 'fas fa-car',
+    filter: 'Transportation',
+  },
+  {
+    id: 'caravan',
+    name: 'Caravan',
+    class: 'fas fa-caravan',
+    filter: 'Transportation',
+  },
+  {
+    id: 'gasPump',
+    name: 'Gas Pump',
+    class: 'fas fa-gas-pump',
+    filter: 'Transportation',
+  },
+  {
+    id: 'motorcycle',
+    name: 'Motorcycle',
+    class: 'fas fa-motorcycle',
+    filter: 'Transportation',
+  },
+
   // {
   //   id: '',
   //   name: '',
@@ -259,3 +404,7 @@ export default [
   // },
 
 ];
+
+icons.sort((a, b) => (a.filter > b.filter ? 1 : -1));
+
+export default icons;
