@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -51,24 +51,57 @@ const getIconNames = (iconList) => {
 
 const options = getIconNames(icons);
 
+const pageNum = Math.ceil(icons.length / 24);
+
+const getPageList = (array) => {
+  let pageArray = [];
+  for (let i = 0; i < pageNum; i++) {
+    let page = [...array.slice((i * 24), ((i + 1) * 24))];
+    pageArray.push(page);
+  }
+  return pageArray;
+};
+
+const pageList = getPageList(icons);
+
 function IconList(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedFilter, setSelectedFilter] = useState('');
+  const [showPageNum, setShowPageNum] = useState(0);
+  const [filteredArray, setFilteredArray] = useState([]);
+  const [isFiltered, setIsFiltered] = useState(false);
   const open = Boolean(anchorEl);
   const { classes } = props;
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const filterPage = (array, filter) => {
+    let filtered = [];
+    array.forEach(icon => {
+      if (icon.filter === filter) {
+        filtered.push(icon);
+      }
+    });
+    return filtered;
+  };
+
   const handleClose = (e) => {
     if (e.target.role === 'menuitem') {
       if (e.target.innerText === 'Clear Filter') {
         setSelectedFilter('');
+        setIsFiltered(false);
       } else {
+        let selected = filterPage(icons, e.target.innerText);
+        setFilteredArray(selected);
         setSelectedFilter(e.target.innerText);
+        setIsFiltered(true);
       }
     }
     setAnchorEl(null);
   };
+
   return (
     <div className={classes.IconListWrapper}>
       <div>
@@ -113,20 +146,22 @@ function IconList(props) {
         </Menu>
       </div>
       <div className={classes.IconListCard}>
-        {icons.map(icon => {
-          let filtered;
-          if (icon.filter === selectedFilter || selectedFilter === '') {
-            filtered = (
-              <IconCard
-                key={icon.name}
-                iconClass={icon.class}
-                iconName={icon.name}
-                iconFilter={icon.filter}
-              />
-            );
-          }
-          return filtered;
-        })}
+        {!isFiltered && pageList[showPageNum].map(icon => (
+          <IconCard
+            key={icon.name}
+            iconClass={icon.class}
+            iconName={icon.name}
+            iconFilter={icon.filter}
+          />
+        ))}
+        {isFiltered && filteredArray.map(icon => (
+          <IconCard
+            key={icon.name}
+            iconClass={icon.class}
+            iconName={icon.name}
+            iconFilter={icon.filter}
+          />
+        ))}
       </div>
     </div>
   );
