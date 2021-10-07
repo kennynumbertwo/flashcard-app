@@ -119,6 +119,7 @@ function IconList(props) {
   const [showPageNum, setShowPageNum] = useState(0);
   const [filteredArray, setFilteredArray] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
+  const [selectedIcon, setSelectedIcon] = useState('');
   const open = Boolean(anchorEl);
   const { classes } = props;
 
@@ -200,7 +201,7 @@ function IconList(props) {
             PaperProps={{
               style: {
                 maxHeight: ITEM_HEIGHT * 5.5,
-                width: '20ch',
+                width: '30ch',
               },
             }}
           >
@@ -219,6 +220,8 @@ function IconList(props) {
               iconClass={icon.class}
               iconName={icon.name}
               iconFilter={icon.filter}
+              selectedIcon={selectedIcon}
+              setSelectedIcon={setSelectedIcon}
             />
           ))}
           {isFiltered && filteredArray.map(icon => (
@@ -227,6 +230,8 @@ function IconList(props) {
               iconClass={icon.class}
               iconName={icon.name}
               iconFilter={icon.filter}
+              selectedIcon={selectedIcon}
+              setSelectedIcon={setSelectedIcon}
             />
           ))}
         </div>
