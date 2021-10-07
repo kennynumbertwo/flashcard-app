@@ -79,10 +79,18 @@ const styles = {
 };
 
 function IconCard(props) {
-  const { classes, iconClass, iconName, selectedIcon, setSelectedIcon } = props;
+  const {
+    classes,
+    iconClass,
+    iconName,
+    selectedIcon,
+    setSelectedIcon,
+    setSelectedIconClass,
+  } = props;
 
   const handleClick = () => {
     setSelectedIcon(iconName);
+    setSelectedIconClass(iconClass);
   };
 
   return (

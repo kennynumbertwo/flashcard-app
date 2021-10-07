@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -45,7 +46,20 @@ const styles = {
     // border: '1px solid black',
     paddingBottom: '0px',
     width: '98%',
+    '& svg': {
+      color: 'rgba(0, 0, 0, .6)',
+      display: 'flex',
+      marginRight: 'auto',
+      // marginLeft: '15px',
+      alignSelf: 'center',
+      transition: 'all .5s',
+      '&:hover': {
+        cursor: 'pointer',
+        boxShadow: '0px 2px 5px 1px rgba(0, 0, 0, 0.3)',
+      },
+    },
   },
+
   iconsWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -119,9 +133,10 @@ function IconList(props) {
   const [showPageNum, setShowPageNum] = useState(0);
   const [filteredArray, setFilteredArray] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
-  const [selectedIcon, setSelectedIcon] = useState('');
   const open = Boolean(anchorEl);
-  const { classes } = props;
+
+  // Destructured props from CreateDeck
+  const { classes, selectedIcon, setSelectedIcon, setSelectedIconClass, handleShowIcons } = props;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -169,6 +184,7 @@ function IconList(props) {
     <div className={classes.IconListWrapper}>
       <div className={classes.IconListCard}>
         <div className={classes.filterWrapper}>
+          <CloseIcon onClick={handleShowIcons} />
           <Button
             sx={{
               backgroundColor: 'rgba(250, 250, 250, 0.0)',
@@ -222,6 +238,7 @@ function IconList(props) {
               iconFilter={icon.filter}
               selectedIcon={selectedIcon}
               setSelectedIcon={setSelectedIcon}
+              setSelectedIconClass={setSelectedIconClass}
             />
           ))}
           {isFiltered && filteredArray.map(icon => (
@@ -232,6 +249,7 @@ function IconList(props) {
               iconFilter={icon.filter}
               selectedIcon={selectedIcon}
               setSelectedIcon={setSelectedIcon}
+              setSelectedIconClass={setSelectedIconClass}
             />
           ))}
         </div>
