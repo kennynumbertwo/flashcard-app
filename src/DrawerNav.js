@@ -325,7 +325,10 @@ export default function DrawerNav(props) {
             exact
             path="/create-deck"
             render={() => (
-              <CreateDeck isLoggedIn={isLoggedIn} />
+              <CreateDeck
+                isLoggedIn={isLoggedIn}
+                uid={user.uid}
+              />
             )}
           />
           {/* ABOUT PAGE */}

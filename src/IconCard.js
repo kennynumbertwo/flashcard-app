@@ -112,11 +112,13 @@ function IconCard(props) {
     selectedIcon,
     setSelectedIcon,
     setSelectedIconClass,
+    handleShowIcons,
   } = props;
 
   const handleClick = () => {
     setSelectedIcon(iconName);
     setSelectedIconClass(iconClass);
+    handleShowIcons();
   };
 
   if (props.disabled) {

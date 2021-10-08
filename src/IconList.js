@@ -239,6 +239,7 @@ function IconList(props) {
               selectedIcon={selectedIcon}
               setSelectedIcon={setSelectedIcon}
               setSelectedIconClass={setSelectedIconClass}
+              handleShowIcons={handleShowIcons}
             />
           ))}
           {isFiltered && filteredArray.map(icon => (
@@ -250,6 +251,7 @@ function IconList(props) {
               selectedIcon={selectedIcon}
               setSelectedIcon={setSelectedIcon}
               setSelectedIconClass={setSelectedIconClass}
+              handleShowIcons={handleShowIcons}
             />
           ))}
         </div>
