@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
+import { doc, setDoc, updateDoc } from 'firebase/firestore/lite';
 import IconList from './IconList';
 import IconCard from './IconCard';
+import db from './firebase.config';
 
 const styles = {
   CreateDeckWrapper: {
@@ -45,6 +47,13 @@ function CreateDeck(props) {
     owner: uid,
   });
 
+  useEffect(() => {
+    setDeckFields({ ...deckFields,
+      id: deckFields.setName.replace(/\s+/g, '-').toLowerCase(),
+      subCategoryClass: selectedIconClass,
+    });
+  }, [deckFields.setName, selectedIconClass]);
+
   const handleShowIcons = () => {
     setIsShowingIconList(!isShowingIconList);
   };
@@ -53,9 +62,9 @@ function CreateDeck(props) {
     setDeckFields({ ...deckFields, [e.target.id]: e.target.value });
   };
 
-  const handleSaveDeck = () => {
-    let newId = deckFields.setName.replace(/\s+/g, '-').toLowerCase();
-    setDeckFields({ ...deckFields, id: newId, subCategoryClass: selectedIconClass });
+  const handleSaveDeck = async () => {
+    const userRef = doc(db, 'users', uid);
+    await updateDoc(userRef, { [deckFields.id]: deckFields });
   };
 
   if (!isLoggedIn) {
@@ -74,9 +83,9 @@ function CreateDeck(props) {
   return (
     <div className={classes.CreateDeckWrapper}>
       <div className={classes.CreateDeckCard}>
-        <TextField id="setName" label="Deck Name" variant="standard" onChange={handleChange} />
-        <TextField id="subCategory" label="Sub Category" variant="standard" onChange={handleChange} />
-        <TextField id="category" label="Category" variant="standard" onChange={handleChange} />
+        <TextField id="setName" label="Deck Name" variant="standard" onChange={handleChange} value={deckFields.setName} />
+        <TextField id="subCategory" label="Sub Category" variant="standard" onChange={handleChange} value={deckFields.subCategory} />
+        <TextField id="category" label="Category" variant="standard" onChange={handleChange} value={deckFields.category} />
         <div className={classes.selectIconWrapper}>
           <IconCard
             iconClass={selectedIconClass}
