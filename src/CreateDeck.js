@@ -29,23 +29,26 @@ function CreateDeck(props) {
   if (!isLoggedIn) {
     return <Redirect to="/login" />;
   }
+  if (isShowingIconList) {
+    return (
+      <IconList
+        selectedIcon={selectedIcon}
+        setSelectedIcon={setSelectedIcon}
+        setSelectedIconClass={setSelectedIconClass}
+        handleShowIcons={handleShowIcons}
+      />
+    );
+  }
   return (
     <div className={classes.createDeckWrapper}>
       <div className={classes.selectIconWrapper}>
         <IconCard
           iconClass={selectedIconClass}
           iconName={selectedIcon}
+          disabled
         />
-        <button onClick={handleShowIcons} type="button">Show Icons</button>
+        <button onClick={handleShowIcons} type="button">Select Icon</button>
       </div>
-      {isShowingIconList && (
-        <IconList
-          selectedIcon={selectedIcon}
-          setSelectedIcon={setSelectedIcon}
-          setSelectedIconClass={setSelectedIconClass}
-          handleShowIcons={handleShowIcons}
-        />
-      )}
     </div>
   );
 }

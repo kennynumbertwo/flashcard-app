@@ -1,6 +1,5 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
-import icons from './icons';
 
 const styles = {
   IconCardOuter: {
@@ -76,6 +75,33 @@ const styles = {
       cursor: 'pointer',
     },
   },
+  IconCardDisplay: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    // border: '1px solid black',
+    width: '95px',
+    height: '95px',
+    color: 'rgba(0, 0, 0, .6)',
+    borderRadius: '10px',
+    transition: 'all .2s',
+    '& i': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      transition: 'all .12s',
+      fontSize: '36px',
+      margin: '0px 0px 0px 0px',
+      // border: '1px solid black',
+      height: '60%',
+    },
+    '& p': {
+      display: 'flex',
+      padding: '0px 0px 0px 0px',
+      margin: '0px 0px 0px 0px',
+    },
+  },
 };
 
 function IconCard(props) {
@@ -93,19 +119,27 @@ function IconCard(props) {
     setSelectedIconClass(iconClass);
   };
 
+  if (props.disabled) {
+    return (
+      <div className={classes.IconCardDisplay}>
+        <i className={iconClass} />
+        <p>{iconName}</p>
+      </div>
+    );
+  }
   return (
     <div className={classes.IconCardOuter}>
       {selectedIcon === iconName && (
-        <div className={classes.IconCardInnerSelected} onClick={handleClick}>
-          <i className={iconClass} />
-          <p>{iconName}</p>
-        </div>
+      <div className={classes.IconCardInnerSelected} onClick={handleClick}>
+        <i className={iconClass} />
+        <p>{iconName}</p>
+      </div>
       )}
       {selectedIcon !== iconName && (
-        <div className={classes.IconCardInner} onClick={handleClick}>
-          <i className={iconClass} />
-          <p>{iconName}</p>
-        </div>
+      <div className={classes.IconCardInner} onClick={handleClick}>
+        <i className={iconClass} />
+        <p>{iconName}</p>
+      </div>
       )}
     </div>
 
