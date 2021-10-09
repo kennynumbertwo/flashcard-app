@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -23,6 +23,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { Route, Switch, Link } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
+import { collection, getDoc, doc } from 'firebase/firestore/lite';
 import CollectionsPage from './CollectionsPage';
 import CardSetsPage from './CardSetsPage';
 import NestedListItem from './NestedListItem';
@@ -33,6 +34,7 @@ import Modal from './Modal';
 import Login from './Login';
 import HomePage from './HomePage';
 import AccountMenu from './AccountMenu';
+import db from './firebase.config';
 
 const drawerWidth = 350;
 
@@ -118,6 +120,11 @@ export default function DrawerNav(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = useState({});
+  const [queryState, setQueryState] = useState({
+    isLoading: false,
+    errorMessage: '',
+    docSnapshot: null,
+  });
   // Checks if user is logged in, if not, login page is shown
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -143,6 +150,34 @@ export default function DrawerNav(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  // const getUserCards = async () => {
+  //   const querySnapshot = await getDocs(collection(db, 'users'));
+  //   querySnapshot.forEach((document) => {
+  //     console.log(document.data());
+  //   });
+  // };
+  useEffect(() => {
+    async function fetchUserCardSets() {
+      try {
+        setQueryState({ isLoading: true, errorMessage: '', docData: null });
+        let docRef = doc(db, 'users', `${user.uid}`);
+        let docSnapshot = await getDoc(docRef);
+        if (docSnapshot.exists()) {
+          let docData = docSnapshot.data();
+          let userCardSetArray = [];
+          for (let data in docData) {
+            userCardSetArray.push(docData[data]);
+          }
+          setQueryState({ isLoading: false, errorMessage: '', userCardSets: userCardSetArray });
+        }
+      } catch (err) {
+        setQueryState({ isLoading: false, errorMessage: 'Could not connect', docSnapshot: null });
+        console.log(err);
+      }
+    }
+    fetchUserCardSets();
+  }, [user]);
 
   // Function to logout user and reset state
   const logoutUser = async () => {
@@ -345,6 +380,7 @@ export default function DrawerNav(props) {
           secondButtonAction={denyPendingSetName}
           secondButton
         />
+        {/* <button onClick={fetchUserCardSets} type="button">load data</button> */}
       </main>
     </div>
   );

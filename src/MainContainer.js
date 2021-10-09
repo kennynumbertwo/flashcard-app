@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { withStyles } from '@material-ui/core';
+import { getAuth } from 'firebase/auth';
 import DrawerNav from './DrawerNav';
 import db from './firebase.config';
 
@@ -14,6 +15,7 @@ const styles = {
 
 function MainContainer(props) {
   const [cardSetDatabase, setCardSetDatabase] = useState([]);
+  const [userCardSetDatabase, setUserCardSetDatabase] = useState([]);
   const [cardCollections, setCardCollections] = useState([]);
   const [pendingSetName, setPendingSetName] = useState('');
   const [selectedSetIndex, setselectedSetIndex] = useState(0);
@@ -95,6 +97,8 @@ function MainContainer(props) {
       <DrawerNav
         cardSetDatabase={cardSetDatabase}
         cardCollections={cardCollections}
+        userCardSetDatabase={userCardSetDatabase}
+        setUserCardSetDatabase={setUserCardSetDatabase}
         updateCardSetName={updateCardSetName}
         currentCardSetName={currentCardSetName}
         findCardSet={findCardSet}

@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
-import { doc, setDoc, updateDoc } from 'firebase/firestore/lite';
+import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore/lite';
 import IconList from './IconList';
 import IconCard from './IconCard';
 import db from './firebase.config';
-import AddCardForm from './AddCardForm';
 
 const styles = {
-  CreateDeckWrapper: {
+  AddCardFormWrapper: {
     marginTop: '24px',
     display: 'flex',
     width: '100%',
@@ -18,7 +17,7 @@ const styles = {
     alignItems: 'center',
     border: '1px solid black',
   },
-  CreateDeckCard: {
+  AddCardFormCard: {
     display: 'flex',
     padding: '20px 30px 20px 30px',
     justifyContent: 'flex-start',
@@ -32,48 +31,48 @@ const styles = {
   },
 };
 
-function CreateDeck(props) {
+function AddCardForm(props) {
   // Destructured props from DrawerNav
   const { classes, isLoggedIn, uid } = props;
   // State
   const [isShowingIconList, setIsShowingIconList] = useState(false);
-  const [isShowingAddCardForm, setIsShowingAddCardForm] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState('');
   const [selectedIconClass, setSelectedIconClass] = useState('');
   // Text Inputs
-  const [deckFields, setDeckFields] = useState({
-    setName: '',
-    subCategory: '',
-    category: '',
-    subCategoryClass: '',
-    id: '',
-    owner: uid,
-    cards: '',
+  const [cardFields, setCardFields] = useState({
+    question: '',
+    answer: '',
+    altText: '',
+    cardSetIconClass: '',
+    id: 'fender-guitars',
   });
 
   useEffect(() => {
-    setDeckFields({ ...deckFields,
-      id: deckFields.setName.replace(/\s+/g, '-').toLowerCase(),
-      subCategoryClass: selectedIconClass,
+    setCardFields({ ...cardFields,
+      cardSetIconClass: selectedIconClass,
     });
-  }, [deckFields.setName, selectedIconClass]);
+  }, [selectedIconClass]);
 
   const handleShowIcons = () => {
     setIsShowingIconList(!isShowingIconList);
   };
 
   const handleChange = (e) => {
-    setDeckFields({ ...deckFields, [e.target.id]: e.target.value });
+    setCardFields({ ...cardFields, [e.target.id]: e.target.value });
   };
 
-  const handleSaveDeck = async () => {
+  const handleSaveCard = async () => {
     const userRef = doc(db, 'users', uid);
-    await updateDoc(userRef, { [deckFields.id]: deckFields });
+    const updateString = `${cardFields.id}.cards`;
+    await updateDoc(userRef, { [updateString]: arrayUnion(cardFields) });
   };
 
-  if (!isLoggedIn) {
-    return <Redirect to="/login" />;
-  }
+  const handleDeleteCard = async () => {
+    const userRef = doc(db, 'users', uid);
+    const updateString = `${cardFields.id}.cards`;
+    await updateDoc(userRef, { [updateString]: arrayRemove([0]) });
+  };
+
   if (isShowingIconList) {
     return (
       <IconList
@@ -85,24 +84,24 @@ function CreateDeck(props) {
     );
   }
   return (
-    <div className={classes.CreateDeckWrapper}>
-      <div className={classes.CreateDeckCard}>
-        <TextField id="setName" label="Deck Name" variant="standard" onChange={handleChange} value={deckFields.setName} />
-        <TextField id="subCategory" label="Sub Category" variant="standard" onChange={handleChange} value={deckFields.subCategory} />
-        <TextField id="category" label="Category" variant="standard" onChange={handleChange} value={deckFields.category} />
+    <div className={classes.AddCardFormDeckWrapper}>
+      <div className={classes.AddCardFormCard}>
+        <TextField id="question" label="Question" variant="standard" onChange={handleChange} value={cardFields.question} />
+        <TextField id="answer" label="Answer" variant="standard" onChange={handleChange} value={cardFields.answer} />
+        <TextField id="altText" label="Alt Text" variant="standard" onChange={handleChange} value={cardFields.altText} />
+
         <div className={classes.selectIconWrapper}>
           <IconCard
             iconClass={selectedIconClass}
             iconName={selectedIcon}
-            disabled
           />
           <button onClick={handleShowIcons} type="button">Select Icon</button>
-          <button onClick={handleSaveDeck} type="button">Save Deck</button>
+          <button onClick={handleSaveCard} type="button">Save Card</button>
+          <button onClick={handleDeleteCard} type="button">Delete Card</button>
         </div>
       </div>
-      <AddCardForm uid={uid} />
     </div>
   );
 }
 
-export default withStyles(styles)(CreateDeck);
+export default withStyles(styles)(AddCardForm);
