@@ -120,10 +120,11 @@ export default function DrawerNav(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = useState({});
-  const [queryState, setQueryState] = useState({
+  const [userCardCollections, setUserCardCollections] = useState([]);
+  const [userDeckState, setUserDeckState] = useState({
     isLoading: false,
     errorMessage: '',
-    docSnapshot: null,
+    userCardSetDatabase: null,
   });
   // Checks if user is logged in, if not, login page is shown
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -139,6 +140,7 @@ export default function DrawerNav(props) {
     pendingSetName,
     confirmPendingSetName,
     denyPendingSetName,
+    getCardCollections,
   } = props;
 
   // Opens Material UI Drawer
@@ -160,7 +162,7 @@ export default function DrawerNav(props) {
   useEffect(() => {
     async function fetchUserCardSets() {
       try {
-        setQueryState({ isLoading: true, errorMessage: '', docData: null });
+        setUserDeckState({ isLoading: true, errorMessage: '', userCardSetDatabase: null });
         let docRef = doc(db, 'users', `${user.uid}`);
         let docSnapshot = await getDoc(docRef);
         if (docSnapshot.exists()) {
@@ -169,15 +171,22 @@ export default function DrawerNav(props) {
           for (let data in docData) {
             userCardSetArray.push(docData[data]);
           }
-          setQueryState({ isLoading: false, errorMessage: '', userCardSets: userCardSetArray });
+          setUserDeckState({ isLoading: false, errorMessage: '', userCardSetDatabase: userCardSetArray });
         }
       } catch (err) {
-        setQueryState({ isLoading: false, errorMessage: 'Could not connect', docSnapshot: null });
+        setUserDeckState({ isLoading: false, errorMessage: 'Could not connect', userCardSetDatabase: null });
         console.log(err);
       }
     }
     fetchUserCardSets();
   }, [user]);
+
+  useEffect(() => {
+    if (userDeckState.userCardSetDatabase) {
+      setUserCardCollections(getCardCollections(userDeckState.userCardSetDatabase));
+    }
+    // getFlashcards(selectedSetIndex);
+  }, [userDeckState.userCardSetDatabase]);
 
   // Function to logout user and reset state
   const logoutUser = async () => {
@@ -278,7 +287,7 @@ export default function DrawerNav(props) {
               </ListSubheader>
           )}
           >
-            {cardCollections.map((col) => (
+            {userCardCollections.map((col) => (
               <NestedListItem
                 key={col.subCategoryId}
                 subCategory={col.subCategory}
