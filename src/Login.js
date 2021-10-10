@@ -54,7 +54,8 @@ function Login(props) {
   const authHandler = authData => {
     const login = { email: authData.user.email, uid: authData.user.uid };
     setUserToLogIn(login);
-    setDoc(doc(db, 'users', authData.user.uid), { test: 'test' });
+    let docRef = doc(db, 'users', authData.user.uid);
+    console.log(docRef);
   };
 
   const authenticateGithub = () => {

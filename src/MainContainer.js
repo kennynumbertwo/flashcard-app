@@ -34,9 +34,9 @@ function MainContainer(props) {
     // getFlashcards(selectedSetIndex);
   }, [cardSetDatabase, selectedSetIndex]);
 
-  useEffect(() => {
-    findCardSet();
-  }, [currentCardSetName]);
+  // useEffect(() => {
+  //   findCardSet(cardSetDatabase);
+  // }, [currentCardSetName]);
 
   // Function to fetch the Firebase DB and set it to cardSetDatabase
   const fetchCards = async () => {
@@ -73,11 +73,11 @@ function MainContainer(props) {
 
   const updateCardSetName = (nameToFind) => (setCurrentCardSetName(nameToFind));
 
-  const findCardSet = () => {
+  const findCardSet = (arr) => {
     let indexToSet;
-    cardSetDatabase.forEach(cardSet => {
+    arr.forEach(cardSet => {
       if (cardSet.id === currentCardSetName.toLowerCase()) {
-        indexToSet = cardSetDatabase.indexOf(cardSet);
+        indexToSet = arr.indexOf(cardSet);
       }
     });
     return setselectedSetIndex(indexToSet);

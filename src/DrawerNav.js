@@ -25,7 +25,9 @@ import { Route, Switch, Link } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { collection, getDoc, doc } from 'firebase/firestore/lite';
 import CollectionsPage from './CollectionsPage';
+import UserCollectionsPage from './UserCollectionsPage';
 import CardSetsPage from './CardSetsPage';
+import UserCardSetsPage from './UserCardSetsPage';
 import NestedListItem from './NestedListItem';
 import FlashcardTray from './FlashcardTray';
 import CreateDeck from './CreateDeck';
@@ -141,6 +143,7 @@ export default function DrawerNav(props) {
     confirmPendingSetName,
     denyPendingSetName,
     getCardCollections,
+    findCardSet,
   } = props;
 
   // Opens Material UI Drawer
@@ -188,10 +191,16 @@ export default function DrawerNav(props) {
     // getFlashcards(selectedSetIndex);
   }, [userDeckState.userCardSetDatabase]);
 
+  useEffect(() => {
+    findCardSet(cardSetDatabase);
+  }, [currentCardSetName]);
+
   // Function to logout user and reset state
   const logoutUser = async () => {
     const auth = getAuth();
     setUser({});
+    setUserCardCollections([]);
+    setUserDeckState({ isLoading: true, errorMessage: '', userCardSetDatabase: null });
     setOpen(false);
     await auth.signOut();
     setIsLoggedIn(false);
@@ -251,6 +260,17 @@ export default function DrawerNav(props) {
               >
                 <ListItemIcon><LibraryBooksIcon /></ListItemIcon>
                 <ListItemText primary="Collections" />
+                <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
+              </ListItem>
+            </Link>
+            <Link to="/my-collections" className={classes.navLink}>
+              <ListItem
+                className={classes.navItem}
+                key="my-collections"
+                button
+              >
+                <ListItemIcon><LibraryBooksIcon /></ListItemIcon>
+                <ListItemText primary="My Collections" />
                 <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
               </ListItem>
             </Link>
@@ -351,13 +371,52 @@ export default function DrawerNav(props) {
               />
             )}
           />
-          {/* INDIVIDUAL SET / FLASHCARD PAGE */}
+          {/* STOCK INDIVIDUAL SET / FLASHCARD PAGE */}
           <Route
             exact
             path="/collections/:subCategory/:setName"
             render={() => (
               <FlashcardTray
                 cardSetDatabase={cardSetDatabase}
+                userCardSetDatabase={userDeckState.userCardSetDatabase}
+                selectedSetIndex={selectedSetIndex}
+                currentCardSetName={currentCardSetName}
+                isLoggedIn={isLoggedIn}
+              />
+            )}
+          />
+          {/* USER COLLECTION PAGE */}
+          <Route
+            exact
+            path="/my-collections"
+            render={() => (
+              <UserCollectionsPage
+                userCardCollections={userCardCollections}
+                isLoggedIn={isLoggedIn}
+              />
+            )}
+          />
+          {/* USER CARD SETS PAGE PAGE */}
+          <Route
+            exact
+            path="/my-collections/:subCategory"
+            render={(routeProps) => (
+              <UserCardSetsPage
+                userCardCollections={userCardCollections}
+                selectedCollection={routeProps.match.params.subCategory}
+                updateCardSetName={updateCardSetName}
+                isLoggedIn={isLoggedIn}
+              />
+            )}
+          />
+          {/* USER INDIVIDUAL SET / FLASHCARD PAGE */}
+          <Route
+            exact
+            path="/MY-collections/:subCategory/:setName"
+            render={() => (
+              <FlashcardTray
+                cardSetDatabase={userDeckState.userCardSetDatabase}
+                userCardSetDatabase={userDeckState.userCardSetDatabase}
                 selectedSetIndex={selectedSetIndex}
                 currentCardSetName={currentCardSetName}
                 isLoggedIn={isLoggedIn}

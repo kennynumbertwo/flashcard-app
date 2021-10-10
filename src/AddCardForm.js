@@ -44,7 +44,7 @@ function AddCardForm(props) {
     answer: '',
     altText: '',
     cardSetIconClass: '',
-    id: 'fender-guitars',
+    id: 'guitars',
   });
 
   useEffect(() => {

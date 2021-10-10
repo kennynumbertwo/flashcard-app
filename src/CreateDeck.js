@@ -68,7 +68,7 @@ function CreateDeck(props) {
 
   const handleSaveDeck = async () => {
     const userRef = doc(db, 'users', uid);
-    await updateDoc(userRef, { [deckFields.id]: deckFields });
+    await setDoc(userRef, { [deckFields.id]: deckFields }, { merge: true });
   };
 
   if (!isLoggedIn) {
