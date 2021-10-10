@@ -33,7 +33,7 @@ const styles = {
 
 function AddCardForm(props) {
   // Destructured props from DrawerNav
-  const { classes, isLoggedIn, uid } = props;
+  const { classes, isLoggedIn, uid, fetchUserCardSets } = props;
   // State
   const [isShowingIconList, setIsShowingIconList] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState('');
@@ -65,12 +65,14 @@ function AddCardForm(props) {
     const userRef = doc(db, 'users', uid);
     const updateString = `${cardFields.id}.cards`;
     await updateDoc(userRef, { [updateString]: arrayUnion(cardFields) });
+    fetchUserCardSets();
   };
 
   const handleDeleteCard = async () => {
     const userRef = doc(db, 'users', uid);
     const updateString = `${cardFields.id}.cards`;
     await updateDoc(userRef, { [updateString]: arrayRemove([0]) });
+    fetchUserCardSets();
   };
 
   if (isShowingIconList) {
@@ -94,6 +96,7 @@ function AddCardForm(props) {
           <IconCard
             iconClass={selectedIconClass}
             iconName={selectedIcon}
+            disabled
           />
           <button onClick={handleShowIcons} type="button">Select Icon</button>
           <button onClick={handleSaveCard} type="button">Save Card</button>

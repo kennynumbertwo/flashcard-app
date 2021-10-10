@@ -34,7 +34,7 @@ const styles = {
 
 function CreateDeck(props) {
   // Destructured props from DrawerNav
-  const { classes, isLoggedIn, uid } = props;
+  const { classes, isLoggedIn, uid, fetchUserCardSets } = props;
   // State
   const [isShowingIconList, setIsShowingIconList] = useState(false);
   const [isShowingAddCardForm, setIsShowingAddCardForm] = useState(false);
@@ -69,6 +69,7 @@ function CreateDeck(props) {
   const handleSaveDeck = async () => {
     const userRef = doc(db, 'users', uid);
     await setDoc(userRef, { [deckFields.id]: deckFields }, { merge: true });
+    fetchUserCardSets();
   };
 
   if (!isLoggedIn) {
@@ -100,7 +101,7 @@ function CreateDeck(props) {
           <button onClick={handleSaveDeck} type="button">Save Deck</button>
         </div>
       </div>
-      <AddCardForm uid={uid} />
+      <AddCardForm uid={uid} fetchUserCardSets={fetchUserCardSets} />
     </div>
   );
 }

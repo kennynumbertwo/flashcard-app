@@ -163,26 +163,27 @@ export default function DrawerNav(props) {
   //   });
   // };
   useEffect(() => {
-    async function fetchUserCardSets() {
-      try {
-        setUserDeckState({ isLoading: true, errorMessage: '', userCardSetDatabase: null });
-        let docRef = doc(db, 'users', `${user.uid}`);
-        let docSnapshot = await getDoc(docRef);
-        if (docSnapshot.exists()) {
-          let docData = docSnapshot.data();
-          let userCardSetArray = [];
-          for (let data in docData) {
-            userCardSetArray.push(docData[data]);
-          }
-          setUserDeckState({ isLoading: false, errorMessage: '', userCardSetDatabase: userCardSetArray });
-        }
-      } catch (err) {
-        setUserDeckState({ isLoading: false, errorMessage: 'Could not connect', userCardSetDatabase: null });
-        console.log(err);
-      }
-    }
     fetchUserCardSets();
   }, [user]);
+
+  const fetchUserCardSets = async () => {
+    try {
+      setUserDeckState({ isLoading: true, errorMessage: '', userCardSetDatabase: null });
+      let docRef = doc(db, 'users', `${user.uid}`);
+      let docSnapshot = await getDoc(docRef);
+      if (docSnapshot.exists()) {
+        let docData = docSnapshot.data();
+        let userCardSetArray = [];
+        for (let data in docData) {
+          userCardSetArray.push(docData[data]);
+        }
+        setUserDeckState({ isLoading: false, errorMessage: '', userCardSetDatabase: userCardSetArray });
+      }
+    } catch (err) {
+      setUserDeckState({ isLoading: false, errorMessage: 'Could not connect', userCardSetDatabase: null });
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     if (userDeckState.userCardSetDatabase) {
@@ -431,6 +432,7 @@ export default function DrawerNav(props) {
               <CreateDeck
                 isLoggedIn={isLoggedIn}
                 uid={user.uid}
+                fetchUserCardSets={fetchUserCardSets}
               />
             )}
           />
