@@ -101,7 +101,7 @@ function CreateDeck(props) {
           <button onClick={handleSaveDeck} type="button">Save Deck</button>
         </div>
       </div>
-      <AddCardForm uid={uid} fetchUserCardSets={fetchUserCardSets} />
+      {/* <AddCardForm uid={uid} fetchUserCardSets={fetchUserCardSets} /> */}
     </div>
   );
 }

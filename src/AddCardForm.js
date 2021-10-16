@@ -44,7 +44,7 @@ function AddCardForm(props) {
     answer: '',
     altText: '',
     cardSetIconClass: '',
-    id: 'guitars',
+    id: 'tacos',
   });
 
   useEffect(() => {
@@ -75,6 +75,9 @@ function AddCardForm(props) {
     fetchUserCardSets();
   };
 
+  if (!isLoggedIn) {
+    return <Redirect to="/login" />;
+  }
   if (isShowingIconList) {
     return (
       <IconList

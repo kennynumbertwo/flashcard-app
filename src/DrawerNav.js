@@ -37,6 +37,9 @@ import Login from './Login';
 import HomePage from './HomePage';
 import AccountMenu from './AccountMenu';
 import db from './firebase.config';
+import AddCardForm from './AddCardForm';
+import EditDeck from './EditDeck';
+import EditDeckList from './EditDeckList';
 
 const drawerWidth = 350;
 
@@ -285,6 +288,16 @@ export default function DrawerNav(props) {
                 <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
               </ListItem>
             </Link>
+            <Link to="/edit-deck" className={classes.navLink}>
+              <ListItem
+                key="edit-deck"
+                button
+              >
+                <ListItemIcon><CreateIcon /></ListItemIcon>
+                <ListItemText primary="Edit Deck" />
+                <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
+              </ListItem>
+            </Link>
             <Link to="/about" className={classes.navLink}>
               <ListItem
                 key="about"
@@ -413,7 +426,7 @@ export default function DrawerNav(props) {
           {/* USER INDIVIDUAL SET / FLASHCARD PAGE */}
           <Route
             exact
-            path="/MY-collections/:subCategory/:setName"
+            path="/my-collections/:subCategory/:setName"
             render={() => (
               <FlashcardTray
                 cardSetDatabase={userDeckState.userCardSetDatabase}
@@ -434,6 +447,41 @@ export default function DrawerNav(props) {
                 uid={user.uid}
                 fetchUserCardSets={fetchUserCardSets}
               />
+            )}
+          />
+          {/* EDIT DECK LIST PAGE */}
+          <Route
+            exact
+            path="/edit-deck"
+            render={() => (
+              <EditDeckList
+                isLoggedIn={isLoggedIn}
+                uid={user.uid}
+              />
+            )}
+          />
+          {/* EDIT DECK PAGE */}
+          <Route
+            exact
+            path="/edit-deck/:deckName"
+            render={() => (
+              <EditDeck
+                isLoggedIn={isLoggedIn}
+                uid={user.uid}
+              />
+            )}
+          />
+          {/* ADD CARD FORM PAGE */}
+          <Route
+            exact
+            path="/edit-deck/:deckName/add-cards"
+            render={() => (
+              <AddCardForm
+                isLoggedIn={isLoggedIn}
+                uid={user.uid}
+                fetchUserCardSets={fetchUserCardSets}
+              />
+
             )}
           />
           {/* ABOUT PAGE */}
