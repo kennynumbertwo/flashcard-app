@@ -457,6 +457,8 @@ export default function DrawerNav(props) {
               <EditDeckList
                 isLoggedIn={isLoggedIn}
                 uid={user.uid}
+                userCardCollections={userCardCollections}
+                updateCardSetName={updateCardSetName}
               />
             )}
           />
