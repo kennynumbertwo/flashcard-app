@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
-import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import Divider from '@mui/material/Divider';
 import EditDeckListItem from './EditDeckListItem';
-import IconCard from './IconCard';
-import icons from './icons';
 
 const ITEM_HEIGHT = 48;
 const ITEM_WIDTH = 1050;
@@ -31,7 +23,6 @@ const styles = {
     margin: '64px 0px 0px 0px',
   },
   menuBar: {
-    // border: '1px solid black',
     height: '50px',
     width: ITEM_WIDTH,
     display: 'flex',
@@ -39,7 +30,12 @@ const styles = {
     alignItems: 'center',
   },
   sortWrapper: {
-    marginLeft: 'auto',
+    height: '50px',
+    width: '20%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingRight: '10px',
   },
   divider: {
     height: '1px',
@@ -47,6 +43,44 @@ const styles = {
     borderBottom: '1px solid rgba(0, 0, 0, 0.2)',
     margin: '0px 0px 15px 0px',
     boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
+  },
+  headerCard: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    width: '1000px',
+    height: '50px',
+    padding: '0px 0px 0px 0px',
+    margin: '5px 0px 5px 0px',
+    borderRadius: '2px',
+    boxShadow: '0px 1px 5px 1px rgba(0, 0, 0, 0.1)',
+    color: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'white',
+    fontSize: '1rem',
+    fontWeight: 'bold',
+    transition: 'all .2s',
+    textDecoration: 'none',
+  },
+  labelWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '20%',
+    height: '50px',
+  },
+  totalCardsWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '10%',
+    height: '50px',
+  },
+  iconWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '10%',
+    height: '50px',
   },
 };
 
@@ -117,6 +151,24 @@ function EditDeckList(props) {
       <div className={classes.EditDeckList}>
         <div className={classes.menuBar}>
           <h2>Edit Decks</h2>
+        </div>
+        <div className={classes.divider} />
+        <div className={classes.headerCard}>
+          <div className={classes.labelWrapper}>
+            <p className={classes.label}>Set Name:</p>
+          </div>
+          <div className={classes.labelWrapper}>
+            <p className={classes.label}>Sub Category:</p>
+          </div>
+          <div className={classes.labelWrapper}>
+            <p className={classes.label}>Category:</p>
+          </div>
+          <div className={classes.totalCardsWrapper}>
+            <p className={classes.label}>Total Cards:</p>
+          </div>
+          <div className={classes.iconWrapper}>
+            <p className={classes.label}>Icon:</p>
+          </div>
           <div className={classes.sortWrapper}>
             <Button
               sx={{
@@ -163,7 +215,6 @@ function EditDeckList(props) {
             </Menu>
           </div>
         </div>
-        <div className={classes.divider} />
         {sortState.sortedDatabase.map(userCardSet => (
           <EditDeckListItem
             key={userCardSet.id}
@@ -182,6 +233,24 @@ function EditDeckList(props) {
     <div className={classes.EditDeckList}>
       <div className={classes.menuBar}>
         <h2>Edit Decks</h2>
+      </div>
+      <div className={classes.divider} />
+      <div className={classes.headerCard}>
+        <div className={classes.labelWrapper}>
+          <p className={classes.label}>Set Name:</p>
+        </div>
+        <div className={classes.labelWrapper}>
+          <p className={classes.label}>Sub Category:</p>
+        </div>
+        <div className={classes.labelWrapper}>
+          <p className={classes.label}>Category:</p>
+        </div>
+        <div className={classes.totalCardsWrapper}>
+          <p className={classes.label}>Total Cards:</p>
+        </div>
+        <div className={classes.iconWrapper}>
+          <p className={classes.label}>Icon:</p>
+        </div>
         <div className={classes.sortWrapper}>
           <Button
             sx={{
@@ -228,7 +297,6 @@ function EditDeckList(props) {
           </Menu>
         </div>
       </div>
-      <div className={classes.divider} />
       {userCardSetDatabase.map(userCardSet => (
         <EditDeckListItem
           key={userCardSet.id}
