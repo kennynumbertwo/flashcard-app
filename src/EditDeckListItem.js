@@ -52,7 +52,7 @@ const styles = {
 };
 
 function EditDeckListItem(props) {
-  const { classes, subCategory, url, updateCardSetName, category } = props;
+  const { classes, subCategory, url, updateCardSetName, category, setName, totalCards } = props;
   return (
     <Link
       className={classes.EditDeckListCard}
@@ -61,7 +61,7 @@ function EditDeckListItem(props) {
     >
       <div className={classes.labelWrapper}>
         <p className={classes.label}>Set Name:</p>
-        <p className={classes.info}>Placeholder</p>
+        <p className={classes.info}>{setName}</p>
       </div>
       <div className={classes.labelWrapper}>
         <p className={classes.label}>Sub Category:</p>
@@ -72,8 +72,8 @@ function EditDeckListItem(props) {
         <p className={classes.info}>{category}</p>
       </div>
       <div className={classes.labelWrapper}>
-        <p className={classes.label}>Cards Count:</p>
-        <p className={classes.info}>0</p>
+        <p className={classes.label}>Total Cards:</p>
+        <p className={classes.info}>{totalCards}</p>
       </div>
       <div className={classes.labelWrapper}>
         <p className={classes.label}>Icon:</p>
