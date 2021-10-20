@@ -12,9 +12,9 @@ const styles = {
     padding: '0px 0px 0px 0px',
     margin: '5px 0px 5px 0px',
     borderRadius: '2px',
-    boxShadow: '0px 1px 5px 1px rgba(0, 0, 0, 0.1)',
+    // boxShadow: '0px 1px 5px 1px rgba(0, 0, 0, 0.1)',
     color: 'rgba(0, 0, 0, 0.7)',
-    backgroundColor: 'rgba(250, 250, 250, 1)',
+    backgroundColor: 'rgba(250, 250, 250, 0)',
     fontSize: '1rem',
     transition: 'all .2s',
     textDecoration: 'none',
@@ -63,7 +63,7 @@ const styles = {
     height: '50px',
     width: '10%',
   },
-  loginButton: {
+  button: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -72,10 +72,10 @@ const styles = {
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     fontSize: '.8rem',
     fontWeight: '500',
-    background: 'rgba(0, 0, 0, 0.7)',
+    background: 'rgba(0, 0, 0, 0.6)',
     width: '80px',
     height: '30px',
-    border: '1.5px solid rgba(0, 0, 0, 0.7)',
+    border: '1.5px solid rgba(0, 0, 0, 0.0)',
     transition: 'all 0.4s ease 0s',
     borderRadius: '5px',
     '&:hover': {
@@ -110,10 +110,10 @@ function EditDeckListItem(props) {
         </div>
       </div>
       <div className={classes.buttonWrapper}>
-        <button className={classes.loginButton} type="button">Edit Deck</button>
+        <button className={classes.button} type="button">Edit Deck</button>
       </div>
       <div className={classes.buttonWrapper}>
-        <button className={classes.loginButton} type="button">Add Cards</button>
+        <button className={classes.button} type="button">Add Cards</button>
       </div>
     </div>
   );

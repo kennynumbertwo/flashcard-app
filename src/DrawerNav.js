@@ -23,7 +23,9 @@ import InfoIcon from '@material-ui/icons/Info';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { Route, Switch, Link } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
-import { collection, getDoc, doc } from 'firebase/firestore/lite';
+import { getDoc, doc } from 'firebase/firestore/lite';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import ContactsIcon from '@mui/icons-material/Contacts';
 import CollectionsPage from './CollectionsPage';
 import UserCollectionsPage from './UserCollectionsPage';
 import CardSetsPage from './CardSetsPage';
@@ -130,6 +132,10 @@ export default function DrawerNav(props) {
     isLoading: false,
     errorMessage: '',
     userCardSetDatabase: null,
+  });
+  const [editDeckState, setEditDeckState] = useState({
+    deckToEdit: '',
+    deckToAddCards: '',
   });
   // Checks if user is logged in, if not, login page is shown
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -273,7 +279,7 @@ export default function DrawerNav(props) {
                 key="my-collections"
                 button
               >
-                <ListItemIcon><LibraryBooksIcon /></ListItemIcon>
+                <ListItemIcon><ContactsIcon /></ListItemIcon>
                 <ListItemText primary="My Collections" />
                 <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
               </ListItem>
@@ -283,7 +289,7 @@ export default function DrawerNav(props) {
                 key="create-deck"
                 button
               >
-                <ListItemIcon><CreateIcon /></ListItemIcon>
+                <ListItemIcon><AddCircleOutlineIcon /></ListItemIcon>
                 <ListItemText primary="Create Deck" />
                 <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
               </ListItem>
