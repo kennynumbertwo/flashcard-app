@@ -13,7 +13,7 @@ const styles = {
 };
 
 function EditDeck(props) {
-  const { classes, isLoggedIn, uid } = props;
+  const { classes, isLoggedIn } = props;
 
   if (!isLoggedIn) {
     return <Redirect to="/login" />;

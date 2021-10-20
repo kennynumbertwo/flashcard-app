@@ -134,8 +134,8 @@ export default function DrawerNav(props) {
     userCardSetDatabase: null,
   });
   const [editDeckState, setEditDeckState] = useState({
-    deckToEdit: '',
-    deckToAddCards: '',
+    deckToEdit: {},
+    deckToAddCards: {},
   });
   // Checks if user is logged in, if not, login page is shown
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -466,6 +466,7 @@ export default function DrawerNav(props) {
                 userCardSetDatabase={userDeckState.userCardSetDatabase}
                 userCardCollections={userCardCollections}
                 updateCardSetName={updateCardSetName}
+                setEditDeckState={setEditDeckState}
               />
             )}
           />
@@ -489,6 +490,7 @@ export default function DrawerNav(props) {
                 isLoggedIn={isLoggedIn}
                 uid={user.uid}
                 fetchUserCardSets={fetchUserCardSets}
+                editDeckState={editDeckState}
               />
 
             )}

@@ -85,10 +85,46 @@ const styles = {
       cursor: 'pointer',
     },
   },
+  buttonLink: {
+    textDecoration: 'none',
+  },
 };
 
 function EditDeckListItem(props) {
-  const { classes, subCategory, url, updateCardSetName, category, setName, totalCards } = props;
+  const {
+    classes,
+    subCategory,
+    category,
+    setName,
+    totalCards,
+    iconClass,
+    setEditDeckState,
+  } = props;
+
+  const handleEditClick = () => {
+    setEditDeckState({
+      deckToEdit: {
+        setName,
+        category,
+        subCategory,
+        subCategoryClass: iconClass,
+
+      },
+      deckToAddCards: {} });
+  };
+
+  const handleAddClick = () => {
+    setEditDeckState({
+      deckToAddCards: {
+        setName,
+        category,
+        subCategory,
+        subCategoryClass: iconClass,
+      },
+      deckToEdit: {},
+    });
+  };
+
   return (
     <div className={classes.EditDeckListCard}>
 
@@ -106,14 +142,16 @@ function EditDeckListItem(props) {
       </div>
       <div className={classes.iconWrapper}>
         <div className={classes.EditDeckListItemIcon}>
-          <i className={props.iconClass} />
+          <i className={iconClass} />
         </div>
       </div>
       <div className={classes.buttonWrapper}>
-        <button className={classes.button} type="button">Edit Deck</button>
+        <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>
       </div>
       <div className={classes.buttonWrapper}>
-        <button className={classes.button} type="button">Add Cards</button>
+        <Link className={classes.buttonLink} to={`edit-deck/${setName.toLowerCase()}/add-cards`}>
+          <button className={classes.button} type="button" onClick={handleAddClick}>Add Cards</button>
+        </Link>
       </div>
     </div>
   );

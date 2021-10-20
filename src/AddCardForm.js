@@ -33,7 +33,7 @@ const styles = {
 
 function AddCardForm(props) {
   // Destructured props from DrawerNav
-  const { classes, isLoggedIn, uid, fetchUserCardSets } = props;
+  const { classes, isLoggedIn, uid, fetchUserCardSets, editDeckState } = props;
   // State
   const [isShowingIconList, setIsShowingIconList] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState('');
@@ -42,14 +42,15 @@ function AddCardForm(props) {
   const [cardFields, setCardFields] = useState({
     question: '',
     answer: '',
-    altText: '',
-    cardSetIconClass: '',
-    id: 'tacos',
+    subCategoryClass: '',
+    setName: editDeckState.deckToAddCards.setName,
+    category: editDeckState.deckToAddCards.category,
+    subCategory: editDeckState.deckToAddCards.subCategory,
   });
 
   useEffect(() => {
     setCardFields({ ...cardFields,
-      cardSetIconClass: selectedIconClass,
+      subCategoryClass: selectedIconClass,
     });
   }, [selectedIconClass]);
 
@@ -63,14 +64,15 @@ function AddCardForm(props) {
 
   const handleSaveCard = async () => {
     const userRef = doc(db, 'users', uid);
-    const updateString = `${cardFields.id}.cards`;
+    const updateString = `${editDeckState.deckToAddCards.setName.toLowerCase()}.cards`;
+    console.log(updateString);
     await updateDoc(userRef, { [updateString]: arrayUnion(cardFields) });
     fetchUserCardSets();
   };
 
   const handleDeleteCard = async () => {
     const userRef = doc(db, 'users', uid);
-    const updateString = `${cardFields.id}.cards`;
+    const updateString = `${editDeckState.deckToAddCards}.cards`;
     await updateDoc(userRef, { [updateString]: arrayRemove([0]) });
     fetchUserCardSets();
   };

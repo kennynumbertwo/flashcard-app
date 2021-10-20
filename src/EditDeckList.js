@@ -115,7 +115,7 @@ function EditDeckList(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedFilter, setSelectedFilter] = useState('');
   const open = Boolean(anchorEl);
-  const { classes, userCardSetDatabase, userCardCollections, isLoggedIn } = props;
+  const { classes, userCardSetDatabase, userCardCollections, isLoggedIn, setEditDeckState } = props;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -255,6 +255,7 @@ function EditDeckList(props) {
               iconClass={userCardSet.subCategoryClass}
               setName={userCardSet.setName}
               totalCards={userCardSet.cards.length}
+              setEditDeckState={setEditDeckState}
               url={`/my-collections/${userCardSet.subCategoryId}`}
             />
           ))}
@@ -338,6 +339,7 @@ function EditDeckList(props) {
           iconClass={userCardSet.subCategoryClass}
           setName={userCardSet.setName}
           totalCards={userCardSet.cards.length}
+          setEditDeckState={setEditDeckState}
           url={`/my-collections/${userCardSet.subCategoryId}`}
         />
       ))}
