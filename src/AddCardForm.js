@@ -69,7 +69,7 @@ function AddCardForm(props) {
 
   const handleSaveCard = async () => {
     const userRef = doc(db, 'users', uid);
-    const updateString = `${editDeckState.deckToAddCards.setName.toLowerCase()}.cards`;
+    const updateString = `${editDeckState.deckToAddCards.setName.toLowerCase().replace(/\s+/g, '-')}.cards`;
     await updateDoc(userRef, { [updateString]: arrayUnion(cardFields) });
     setOpen(true);
     setCardFields({ question: '', answer: '', subCategoryClass: '' });
@@ -78,7 +78,7 @@ function AddCardForm(props) {
 
   const handleDeleteCard = async () => {
     const userRef = doc(db, 'users', uid);
-    const updateString = `${editDeckState.deckToAddCards}.cards`;
+    const updateString = `${editDeckState.deckToAddCards.replace(/\s+/g, '-')}.cards`;
     await updateDoc(userRef, { [updateString]: arrayRemove([0]) });
     fetchUserCardSets();
   };

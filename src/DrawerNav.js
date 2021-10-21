@@ -166,12 +166,6 @@ export default function DrawerNav(props) {
     setOpen(false);
   };
 
-  // const getUserCards = async () => {
-  //   const querySnapshot = await getDocs(collection(db, 'users'));
-  //   querySnapshot.forEach((document) => {
-  //     console.log(document.data());
-  //   });
-  // };
   useEffect(() => {
     fetchUserCardSets();
   }, [user]);
@@ -199,7 +193,6 @@ export default function DrawerNav(props) {
     if (userDeckState.userCardSetDatabase) {
       setUserCardCollections(getCardCollections(userDeckState.userCardSetDatabase));
     }
-    // getFlashcards(selectedSetIndex);
   }, [userDeckState.userCardSetDatabase]);
 
   useEffect(() => {

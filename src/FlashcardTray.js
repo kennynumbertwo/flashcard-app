@@ -18,21 +18,27 @@ function FlashcardTray(props) {
   const [started, setStarted] = useState(false);
   const [cardQuantity, setCardQuantity] = React.useState('');
 
+  const { classes, currentCardSetName, isLoggedIn, cardSetDatabase } = props;
+
   // Sets flashcards to the selectedSetIndex
   useEffect(() => {
-    getFlashcards(props.selectedSetIndex);
+    getFlashcards();
     setDeckLength(flashcards.length);
     setCardQuantity('');
     setStarted(false);
-  }, [props.cardSetDatabase, flashcards.length, props.selectedSetIndex]);
+  }, [props.cardSetDatabase, flashcards.length, currentCardSetName]);
 
   // Set the specified flashcard deck, if it exists
-  const getFlashcards = (index) => {
+  const getFlashcards = () => {
     let flashcardsToSet = [];
-    if (props.cardSetDatabase[index]) {
-      flashcardsToSet = props.cardSetDatabase[index].cards;
+    if (cardSetDatabase) {
+      cardSetDatabase.forEach(cardSet => {
+        if (cardSet.id === currentCardSetName.toLowerCase()) {
+          flashcardsToSet = cardSet.cards;
+        }
+        return (setFlashcards(flashcardsToSet));
+      });
     }
-    return (setFlashcards(flashcardsToSet));
   };
 
   // Function to shuffle the deck
@@ -99,8 +105,6 @@ function FlashcardTray(props) {
     }
     return cardQuantityArray;
   };
-
-  const { classes, currentCardSetName, isLoggedIn } = props;
 
   if (!isLoggedIn) {
     return <Redirect to="/login" />;

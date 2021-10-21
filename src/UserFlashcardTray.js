@@ -18,19 +18,21 @@ function UserFlashcardTray(props) {
   const [started, setStarted] = useState(false);
   const [cardQuantity, setCardQuantity] = React.useState('');
 
+  const { classes, currentCardSetName, isLoggedIn, userCardSetDatabase } = props;
+
   // Sets flashcards to the selectedSetIndex
   useEffect(() => {
-    getFlashcards(props.selectedSetIndex);
+    getFlashcards();
     setDeckLength(flashcards.length);
     setCardQuantity('');
     setStarted(false);
-  }, [props.userCardSetDatabase, flashcards.length, props.selectedSetIndex]);
+  }, [userCardSetDatabase, flashcards.length, currentCardSetName]);
 
   // Set the specified flashcard deck, if it exists
   const getFlashcards = () => {
     let flashcardsToSet = [];
-    if (props.userCardSetDatabase) {
-      props.userCardSetDatabase.forEach(cardSet => {
+    if (userCardSetDatabase) {
+      userCardSetDatabase.forEach(cardSet => {
         if (cardSet.id === currentCardSetName.toLowerCase()) {
           flashcardsToSet = cardSet.cards;
         }
@@ -103,8 +105,6 @@ function UserFlashcardTray(props) {
     }
     return cardQuantityArray;
   };
-
-  const { classes, currentCardSetName, isLoggedIn } = props;
 
   if (!isLoggedIn) {
     return <Redirect to="/login" />;
