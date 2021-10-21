@@ -3,6 +3,9 @@ import { withStyles } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore/lite';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import IconList from './IconList';
 import IconCard from './IconCard';
 import db from './firebase.config';
@@ -38,21 +41,23 @@ function AddCardForm(props) {
   const [isShowingIconList, setIsShowingIconList] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState('');
   const [selectedIconClass, setSelectedIconClass] = useState('');
+  // Snackbar
+  const [open, setOpen] = React.useState(false);
   // Text Inputs
   const [cardFields, setCardFields] = useState({
     question: '',
     answer: '',
-    subCategoryClass: '',
+    subCategoryClass: editDeckState.deckToAddCards.subCategoryClass,
     setName: editDeckState.deckToAddCards.setName,
     category: editDeckState.deckToAddCards.category,
     subCategory: editDeckState.deckToAddCards.subCategory,
   });
 
-  useEffect(() => {
-    setCardFields({ ...cardFields,
-      subCategoryClass: selectedIconClass,
-    });
-  }, [selectedIconClass]);
+  // useEffect(() => {
+  //   setCardFields({ ...cardFields,
+  //     subCategoryClass: selectedIconClass,
+  //   });
+  // }, [selectedIconClass]);
 
   const handleShowIcons = () => {
     setIsShowingIconList(!isShowingIconList);
@@ -65,8 +70,9 @@ function AddCardForm(props) {
   const handleSaveCard = async () => {
     const userRef = doc(db, 'users', uid);
     const updateString = `${editDeckState.deckToAddCards.setName.toLowerCase()}.cards`;
-    console.log(updateString);
     await updateDoc(userRef, { [updateString]: arrayUnion(cardFields) });
+    setOpen(true);
+    setCardFields({ question: '', answer: '', subCategoryClass: '' });
     fetchUserCardSets();
   };
 
@@ -90,6 +96,27 @@ function AddCardForm(props) {
       />
     );
   }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
   return (
     <div className={classes.AddCardFormDeckWrapper}>
       <div className={classes.AddCardFormCard}>
@@ -108,7 +135,15 @@ function AddCardForm(props) {
           <button onClick={handleDeleteCard} type="button">Delete Card</button>
         </div>
       </div>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        message="Card Added!"
+        action={action}
+      />
     </div>
+
   );
 }
 

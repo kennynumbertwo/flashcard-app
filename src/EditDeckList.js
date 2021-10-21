@@ -169,100 +169,7 @@ function EditDeckList(props) {
   if (!isLoggedIn) {
     return <Redirect to="/login" />;
   }
-  if (sortState.isSorted) {
-    return (
-      <div className={classes.EditDeckList}>
-        <div className={classes.menuBar}>
-          <h2>Edit Decks</h2>
-        </div>
-        <div className={classes.divider} />
-        <div className={classes.mainCard}>
-          <div className={classes.headerCardWrapper}>
 
-            <div className={classes.headerCard}>
-              <div className={classes.labelWrapper}>
-                <p className={classes.label}>Set Name:</p>
-              </div>
-              <div className={classes.labelWrapper}>
-                <p className={classes.label}>Sub Category:</p>
-              </div>
-              <div className={classes.labelWrapper}>
-                <p className={classes.label}>Category:</p>
-              </div>
-              <div className={classes.totalCardsWrapper}>
-                <p className={classes.label}>Total Cards:</p>
-              </div>
-              <div className={classes.iconWrapper}>
-                <p className={classes.label}>Icon:</p>
-              </div>
-              <div className={classes.sortWrapper}>
-                <Button
-                  sx={{
-                    backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                    color: 'rgba(0, 0, 0, 0.6)',
-                    height: '35px',
-                    '&:hover': {
-                      backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                      color: 'rgba(0, 0, 0, 0.8)',
-                    },
-                  }}
-                  id="demo-customized-button"
-                  aria-controls="demo-customized-menu"
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  variant="contained"
-                  disableElevation
-                  onClick={handleClick}
-                  endIcon={<KeyboardArrowDownIcon />}
-                >
-                  Sort
-                </Button>
-                <Menu
-                  id="long-menu"
-                  MenuListProps={{
-                    'aria-labelledby': 'long-button',
-                  }}
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  PaperProps={{
-                    style: {
-                      maxHeight: ITEM_HEIGHT * 5.5,
-                      width: '20ch',
-                    },
-                  }}
-                >
-                  <MenuItem onClick={handleClose}>Clear Filter</MenuItem>
-                  {options.map((option) => (
-                    <MenuItem
-                      key={option}
-                      selected={option === selectedFilter}
-                      onClick={handleClose}
-                    >
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </div>
-            </div>
-          </div>
-          <div className={classes.divider} />
-          {sortState.sortedDatabase.map(userCardSet => (
-            <EditDeckListItem
-              key={userCardSet.id}
-              category={userCardSet.category}
-              subCategory={userCardSet.subCategory}
-              iconClass={userCardSet.subCategoryClass}
-              setName={userCardSet.setName}
-              totalCards={userCardSet.cards.length}
-              setEditDeckState={setEditDeckState}
-              url={`/my-collections/${userCardSet.subCategoryId}`}
-            />
-          ))}
-        </div>
-      </div>
-    );
-  }
   return (
     <div className={classes.EditDeckList}>
       <div className={classes.menuBar}>
@@ -331,18 +238,31 @@ function EditDeckList(props) {
           </Menu>
         </div>
       </div>
-      {userCardSetDatabase.map(userCardSet => (
-        <EditDeckListItem
-          key={userCardSet.id}
-          category={userCardSet.category}
-          subCategory={userCardSet.subCategory}
-          iconClass={userCardSet.subCategoryClass}
-          setName={userCardSet.setName}
-          totalCards={userCardSet.cards.length}
-          setEditDeckState={setEditDeckState}
-          url={`/my-collections/${userCardSet.subCategoryId}`}
-        />
-      ))}
+      { sortState.isSorted
+        ? sortState.sortedDatabase.map(userCardSet => (
+          <EditDeckListItem
+            key={userCardSet.id}
+            category={userCardSet.category}
+            subCategory={userCardSet.subCategory}
+            iconClass={userCardSet.subCategoryClass}
+            setName={userCardSet.setName}
+            totalCards={userCardSet.cards.length}
+            setEditDeckState={setEditDeckState}
+            url={`/my-collections/${userCardSet.subCategoryId}`}
+          />
+        ))
+        : userCardSetDatabase.map(userCardSet => (
+          <EditDeckListItem
+            key={userCardSet.id}
+            category={userCardSet.category}
+            subCategory={userCardSet.subCategory}
+            iconClass={userCardSet.subCategoryClass}
+            setName={userCardSet.setName}
+            totalCards={userCardSet.cards.length}
+            setEditDeckState={setEditDeckState}
+            url={`/my-collections/${userCardSet.subCategoryId}`}
+          />
+        ))}
     </div>
   );
 }

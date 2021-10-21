@@ -42,6 +42,7 @@ import db from './firebase.config';
 import AddCardForm from './AddCardForm';
 import EditDeck from './EditDeck';
 import EditDeckList from './EditDeckList';
+import UserFlashcardTray from './UserFlashcardTray';
 
 const drawerWidth = 350;
 
@@ -434,8 +435,7 @@ export default function DrawerNav(props) {
             exact
             path="/my-collections/:subCategory/:setName"
             render={() => (
-              <FlashcardTray
-                cardSetDatabase={userDeckState.userCardSetDatabase}
+              <UserFlashcardTray
                 userCardSetDatabase={userDeckState.userCardSetDatabase}
                 selectedSetIndex={selectedSetIndex}
                 currentCardSetName={currentCardSetName}

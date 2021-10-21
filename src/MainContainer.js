@@ -15,7 +15,6 @@ const styles = {
 
 function MainContainer(props) {
   const [cardSetDatabase, setCardSetDatabase] = useState([]);
-  // const [userCardSetDatabase, setUserCardSetDatabase] = useState([]);
   const [cardCollections, setCardCollections] = useState([]);
   const [pendingSetName, setPendingSetName] = useState('');
   const [selectedSetIndex, setselectedSetIndex] = useState(0);
@@ -97,8 +96,6 @@ function MainContainer(props) {
       <DrawerNav
         cardSetDatabase={cardSetDatabase}
         cardCollections={cardCollections}
-        // userCardSetDatabase={userCardSetDatabase}
-        // setUserCardSetDatabase={setUserCardSetDatabase}
         updateCardSetName={updateCardSetName}
         currentCardSetName={currentCardSetName}
         findCardSet={findCardSet}
