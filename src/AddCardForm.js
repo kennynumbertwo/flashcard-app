@@ -53,12 +53,6 @@ function AddCardForm(props) {
     subCategory: editDeckState.deckToAddCards.subCategory,
   });
 
-  // useEffect(() => {
-  //   setCardFields({ ...cardFields,
-  //     subCategoryClass: selectedIconClass,
-  //   });
-  // }, [selectedIconClass]);
-
   const handleShowIcons = () => {
     setIsShowingIconList(!isShowingIconList);
   };

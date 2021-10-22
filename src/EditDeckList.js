@@ -247,7 +247,7 @@ function EditDeckList(props) {
             setName={userCardSet.setName}
             totalCards={userCardSet.cards.length}
             setEditDeckState={setEditDeckState}
-            url={`/my-collections/${userCardSet.subCategoryId}`}
+            // url={`/my-collections/${userCardSet.subCategoryId}`}
           />
         ))
         : userCardSetDatabase.map(userCardSet => (
@@ -259,7 +259,7 @@ function EditDeckList(props) {
             setName={userCardSet.setName}
             totalCards={userCardSet.cards.length}
             setEditDeckState={setEditDeckState}
-            url={`/my-collections/${userCardSet.subCategoryId}`}
+            // url={`/my-collections/${userCardSet.subCategoryId}`}
           />
         ))}
     </div>

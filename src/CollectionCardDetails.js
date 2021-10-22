@@ -1,9 +1,12 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const styles = {
-  EditDeckListCard: {
+  CollectionCardDetailsCard: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -46,7 +49,7 @@ const styles = {
     width: '10%',
     height: '50px',
   },
-  EditDeckListItemIcon: {
+  CollectionCardDetailsItemIcon: {
     height: '100%',
     width: '100%',
     display: 'flex',
@@ -89,43 +92,48 @@ const styles = {
   },
 };
 
-function EditDeckListItem(props) {
+function CollectionCardDetails(props) {
   const {
     classes,
     subCategory,
-    category,
     setName,
     totalCards,
-    iconClass,
-    setEditDeckState,
+    url,
+    roundState,
+    setRoundState,
   } = props;
 
-  const handleEditClick = () => {
-    setEditDeckState({
-      deckToEdit: {
-        setName,
-        category,
-        subCategory,
-        subCategoryClass: iconClass,
+  const [cardQuantity, setCardQuantity] = React.useState('');
 
-      },
-      deckToAddCards: {} });
+  const handleStart = (event) => {
+    setRoundState({ cardQuantity: (event.target.value) });
   };
 
-  const handleAddClick = () => {
-    setEditDeckState({
-      deckToAddCards: {
-        setName,
-        category,
-        subCategory,
-        subCategoryClass: iconClass,
-      },
-      deckToEdit: {},
-    });
+  // Handles Card Quantity Input Change
+  const handleChange = (event) => {
+    setCardQuantity(event.target.value);
+  };
+
+  const getCardQuantity = (num) => {
+    let cardQuantityArray = [];
+    if (num < 30) {
+      for (let i = 0; i < num; i++) {
+        if ((i + 1) % 5 === 0) {
+          cardQuantityArray.push(i + 1);
+        }
+      }
+    } else {
+      for (let i = 0; i < num; i++) {
+        if ((i + 1) % 10 === 0) {
+          cardQuantityArray.push(i + 1);
+        }
+      }
+    }
+    return cardQuantityArray;
   };
 
   return (
-    <div className={classes.EditDeckListCard}>
+    <div className={classes.CollectionCardDetailsCard}>
 
       <div className={classes.labelWrapper}>
         <p className={classes.info}>{setName}</p>
@@ -134,26 +142,31 @@ function EditDeckListItem(props) {
         <p className={classes.info}>{subCategory}</p>
       </div>
       <div className={classes.labelWrapper}>
-        <p className={classes.info}>{category}</p>
+        <p className={classes.info}>100%</p>
       </div>
       <div className={classes.totalCardsWrapper}>
         <p className={classes.info}>{totalCards}</p>
       </div>
-      <div className={classes.iconWrapper}>
-        <div className={classes.EditDeckListItemIcon}>
-          <i className={iconClass} />
-        </div>
-      </div>
+      <FormControl variant="standard" sx={{ m: 2, minWidth: 75 }}>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={cardQuantity}
+          onChange={handleChange}
+          displayEmpty
+        >
+          {getCardQuantity(totalCards)
+            .map(num => <MenuItem key={`cardQuantity${num}`} value={num}>{num}</MenuItem>)}
+          <MenuItem value={totalCards}>{totalCards}</MenuItem>
+        </Select>
+      </FormControl>
       <div className={classes.buttonWrapper}>
-        <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>
-      </div>
-      <div className={classes.buttonWrapper}>
-        <Link className={classes.buttonLink} to={`edit-deck/${setName.toLowerCase()}/add-cards`}>
-          <button className={classes.button} type="button" onClick={handleAddClick}>Add Cards</button>
+        <Link className={classes.buttonLink} to={url}>
+          <button className={classes.button} type="button">Start</button>
         </Link>
       </div>
     </div>
   );
 }
 
-export default withStyles(styles)(EditDeckListItem);
+export default withStyles(styles)(CollectionCardDetails);

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { withStyles } from '@material-ui/core';
-import { getAuth } from 'firebase/auth';
 import DrawerNav from './DrawerNav';
 import db from './firebase.config';
 
@@ -17,7 +16,6 @@ function MainContainer(props) {
   const [cardSetDatabase, setCardSetDatabase] = useState([]);
   const [cardCollections, setCardCollections] = useState([]);
   const [pendingSetName, setPendingSetName] = useState('');
-  // const [selectedSetIndex, setselectedSetIndex] = useState(0);
   const [currentCardSetName, setCurrentCardSetName] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -30,12 +28,7 @@ function MainContainer(props) {
   // Sets flashcards to the selectedSetIndex
   useEffect(() => {
     setCardCollections(getCardCollections(cardSetDatabase));
-    // getFlashcards(selectedSetIndex);
   }, [cardSetDatabase]);
-
-  // useEffect(() => {
-  //   findCardSet(cardSetDatabase);
-  // }, [currentCardSetName]);
 
   // Function to fetch the Firebase DB and set it to cardSetDatabase
   const fetchCards = async () => {
@@ -72,16 +65,6 @@ function MainContainer(props) {
 
   const updateCardSetName = (nameToFind) => (setCurrentCardSetName(nameToFind));
 
-  // const findCardSet = (arr) => {
-  //   let indexToSet;
-  //   arr.forEach(cardSet => {
-  //     if (cardSet.id === currentCardSetName.toLowerCase()) {
-  //       indexToSet = arr.indexOf(cardSet);
-  //     }
-  //   });
-  //   return setselectedSetIndex(indexToSet);
-  // };
-
   const confirmPendingSetName = () => {
     setCurrentCardSetName(pendingSetName);
   };
@@ -98,8 +81,6 @@ function MainContainer(props) {
         cardCollections={cardCollections}
         updateCardSetName={updateCardSetName}
         currentCardSetName={currentCardSetName}
-        // findCardSet={findCardSet}
-        // selectedSetIndex={selectedSetIndex}
         pendingSetName={pendingSetName}
         confirmPendingSetName={confirmPendingSetName}
         denyPendingSetName={denyPendingSetName}

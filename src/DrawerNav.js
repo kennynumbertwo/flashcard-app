@@ -138,6 +138,10 @@ export default function DrawerNav(props) {
     deckToEdit: {},
     deckToAddCards: {},
   });
+  const [roundState, setRoundState] = useState({
+    cardQuantity: 0,
+
+  });
   // Checks if user is logged in, if not, login page is shown
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -145,7 +149,6 @@ export default function DrawerNav(props) {
     cardCollections,
     cardSetDatabase,
     updateCardSetName,
-    // selectedSetIndex,
     currentCardSetName,
     isShowingModal,
     toggleModal,
@@ -153,7 +156,6 @@ export default function DrawerNav(props) {
     confirmPendingSetName,
     denyPendingSetName,
     getCardCollections,
-    // findCardSet,
   } = props;
 
   // Opens Material UI Drawer
@@ -194,10 +196,6 @@ export default function DrawerNav(props) {
       setUserCardCollections(getCardCollections(userDeckState.userCardSetDatabase));
     }
   }, [userDeckState.userCardSetDatabase]);
-
-  // useEffect(() => {
-  //   findCardSet(cardSetDatabase);
-  // }, [currentCardSetName]);
 
   // Function to logout user and reset state
   const logoutUser = async () => {
@@ -317,7 +315,7 @@ export default function DrawerNav(props) {
             aria-labelledby="nested-list-subheader"
             subheader={(
               <ListSubheader component="div" id="nested-list-subheader">
-                My Flashcards
+                My Flashcards - Quick Nav
               </ListSubheader>
           )}
           >
@@ -382,6 +380,8 @@ export default function DrawerNav(props) {
                 selectedCollection={routeProps.match.params.subCategory}
                 updateCardSetName={updateCardSetName}
                 isLoggedIn={isLoggedIn}
+                roundState={roundState}
+                setRoundState={setRoundState}
               />
             )}
           />
@@ -393,9 +393,10 @@ export default function DrawerNav(props) {
               <FlashcardTray
                 cardSetDatabase={cardSetDatabase}
                 userCardSetDatabase={userDeckState.userCardSetDatabase}
-                // selectedSetIndex={selectedSetIndex}
                 currentCardSetName={currentCardSetName}
                 isLoggedIn={isLoggedIn}
+                roundState={roundState}
+                setRoundState={setRoundState}
               />
             )}
           />
@@ -406,6 +407,7 @@ export default function DrawerNav(props) {
             render={() => (
               <UserCollectionsPage
                 userCardCollections={userCardCollections}
+                userCardSetDatabase={userDeckState.userCardSetDatabase}
                 isLoggedIn={isLoggedIn}
               />
             )}
@@ -416,10 +418,12 @@ export default function DrawerNav(props) {
             path="/my-collections/:subCategory"
             render={(routeProps) => (
               <UserCardSetsPage
-                userCardCollections={userCardCollections}
+                userCardSetDatabase={userDeckState.userCardSetDatabase}
                 selectedCollection={routeProps.match.params.subCategory}
                 updateCardSetName={updateCardSetName}
                 isLoggedIn={isLoggedIn}
+                roundState={roundState}
+                setRoundState={setRoundState}
               />
             )}
           />
@@ -430,9 +434,10 @@ export default function DrawerNav(props) {
             render={() => (
               <UserFlashcardTray
                 userCardSetDatabase={userDeckState.userCardSetDatabase}
-                // selectedSetIndex={selectedSetIndex}
                 currentCardSetName={currentCardSetName}
                 isLoggedIn={isLoggedIn}
+                roundState={roundState}
+                setRoundState={setRoundState}
               />
             )}
           />
@@ -502,7 +507,6 @@ export default function DrawerNav(props) {
           secondButtonAction={denyPendingSetName}
           secondButton
         />
-        {/* <button onClick={fetchUserCardSets} type="button">load data</button> */}
       </main>
     </div>
   );
