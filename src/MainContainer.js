@@ -17,7 +17,7 @@ function MainContainer(props) {
   const [cardSetDatabase, setCardSetDatabase] = useState([]);
   const [cardCollections, setCardCollections] = useState([]);
   const [pendingSetName, setPendingSetName] = useState('');
-  const [selectedSetIndex, setselectedSetIndex] = useState(0);
+  // const [selectedSetIndex, setselectedSetIndex] = useState(0);
   const [currentCardSetName, setCurrentCardSetName] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -31,7 +31,7 @@ function MainContainer(props) {
   useEffect(() => {
     setCardCollections(getCardCollections(cardSetDatabase));
     // getFlashcards(selectedSetIndex);
-  }, [cardSetDatabase, selectedSetIndex]);
+  }, [cardSetDatabase]);
 
   // useEffect(() => {
   //   findCardSet(cardSetDatabase);
@@ -72,15 +72,15 @@ function MainContainer(props) {
 
   const updateCardSetName = (nameToFind) => (setCurrentCardSetName(nameToFind));
 
-  const findCardSet = (arr) => {
-    let indexToSet;
-    arr.forEach(cardSet => {
-      if (cardSet.id === currentCardSetName.toLowerCase()) {
-        indexToSet = arr.indexOf(cardSet);
-      }
-    });
-    return setselectedSetIndex(indexToSet);
-  };
+  // const findCardSet = (arr) => {
+  //   let indexToSet;
+  //   arr.forEach(cardSet => {
+  //     if (cardSet.id === currentCardSetName.toLowerCase()) {
+  //       indexToSet = arr.indexOf(cardSet);
+  //     }
+  //   });
+  //   return setselectedSetIndex(indexToSet);
+  // };
 
   const confirmPendingSetName = () => {
     setCurrentCardSetName(pendingSetName);
@@ -98,8 +98,8 @@ function MainContainer(props) {
         cardCollections={cardCollections}
         updateCardSetName={updateCardSetName}
         currentCardSetName={currentCardSetName}
-        findCardSet={findCardSet}
-        selectedSetIndex={selectedSetIndex}
+        // findCardSet={findCardSet}
+        // selectedSetIndex={selectedSetIndex}
         pendingSetName={pendingSetName}
         confirmPendingSetName={confirmPendingSetName}
         denyPendingSetName={denyPendingSetName}

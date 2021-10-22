@@ -49,7 +49,7 @@ function LoginEmailForm(props) {
           setIsAnimatingOut(false);
           props.setUser(props.userToLogIn);
           props.setIsLoggedIn(true);
-        }, 500);
+        }, 450);
       } else {
         props.setUser(props.userToLogIn);
         props.setIsLoggedIn(true);

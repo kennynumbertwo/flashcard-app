@@ -33,7 +33,7 @@ function FlashcardTray(props) {
     let flashcardsToSet = [];
     if (cardSetDatabase) {
       cardSetDatabase.forEach(cardSet => {
-        if (cardSet.id === currentCardSetName.toLowerCase()) {
+        if (cardSet.id === currentCardSetName.toLowerCase().replace(/\s+/g, '-')) {
           flashcardsToSet = cardSet.cards;
         }
         return (setFlashcards(flashcardsToSet));

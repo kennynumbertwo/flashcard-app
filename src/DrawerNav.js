@@ -145,7 +145,7 @@ export default function DrawerNav(props) {
     cardCollections,
     cardSetDatabase,
     updateCardSetName,
-    selectedSetIndex,
+    // selectedSetIndex,
     currentCardSetName,
     isShowingModal,
     toggleModal,
@@ -153,7 +153,7 @@ export default function DrawerNav(props) {
     confirmPendingSetName,
     denyPendingSetName,
     getCardCollections,
-    findCardSet,
+    // findCardSet,
   } = props;
 
   // Opens Material UI Drawer
@@ -195,9 +195,9 @@ export default function DrawerNav(props) {
     }
   }, [userDeckState.userCardSetDatabase]);
 
-  useEffect(() => {
-    findCardSet(cardSetDatabase);
-  }, [currentCardSetName]);
+  // useEffect(() => {
+  //   findCardSet(cardSetDatabase);
+  // }, [currentCardSetName]);
 
   // Function to logout user and reset state
   const logoutUser = async () => {
@@ -393,7 +393,7 @@ export default function DrawerNav(props) {
               <FlashcardTray
                 cardSetDatabase={cardSetDatabase}
                 userCardSetDatabase={userDeckState.userCardSetDatabase}
-                selectedSetIndex={selectedSetIndex}
+                // selectedSetIndex={selectedSetIndex}
                 currentCardSetName={currentCardSetName}
                 isLoggedIn={isLoggedIn}
               />
@@ -430,7 +430,7 @@ export default function DrawerNav(props) {
             render={() => (
               <UserFlashcardTray
                 userCardSetDatabase={userDeckState.userCardSetDatabase}
-                selectedSetIndex={selectedSetIndex}
+                // selectedSetIndex={selectedSetIndex}
                 currentCardSetName={currentCardSetName}
                 isLoggedIn={isLoggedIn}
               />

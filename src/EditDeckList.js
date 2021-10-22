@@ -161,7 +161,7 @@ function EditDeckList(props) {
   const sortByTotalCards = () => {
     const dbCopy = [...userCardSetDatabase];
     const sortedByTotalCards = dbCopy.sort(
-      (a, b) => (a.totalCards > b.totalCards ? 1 : -1),
+      (a, b) => (a.cards.length < b.cards.length ? 1 : -1),
     );
     return setSortState({ isSorted: true, sortedDatabase: sortedByTotalCards });
   };
@@ -229,7 +229,6 @@ function EditDeckList(props) {
               },
             }}
           >
-            <MenuItem onClick={handleClose}>Clear Filter</MenuItem>
             {options.map((option) => (
               <MenuItem key={option} selected={option === selectedFilter} onClick={handleClose}>
                 {option}
