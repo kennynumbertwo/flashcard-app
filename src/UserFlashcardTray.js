@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
-import styles from './styles/FlashcardTrayStyles';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarIcon from '@mui/icons-material/Star';
+import styles from './styles/UserFlashcardTrayStyles';
 import useToggle from './hooks/useToggle';
 import Flashcard from './Flashcard';
 
@@ -12,8 +14,14 @@ function UserFlashcardTray(props) {
   const [cardQuantity, setCardQuantity] = React.useState(0);
   const [cardCount, setCardCount] = useState(0);
   const [showAnswer, toggleShowAnswer] = useToggle(false);
+  const [starState, setStarState] = useState({
+    starOne: false,
+    starTwo: false,
+    starThree: false,
+  });
 
   const { classes, currentCardSetName, isLoggedIn, userCardSetDatabase, roundState } = props;
+  const { starOne, starTwo, starThree } = starState;
 
   // Sets flashcards to the currentCardSetName
   useEffect(() => {
@@ -71,6 +79,19 @@ function UserFlashcardTray(props) {
     setShuffledDeck(shuffled);
   };
 
+  const handleStarClick = (e) => {
+    console.log(e.currentTarget.id);
+    if (e.currentTarget.id === 'starOne') {
+      setStarState({ starOne: true, starTwo: false, starThree: false });
+    }
+    if (e.currentTarget.id === 'starTwo') {
+      setStarState({ starOne: true, starTwo: true, starThree: false });
+    }
+    if (e.currentTarget.id === 'starThree') {
+      setStarState({ starOne: true, starTwo: true, starThree: true });
+    }
+  };
+
   if (!isLoggedIn) {
     return <Redirect to="/login" />;
   }
@@ -116,6 +137,26 @@ function UserFlashcardTray(props) {
               Start Over
             </Button>
           )}
+      </div>
+      <div className={classes.masteryWrapper}>
+        <h4>Confidence Rating:</h4>
+        <div className={classes.starsWrapper}>
+          <div className={classes.starOneWrapper}>
+            {starOne
+              ? <StarIcon onClick={handleStarClick} id="starOne" />
+              : <StarBorderIcon onClick={handleStarClick} id="starOne" />}
+          </div>
+          <div className={classes.starTwoWrapper}>
+            {starTwo
+              ? <StarIcon onClick={handleStarClick} id="starTwo" />
+              : <StarBorderIcon onClick={handleStarClick} id="starTwo" />}
+          </div>
+          <div className={classes.starThreeWrapper}>
+            {starThree
+              ? <StarIcon onClick={handleStarClick} id="starThree" />
+              : <StarBorderIcon onClick={handleStarClick} id="starThree" />}
+          </div>
+        </div>
       </div>
     </div>
   );
