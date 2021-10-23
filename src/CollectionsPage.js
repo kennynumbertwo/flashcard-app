@@ -4,13 +4,17 @@ import { Redirect } from 'react-router-dom';
 import CollectionCard from './CollectionCard';
 
 const styles = {
-  root: {
+  CollectionsPageWrapperOuter: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  CollectionsPageWrapperInner: {
     marginTop: '64px',
     padding: '0px 50px 10px 50px',
     display: 'flex',
     flexWrap: 'wrap',
-    width: '100%',
-    // height: '100%',
+    maxWidth: '1500px',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -22,18 +26,20 @@ function CollectionsPage(props) {
     return <Redirect to="/login" />;
   }
   return (
-    <div className={classes.root}>
-      {cardCollections.map(cardCollection => (
-        <CollectionCard
-          key={cardCollection.subCategoryId}
-          subCategoryId={cardCollection.subCategoryId}
-          category={cardCollection.category}
-          cardText={cardCollection.subCategory}
-          iconClass={cardCollection.subCategoryClass}
-          setNames={cardCollection.setNames}
-          url={`/collections/${cardCollection.subCategoryId}`}
-        />
-      ))}
+    <div className={classes.CollectionsPageWrapperOuter}>
+      <div className={classes.CollectionsPageWrapperInner}>
+        {cardCollections.map(cardCollection => (
+          <CollectionCard
+            key={cardCollection.subCategoryId}
+            subCategoryId={cardCollection.subCategoryId}
+            category={cardCollection.category}
+            cardText={cardCollection.subCategory}
+            iconClass={cardCollection.subCategoryClass}
+            setNames={cardCollection.setNames}
+            url={`/collections/${cardCollection.subCategoryId}`}
+          />
+        ))}
+      </div>
     </div>
   );
 }

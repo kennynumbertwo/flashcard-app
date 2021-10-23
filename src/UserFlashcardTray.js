@@ -15,7 +15,7 @@ function UserFlashcardTray(props) {
 
   const { classes, currentCardSetName, isLoggedIn, userCardSetDatabase, roundState } = props;
 
-  // Sets flashcards to the selectedSetIndex
+  // Sets flashcards to the currentCardSetName
   useEffect(() => {
     getFlashcards();
     if (flashcards) {

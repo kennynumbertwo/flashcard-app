@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import { Redirect } from 'react-router-dom';
 import styles from './styles/FlashcardTrayStyles';
 import useToggle from './hooks/useToggle';
@@ -12,21 +9,21 @@ import Flashcard from './Flashcard';
 function FlashcardTray(props) {
   const [flashcards, setFlashcards] = useState([]);
   const [shuffledDeck, setShuffledDeck] = useState([]);
-  const [deckLength, setDeckLength] = useState(1);
+  const [cardQuantity, setCardQuantity] = React.useState(0);
   const [cardCount, setCardCount] = useState(0);
   const [showAnswer, toggleShowAnswer] = useToggle(false);
-  const [started, setStarted] = useState(false);
-  const [cardQuantity, setCardQuantity] = React.useState('');
 
-  const { classes, currentCardSetName, isLoggedIn, cardSetDatabase } = props;
+  const { classes, currentCardSetName, isLoggedIn, cardSetDatabase, roundState } = props;
 
-  // Sets flashcards to the selectedSetIndex
+  // Sets flashcards to the currentCardSetName
   useEffect(() => {
     getFlashcards();
-    setDeckLength(flashcards.length);
-    setCardQuantity('');
-    setStarted(false);
-  }, [props.cardSetDatabase, flashcards.length, currentCardSetName]);
+    if (flashcards) {
+      const shuffled = (shuffleDeck(flashcards));
+      setShuffledDeck(shuffled);
+      setCardQuantity(roundState.cardQuantity);
+    }
+  }, [cardSetDatabase, flashcards.length, currentCardSetName]);
 
   // Set the specified flashcard deck, if it exists
   const getFlashcards = () => {
@@ -67,43 +64,11 @@ function FlashcardTray(props) {
     }
   };
 
-  // Initializes the selected deck
-  const start = () => {
-    setCardCount(0);
-    const shuffled = (shuffleDeck(flashcards));
-    setShuffledDeck(shuffled);
-    setStarted(true);
-  };
-
   // Reshuffles the deck once you've drawn all cards
   const startOver = () => {
     setCardCount(0);
-    setDeckLength(flashcards.length);
     const shuffled = (shuffleDeck(flashcards));
     setShuffledDeck(shuffled);
-  };
-
-  // Handles Card Quantity Input Change
-  const handleChange = (event) => {
-    setCardQuantity(event.target.value);
-  };
-
-  const getCardQuantity = (num) => {
-    let cardQuantityArray = [];
-    if (num < 30) {
-      for (let i = 0; i < num; i++) {
-        if ((i + 1) % 5 === 0) {
-          cardQuantityArray.push(i + 1);
-        }
-      }
-    } else {
-      for (let i = 0; i < num; i++) {
-        if ((i + 1) % 10 === 0) {
-          cardQuantityArray.push(i + 1);
-        }
-      }
-    }
-    return cardQuantityArray;
   };
 
   if (!isLoggedIn) {
@@ -111,47 +76,16 @@ function FlashcardTray(props) {
   }
   return (
     <div className={classes.root}>
-      {started && <h2>{currentCardSetName}</h2>}
-      {started && <h4>Card {cardCount + 1} of {cardQuantity}</h4>}
-      {started
-        ? (
+      <h2>{currentCardSetName}</h2>
+      <h4>Card {cardCount + 1} of {cardQuantity}</h4>
+      {shuffledDeck.length > 0
+        && (
           <Flashcard
             question={shuffledDeck[cardCount].question}
             answer={shuffledDeck[cardCount].answer}
             showAnswer={showAnswer}
           />
-        )
-        : (
-          <div className={classes.preStart}>
-            <h2>{currentCardSetName}</h2>
-            <div className={classes.cardQuantitySelect}>
-              <h4>How many cards would you like to use?</h4>
-              <FormControl variant="standard" sx={{ m: 2, minWidth: 75 }}>
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  value={cardQuantity}
-                  onChange={handleChange}
-                  displayEmpty
-                >
-                  {getCardQuantity(deckLength).map(num => <MenuItem key={`cardQuantity${num}`} value={num}>{num}</MenuItem>)}
-                  <MenuItem value={deckLength}>All Cards</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-            <Button
-              className={classes.startButton}
-              variant="contained"
-              type="button"
-              onClick={start}
-              disabled={!cardQuantity}
-            >
-              Start
-            </Button>
-          </div>
         )}
-      {started
-      && (
       <div className={classes.buttonContainer}>
         <Button
           className={classes.showButton}
@@ -183,7 +117,6 @@ function FlashcardTray(props) {
             </Button>
           )}
       </div>
-      )}
     </div>
   );
 }
