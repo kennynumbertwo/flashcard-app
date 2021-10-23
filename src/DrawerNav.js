@@ -369,12 +369,14 @@ export default function DrawerNav(props) {
             path="/collections/:subCategory"
             render={(routeProps) => (
               <CardSetsPage
+                cardSetDatabase={cardSetDatabase}
                 cardCollections={cardCollections}
                 selectedCollection={routeProps.match.params.subCategory}
                 updateCardSetName={updateCardSetName}
                 isLoggedIn={isLoggedIn}
                 roundState={roundState}
                 setRoundState={setRoundState}
+                setCurrentCardSetName={setCurrentCardSetName}
               />
             )}
           />
