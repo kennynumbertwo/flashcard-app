@@ -107,7 +107,7 @@ function EditDeckListItem(props) {
         category,
         subCategory,
         subCategoryClass: iconClass,
-
+        totalCards,
       },
       deckToAddCards: {} });
   };
@@ -119,6 +119,7 @@ function EditDeckListItem(props) {
         category,
         subCategory,
         subCategoryClass: iconClass,
+        totalCards,
       },
       deckToEdit: {},
     });
