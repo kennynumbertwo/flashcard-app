@@ -65,14 +65,6 @@ function MainContainer(props) {
 
   const updateCardSetName = (nameToFind) => (setCurrentCardSetName(nameToFind));
 
-  const confirmPendingSetName = () => {
-    setCurrentCardSetName(pendingSetName);
-  };
-
-  const denyPendingSetName = () => {
-    setPendingSetName('');
-  };
-
   const { classes } = props;
   return (
     <div className={classes.root}>
@@ -81,9 +73,8 @@ function MainContainer(props) {
         cardCollections={cardCollections}
         updateCardSetName={updateCardSetName}
         currentCardSetName={currentCardSetName}
+        setCurrentCardSetName={setCurrentCardSetName}
         pendingSetName={pendingSetName}
-        confirmPendingSetName={confirmPendingSetName}
-        denyPendingSetName={denyPendingSetName}
         getCardCollections={getCardCollections}
         loading={loading}
       />

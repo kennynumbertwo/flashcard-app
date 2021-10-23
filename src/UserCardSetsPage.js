@@ -125,6 +125,7 @@ function UserCardSetsPage(props) {
     selectedCollection,
     roundState,
     setRoundState,
+    setCurrentCardSetName,
   } = props;
 
   useEffect(() => {
@@ -174,6 +175,7 @@ function UserCardSetsPage(props) {
     const sortedByName = dbCopy.sort((a, b) => (a.setName > b.setName ? 1 : -1));
     return setSortState({ isSorted: true, sortedDatabase: sortedByName });
   };
+
   const sortBySubCategory = () => {
     const dbCopy = [...selectedSetArray];
     const sortedBySubCategory = dbCopy.sort(
@@ -208,7 +210,7 @@ function UserCardSetsPage(props) {
           <p className={classes.label}>Sub Category:</p>
         </div>
         <div className={classes.labelWrapper}>
-          <p className={classes.label}>Confidence:</p>
+          <p className={classes.label}>Mastery:</p>
         </div>
         <div className={classes.totalCardsWrapper}>
           <p className={classes.label}>Total Cards:</p>
@@ -272,6 +274,7 @@ function UserCardSetsPage(props) {
             totalCards={userCardSet.cards.length}
             roundState={roundState}
             setRoundState={setRoundState}
+            setCurrentCardSetName={setCurrentCardSetName}
             url={`/my-collections/${selectedCollection}/${userCardSet.id}`}
           />
         ))
@@ -285,6 +288,7 @@ function UserCardSetsPage(props) {
             totalCards={userCardSet.cards.length}
             roundState={roundState}
             setRoundState={setRoundState}
+            setCurrentCardSetName={setCurrentCardSetName}
             url={`/my-collections/${selectedCollection}/${userCardSet.id}`}
           />
         ))}

@@ -101,12 +101,14 @@ function CollectionCardDetails(props) {
     url,
     roundState,
     setRoundState,
+    setCurrentCardSetName,
   } = props;
 
-  const [cardQuantity, setCardQuantity] = React.useState('');
+  const [cardQuantity, setCardQuantity] = React.useState(totalCards);
 
-  const handleStart = (event) => {
-    setRoundState({ cardQuantity: (event.target.value) });
+  const handleStart = () => {
+    setRoundState({ cardQuantity });
+    setCurrentCardSetName(setName);
   };
 
   // Handles Card Quantity Input Change
@@ -162,7 +164,7 @@ function CollectionCardDetails(props) {
       </FormControl>
       <div className={classes.buttonWrapper}>
         <Link className={classes.buttonLink} to={url}>
-          <button className={classes.button} type="button">Start</button>
+          <button className={classes.button} type="button" onClick={handleStart}>Start</button>
         </Link>
       </div>
     </div>

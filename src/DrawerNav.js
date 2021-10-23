@@ -17,8 +17,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import CreateIcon from '@material-ui/icons/Create';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import InfoIcon from '@material-ui/icons/Info';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { Route, Switch, Link } from 'react-router-dom';
@@ -34,7 +32,6 @@ import NestedListItem from './NestedListItem';
 import FlashcardTray from './FlashcardTray';
 import CreateDeck from './CreateDeck';
 import About from './About';
-import Modal from './Modal';
 import Login from './Login';
 import HomePage from './HomePage';
 import AccountMenu from './AccountMenu';
@@ -149,12 +146,8 @@ export default function DrawerNav(props) {
     cardCollections,
     cardSetDatabase,
     updateCardSetName,
+    setCurrentCardSetName,
     currentCardSetName,
-    isShowingModal,
-    toggleModal,
-    pendingSetName,
-    confirmPendingSetName,
-    denyPendingSetName,
     getCardCollections,
   } = props;
 
@@ -424,6 +417,7 @@ export default function DrawerNav(props) {
                 isLoggedIn={isLoggedIn}
                 roundState={roundState}
                 setRoundState={setRoundState}
+                setCurrentCardSetName={setCurrentCardSetName}
               />
             )}
           />
@@ -496,17 +490,6 @@ export default function DrawerNav(props) {
           {/* ABOUT PAGE */}
           <Route exact path="/about" render={() => <About />} />
         </Switch>
-        {/* MODAL */}
-        <Modal
-          isShowing={isShowingModal}
-          hide={toggleModal}
-          messageText={`Would you like to load the ${pendingSetName} flashcard deck?`}
-          buttonText={<ThumbUpIcon />}
-          secondButtonText={<ThumbDownIcon />}
-          buttonAction={confirmPendingSetName}
-          secondButtonAction={denyPendingSetName}
-          secondButton
-        />
       </main>
     </div>
   );
