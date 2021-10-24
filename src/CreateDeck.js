@@ -6,7 +6,6 @@ import { doc, setDoc, updateDoc } from 'firebase/firestore/lite';
 import IconList from './IconList';
 import IconCard from './IconCard';
 import db from './firebase.config';
-import AddCardForm from './AddCardForm';
 
 const styles = {
   CreateDeckWrapper: {
@@ -43,7 +42,6 @@ function CreateDeck(props) {
   const [deckFields, setDeckFields] = useState({
     setName: '',
     subCategory: '',
-    category: '',
     subCategoryClass: '',
     id: '',
     owner: uid,
@@ -90,7 +88,6 @@ function CreateDeck(props) {
         <h4>Pick a name for the new deck:</h4>
         <TextField id="setName" label="Deck Name" variant="standard" onChange={handleChange} value={deckFields.setName} />
         <TextField id="subCategory" label="Sub Category" variant="standard" onChange={handleChange} value={deckFields.subCategory} />
-        <TextField id="category" label="Category" variant="standard" onChange={handleChange} value={deckFields.category} />
         <div className={classes.selectIconWrapper}>
           <IconCard
             iconClass={selectedIconClass}

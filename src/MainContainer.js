@@ -46,7 +46,6 @@ function MainContainer(props) {
         .findIndex(element => element.subCategory === cardSet.subCategory);
       if (index < 0) {
         collections.push({
-          category: cardSet.category,
           subCategory: cardSet.subCategory,
           subCategoryClass: cardSet.subCategoryClass,
           setNames: [{ cardSetName: cardSet.setName, cardSetId: cardSet.id }],

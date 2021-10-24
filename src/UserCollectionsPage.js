@@ -32,7 +32,6 @@ function UserCollectionsPage(props) {
           <CollectionCard
             key={userCardCollection.subCategoryId}
             subCategoryId={userCardCollection.subCategoryId}
-            category={userCardCollection.category}
             cardText={userCardCollection.subCategory}
             iconClass={userCardCollection.subCategoryClass}
             setNames={userCardCollection.setNames}

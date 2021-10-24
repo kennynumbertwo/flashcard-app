@@ -93,21 +93,21 @@ function EditDeckListItem(props) {
   const {
     classes,
     subCategory,
-    category,
     setName,
     totalCards,
     iconClass,
     setEditDeckState,
+    mastery,
   } = props;
 
   const handleEditClick = () => {
     setEditDeckState({
       deckToEdit: {
         setName,
-        category,
         subCategory,
         subCategoryClass: iconClass,
         totalCards,
+        mastery,
       },
       deckToAddCards: {} });
   };
@@ -116,10 +116,10 @@ function EditDeckListItem(props) {
     setEditDeckState({
       deckToAddCards: {
         setName,
-        category,
         subCategory,
         subCategoryClass: iconClass,
         totalCards,
+        mastery,
       },
       deckToEdit: {},
     });
@@ -135,7 +135,7 @@ function EditDeckListItem(props) {
         <p className={classes.info}>{subCategory}</p>
       </div>
       <div className={classes.labelWrapper}>
-        <p className={classes.info}>{category}</p>
+        <p className={classes.info}>100%</p>
       </div>
       <div className={classes.totalCardsWrapper}>
         <p className={classes.info}>{totalCards}</p>

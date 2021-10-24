@@ -159,9 +159,6 @@ function CardSetsPage(props) {
       if (e.target.innerText === 'Sub Category') {
         sortBySubCategory();
       }
-      if (e.target.innerText === 'Category') {
-        sortByCategory();
-      }
       if (e.target.innerText === 'Total Cards') {
         sortByTotalCards();
       }
@@ -267,7 +264,6 @@ function CardSetsPage(props) {
         ? sortState.sortedDatabase.map(cardSet => (
           <CollectionCardDetails
             key={cardSet.setName}
-            category={cardSet.category}
             subCategory={cardSet.subCategory}
             iconClass={cardSet.subCategoryClass}
             setName={cardSet.setName}
@@ -281,7 +277,6 @@ function CardSetsPage(props) {
         : selectedSetArray.map(cardSet => (
           <CollectionCardDetails
             key={cardSet.setName}
-            category={cardSet.category}
             subCategory={cardSet.subCategory}
             iconClass={cardSet.subCategoryClass}
             setName={cardSet.setName}

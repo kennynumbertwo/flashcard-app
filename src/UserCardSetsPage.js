@@ -159,9 +159,6 @@ function UserCardSetsPage(props) {
       if (e.target.innerText === 'Sub Category') {
         sortBySubCategory();
       }
-      if (e.target.innerText === 'Category') {
-        sortByCategory();
-      }
       if (e.target.innerText === 'Total Cards') {
         sortByTotalCards();
       }

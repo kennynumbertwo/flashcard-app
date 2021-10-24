@@ -49,7 +49,6 @@ function AddCardForm(props) {
     answer: '',
     subCategoryClass: editDeckState.deckToAddCards.subCategoryClass,
     setName: editDeckState.deckToAddCards.setName,
-    category: editDeckState.deckToAddCards.category,
     subCategory: editDeckState.deckToAddCards.subCategory,
     cardNumber: editDeckState.deckToAddCards.totalCards + 1,
     masteryRating: 0,
