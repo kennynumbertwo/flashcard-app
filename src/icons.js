@@ -432,6 +432,12 @@ const icons = [
     filter: 'History, Economy & Politics',
   },
 
+  {
+    id: 'coffee',
+    name: 'Coffee',
+    class: 'fas fa-coffee',
+    filter: '',
+  },
   // {
   //   id: '',
   //   name: '',

@@ -95,7 +95,7 @@ const styles = {
 function CollectionCardDetails(props) {
   const {
     classes,
-    subCategory,
+    category,
     setName,
     totalCards,
     url,
@@ -141,7 +141,7 @@ function CollectionCardDetails(props) {
         <p className={classes.info}>{setName}</p>
       </div>
       <div className={classes.labelWrapper}>
-        <p className={classes.info}>{subCategory}</p>
+        <p className={classes.info}>{category}</p>
       </div>
       <div className={classes.labelWrapper}>
         <p className={classes.info}>100%</p>

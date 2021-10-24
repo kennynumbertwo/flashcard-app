@@ -314,9 +314,9 @@ export default function DrawerNav(props) {
           >
             {userCardCollections.map((col) => (
               <NestedListItem
-                key={col.subCategoryId}
-                subCategory={col.subCategory}
-                subCategoryId={col.subCategoryId}
+                key={col.categoryId}
+                category={col.category}
+                categoryId={col.categoryId}
                 setNames={col.setNames}
                 updateCardSetName={updateCardSetName}
               />
@@ -366,12 +366,12 @@ export default function DrawerNav(props) {
           {/* CARD SETS PAGE PAGE */}
           <Route
             exact
-            path="/collections/:subCategory"
+            path="/collections/:category"
             render={(routeProps) => (
               <CardSetsPage
                 cardSetDatabase={cardSetDatabase}
                 cardCollections={cardCollections}
-                selectedCollection={routeProps.match.params.subCategory}
+                selectedCollection={routeProps.match.params.category}
                 updateCardSetName={updateCardSetName}
                 isLoggedIn={isLoggedIn}
                 roundState={roundState}
@@ -383,7 +383,7 @@ export default function DrawerNav(props) {
           {/* STOCK INDIVIDUAL SET / FLASHCARD PAGE */}
           <Route
             exact
-            path="/collections/:subCategory/:setName"
+            path="/collections/:category/:setName"
             render={() => (
               <FlashcardTray
                 cardSetDatabase={cardSetDatabase}
@@ -410,11 +410,11 @@ export default function DrawerNav(props) {
           {/* USER CARD SETS PAGE PAGE */}
           <Route
             exact
-            path="/my-collections/:subCategory"
+            path="/my-collections/:category"
             render={(routeProps) => (
               <UserCardSetsPage
                 userCardSetDatabase={userDeckState.userCardSetDatabase}
-                selectedCollection={routeProps.match.params.subCategory}
+                selectedCollection={routeProps.match.params.category}
                 updateCardSetName={updateCardSetName}
                 isLoggedIn={isLoggedIn}
                 roundState={roundState}
@@ -426,7 +426,7 @@ export default function DrawerNav(props) {
           {/* USER INDIVIDUAL SET / FLASHCARD PAGE */}
           <Route
             exact
-            path="/my-collections/:subCategory/:setName"
+            path="/my-collections/:category/:setName"
             render={() => (
               <UserFlashcardTray
                 userCardSetDatabase={userDeckState.userCardSetDatabase}

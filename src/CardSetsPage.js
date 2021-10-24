@@ -10,7 +10,7 @@ import CollectionCardDetails from './CollectionCardDetails';
 const ITEM_HEIGHT = 48;
 const ITEM_WIDTH = 1050;
 
-const options = ['Set Name', 'Sub Category', 'Category', 'Total Cards'];
+const options = ['Set Name', 'Category', 'Total Cards'];
 
 const styles = {
   CardSetsPage: {
@@ -136,10 +136,10 @@ function CardSetsPage(props) {
     const filterArray = [];
     if (cardSetDatabase) {
       cardSetDatabase.forEach(cardSet => {
-        if (cardSet.subCategory.toLowerCase().replace(/\s+/g, '-') === selectedCollection) {
+        if (cardSet.category.toLowerCase().replace(/\s+/g, '-') === selectedCollection) {
           filterArray.push(cardSet);
           if (selectedCollectionName === '') {
-            setSelectedCollectionName(cardSet.subCategory);
+            setSelectedCollectionName(cardSet.category);
           }
         }
       });
@@ -156,8 +156,8 @@ function CardSetsPage(props) {
       if (e.target.innerText === 'Set Name') {
         sortBySetName();
       }
-      if (e.target.innerText === 'Sub Category') {
-        sortBySubCategory();
+      if (e.target.innerText === 'Category') {
+        sortBycategory();
       }
       if (e.target.innerText === 'Total Cards') {
         sortByTotalCards();
@@ -173,12 +173,12 @@ function CardSetsPage(props) {
     return setSortState({ isSorted: true, sortedDatabase: sortedByName });
   };
 
-  const sortBySubCategory = () => {
+  const sortBycategory = () => {
     const dbCopy = [...selectedSetArray];
-    const sortedBySubCategory = dbCopy.sort(
-      (a, b) => (a.subCategory > b.subCategory ? 1 : -1),
+    const sortedBycategory = dbCopy.sort(
+      (a, b) => (a.category > b.category ? 1 : -1),
     );
-    return setSortState({ isSorted: true, sortedDatabase: sortedBySubCategory });
+    return setSortState({ isSorted: true, sortedDatabase: sortedBycategory });
   };
 
   const sortByTotalCards = () => {
@@ -204,7 +204,7 @@ function CardSetsPage(props) {
           <p className={classes.label}>Set Name:</p>
         </div>
         <div className={classes.labelWrapper}>
-          <p className={classes.label}>Sub Category:</p>
+          <p className={classes.label}>Category:</p>
         </div>
         <div className={classes.labelWrapper}>
           <p className={classes.label}>Mastery:</p>
@@ -264,8 +264,8 @@ function CardSetsPage(props) {
         ? sortState.sortedDatabase.map(cardSet => (
           <CollectionCardDetails
             key={cardSet.setName}
-            subCategory={cardSet.subCategory}
-            iconClass={cardSet.subCategoryClass}
+            category={cardSet.category}
+            iconClass={cardSet.iconClass}
             setName={cardSet.setName}
             totalCards={cardSet.cards.length}
             roundState={roundState}
@@ -277,8 +277,8 @@ function CardSetsPage(props) {
         : selectedSetArray.map(cardSet => (
           <CollectionCardDetails
             key={cardSet.setName}
-            subCategory={cardSet.subCategory}
-            iconClass={cardSet.subCategoryClass}
+            category={cardSet.category}
+            iconClass={cardSet.iconClass}
             setName={cardSet.setName}
             totalCards={cardSet.cards.length}
             roundState={roundState}

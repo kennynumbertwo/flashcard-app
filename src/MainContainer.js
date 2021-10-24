@@ -43,13 +43,13 @@ function MainContainer(props) {
     let collections = [];
     arr.forEach(cardSet => {
       const index = collections
-        .findIndex(element => element.subCategory === cardSet.subCategory);
+        .findIndex(element => element.category === cardSet.category);
       if (index < 0) {
         collections.push({
-          subCategory: cardSet.subCategory,
-          subCategoryClass: cardSet.subCategoryClass,
+          category: cardSet.category,
+          iconClass: cardSet.iconClass,
           setNames: [{ cardSetName: cardSet.setName, cardSetId: cardSet.id }],
-          subCategoryId: `${cardSet.subCategory.toLowerCase().replace(/\s+/g, '-')}`,
+          categoryId: `${cardSet.category.toLowerCase().replace(/\s+/g, '-')}`,
         });
       } else {
         let updatedCollections = [...collections];

@@ -30,12 +30,12 @@ function CollectionsPage(props) {
       <div className={classes.CollectionsPageWrapperInner}>
         {cardCollections.map(cardCollection => (
           <CollectionCard
-            key={cardCollection.subCategoryId}
-            subCategoryId={cardCollection.subCategoryId}
-            cardText={cardCollection.subCategory}
-            iconClass={cardCollection.subCategoryClass}
+            key={cardCollection.categoryId}
+            categoryId={cardCollection.categoryId}
+            cardText={cardCollection.category}
+            iconClass={cardCollection.iconClass}
             setNames={cardCollection.setNames}
-            url={`/collections/${cardCollection.subCategoryId}`}
+            url={`/collections/${cardCollection.categoryId}`}
           />
         ))}
       </div>

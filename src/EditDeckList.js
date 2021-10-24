@@ -10,7 +10,7 @@ import EditDeckListItem from './EditDeckListItem';
 const ITEM_HEIGHT = 48;
 const ITEM_WIDTH = 1050;
 
-const options = ['Set Name', 'Sub Category', 'Category', 'Total Cards'];
+const options = ['Set Name', 'Category', 'Category', 'Total Cards'];
 
 const styles = {
   EditDeckList: {
@@ -126,8 +126,8 @@ function EditDeckList(props) {
       if (e.target.innerText === 'Set Name') {
         sortBySetName();
       }
-      if (e.target.innerText === 'Sub Category') {
-        sortBySubCategory();
+      if (e.target.innerText === 'Category') {
+        sortBycategory();
       }
       if (e.target.innerText === 'Total Cards') {
         sortByTotalCards();
@@ -142,12 +142,12 @@ function EditDeckList(props) {
     const sortedByName = dbCopy.sort((a, b) => (a.setName > b.setName ? 1 : -1));
     return setSortState({ isSorted: true, sortedDatabase: sortedByName });
   };
-  const sortBySubCategory = () => {
+  const sortBycategory = () => {
     const dbCopy = [...userCardSetDatabase];
-    const sortedBySubCategory = dbCopy.sort(
-      (a, b) => (a.subCategory > b.subCategory ? 1 : -1),
+    const sortedBycategory = dbCopy.sort(
+      (a, b) => (a.category > b.category ? 1 : -1),
     );
-    return setSortState({ isSorted: true, sortedDatabase: sortedBySubCategory });
+    return setSortState({ isSorted: true, sortedDatabase: sortedBycategory });
   };
 
   const sortByTotalCards = () => {
@@ -173,7 +173,7 @@ function EditDeckList(props) {
           <p className={classes.label}>Set Name:</p>
         </div>
         <div className={classes.labelWrapper}>
-          <p className={classes.label}>Sub Category:</p>
+          <p className={classes.label}>Category:</p>
         </div>
         <div className={classes.labelWrapper}>
           <p className={classes.label}>Mastery:</p>
@@ -233,25 +233,25 @@ function EditDeckList(props) {
         ? sortState.sortedDatabase.map(userCardSet => (
           <EditDeckListItem
             key={userCardSet.id}
-            subCategory={userCardSet.subCategory}
-            iconClass={userCardSet.subCategoryClass}
+            category={userCardSet.category}
+            iconClass={userCardSet.iconClass}
             setName={userCardSet.setName}
             totalCards={userCardSet.cards.length}
             setEditDeckState={setEditDeckState}
             mastery={userCardSet.mastery}
-            // url={`/my-collections/${userCardSet.subCategoryId}`}
+            // url={`/my-collections/${userCardSet.categoryId}`}
           />
         ))
         : userCardSetDatabase.map(userCardSet => (
           <EditDeckListItem
             key={userCardSet.id}
-            subCategory={userCardSet.subCategory}
-            iconClass={userCardSet.subCategoryClass}
+            category={userCardSet.category}
+            iconClass={userCardSet.iconClass}
             setName={userCardSet.setName}
             totalCards={userCardSet.cards.length}
             setEditDeckState={setEditDeckState}
             mastery={userCardSet.mastery}
-            // url={`/my-collections/${userCardSet.subCategoryId}`}
+            // url={`/my-collections/${userCardSet.categoryId}`}
           />
         ))}
     </div>

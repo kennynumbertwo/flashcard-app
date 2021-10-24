@@ -10,7 +10,7 @@ import CollectionCardDetails from './CollectionCardDetails';
 const ITEM_HEIGHT = 48;
 const ITEM_WIDTH = 1050;
 
-const options = ['Set Name', 'Sub Category', 'Category', 'Total Cards'];
+const options = ['Set Name', 'Category', 'Category', 'Total Cards'];
 
 const styles = {
   UserCardSetsPage: {
@@ -136,10 +136,10 @@ function UserCardSetsPage(props) {
     const filterArray = [];
     if (userCardSetDatabase) {
       userCardSetDatabase.forEach(userCardSet => {
-        if (userCardSet.subCategory.toLowerCase().replace(/\s+/g, '-') === selectedCollection) {
+        if (userCardSet.category.toLowerCase().replace(/\s+/g, '-') === selectedCollection) {
           filterArray.push(userCardSet);
           if (selectedCollectionName === '') {
-            setSelectedCollectionName(userCardSet.subCategory);
+            setSelectedCollectionName(userCardSet.category);
           }
         }
       });
@@ -156,8 +156,8 @@ function UserCardSetsPage(props) {
       if (e.target.innerText === 'Set Name') {
         sortBySetName();
       }
-      if (e.target.innerText === 'Sub Category') {
-        sortBySubCategory();
+      if (e.target.innerText === 'Category') {
+        sortBycategory();
       }
       if (e.target.innerText === 'Total Cards') {
         sortByTotalCards();
@@ -173,12 +173,12 @@ function UserCardSetsPage(props) {
     return setSortState({ isSorted: true, sortedDatabase: sortedByName });
   };
 
-  const sortBySubCategory = () => {
+  const sortBycategory = () => {
     const dbCopy = [...selectedSetArray];
-    const sortedBySubCategory = dbCopy.sort(
-      (a, b) => (a.subCategory > b.subCategory ? 1 : -1),
+    const sortedBycategory = dbCopy.sort(
+      (a, b) => (a.category > b.category ? 1 : -1),
     );
-    return setSortState({ isSorted: true, sortedDatabase: sortedBySubCategory });
+    return setSortState({ isSorted: true, sortedDatabase: sortedBycategory });
   };
 
   const sortByTotalCards = () => {
@@ -204,7 +204,7 @@ function UserCardSetsPage(props) {
           <p className={classes.label}>Set Name:</p>
         </div>
         <div className={classes.labelWrapper}>
-          <p className={classes.label}>Sub Category:</p>
+          <p className={classes.label}>Category:</p>
         </div>
         <div className={classes.labelWrapper}>
           <p className={classes.label}>Mastery:</p>
@@ -265,8 +265,7 @@ function UserCardSetsPage(props) {
           <CollectionCardDetails
             key={userCardSet.setName}
             category={userCardSet.category}
-            subCategory={userCardSet.subCategory}
-            iconClass={userCardSet.subCategoryClass}
+            iconClass={userCardSet.iconClass}
             setName={userCardSet.setName}
             totalCards={userCardSet.cards.length}
             roundState={roundState}
@@ -279,8 +278,7 @@ function UserCardSetsPage(props) {
           <CollectionCardDetails
             key={userCardSet.setName}
             category={userCardSet.category}
-            subCategory={userCardSet.subCategory}
-            iconClass={userCardSet.subCategoryClass}
+            iconClass={userCardSet.iconClass}
             setName={userCardSet.setName}
             totalCards={userCardSet.cards.length}
             roundState={roundState}

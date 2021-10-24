@@ -92,7 +92,7 @@ const styles = {
 function EditDeckListItem(props) {
   const {
     classes,
-    subCategory,
+    category,
     setName,
     totalCards,
     iconClass,
@@ -104,8 +104,8 @@ function EditDeckListItem(props) {
     setEditDeckState({
       deckToEdit: {
         setName,
-        subCategory,
-        subCategoryClass: iconClass,
+        category,
+        iconClass,
         totalCards,
         mastery,
       },
@@ -116,8 +116,8 @@ function EditDeckListItem(props) {
     setEditDeckState({
       deckToAddCards: {
         setName,
-        subCategory,
-        subCategoryClass: iconClass,
+        category,
+        iconClass,
         totalCards,
         mastery,
       },
@@ -132,7 +132,7 @@ function EditDeckListItem(props) {
         <p className={classes.info}>{setName}</p>
       </div>
       <div className={classes.labelWrapper}>
-        <p className={classes.info}>{subCategory}</p>
+        <p className={classes.info}>{category}</p>
       </div>
       <div className={classes.labelWrapper}>
         <p className={classes.info}>100%</p>

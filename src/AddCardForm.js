@@ -47,9 +47,9 @@ function AddCardForm(props) {
   const [cardFields, setCardFields] = useState({
     question: '',
     answer: '',
-    subCategoryClass: editDeckState.deckToAddCards.subCategoryClass,
+    iconClass: editDeckState.deckToAddCards.iconClass,
     setName: editDeckState.deckToAddCards.setName,
-    subCategory: editDeckState.deckToAddCards.subCategory,
+    category: editDeckState.deckToAddCards.category,
     cardNumber: editDeckState.deckToAddCards.totalCards + 1,
     masteryRating: 0,
   });
@@ -67,7 +67,7 @@ function AddCardForm(props) {
     const updateString = `${editDeckState.deckToAddCards.setName.toLowerCase().replace(/\s+/g, '-')}.cards`;
     await updateDoc(userRef, { [updateString]: arrayUnion(cardFields) });
     setOpen(true);
-    setCardFields({ question: '', answer: '', subCategoryClass: '' });
+    setCardFields({ question: '', answer: '', iconClass: '' });
     fetchUserCardSets();
   };
 

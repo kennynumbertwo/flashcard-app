@@ -41,8 +41,8 @@ function CreateDeck(props) {
   // Text Inputs
   const [deckFields, setDeckFields] = useState({
     setName: '',
-    subCategory: '',
-    subCategoryClass: '',
+    category: '',
+    iconClass: '',
     id: '',
     owner: uid,
     cards: '',
@@ -51,7 +51,7 @@ function CreateDeck(props) {
   useEffect(() => {
     setDeckFields({ ...deckFields,
       id: deckFields.setName.replace(/\s+/g, '-').toLowerCase(),
-      subCategoryClass: selectedIconClass,
+      iconClass: selectedIconClass,
     });
   }, [deckFields.setName, selectedIconClass]);
 
@@ -87,7 +87,7 @@ function CreateDeck(props) {
       <div className={classes.CreateDeckCard}>
         <h4>Pick a name for the new deck:</h4>
         <TextField id="setName" label="Deck Name" variant="standard" onChange={handleChange} value={deckFields.setName} />
-        <TextField id="subCategory" label="Sub Category" variant="standard" onChange={handleChange} value={deckFields.subCategory} />
+        <TextField id="category" label="Category" variant="standard" onChange={handleChange} value={deckFields.category} />
         <div className={classes.selectIconWrapper}>
           <IconCard
             iconClass={selectedIconClass}
