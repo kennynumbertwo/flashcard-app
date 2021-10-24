@@ -357,8 +357,12 @@ export default function DrawerNav(props) {
             path="/collections"
             render={() => (
               <CollectionsPage
-                cardCollections={cardCollections}
+                cardSetDatabase={cardSetDatabase}
+                updateCardSetName={updateCardSetName}
+                setCurrentCardSetName={setCurrentCardSetName}
                 isLoggedIn={isLoggedIn}
+                roundState={roundState}
+                setRoundState={setRoundState}
               />
             )}
           />
