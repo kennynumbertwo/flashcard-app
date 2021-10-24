@@ -239,7 +239,6 @@ function EditDeckList(props) {
             totalCards={userCardSet.cards.length}
             setEditDeckState={setEditDeckState}
             mastery={userCardSet.mastery}
-            // url={`/my-collections/${userCardSet.categoryId}`}
           />
         ))
         : userCardSetDatabase.map(userCardSet => (
@@ -251,7 +250,6 @@ function EditDeckList(props) {
             totalCards={userCardSet.cards.length}
             setEditDeckState={setEditDeckState}
             mastery={userCardSet.mastery}
-            // url={`/my-collections/${userCardSet.categoryId}`}
           />
         ))}
     </div>

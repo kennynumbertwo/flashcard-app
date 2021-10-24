@@ -51,7 +51,7 @@ function AddCardForm(props) {
     setName: editDeckState.deckToAddCards.setName,
     category: editDeckState.deckToAddCards.category,
     cardNumber: editDeckState.deckToAddCards.totalCards + 1,
-    masteryRating: 0,
+    masteryRating: 1,
   });
 
   const handleShowIcons = () => {

@@ -25,9 +25,8 @@ import { getDoc, doc } from 'firebase/firestore/lite';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import CollectionsPage from './CollectionsPage';
-import UserCollectionsPage from './UserCollectionsPage';
 import CardSetsPage from './CardSetsPage';
-import UserCardSetsPage from './UserCardSetsPage';
+import UserCollectionsPage from './UserCollectionsPage';
 import NestedListItem from './NestedListItem';
 import FlashcardTray from './FlashcardTray';
 import CreateDeck from './CreateDeck';
@@ -401,32 +400,18 @@ export default function DrawerNav(props) {
             path="/my-collections"
             render={() => (
               <UserCollectionsPage
-                userCardCollections={userCardCollections}
                 userCardSetDatabase={userDeckState.userCardSetDatabase}
-                isLoggedIn={isLoggedIn}
-              />
-            )}
-          />
-          {/* USER CARD SETS PAGE PAGE */}
-          <Route
-            exact
-            path="/my-collections/:category"
-            render={(routeProps) => (
-              <UserCardSetsPage
-                userCardSetDatabase={userDeckState.userCardSetDatabase}
-                selectedCollection={routeProps.match.params.category}
                 updateCardSetName={updateCardSetName}
+                setCurrentCardSetName={setCurrentCardSetName}
                 isLoggedIn={isLoggedIn}
                 roundState={roundState}
                 setRoundState={setRoundState}
-                setCurrentCardSetName={setCurrentCardSetName}
               />
             )}
           />
-          {/* USER INDIVIDUAL SET / FLASHCARD PAGE */}
           <Route
             exact
-            path="/my-collections/:category/:setName"
+            path="/my-collections/:setName"
             render={() => (
               <UserFlashcardTray
                 userCardSetDatabase={userDeckState.userCardSetDatabase}
