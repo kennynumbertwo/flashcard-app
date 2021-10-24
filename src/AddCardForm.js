@@ -52,6 +52,7 @@ function AddCardForm(props) {
     category: editDeckState.deckToAddCards.category,
     subCategory: editDeckState.deckToAddCards.subCategory,
     cardNumber: editDeckState.deckToAddCards.totalCards + 1,
+    masteryRating: 0,
   });
 
   const handleShowIcons = () => {
@@ -113,12 +114,10 @@ function AddCardForm(props) {
   );
 
   return (
-    <div className={classes.AddCardFormDeckWrapper}>
+    <div className={classes.AddCardFormWrapper}>
       <div className={classes.AddCardFormCard}>
         <TextField id="question" label="Question" variant="standard" onChange={handleChange} value={cardFields.question} />
         <TextField id="answer" label="Answer" variant="standard" onChange={handleChange} value={cardFields.answer} />
-        <TextField id="altText" label="Alt Text" variant="standard" onChange={handleChange} value={cardFields.altText} />
-
         <div className={classes.selectIconWrapper}>
           <IconCard
             iconClass={selectedIconClass}

@@ -18,6 +18,7 @@ function UserFlashcardTray(props) {
     starOne: false,
     starTwo: false,
     starThree: false,
+    masteryRating: 0,
   });
 
   const { classes, currentCardSetName, isLoggedIn, userCardSetDatabase, roundState } = props;
@@ -82,13 +83,13 @@ function UserFlashcardTray(props) {
   const handleStarClick = (e) => {
     console.log(e.currentTarget.id);
     if (e.currentTarget.id === 'starOne') {
-      setStarState({ starOne: true, starTwo: false, starThree: false });
+      setStarState({ starOne: true, starTwo: false, starThree: false, masteryRating: 1 });
     }
     if (e.currentTarget.id === 'starTwo') {
-      setStarState({ starOne: true, starTwo: true, starThree: false });
+      setStarState({ starOne: true, starTwo: true, starThree: false, masteryRating: 2 });
     }
     if (e.currentTarget.id === 'starThree') {
-      setStarState({ starOne: true, starTwo: true, starThree: true });
+      setStarState({ starOne: true, starTwo: true, starThree: true, masteryRating: 3 });
     }
   };
 
@@ -104,6 +105,7 @@ function UserFlashcardTray(props) {
           <Flashcard
             question={shuffledDeck[cardCount].question}
             answer={shuffledDeck[cardCount].answer}
+            cardNumber={shuffledDeck[cardCount].cardNumber}
             showAnswer={showAnswer}
           />
         )}
@@ -139,7 +141,7 @@ function UserFlashcardTray(props) {
           )}
       </div>
       <div className={classes.masteryWrapper}>
-        <h4>Confidence Rating:</h4>
+        <h4>Mastery Rating:</h4>
         <div className={classes.starsWrapper}>
           <div className={classes.starOneWrapper}>
             {starOne

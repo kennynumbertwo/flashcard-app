@@ -84,6 +84,7 @@ function FlashcardTray(props) {
             question={shuffledDeck[cardCount].question}
             answer={shuffledDeck[cardCount].answer}
             showAnswer={showAnswer}
+            cardNumber={shuffledDeck[cardCount].cardNumber}
           />
         )}
       <div className={classes.buttonContainer}>

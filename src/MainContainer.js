@@ -15,7 +15,6 @@ const styles = {
 function MainContainer(props) {
   const [cardSetDatabase, setCardSetDatabase] = useState([]);
   const [cardCollections, setCardCollections] = useState([]);
-  const [pendingSetName, setPendingSetName] = useState('');
   const [currentCardSetName, setCurrentCardSetName] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -74,7 +73,6 @@ function MainContainer(props) {
         updateCardSetName={updateCardSetName}
         currentCardSetName={currentCardSetName}
         setCurrentCardSetName={setCurrentCardSetName}
-        pendingSetName={pendingSetName}
         getCardCollections={getCardCollections}
         loading={loading}
       />

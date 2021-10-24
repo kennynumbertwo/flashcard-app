@@ -37,7 +37,6 @@ function CreateDeck(props) {
   const { classes, isLoggedIn, uid, fetchUserCardSets } = props;
   // State
   const [isShowingIconList, setIsShowingIconList] = useState(false);
-  const [isShowingAddCardForm, setIsShowingAddCardForm] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState('');
   const [selectedIconClass, setSelectedIconClass] = useState('');
   // Text Inputs
@@ -88,6 +87,7 @@ function CreateDeck(props) {
   return (
     <div className={classes.CreateDeckWrapper}>
       <div className={classes.CreateDeckCard}>
+        <h4>Pick a name for the new deck:</h4>
         <TextField id="setName" label="Deck Name" variant="standard" onChange={handleChange} value={deckFields.setName} />
         <TextField id="subCategory" label="Sub Category" variant="standard" onChange={handleChange} value={deckFields.subCategory} />
         <TextField id="category" label="Category" variant="standard" onChange={handleChange} value={deckFields.category} />
