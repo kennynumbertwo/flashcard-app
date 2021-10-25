@@ -188,6 +188,9 @@ function CollectionsPage(props) {
         <div className={classes.labelWrapper}>
           <p className={classes.label}>Category:</p>
         </div>
+        <div className={classes.iconWrapper}>
+          <p className={classes.label}>Icon:</p>
+        </div>
         <div className={classes.labelWrapper}>
           <p className={classes.label}>Mastery:</p>
         </div>

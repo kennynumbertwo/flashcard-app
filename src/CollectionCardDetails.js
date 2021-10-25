@@ -31,9 +31,19 @@ const styles = {
     justifyContent: 'center',
     width: '20%',
     height: '50px',
+    // border: '1px solid black',
   },
   label: {
     margin: '0px 10px 0px 0px',
+    // border: '1px solid black',
+  },
+  masteryWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '20%',
+    height: '50px',
+    // border: '1px solid black',
   },
   totalCardsWrapper: {
     display: 'flex',
@@ -41,6 +51,15 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
+    // border: '1px solid black',
+  },
+  thisRoundWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '10%',
+    height: '50px',
+    // border: '1px solid black',
   },
   iconWrapper: {
     display: 'flex',
@@ -48,14 +67,16 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
+    // border: '1px solid black',
   },
-  CollectionCardDetailsItemIcon: {
+  iconImage: {
     height: '100%',
     width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: '1.5rem',
+    // border: '1px solid black',
   },
   buttonWrapper: {
     display: 'flex',
@@ -64,6 +85,7 @@ const styles = {
     flexDirection: 'column',
     height: '50px',
     width: '10%',
+    // border: '1px solid black',
   },
   button: {
     display: 'flex',
@@ -98,6 +120,7 @@ function CollectionCardDetails(props) {
     category,
     setName,
     totalCards,
+    iconClass,
     url,
     roundState,
     setRoundState,
@@ -143,25 +166,32 @@ function CollectionCardDetails(props) {
       <div className={classes.labelWrapper}>
         <p className={classes.info}>{category}</p>
       </div>
+      <div className={classes.iconWrapper}>
+        <div className={classes.iconImage}>
+          <i className={iconClass} />
+        </div>
+      </div>
       <div className={classes.labelWrapper}>
         <p className={classes.info}>100%</p>
       </div>
       <div className={classes.totalCardsWrapper}>
         <p className={classes.info}>{totalCards}</p>
       </div>
-      <FormControl variant="standard" sx={{ m: 2, minWidth: 75 }}>
-        <Select
-          labelId="demo-simple-select-standard-label"
-          id="demo-simple-select-standard"
-          value={cardQuantity}
-          onChange={handleChange}
-          displayEmpty
-        >
-          {getCardQuantity(totalCards)
-            .map(num => <MenuItem key={`cardQuantity${num}`} value={num}>{num}</MenuItem>)}
-          <MenuItem value={totalCards}>{totalCards}</MenuItem>
-        </Select>
-      </FormControl>
+      <div className={classes.thisRoundWrapper}>
+        <FormControl variant="standard" sx={{ m: 2, minWidth: 75 }}>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            value={cardQuantity}
+            onChange={handleChange}
+            displayEmpty
+          >
+            {getCardQuantity(totalCards)
+              .map(num => <MenuItem key={`cardQuantity${num}`} value={num}>{num}</MenuItem>)}
+            <MenuItem value={totalCards}>{totalCards}</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
       <div className={classes.buttonWrapper}>
         <Link className={classes.buttonLink} to={url}>
           <button className={classes.button} type="button" onClick={handleStart}>Start</button>

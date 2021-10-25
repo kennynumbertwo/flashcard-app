@@ -29,14 +29,6 @@ const styles = {
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
-  sortWrapper: {
-    height: '50px',
-    width: '10%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    paddingRight: '10px',
-  },
   divider: {
     height: '1px',
     width: ITEM_WIDTH,
@@ -78,7 +70,6 @@ const styles = {
     padding: '0px 0px 0px 0px',
     margin: '0px 0px 0px 0px',
     borderRadius: '2px',
-    // boxShadow: '0px 1px 5px 1px rgba(0, 0, 0, 0.1)',
     color: 'rgba(0, 0, 0, 0.7)',
     backgroundColor: 'white',
     fontSize: '1rem',
@@ -90,6 +81,7 @@ const styles = {
     justifyContent: 'center',
     width: '20%',
     height: '50px',
+    // border: '1px solid black',
   },
   totalCardsWrapper: {
     display: 'flex',
@@ -97,7 +89,15 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
-    // border: '1px solid black',s
+    // border: '1px solid black',
+  },
+  thisRoundWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '10%',
+    height: '50px',
+    // border: '1px solid black',
   },
   iconWrapper: {
     display: 'flex',
@@ -105,6 +105,16 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
+    // border: '1px solid black',
+  },
+  sortWrapper: {
+    height: '50px',
+    width: '10%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingRight: '10px',
+    // border: '1px solid black',
   },
 };
 
@@ -188,13 +198,16 @@ function UserCollectionsPage(props) {
         <div className={classes.labelWrapper}>
           <p className={classes.label}>Category:</p>
         </div>
+        <div className={classes.iconWrapper}>
+          <p className={classes.label}>Icon:</p>
+        </div>
         <div className={classes.labelWrapper}>
           <p className={classes.label}>Mastery:</p>
         </div>
         <div className={classes.totalCardsWrapper}>
           <p className={classes.label}>Total Cards:</p>
         </div>
-        <div className={classes.totalCardsWrapper}>
+        <div className={classes.thisRoundWrapper}>
           <p className={classes.label}>This Round:</p>
         </div>
         <div className={classes.sortWrapper}>

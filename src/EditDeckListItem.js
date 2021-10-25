@@ -32,6 +32,13 @@ const styles = {
   label: {
     margin: '0px 10px 0px 0px',
   },
+  masteryWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '20%',
+    height: '50px',
+  },
   totalCardsWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -134,16 +141,16 @@ function EditDeckListItem(props) {
       <div className={classes.labelWrapper}>
         <p className={classes.info}>{category}</p>
       </div>
-      <div className={classes.labelWrapper}>
-        <p className={classes.info}>100%</p>
-      </div>
-      <div className={classes.totalCardsWrapper}>
-        <p className={classes.info}>{totalCards}</p>
-      </div>
       <div className={classes.iconWrapper}>
         <div className={classes.EditDeckListItemIcon}>
           <i className={iconClass} />
         </div>
+      </div>
+      <div className={classes.masteryWrapper}>
+        <p className={classes.info}>100%</p>
+      </div>
+      <div className={classes.totalCardsWrapper}>
+        <p className={classes.info}>{totalCards}</p>
       </div>
       <div className={classes.buttonWrapper}>
         <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>

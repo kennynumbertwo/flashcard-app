@@ -10,7 +10,7 @@ import EditDeckListItem from './EditDeckListItem';
 const ITEM_HEIGHT = 48;
 const ITEM_WIDTH = 1050;
 
-const options = ['Set Name', 'Category', 'Category', 'Total Cards'];
+const options = ['Set Name', 'Category', 'Total Cards'];
 
 const styles = {
   EditDeckList: {
@@ -28,14 +28,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
-  },
-  sortWrapper: {
-    height: '50px',
-    width: '20%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    paddingRight: '10px',
   },
   divider: {
     height: '1px',
@@ -78,7 +70,6 @@ const styles = {
     padding: '0px 0px 0px 0px',
     margin: '0px 0px 0px 0px',
     borderRadius: '2px',
-    // boxShadow: '0px 1px 5px 1px rgba(0, 0, 0, 0.1)',
     color: 'rgba(0, 0, 0, 0.7)',
     backgroundColor: 'white',
     fontSize: '1rem',
@@ -90,6 +81,7 @@ const styles = {
     justifyContent: 'center',
     width: '20%',
     height: '50px',
+    // border: '1px solid black',
   },
   totalCardsWrapper: {
     display: 'flex',
@@ -97,6 +89,7 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
+    // border: '1px solid black',
   },
   iconWrapper: {
     display: 'flex',
@@ -104,6 +97,16 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
+    // border: '1px solid black',
+  },
+  sortWrapper: {
+    height: '50px',
+    width: '20%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingRight: '10px',
+    // border: '1px solid black',
   },
 };
 
@@ -175,14 +178,14 @@ function EditDeckList(props) {
         <div className={classes.labelWrapper}>
           <p className={classes.label}>Category:</p>
         </div>
+        <div className={classes.iconWrapper}>
+          <p className={classes.label}>Icon:</p>
+        </div>
         <div className={classes.labelWrapper}>
           <p className={classes.label}>Mastery:</p>
         </div>
         <div className={classes.totalCardsWrapper}>
           <p className={classes.label}>Total Cards:</p>
-        </div>
-        <div className={classes.iconWrapper}>
-          <p className={classes.label}>Icon:</p>
         </div>
         <div className={classes.sortWrapper}>
           <Button

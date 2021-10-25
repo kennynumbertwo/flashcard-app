@@ -25,7 +25,6 @@ import { getDoc, doc } from 'firebase/firestore/lite';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import CollectionsPage from './CollectionsPage';
-import CardSetsPage from './CardSetsPage';
 import UserCollectionsPage from './UserCollectionsPage';
 import NestedListItem from './NestedListItem';
 import FlashcardTray from './FlashcardTray';
@@ -366,27 +365,10 @@ export default function DrawerNav(props) {
               />
             )}
           />
-          {/* CARD SETS PAGE PAGE */}
-          <Route
-            exact
-            path="/collections/:category"
-            render={(routeProps) => (
-              <CardSetsPage
-                cardSetDatabase={cardSetDatabase}
-                cardCollections={cardCollections}
-                selectedCollection={routeProps.match.params.category}
-                updateCardSetName={updateCardSetName}
-                isLoggedIn={isLoggedIn}
-                roundState={roundState}
-                setRoundState={setRoundState}
-                setCurrentCardSetName={setCurrentCardSetName}
-              />
-            )}
-          />
           {/* STOCK INDIVIDUAL SET / FLASHCARD PAGE */}
           <Route
             exact
-            path="/collections/:category/:setName"
+            path="/collections/:setName"
             render={() => (
               <FlashcardTray
                 cardSetDatabase={cardSetDatabase}
