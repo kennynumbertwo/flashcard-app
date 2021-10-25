@@ -4,9 +4,11 @@ import { Button } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
+import { doc, updateDoc } from 'firebase/firestore/lite';
 import styles from './styles/UserFlashcardTrayStyles';
 import useToggle from './hooks/useToggle';
 import Flashcard from './Flashcard';
+import db from './firebase.config';
 
 function UserFlashcardTray(props) {
   const [flashcards, setFlashcards] = useState([]);
@@ -14,14 +16,14 @@ function UserFlashcardTray(props) {
   const [cardQuantity, setCardQuantity] = React.useState(0);
   const [cardCount, setCardCount] = useState(0);
   const [showAnswer, toggleShowAnswer] = useToggle(false);
-  const [starState, setStarState] = useState({
-    starOne: false,
+  const [currentMasteryRating, setCurrentMasteryRating] = useState(0);
+  const [starState, setstarState] = useState({
+    starOne: true,
     starTwo: false,
     starThree: false,
-    masteryRating: 0,
   });
 
-  const { classes, currentCardSetName, isLoggedIn, userCardSetDatabase, roundState } = props;
+  const { classes, currentCardSetName, isLoggedIn, userCardSetDatabase, roundState, uid } = props;
   const { starOne, starTwo, starThree } = starState;
 
   // Sets flashcards to the currentCardSetName
@@ -33,6 +35,25 @@ function UserFlashcardTray(props) {
       setCardQuantity(roundState.cardQuantity);
     }
   }, [userCardSetDatabase, flashcards.length, currentCardSetName]);
+
+  useEffect(() => {
+    if (shuffledDeck.length > 0) {
+      setCurrentMasteryRating(shuffledDeck[cardCount].masteryRating);
+    }
+  }, [userCardSetDatabase, shuffledDeck, cardCount]);
+
+  // Set the masteryRating to the current card's masteryRating
+  useEffect(() => {
+    if (currentMasteryRating === 2) {
+      setstarState({ starOne: true, starTwo: true, starThree: true });
+    }
+    if (currentMasteryRating === 1) {
+      setstarState({ starOne: true, starTwo: true, starThree: false });
+    }
+    if (currentMasteryRating === 0) {
+      setstarState({ starOne: true, starTwo: false, starThree: false });
+    }
+  }, [currentMasteryRating]);
 
   // Set the specified flashcard deck, if it exists
   const getFlashcards = () => {
@@ -66,8 +87,16 @@ function UserFlashcardTray(props) {
   };
 
   // Function to see the next card in shuffledDeck
-  const drawCard = () => {
+  const nextCard = () => {
     setCardCount(cardCount + 1);
+    if (showAnswer) {
+      toggleShowAnswer();
+    }
+  };
+
+  // Function to see the next card in shuffledDeck
+  const previousCard = () => {
+    setCardCount(cardCount - 1);
     if (showAnswer) {
       toggleShowAnswer();
     }
@@ -81,16 +110,32 @@ function UserFlashcardTray(props) {
   };
 
   const handleStarClick = (e) => {
-    console.log(e.currentTarget.id);
     if (e.currentTarget.id === 'starOne') {
-      setStarState({ starOne: true, starTwo: false, starThree: false, masteryRating: 1 });
+      setstarState({ starOne: true, starTwo: false, starThree: false });
+      setCurrentMasteryRating(0);
+      shuffledDeck[cardCount].masteryRating = 0;
     }
     if (e.currentTarget.id === 'starTwo') {
-      setStarState({ starOne: true, starTwo: true, starThree: false, masteryRating: 2 });
+      setstarState({ starOne: true, starTwo: true, starThree: false });
+      setCurrentMasteryRating(1);
+      shuffledDeck[cardCount].masteryRating = 1;
     }
     if (e.currentTarget.id === 'starThree') {
-      setStarState({ starOne: true, starTwo: true, starThree: true, masteryRating: 3 });
+      setstarState({ starOne: true, starTwo: true, starThree: true });
+      setCurrentMasteryRating(2);
+      shuffledDeck[cardCount].masteryRating = 2;
     }
+    // updateMasteryRating();
+  };
+
+  const updateMasteryRating = async () => {
+    const userRef = doc(db, 'users', uid);
+    const updateString = `${currentCardSetName.toLowerCase().replace(/\s+/g, '-')}.masteryRating`;
+    console.log(updateString);
+    console.log(currentMasteryRating);
+    await updateDoc(
+      userRef, { [updateString]: currentMasteryRating }, { merge: true },
+    );
   };
 
   if (!isLoggedIn) {
@@ -107,9 +152,19 @@ function UserFlashcardTray(props) {
             answer={shuffledDeck[cardCount].answer}
             cardNumber={shuffledDeck[cardCount].cardNumber}
             showAnswer={showAnswer}
+            masteryRating={shuffledDeck[cardCount].masteryRating}
+            setstarState={setstarState}
           />
         )}
       <div className={classes.buttonContainer}>
+        <Button
+          className={classes.previousButton}
+          variant="contained"
+          type="button"
+          onClick={previousCard}
+        >
+          Previous Question
+        </Button>
         <Button
           className={classes.showButton}
           variant="contained"
@@ -123,7 +178,7 @@ function UserFlashcardTray(props) {
               className={classes.nextButton}
               variant="contained"
               type="button"
-              onClick={drawCard}
+              onClick={nextCard}
             >
               Next Question
             </Button>

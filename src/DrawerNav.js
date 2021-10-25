@@ -141,7 +141,6 @@ export default function DrawerNav(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const {
-    cardCollections,
     cardSetDatabase,
     updateCardSetName,
     setCurrentCardSetName,
@@ -405,6 +404,7 @@ export default function DrawerNav(props) {
                 isLoggedIn={isLoggedIn}
                 roundState={roundState}
                 setRoundState={setRoundState}
+                uid={user.uid}
               />
             )}
           />
@@ -456,6 +456,7 @@ export default function DrawerNav(props) {
                 uid={user.uid}
                 fetchUserCardSets={fetchUserCardSets}
                 editDeckState={editDeckState}
+                userCardSetDatabase={userDeckState.userCardSetDatabase}
               />
 
             )}

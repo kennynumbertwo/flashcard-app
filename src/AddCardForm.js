@@ -36,23 +36,38 @@ const styles = {
 
 function AddCardForm(props) {
   // Destructured props from DrawerNav
-  const { classes, isLoggedIn, uid, fetchUserCardSets, editDeckState } = props;
+  const { classes, isLoggedIn, uid, fetchUserCardSets, editDeckState, userCardSetDatabase } = props;
   // State
   const [isShowingIconList, setIsShowingIconList] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState('');
   const [selectedIconClass, setSelectedIconClass] = useState('');
   // Snackbar
   const [open, setOpen] = React.useState(false);
+  const [currentDeckLength, setCurrentDeckLength] = useState(
+    editDeckState.deckToAddCards.totalCards,
+  );
   // Text Inputs
   const [cardFields, setCardFields] = useState({
     question: '',
     answer: '',
-    iconClass: editDeckState.deckToAddCards.iconClass,
     setName: editDeckState.deckToAddCards.setName,
     category: editDeckState.deckToAddCards.category,
-    cardNumber: editDeckState.deckToAddCards.totalCards + 1,
-    masteryRating: 1,
+    iconClass: editDeckState.deckToAddCards.iconClass,
+    masteryRating: 0,
   });
+
+  useEffect(() => {
+    if (userCardSetDatabase) {
+      getDeckLength();
+    }
+  }, [userCardSetDatabase]);
+  const getDeckLength = () => {
+    userCardSetDatabase.forEach(cardSet => {
+      if (cardSet.setName === editDeckState.deckToAddCards.setName) {
+        setCurrentDeckLength(cardSet.cards.length);
+      }
+    });
+  };
 
   const handleShowIcons = () => {
     setIsShowingIconList(!isShowingIconList);
@@ -65,10 +80,18 @@ function AddCardForm(props) {
   const handleSaveCard = async () => {
     const userRef = doc(db, 'users', uid);
     const updateString = `${editDeckState.deckToAddCards.setName.toLowerCase().replace(/\s+/g, '-')}.cards`;
-    await updateDoc(userRef, { [updateString]: arrayUnion(cardFields) });
+    await updateDoc(userRef, { [updateString]: arrayUnion({
+      ...cardFields, cardNumber: currentDeckLength }) });
     setOpen(true);
-    setCardFields({ question: '', answer: '', iconClass: '' });
     fetchUserCardSets();
+    setCardFields({
+      question: '',
+      answer: '',
+      setName: editDeckState.deckToAddCards.setName,
+      category: editDeckState.deckToAddCards.category,
+      iconClass: editDeckState.deckToAddCards.iconClass,
+      masteryRating: 0,
+    });
   };
 
   const handleDeleteCard = async () => {
@@ -125,7 +148,7 @@ function AddCardForm(props) {
           />
           <button onClick={handleShowIcons} type="button">Select Icon</button>
           <button onClick={handleSaveCard} type="button">Save Card</button>
-          <button onClick={handleDeleteCard} type="button">Delete Card</button>
+          <button onClick={getDeckLength} type="button">Delete Card</button>
         </div>
       </div>
       <Snackbar

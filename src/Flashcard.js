@@ -1,29 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withStyles } from '@material-ui/styles';
 import styles from './styles/FlashcardSyles';
 
 function Flashcard(props) {
-  const { classes } = props;
+  const { classes, question, answer } = props;
 
-  const question = (
+  const questionBlock = (
     <div>
-      <p>{props.question}</p>
+      <p>{question}</p>
+
     </div>
   );
 
-  const answer = (
+  const answerBlock = (
     <div>
-      <p>{props.answer}</p>
+      <p>{answer}</p>
     </div>
   );
 
   return (
     <div className={classes.Flashcard}>
       <div className={classes.question}>
-        {question}
+        {questionBlock}
       </div>
       <div className={classes.answer}>
-        {props.showAnswer && answer}
+        {props.showAnswer && answerBlock}
       </div>
     </div>
   );
