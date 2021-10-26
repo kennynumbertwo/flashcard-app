@@ -137,8 +137,19 @@ function UserCollectionsPage(props) {
   } = props;
 
   useEffect(() => {
-    if (userCardSetDatabase) { sortBySetName(); }
+    fetchUserCardSets();
   }, []);
+
+  useEffect(() => {
+    if (userCardSetDatabase) { sortBySetName(); }
+  }, [userCardSetDatabase]);
+
+  const resetUserCollectionsState = () => {
+    setSortState({
+      sortedDatabase: [],
+      isSorted: false,
+    });
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -270,6 +281,7 @@ function UserCollectionsPage(props) {
             setCurrentCardSetName={setCurrentCardSetName}
             url={`/my-collections/${userCardSet.id}`}
             fetchUserCardSets={fetchUserCardSets}
+            resetUserCollectionsState={resetUserCollectionsState}
           />
         ))
         : userCardSetDatabase.map(userCardSet => (
@@ -285,6 +297,7 @@ function UserCollectionsPage(props) {
             setCurrentCardSetName={setCurrentCardSetName}
             url={`/my-collections/${userCardSet.id}`}
             fetchUserCardSets={fetchUserCardSets}
+            resetUserCollectionsState={resetUserCollectionsState}
           />
         ))}
     </div>
