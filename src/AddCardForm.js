@@ -81,7 +81,7 @@ function AddCardForm(props) {
     const userRef = doc(db, 'users', uid);
     const updateString = `${editDeckState.deckToAddCards.setName.toLowerCase().replace(/\s+/g, '-')}.cards`;
     await updateDoc(userRef, { [updateString]: arrayUnion({
-      ...cardFields, cardNumber: currentDeckLength }) });
+      ...cardFields, cardNumber: currentDeckLength + 1 }) });
     setOpen(true);
     fetchUserCardSets();
     setCardFields({

@@ -49,7 +49,7 @@ export default function NestedListItem(props) {
           {setNames.length && setNames.map(setName => (
             <Link
               className={classes.nestedLink}
-              to={`/my-collections/${categoryId}/${setName.cardSetId}`}
+              to={`/my-collections/${setName.cardSetId}`}
               key={setName.cardSetId}
             >
               <ListItem

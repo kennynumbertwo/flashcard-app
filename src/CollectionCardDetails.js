@@ -122,9 +122,9 @@ function CollectionCardDetails(props) {
     totalCards,
     iconClass,
     url,
-    roundState,
     setRoundState,
     setCurrentCardSetName,
+    fetchUserCardSets,
   } = props;
 
   const [cardQuantity, setCardQuantity] = React.useState(totalCards);
@@ -132,6 +132,7 @@ function CollectionCardDetails(props) {
   const handleStart = () => {
     setRoundState({ cardQuantity });
     setCurrentCardSetName(setName);
+    fetchUserCardSets();
   };
 
   // Handles Card Quantity Input Change

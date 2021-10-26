@@ -22,15 +22,23 @@ function UserFlashcardTray(props) {
     starTwo: false,
     starThree: false,
   });
+  const [isLoading, setIsLoading] = useState(true);
 
-  const { classes, currentCardSetName, isLoggedIn, userCardSetDatabase, roundState, uid } = props;
+  const {
+    classes,
+    currentCardSetName,
+    isLoggedIn,
+    userCardSetDatabase,
+    roundState,
+    uid,
+  } = props;
   const { starOne, starTwo, starThree } = starState;
 
   // Sets flashcards to the currentCardSetName
   useEffect(() => {
     getFlashcards();
     if (flashcards) {
-      const shuffled = (shuffleDeck(flashcards));
+      const shuffled = (shuffleDeck([...flashcards]));
       setShuffledDeck(shuffled);
       setCardQuantity(roundState.cardQuantity);
     }
@@ -38,6 +46,7 @@ function UserFlashcardTray(props) {
 
   useEffect(() => {
     if (shuffledDeck.length > 0) {
+      setIsLoading(false);
       setCurrentMasteryRating(shuffledDeck[cardCount].masteryRating);
     }
   }, [userCardSetDatabase, shuffledDeck, cardCount]);
@@ -110,36 +119,47 @@ function UserFlashcardTray(props) {
   };
 
   const handleStarClick = (e) => {
+    let shuffledCopy = [...shuffledDeck];
+    let flashcardsCopy = [...flashcards];
+    let flashcardRef = shuffledCopy[cardCount].cardNumber - 1;
     if (e.currentTarget.id === 'starOne') {
       setstarState({ starOne: true, starTwo: false, starThree: false });
       setCurrentMasteryRating(0);
-      shuffledDeck[cardCount].masteryRating = 0;
+      shuffledCopy[cardCount] = { ...shuffledCopy[cardCount], masteryRating: 0 };
+      flashcardsCopy[flashcardRef] = { ...flashcardsCopy[flashcardRef], masteryRating: 0 };
     }
     if (e.currentTarget.id === 'starTwo') {
       setstarState({ starOne: true, starTwo: true, starThree: false });
       setCurrentMasteryRating(1);
-      shuffledDeck[cardCount].masteryRating = 1;
+      shuffledCopy[cardCount] = { ...shuffledCopy[cardCount], masteryRating: 1 };
+      flashcardsCopy[flashcardRef] = { ...flashcardsCopy[flashcardRef], masteryRating: 1 };
     }
     if (e.currentTarget.id === 'starThree') {
       setstarState({ starOne: true, starTwo: true, starThree: true });
       setCurrentMasteryRating(2);
-      shuffledDeck[cardCount].masteryRating = 2;
+      shuffledCopy[cardCount] = { ...shuffledCopy[cardCount], masteryRating: 2 };
+      flashcardsCopy[flashcardRef] = { ...flashcardsCopy[flashcardRef], masteryRating: 2 };
     }
-    // updateMasteryRating();
+    setShuffledDeck(shuffledCopy);
+    setFlashcards(flashcardsCopy);
+    updateMasteryRating(flashcardsCopy);
   };
 
-  const updateMasteryRating = async () => {
+  const updateMasteryRating = async (updatedFlashcards) => {
     const userRef = doc(db, 'users', uid);
-    const updateString = `${currentCardSetName.toLowerCase().replace(/\s+/g, '-')}.masteryRating`;
-    console.log(updateString);
-    console.log(currentMasteryRating);
+    const updateString = `${currentCardSetName.toLowerCase().replace(/\s+/g, '-')}.cards`;
     await updateDoc(
-      userRef, { [updateString]: currentMasteryRating }, { merge: true },
+      userRef, { [updateString]: updatedFlashcards }, { merge: true },
     );
   };
 
   if (!isLoggedIn) {
     return <Redirect to="/login" />;
+  }
+  if (isLoading) {
+    return (
+      <div>Loading</div>
+    );
   }
   return (
     <div className={classes.root}>

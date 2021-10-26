@@ -133,6 +133,7 @@ function UserCollectionsPage(props) {
     roundState,
     setRoundState,
     setCurrentCardSetName,
+    fetchUserCardSets,
   } = props;
 
   useEffect(() => {
@@ -267,6 +268,7 @@ function UserCollectionsPage(props) {
             setRoundState={setRoundState}
             setCurrentCardSetName={setCurrentCardSetName}
             url={`/my-collections/${userCardSet.id}`}
+            fetchUserCardSets={fetchUserCardSets}
           />
         ))
         : userCardSetDatabase.map(userCardSet => (
@@ -280,6 +282,7 @@ function UserCollectionsPage(props) {
             setRoundState={setRoundState}
             setCurrentCardSetName={setCurrentCardSetName}
             url={`/my-collections/${userCardSet.id}`}
+            fetchUserCardSets={fetchUserCardSets}
           />
         ))}
     </div>
