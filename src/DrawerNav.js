@@ -181,7 +181,7 @@ export default function DrawerNav(props) {
     }
   };
 
-  const userDatabaseDeleteSet = (setNameToDelete) => {
+  const deleteUserDatabaseSet = (setNameToDelete) => {
     const databaseCopy = [...userDeckState.userCardSetDatabase];
     const updatedDatabase = databaseCopy.filter(cardSet => cardSet.setName !== setNameToDelete);
     setUserDeckState({ ...userDeckState, userCardSetDatabase: updatedDatabase });
@@ -439,7 +439,7 @@ export default function DrawerNav(props) {
                 userCardCollections={userCardCollections}
                 updateCardSetName={updateCardSetName}
                 setEditDeckState={setEditDeckState}
-                userDatabaseDeleteSet={userDatabaseDeleteSet}
+                deleteUserDatabaseSet={deleteUserDatabaseSet}
               />
             )}
           />

@@ -108,7 +108,7 @@ function EditDeckListItem(props) {
     setEditDeckState,
     mastery,
     uid,
-    userDatabaseDeleteSet,
+    deleteUserDatabaseSet,
   } = props;
 
   const handleEditClick = () => {
@@ -136,17 +136,13 @@ function EditDeckListItem(props) {
     });
   };
 
-  // const handleDeleteClick = async () => {
-  //   const userRef = doc(db, 'users', uid);
-  //   const updateString = `${setName.toLowerCase().replace(/\s+/g, '-')}`;
-  //   await updateDoc(
-  //     userRef, { [updateString]: deleteField() },
-  //   );
-  //   userDatabaseDeleteSet(setName);
-  // };
-  const handleDeleteClick = () => {
-    console.log(setName);
-    userDatabaseDeleteSet(setName);
+  const handleDeleteClick = async () => {
+    const userRef = doc(db, 'users', uid);
+    const updateString = `${setName.toLowerCase().replace(/\s+/g, '-')}`;
+    deleteUserDatabaseSet(setName);
+    await updateDoc(
+      userRef, { [updateString]: deleteField() },
+    );
   };
 
   return (

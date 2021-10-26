@@ -124,7 +124,7 @@ function EditDeckList(props) {
     isLoggedIn,
     setEditDeckState,
     uid,
-    userDatabaseDeleteSet,
+    deleteUserDatabaseSet,
   } = props;
 
   const handleClick = (event) => {
@@ -250,7 +250,7 @@ function EditDeckList(props) {
             setEditDeckState={setEditDeckState}
             mastery={userCardSet.mastery}
             uid={uid}
-            userDatabaseDeleteSet={userDatabaseDeleteSet}
+            deleteUserDatabaseSet={deleteUserDatabaseSet}
           />
         ))
         : userCardSetDatabase.map(userCardSet => (
@@ -263,7 +263,7 @@ function EditDeckList(props) {
             setEditDeckState={setEditDeckState}
             mastery={userCardSet.mastery}
             uid={uid}
-            userDatabaseDeleteSet={userDatabaseDeleteSet}
+            deleteUserDatabaseSet={deleteUserDatabaseSet}
           />
         ))}
     </div>
