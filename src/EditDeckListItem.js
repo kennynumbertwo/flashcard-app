@@ -1,6 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { doc, updateDoc, deleteField } from 'firebase/firestore/lite';
+import db from './firebase.config';
 
 const styles = {
   EditDeckListCard: {
@@ -105,6 +107,8 @@ function EditDeckListItem(props) {
     iconClass,
     setEditDeckState,
     mastery,
+    uid,
+    userDatabaseDeleteSet,
   } = props;
 
   const handleEditClick = () => {
@@ -130,6 +134,19 @@ function EditDeckListItem(props) {
       },
       deckToEdit: {},
     });
+  };
+
+  // const handleDeleteClick = async () => {
+  //   const userRef = doc(db, 'users', uid);
+  //   const updateString = `${setName.toLowerCase().replace(/\s+/g, '-')}`;
+  //   await updateDoc(
+  //     userRef, { [updateString]: deleteField() },
+  //   );
+  //   userDatabaseDeleteSet(setName);
+  // };
+  const handleDeleteClick = () => {
+    console.log(setName);
+    userDatabaseDeleteSet(setName);
   };
 
   return (
@@ -159,6 +176,9 @@ function EditDeckListItem(props) {
         <Link className={classes.buttonLink} to={`edit-deck/${setName.toLowerCase()}/add-cards`}>
           <button className={classes.button} type="button" onClick={handleAddClick}>Add Cards</button>
         </Link>
+      </div>
+      <div className={classes.buttonWrapper}>
+        <button className={classes.button} type="button" onClick={handleDeleteClick}>Delete</button>
       </div>
     </div>
   );

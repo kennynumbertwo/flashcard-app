@@ -181,6 +181,12 @@ export default function DrawerNav(props) {
     }
   };
 
+  const userDatabaseDeleteSet = (setNameToDelete) => {
+    const databaseCopy = [...userDeckState.userCardSetDatabase];
+    const updatedDatabase = databaseCopy.filter(cardSet => cardSet.setName !== setNameToDelete);
+    setUserDeckState({ ...userDeckState, userCardSetDatabase: updatedDatabase });
+  };
+
   useEffect(() => {
     if (userDeckState.userCardSetDatabase) {
       setUserCardCollections(getCardCollections(userDeckState.userCardSetDatabase));
@@ -433,6 +439,7 @@ export default function DrawerNav(props) {
                 userCardCollections={userCardCollections}
                 updateCardSetName={updateCardSetName}
                 setEditDeckState={setEditDeckState}
+                userDatabaseDeleteSet={userDatabaseDeleteSet}
               />
             )}
           />

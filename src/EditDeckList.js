@@ -118,7 +118,14 @@ function EditDeckList(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedFilter, setSelectedFilter] = useState('');
   const open = Boolean(anchorEl);
-  const { classes, userCardSetDatabase, isLoggedIn, setEditDeckState } = props;
+  const {
+    classes,
+    userCardSetDatabase,
+    isLoggedIn,
+    setEditDeckState,
+    uid,
+    userDatabaseDeleteSet,
+  } = props;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -242,6 +249,8 @@ function EditDeckList(props) {
             totalCards={userCardSet.cards.length}
             setEditDeckState={setEditDeckState}
             mastery={userCardSet.mastery}
+            uid={uid}
+            userDatabaseDeleteSet={userDatabaseDeleteSet}
           />
         ))
         : userCardSetDatabase.map(userCardSet => (
@@ -253,6 +262,8 @@ function EditDeckList(props) {
             totalCards={userCardSet.cards.length}
             setEditDeckState={setEditDeckState}
             mastery={userCardSet.mastery}
+            uid={uid}
+            userDatabaseDeleteSet={userDatabaseDeleteSet}
           />
         ))}
     </div>

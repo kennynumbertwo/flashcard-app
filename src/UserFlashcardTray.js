@@ -144,7 +144,7 @@ function UserFlashcardTray(props) {
     setFlashcards(flashcardsCopy);
     updateMasteryRating(flashcardsCopy);
     const mastery = getTotalMasteryRating(flashcardsCopy);
-    updateMasteryTotal(mastery);
+    updateMastery(mastery);
   };
 
   const getTotalMasteryRating = (array) => {
@@ -169,19 +169,11 @@ function UserFlashcardTray(props) {
     );
   };
 
-  const updateMasteryTotal = async (mastery) => {
+  const updateMastery = async (mastery) => {
     const userRef = doc(db, 'users', uid);
     const updateString = `${currentCardSetName.toLowerCase().replace(/\s+/g, '-')}.mastery`;
     await updateDoc(
       userRef, { [updateString]: mastery }, { merge: true },
-    );
-  };
-
-  const updateMasteryPercentage = async (masteryTotal) => {
-    const userRef = doc(db, 'users', uid);
-    const updateString = `${currentCardSetName.toLowerCase().replace(/\s+/g, '-')}.masteryTotal`;
-    await updateDoc(
-      userRef, { [updateString]: masteryTotal }, { merge: true },
     );
   };
 
