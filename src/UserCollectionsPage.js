@@ -262,6 +262,7 @@ function UserCollectionsPage(props) {
             key={userCardSet.setName}
             category={userCardSet.category}
             iconClass={userCardSet.iconClass}
+            mastery={userCardSet.mastery}
             setName={userCardSet.setName}
             totalCards={userCardSet.cards.length}
             roundState={roundState}
@@ -276,6 +277,7 @@ function UserCollectionsPage(props) {
             key={userCardSet.setName}
             category={userCardSet.category}
             iconClass={userCardSet.iconClass}
+            mastery={userCardSet.mastery}
             setName={userCardSet.setName}
             totalCards={userCardSet.cards.length}
             roundState={roundState}

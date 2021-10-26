@@ -46,6 +46,7 @@ function CreateDeck(props) {
     id: '',
     owner: uid,
     cards: '',
+    mastery: {},
   });
 
   useEffect(() => {

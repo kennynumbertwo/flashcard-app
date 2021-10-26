@@ -125,6 +125,7 @@ function CollectionCardDetails(props) {
     setRoundState,
     setCurrentCardSetName,
     fetchUserCardSets,
+    mastery,
   } = props;
 
   const [cardQuantity, setCardQuantity] = React.useState(totalCards);
@@ -173,7 +174,9 @@ function CollectionCardDetails(props) {
         </div>
       </div>
       <div className={classes.labelWrapper}>
-        <p className={classes.info}>100%</p>
+        {mastery
+          ? <p className={classes.info}>{mastery.masteryPercentage}%</p>
+          : <p>100%</p>}
       </div>
       <div className={classes.totalCardsWrapper}>
         <p className={classes.info}>{totalCards}</p>

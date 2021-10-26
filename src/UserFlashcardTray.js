@@ -143,6 +143,22 @@ function UserFlashcardTray(props) {
     setShuffledDeck(shuffledCopy);
     setFlashcards(flashcardsCopy);
     updateMasteryRating(flashcardsCopy);
+    const mastery = getTotalMasteryRating(flashcardsCopy);
+    updateMasteryTotal(mastery);
+  };
+
+  const getTotalMasteryRating = (array) => {
+    let totalMasteryRating = 0;
+    array.forEach(flashcard => {
+      totalMasteryRating += flashcard.masteryRating;
+    });
+    let percentage = Math.floor((totalMasteryRating / (array.length * 2)) * 100);
+    const mastery = {
+      masteryTotal: totalMasteryRating,
+      masteryPotential: array.length * 2,
+      masteryPercentage: percentage,
+    };
+    return mastery;
   };
 
   const updateMasteryRating = async (updatedFlashcards) => {
@@ -150,6 +166,22 @@ function UserFlashcardTray(props) {
     const updateString = `${currentCardSetName.toLowerCase().replace(/\s+/g, '-')}.cards`;
     await updateDoc(
       userRef, { [updateString]: updatedFlashcards }, { merge: true },
+    );
+  };
+
+  const updateMasteryTotal = async (mastery) => {
+    const userRef = doc(db, 'users', uid);
+    const updateString = `${currentCardSetName.toLowerCase().replace(/\s+/g, '-')}.mastery`;
+    await updateDoc(
+      userRef, { [updateString]: mastery }, { merge: true },
+    );
+  };
+
+  const updateMasteryPercentage = async (masteryTotal) => {
+    const userRef = doc(db, 'users', uid);
+    const updateString = `${currentCardSetName.toLowerCase().replace(/\s+/g, '-')}.masteryTotal`;
+    await updateDoc(
+      userRef, { [updateString]: masteryTotal }, { merge: true },
     );
   };
 
