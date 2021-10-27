@@ -231,19 +231,19 @@ const icons = [
     id: 'hamburger',
     name: 'Hamburger',
     class: 'fas fa-hamburger',
-    filter: 'Food',
+    filter: 'Food and Drink',
   },
   {
     id: 'pepper',
     name: 'Pepper',
     class: 'fas fa-pepper-hot',
-    filter: 'Food',
+    filter: 'Food and Drink',
   },
   {
     id: 'pizza',
     name: 'Pizza',
     class: 'fas fa-pizza-slice',
-    filter: 'Food',
+    filter: 'Food and Drink',
   },
   {
     id: 'medical',
@@ -327,13 +327,13 @@ const icons = [
     id: 'iceCream',
     name: 'Ice Cream',
     class: 'fas fa-ice-cream',
-    filter: 'Food',
+    filter: 'Food and Drink',
   },
   {
     id: 'hotdog',
     name: 'Hotdog',
     class: 'fas fa-hotdog',
-    filter: 'Food',
+    filter: 'Food and Drink',
   },
   {
     id: 'sun',
@@ -431,12 +431,29 @@ const icons = [
     class: 'fas fa-piggy-bank',
     filter: 'History, Economy & Politics',
   },
-
   {
     id: 'coffee',
     name: 'Coffee',
     class: 'fas fa-coffee',
-    filter: '',
+    filter: 'Food and Drink',
+  },
+  {
+    id: 'beer',
+    name: 'Beer',
+    class: 'fas fa-beer',
+    filter: 'Food and Drink',
+  },
+  {
+    id: 'calendar',
+    name: 'Calendar',
+    class: 'fas fa-calendar-alt',
+    filter: 'Everyday',
+  },
+  {
+    id: 'clock',
+    name: 'Clock',
+    class: 'far fa-clock',
+    filter: 'Everyday',
   },
   // {
   //   id: '',

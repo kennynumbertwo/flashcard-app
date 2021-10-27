@@ -5,7 +5,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import CollectionCardDetails from './CollectionCardDetails';
+import UserCollectionCardDetails from './UserCollectionCardDetails';
 
 const ITEM_HEIGHT = 48;
 const ITEM_WIDTH = 1050;
@@ -269,7 +269,7 @@ function UserCollectionsPage(props) {
       </div>
       { sortState.isSorted
         ? sortState.sortedDatabase.map(userCardSet => (
-          <CollectionCardDetails
+          <UserCollectionCardDetails
             key={userCardSet.setName}
             category={userCardSet.category}
             iconClass={userCardSet.iconClass}
@@ -285,7 +285,7 @@ function UserCollectionsPage(props) {
           />
         ))
         : userCardSetDatabase.map(userCardSet => (
-          <CollectionCardDetails
+          <UserCollectionCardDetails
             key={userCardSet.setName}
             category={userCardSet.category}
             iconClass={userCardSet.iconClass}

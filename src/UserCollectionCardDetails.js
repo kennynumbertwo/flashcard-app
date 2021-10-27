@@ -1,11 +1,12 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { doc, updateDoc, deleteField } from 'firebase/firestore/lite';
-import db from './firebase.config';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const styles = {
-  EditDeckListCard: {
+  CollectionCardDetailsCard: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -30,9 +31,11 @@ const styles = {
     justifyContent: 'center',
     width: '20%',
     height: '50px',
+    // border: '1px solid black',
   },
   label: {
     margin: '0px 10px 0px 0px',
+    // border: '1px solid black',
   },
   masteryWrapper: {
     display: 'flex',
@@ -40,6 +43,7 @@ const styles = {
     justifyContent: 'center',
     width: '20%',
     height: '50px',
+    // border: '1px solid black',
   },
   totalCardsWrapper: {
     display: 'flex',
@@ -47,6 +51,15 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
+    // border: '1px solid black',
+  },
+  thisRoundWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '10%',
+    height: '50px',
+    // border: '1px solid black',
   },
   iconWrapper: {
     display: 'flex',
@@ -54,14 +67,16 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
+    // border: '1px solid black',
   },
-  EditDeckListItemIcon: {
+  iconImage: {
     height: '100%',
     width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: '1.5rem',
+    // border: '1px solid black',
   },
   buttonWrapper: {
     display: 'flex',
@@ -70,6 +85,7 @@ const styles = {
     flexDirection: 'column',
     height: '50px',
     width: '10%',
+    // border: '1px solid black',
   },
   button: {
     display: 'flex',
@@ -98,55 +114,55 @@ const styles = {
   },
 };
 
-function EditDeckListItem(props) {
+function CollectionCardDetails(props) {
   const {
     classes,
     category,
     setName,
     totalCards,
     iconClass,
-    setEditDeckState,
+    url,
+    setRoundState,
+    setCurrentCardSetName,
+    fetchUserCardSets,
     mastery,
-    uid,
-    deleteUserDatabaseSet,
+    resetUserCollectionsState,
   } = props;
 
-  const handleEditClick = () => {
-    setEditDeckState({
-      deckToEdit: {
-        setName,
-        category,
-        iconClass,
-        totalCards,
-        mastery,
-      },
-      deckToAddCards: {} });
+  const [cardQuantity, setCardQuantity] = React.useState(totalCards);
+
+  const handleStart = () => {
+    setRoundState({ cardQuantity });
+    setCurrentCardSetName(setName);
+    resetUserCollectionsState();
+    fetchUserCardSets();
   };
 
-  const handleAddClick = () => {
-    setEditDeckState({
-      deckToAddCards: {
-        setName,
-        category,
-        iconClass,
-        totalCards,
-        mastery,
-      },
-      deckToEdit: {},
-    });
+  // Handles Card Quantity Input Change
+  const handleChange = (event) => {
+    setCardQuantity(event.target.value);
   };
 
-  const handleDeleteClick = async () => {
-    const userRef = doc(db, 'users', uid);
-    const updateString = `${setName.toLowerCase().replace(/\s+/g, '-')}`;
-    deleteUserDatabaseSet(setName);
-    await updateDoc(
-      userRef, { [updateString]: deleteField() },
-    );
+  const getCardQuantity = (num) => {
+    let cardQuantityArray = [];
+    if (num < 30) {
+      for (let i = 0; i < num; i++) {
+        if ((i + 1) % 5 === 0) {
+          cardQuantityArray.push(i + 1);
+        }
+      }
+    } else {
+      for (let i = 0; i < num; i++) {
+        if ((i + 1) % 10 === 0) {
+          cardQuantityArray.push(i + 1);
+        }
+      }
+    }
+    return cardQuantityArray;
   };
 
   return (
-    <div className={classes.EditDeckListCard}>
+    <div className={classes.CollectionCardDetailsCard}>
 
       <div className={classes.labelWrapper}>
         <p className={classes.info}>{setName}</p>
@@ -155,31 +171,40 @@ function EditDeckListItem(props) {
         <p className={classes.info}>{category}</p>
       </div>
       <div className={classes.iconWrapper}>
-        <div className={classes.EditDeckListItemIcon}>
+        <div className={classes.iconImage}>
           <i className={iconClass} />
         </div>
       </div>
-      <div className={classes.masteryWrapper}>
-        <p className={classes.info}>100%</p>
+      <div className={classes.labelWrapper}>
+        {mastery
+          ? <p className={classes.info}>{mastery.masteryPercentage}%</p>
+          : <p>100%</p>}
       </div>
       <div className={classes.totalCardsWrapper}>
         <p className={classes.info}>{totalCards}</p>
       </div>
-      <div className={classes.buttonWrapper}>
-        <Link className={classes.buttonLink} to={`edit-deck/${setName.toLowerCase()}`}>
-          <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>
-        </Link>
+      <div className={classes.thisRoundWrapper}>
+        <FormControl variant="standard" sx={{ m: 2, minWidth: 75 }}>
+          <Select
+            labelId="demo-simple-select-standard-label"
+            id="demo-simple-select-standard"
+            value={cardQuantity}
+            onChange={handleChange}
+            displayEmpty
+          >
+            {getCardQuantity(totalCards)
+              .map(num => <MenuItem key={`cardQuantity${num}`} value={num}>{num}</MenuItem>)}
+            <MenuItem value={totalCards}>{totalCards}</MenuItem>
+          </Select>
+        </FormControl>
       </div>
       <div className={classes.buttonWrapper}>
-        <Link className={classes.buttonLink} to={`edit-deck/${setName.toLowerCase()}/add-cards`}>
-          <button className={classes.button} type="button" onClick={handleAddClick}>Add Cards</button>
+        <Link className={classes.buttonLink} to={url}>
+          <button className={classes.button} type="button" onClick={handleStart}>Start</button>
         </Link>
-      </div>
-      <div className={classes.buttonWrapper}>
-        <button className={classes.button} type="button" onClick={handleDeleteClick}>Delete</button>
       </div>
     </div>
   );
 }
 
-export default withStyles(styles)(EditDeckListItem);
+export default withStyles(styles)(CollectionCardDetails);

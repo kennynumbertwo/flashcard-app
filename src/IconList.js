@@ -64,11 +64,22 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    alignItem: 'center',
+    alignItems: 'flex-start',
     width: '100%',
     height: '600px',
     // border: '1px solid black',
   },
+
+  iconsWrapperInner: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    // height: '300px',
+    // border: '1px solid black',
+  },
+
   pageNavWrapper: {
     display: 'flex',
     justifyContent: 'center',
@@ -230,30 +241,32 @@ function IconList(props) {
           </Menu>
         </div>
         <div className={classes.iconsWrapper}>
-          {!isFiltered && pageList[showPageNum].map(icon => (
-            <IconCard
-              key={icon.name}
-              iconClass={icon.class}
-              iconName={icon.name}
-              iconFilter={icon.filter}
-              selectedIcon={selectedIcon}
-              setSelectedIcon={setSelectedIcon}
-              setSelectedIconClass={setSelectedIconClass}
-              handleShowIcons={handleShowIcons}
-            />
-          ))}
-          {isFiltered && filteredArray.map(icon => (
-            <IconCard
-              key={icon.name}
-              iconClass={icon.class}
-              iconName={icon.name}
-              iconFilter={icon.filter}
-              selectedIcon={selectedIcon}
-              setSelectedIcon={setSelectedIcon}
-              setSelectedIconClass={setSelectedIconClass}
-              handleShowIcons={handleShowIcons}
-            />
-          ))}
+          <div className={classes.iconsWrapperInner}>
+            {!isFiltered && pageList[showPageNum].map(icon => (
+              <IconCard
+                key={icon.name}
+                iconClass={icon.class}
+                iconName={icon.name}
+                iconFilter={icon.filter}
+                selectedIcon={selectedIcon}
+                setSelectedIcon={setSelectedIcon}
+                setSelectedIconClass={setSelectedIconClass}
+                handleShowIcons={handleShowIcons}
+              />
+            ))}
+            {isFiltered && filteredArray.map(icon => (
+              <IconCard
+                key={icon.name}
+                iconClass={icon.class}
+                iconName={icon.name}
+                iconFilter={icon.filter}
+                selectedIcon={selectedIcon}
+                setSelectedIcon={setSelectedIcon}
+                setSelectedIconClass={setSelectedIconClass}
+                handleShowIcons={handleShowIcons}
+              />
+            ))}
+          </div>
         </div>
         <div className={classes.pageNavWrapper}>
           <div className={classes.pageNavArrowWrapper}>

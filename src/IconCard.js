@@ -7,9 +7,8 @@ const styles = {
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
-    // border: '1px solid black',
-    width: '110px',
-    height: '110px',
+    width: props => (props.isSelectionButton ? '100px' : '110px'),
+    height: props => (props.isSelectionButton ? '100px' : '110px'),
 
   },
   IconCardInner: {
@@ -17,9 +16,8 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    // border: '1px solid black',
-    width: '95px',
-    height: '95px',
+    width: props => (props.isSelectionButton ? '100px' : '95px'),
+    height: props => (props.isSelectionButton ? '100px' : '95px'),
     color: 'rgba(0, 0, 0, .6)',
     borderRadius: '10px',
     transition: 'all .2s',
@@ -28,9 +26,8 @@ const styles = {
       alignItems: 'center',
       justifyContent: 'center',
       transition: 'all .12s',
-      fontSize: '36px',
+      fontSize: props => (props.isSelectionButton ? '46px' : '36px'),
       margin: '0px 0px 0px 0px',
-      // border: '1px solid black',
       height: '60%',
     },
     '& p': {
@@ -41,7 +38,7 @@ const styles = {
     '&:hover': {
       cursor: 'pointer',
       color: 'rgba(7, 177, 77, 1)',
-      boxShadow: '0px 2px 5px 1px rgba(0, 0, 0, 0.3)',
+      boxShadow: props => (!props.isSelectionButton && '0px 2px 5px 1px rgba(0, 0, 0, 0.3)'),
     },
   },
   IconCardInnerSelected: {
@@ -49,7 +46,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    // border: '1px solid black',
     width: '95px',
     height: '95px',
     color: 'rgba(7, 177, 77, 1)',
@@ -63,7 +59,6 @@ const styles = {
       transition: 'all .12s',
       fontSize: '36px',
       margin: '0px 0px 0px 0px',
-      // border: '1px solid black',
       height: '60%',
     },
     '& p': {
@@ -80,7 +75,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    // border: '1px solid black',
     width: '95px',
     height: '95px',
     color: 'rgba(0, 0, 0, .6)',
@@ -93,7 +87,6 @@ const styles = {
       transition: 'all .12s',
       fontSize: '36px',
       margin: '0px 0px 0px 0px',
-      // border: '1px solid black',
       height: '60%',
     },
     '& p': {
@@ -126,6 +119,16 @@ function IconCard(props) {
       <div className={classes.IconCardDisplay}>
         <i className={iconClass} />
         <p>{iconName}</p>
+      </div>
+    );
+  }
+  if (props.isSelectionButton) {
+    return (
+      <div className={classes.IconCardOuter}>
+        <div className={classes.IconCardInner} onClick={props.selectedIconAction}>
+          <i className={iconClass} />
+          <p>{iconName}</p>
+        </div>
       </div>
     );
   }

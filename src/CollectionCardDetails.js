@@ -126,7 +126,6 @@ function CollectionCardDetails(props) {
     setCurrentCardSetName,
     fetchUserCardSets,
     mastery,
-    resetUserCollectionsState,
   } = props;
 
   const [cardQuantity, setCardQuantity] = React.useState(totalCards);
@@ -134,7 +133,6 @@ function CollectionCardDetails(props) {
   const handleStart = () => {
     setRoundState({ cardQuantity });
     setCurrentCardSetName(setName);
-    resetUserCollectionsState();
     fetchUserCardSets();
   };
 
