@@ -6,7 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 const styles = {
-  CollectionCardDetailsCard: {
+  UserCollectionCardDetailsCard: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -114,7 +114,7 @@ const styles = {
   },
 };
 
-function CollectionCardDetails(props) {
+function UserCollectionCardDetails(props) {
   const {
     classes,
     category,
@@ -162,7 +162,7 @@ function CollectionCardDetails(props) {
   };
 
   return (
-    <div className={classes.CollectionCardDetailsCard}>
+    <div className={classes.UserCollectionCardDetailsCard}>
 
       <div className={classes.labelWrapper}>
         <p className={classes.info}>{setName}</p>
@@ -176,9 +176,9 @@ function CollectionCardDetails(props) {
         </div>
       </div>
       <div className={classes.labelWrapper}>
-        {mastery
+        {mastery.masteryPercentage
           ? <p className={classes.info}>{mastery.masteryPercentage}%</p>
-          : <p>100%</p>}
+          : <p>-</p>}
       </div>
       <div className={classes.totalCardsWrapper}>
         <p className={classes.info}>{totalCards}</p>
@@ -207,4 +207,4 @@ function CollectionCardDetails(props) {
   );
 }
 
-export default withStyles(styles)(CollectionCardDetails);
+export default withStyles(styles)(UserCollectionCardDetails);
