@@ -8,5 +8,5 @@ export default initialVal => {
   const reset = () => {
     setValue('');
   };
-  return [value, handleChange, reset];
+  return [value, handleChange, reset, setValue];
 };
