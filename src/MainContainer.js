@@ -58,6 +58,7 @@ function MainContainer(props) {
         collections = updatedCollections;
       }
     });
+    collections.sort((a, b) => (a.category > b.category ? 1 : -1));
     return collections;
   };
 
