@@ -200,7 +200,7 @@ function UserCollectionsPage(props) {
   return (
     <div className={classes.UserCardSetsPage}>
       <div className={classes.menuBar}>
-        <h2>My Collections</h2>
+        <h2>Select Deck To Run</h2>
       </div>
       <div className={classes.divider} />
       <div className={classes.headerCard}>

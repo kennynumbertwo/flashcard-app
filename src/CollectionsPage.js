@@ -178,7 +178,7 @@ function CollectionsPage(props) {
   return (
     <div className={classes.cardSetsPage}>
       <div className={classes.menuBar}>
-        <h2>My Collections</h2>
+        <h2>Our Collections</h2>
       </div>
       <div className={classes.divider} />
       <div className={classes.headerCard}>

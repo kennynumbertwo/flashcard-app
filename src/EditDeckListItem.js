@@ -7,206 +7,41 @@ import useInputState from './hooks/useInputState';
 import db from './firebase.config';
 import IconListModal from './IconListModal';
 import IconCard from './IconCard';
-
-const styles = {
-  EditDeckListCard: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    width: '1000px',
-    height: '50px',
-    padding: '0px 0px 0px 0px',
-    margin: '5px 0px 5px 0px',
-    borderRadius: '2px',
-    color: 'rgba(0, 0, 0, 0.7)',
-    backgroundColor: 'rgba(250, 250, 250, 0)',
-    fontSize: '1rem',
-    transition: 'all .2s',
-    textDecoration: 'none',
-    '&:hover': {
-      boxShadow: '0px 2px 5px 1px rgba(0, 0, 0, 0.3)',
-      backgroundColor: 'white',
-    },
-  },
-  labelWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '20%',
-    height: '50px',
-  },
-  label: {
-    margin: '0px 10px 0px 0px',
-  },
-  masteryWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '20%',
-    height: '50px',
-  },
-  totalCardsWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '10%',
-    height: '50px',
-  },
-  iconWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '10%',
-    height: '50px',
-  },
-  iconWrapperEditing: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '10%',
-    height: '50px',
-    // border: '1px solid black',
-  },
-  EditDeckListItemIcon: {
-    height: '100%',
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '1.5rem',
-    // border: '1px solid black',
-
-  },
-  EditingDeckListItemIcon: {
-    height: '40px',
-    width: '50px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '1.5rem',
-    border: '1px solid rgba(0, 0, 0, 0.3)',
-    borderRadius: '5px',
-    '&:hover': {
-      border: '1px solid rgba(0, 0, 0, 0.7)',
-    },
-  },
-  buttonWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    height: '50px',
-    width: '10%',
-  },
-  button: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: 'white',
-    textDecoration: 'none',
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    fontSize: '.8rem',
-    fontWeight: '500',
-    background: 'rgba(0, 0, 0, 0.6)',
-    width: '80px',
-    height: '30px',
-    border: '1.5px solid rgba(0, 0, 0, 0.0)',
-    transition: 'all 0.4s ease 0s',
-    borderRadius: '5px',
-    '&:hover': {
-      background: 'rgba(7, 177, 77, 0.7)',
-      borderColor: 'rgba(7, 177, 77, 0.7)',
-      transition: 'all 0.4s ease 0s',
-      cursor: 'pointer',
-    },
-  },
-  buttonCancel: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: 'white',
-    textDecoration: 'none',
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    fontSize: '.8rem',
-    fontWeight: '500',
-    background: 'rgba(245, 0, 86, 0.6)',
-    width: '80px',
-    height: '30px',
-    border: '1.5px solid rgba(245, 0, 86, 0.6)',
-    transition: 'all 0.4s ease 0s',
-    borderRadius: '5px',
-    '&:hover': {
-      background: 'rgba(245, 0, 86, 0.9)',
-      borderColor: 'rgba(245, 0, 86, 0.9)',
-      transition: 'all 0.4s ease 0s',
-      cursor: 'pointer',
-    },
-  },
-  buttonSave: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: 'white',
-    textDecoration: 'none',
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    fontSize: '.8rem',
-    fontWeight: '500',
-    background: 'rgba(7, 177, 77, 0.6)',
-    width: '80px',
-    height: '30px',
-    border: '1.5px solid rgba(7, 177, 77, 0.8)',
-    transition: 'all 0.4s ease 0s',
-    borderRadius: '5px',
-    '&:hover': {
-      background: 'rgba(7, 177, 77, 0.8)',
-      borderColor: 'rgba(7, 177, 77, 0.8)',
-      transition: 'all 0.4s ease 0s',
-      cursor: 'pointer',
-    },
-  },
-  buttonLink: {
-    textDecoration: 'none',
-  },
-};
+import styles from './styles/EditDeckListItemStyles';
 
 function EditDeckListItem(props) {
+  // State for editing an individual deck
+  const [isEditing, setIsEditing] = useState(false);
+  const [setNameInput, updateSetNameInput, setInputValue] = useInputState(props.setName);
+  const [categoryInput, updateCategoryInput, setCategoryValue] = useInputState(props.category);
+  // State for the IconListModal
+  const [isShowingIconList, setIsShowingIconList] = useState(false);
+  const [isAnimatingModal, setIsAnimatingModal] = useState(false);
+  const [selectedIcon, setSelectedIcon] = useState('');
+  const [selectedIconClass, setSelectedIconClass] = useState(props.userCardSet.iconClass);
+
+  // Destructured Props
   const {
     classes,
     totalCards,
     setEditDeckState,
     uid,
-    addUserDatabaseSet,
     deleteUserDatabaseSet,
     userCardSet,
     fetchUserCardSets,
+    isAddingCards,
   } = props;
   const { setName, category, iconClass, mastery } = userCardSet;
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [isShowingIconList, setIsShowingIconList] = useState(false);
-  const [isAnimatingModal, setIsAnimatingModal] = useState(false);
-  const [selectedIcon, setSelectedIcon] = useState('');
-  const [selectedIconClass, setSelectedIconClass] = useState(iconClass);
-  const [setNameInput, updateSetNameInput, resetSetName, setInputValue] = useInputState(setName);
-  const [
-    categoryInput, updateCategoryInput, resetCategory, setCategoryValue] = useInputState(category);
-
+  // Click handler for the Edit Deck button
   const handleEditClick = () => {
-    // setEditDeckState({
-    //   deckToEdit: {
-    //     setName,
-    //     category,
-    //     iconClass,
-    //     totalCards,
-    //     mastery,
-    //   },
-    //   deckToAddCards: {} });
     setIsEditing(!isEditing);
     setInputValue(setName);
     setCategoryValue(category);
     setSelectedIconClass(iconClass);
   };
 
+  // Click handler for the Add Cards button
   const handleAddClick = () => {
     setEditDeckState({
       deckToAddCards: {
@@ -220,11 +55,13 @@ function EditDeckListItem(props) {
     });
   };
 
+  // Click handler for showing the IconListModal when Editing Deck
   const handleShowIcons = () => {
     setIsShowingIconList(!isShowingIconList);
     setIsAnimatingModal(true);
   };
 
+  // Click handler for hiding the IconListModal
   const handleHideIcons = () => {
     setIsAnimatingModal(false);
     setTimeout(() => {
@@ -232,6 +69,7 @@ function EditDeckListItem(props) {
     }, 230);
   };
 
+  // Click handler for the Save button when editing a deck
   const handleSaveClick = async () => {
     let updatedCardSet = {
       ...userCardSet,
@@ -264,6 +102,7 @@ function EditDeckListItem(props) {
     fetchUserCardSets();
   };
 
+  // Click handler for the Delete button
   const handleDeleteClick = async () => {
     const userRef = doc(db, 'users', uid);
     const updateString = `${setName.toLowerCase().replace(/\s+/g, '-')}`;
@@ -286,7 +125,7 @@ function EditDeckListItem(props) {
           isAnimatingModal={isAnimatingModal}
         />
         )}
-        <div className={classes.labelWrapper}>
+        <div className={classes.setNameWrapperInput}>
           <TextField
             label="Set Name"
             id="outlined-size-small"
@@ -296,7 +135,7 @@ function EditDeckListItem(props) {
             size="small"
           />
         </div>
-        <div className={classes.labelWrapper}>
+        <div className={classes.categoryWrapperInput}>
           <TextField
             label="Category"
             id="outlined-size-small"
@@ -323,25 +162,49 @@ function EditDeckListItem(props) {
           <p className={classes.info}>{totalCards}</p>
         </div>
         <div className={classes.buttonWrapper}>
-          {/* <Link className={classes.buttonLink} to={`edit-deck/${setName.toLowerCase()}`}> */}
           <button className={classes.buttonCancel} type="button" onClick={handleEditClick}>Cancel</button>
-          {/* </Link> */}
         </div>
         <div className={classes.buttonWrapper}>
           <button className={classes.buttonSave} type="button" onClick={handleSaveClick}>Save</button>
         </div>
+      </div>
+    );
+  }
+  if (isAddingCards) {
+    return (
+      <div className={classes.EditDeckListCard}>
+        <div className={classes.setNameWrapper}>
+          <p className={classes.info}>{setName}</p>
+        </div>
+        <div className={classes.categoryWrapper}>
+          <p className={classes.info}>{category}</p>
+        </div>
+        <div className={classes.iconWrapper}>
+          <div className={classes.EditDeckListItemIcon}>
+            <i className={iconClass} />
+          </div>
+        </div>
+        <div className={classes.masteryWrapper}>
+          <p className={classes.info}>100%</p>
+        </div>
+        <div className={classes.totalCardsWrapper}>
+          <p className={classes.info}>{totalCards}</p>
+        </div>
         <div className={classes.buttonWrapper}>
-          <button className={classes.button} type="button" onClick={handleDeleteClick}>Delete</button>
+          <button className={classes.button} type="button" onClick={handleEditClick}>Add Cards</button>
+        </div>
+        <div className={classes.buttonWrapper}>
+          <button className={classes.button} type="button" onClick={handleAddClick}>Delete Cards</button>
         </div>
       </div>
     );
   }
   return (
     <div className={classes.EditDeckListCard}>
-      <div className={classes.labelWrapper}>
+      <div className={classes.setNameWrapper}>
         <p className={classes.info}>{setName}</p>
       </div>
-      <div className={classes.labelWrapper}>
+      <div className={classes.categoryWrapper}>
         <p className={classes.info}>{category}</p>
       </div>
       <div className={classes.iconWrapper}>
@@ -356,14 +219,7 @@ function EditDeckListItem(props) {
         <p className={classes.info}>{totalCards}</p>
       </div>
       <div className={classes.buttonWrapper}>
-        {/* <Link className={classes.buttonLink} to={`edit-deck/${setName.toLowerCase()}`}> */}
         <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>
-        {/* </Link> */}
-      </div>
-      <div className={classes.buttonWrapper}>
-        <Link className={classes.buttonLink} to={`edit-deck/${setName.toLowerCase()}/add-cards`}>
-          <button className={classes.button} type="button" onClick={handleAddClick}>Add Cards</button>
-        </Link>
       </div>
       <div className={classes.buttonWrapper}>
         <button className={classes.button} type="button" onClick={handleDeleteClick}>Delete</button>

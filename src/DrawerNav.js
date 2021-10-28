@@ -263,7 +263,7 @@ export default function DrawerNav(props) {
                 button
               >
                 <ListItemIcon><LibraryBooksIcon /></ListItemIcon>
-                <ListItemText primary="Collections" />
+                <ListItemText primary="Run Our Decks" />
                 <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
               </ListItem>
             </Link>
@@ -274,17 +274,7 @@ export default function DrawerNav(props) {
                 button
               >
                 <ListItemIcon><ContactsIcon /></ListItemIcon>
-                <ListItemText primary="My Collections" />
-                <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
-              </ListItem>
-            </Link>
-            <Link to="/create-deck" className={classes.navLink}>
-              <ListItem
-                key="create-deck"
-                button
-              >
-                <ListItemIcon><AddCircleOutlineIcon /></ListItemIcon>
-                <ListItemText primary="Create Deck" />
+                <ListItemText primary="Run My Decks" />
                 <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
               </ListItem>
             </Link>
@@ -294,7 +284,7 @@ export default function DrawerNav(props) {
                 button
               >
                 <ListItemIcon><CreateIcon /></ListItemIcon>
-                <ListItemText primary="Edit Deck" />
+                <ListItemText primary="Edit My Collections" />
                 <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
               </ListItem>
             </Link>
