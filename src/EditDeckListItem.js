@@ -5,6 +5,8 @@ import { doc, updateDoc, deleteField, setDoc } from 'firebase/firestore/lite';
 import TextField from '@mui/material/TextField';
 import useInputState from './hooks/useInputState';
 import db from './firebase.config';
+import IconListModal from './IconListModal';
+import IconCard from './IconCard';
 
 const styles = {
   EditDeckListCard: {
@@ -57,6 +59,14 @@ const styles = {
     width: '10%',
     height: '50px',
   },
+  iconWrapperEditing: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '10%',
+    height: '50px',
+    // border: '1px solid black',
+  },
   EditDeckListItemIcon: {
     height: '100%',
     width: '100%',
@@ -64,6 +74,21 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: '1.5rem',
+    // border: '1px solid black',
+
+  },
+  EditingDeckListItemIcon: {
+    height: '40px',
+    width: '50px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '1.5rem',
+    border: '1px solid rgba(0, 0, 0, 0.3)',
+    borderRadius: '5px',
+    '&:hover': {
+      border: '1px solid rgba(0, 0, 0, 0.7)',
+    },
   },
   buttonWrapper: {
     display: 'flex',
@@ -147,20 +172,21 @@ const styles = {
 function EditDeckListItem(props) {
   const {
     classes,
-    category,
-    setName,
     totalCards,
-    iconClass,
     setEditDeckState,
-    mastery,
     uid,
     addUserDatabaseSet,
     deleteUserDatabaseSet,
     userCardSet,
     fetchUserCardSets,
   } = props;
+  const { setName, category, iconClass, mastery } = userCardSet;
 
   const [isEditing, setIsEditing] = useState(false);
+  const [isShowingIconList, setIsShowingIconList] = useState(false);
+  const [isAnimatingModal, setIsAnimatingModal] = useState(false);
+  const [selectedIcon, setSelectedIcon] = useState('');
+  const [selectedIconClass, setSelectedIconClass] = useState(iconClass);
   const [setNameInput, updateSetNameInput, resetSetName, setInputValue] = useInputState(setName);
   const [
     categoryInput, updateCategoryInput, resetCategory, setCategoryValue] = useInputState(category);
@@ -178,6 +204,7 @@ function EditDeckListItem(props) {
     setIsEditing(!isEditing);
     setInputValue(setName);
     setCategoryValue(category);
+    setSelectedIconClass(iconClass);
   };
 
   const handleAddClick = () => {
@@ -193,17 +220,34 @@ function EditDeckListItem(props) {
     });
   };
 
+  const handleShowIcons = () => {
+    setIsShowingIconList(!isShowingIconList);
+    setIsAnimatingModal(true);
+  };
+
+  const handleHideIcons = () => {
+    setIsAnimatingModal(false);
+    setTimeout(() => {
+      setIsShowingIconList(!isShowingIconList);
+    }, 230);
+  };
+
   const handleSaveClick = async () => {
     let updatedCardSet = {
       ...userCardSet,
       setName: setNameInput,
       category: categoryInput,
       id: setNameInput.replace(/\s+/g, '-').toLowerCase(),
+      iconClass: selectedIconClass,
     };
     if (updatedCardSet.cards.length) {
       let updatedCards = [];
       updatedCardSet.cards.forEach(card => {
-        card = { ...card, setName: setNameInput, category: categoryInput };
+        card = { ...card,
+          setName: setNameInput,
+          category: categoryInput,
+          iconClass: selectedIconClass,
+        };
         updatedCards.push(card);
       });
       updatedCardSet = { ...updatedCardSet, cards: updatedCards };
@@ -232,6 +276,16 @@ function EditDeckListItem(props) {
   if (isEditing) {
     return (
       <div className={classes.EditDeckListCard}>
+        {isShowingIconList && (
+        <IconListModal
+          selectedIcon={selectedIcon}
+          setSelectedIcon={setSelectedIcon}
+          setSelectedIconClass={setSelectedIconClass}
+          handleShowIcons={handleShowIcons}
+          handleHideIcons={handleHideIcons}
+          isAnimatingModal={isAnimatingModal}
+        />
+        )}
         <div className={classes.labelWrapper}>
           <TextField
             label="Set Name"
@@ -252,9 +306,14 @@ function EditDeckListItem(props) {
             size="small"
           />
         </div>
-        <div className={classes.iconWrapper}>
-          <div className={classes.EditDeckListItemIcon}>
-            <i className={iconClass} />
+        <div className={classes.iconWrapperEditing}>
+          <div className={classes.EditingDeckListItemIcon}>
+            <IconCard
+              iconClass={selectedIconClass}
+              iconName={selectedIcon}
+              selectedIconAction={handleShowIcons}
+              isEditDeckButton
+            />
           </div>
         </div>
         <div className={classes.masteryWrapper}>

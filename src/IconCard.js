@@ -7,8 +7,8 @@ const styles = {
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
-    width: props => (props.isSelectionButton ? '100px' : '110px'),
-    height: props => (props.isSelectionButton ? '100px' : '110px'),
+    width: props => (props.isEditDeckButton ? '50px' : '110px'),
+    height: props => (props.isEditDeckButton ? '50px' : '110px'),
 
   },
   IconCardInner: {
@@ -16,8 +16,8 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    width: props => (props.isSelectionButton ? '100px' : '95px'),
-    height: props => (props.isSelectionButton ? '100px' : '95px'),
+    width: props => (props.isEditDeckButton ? '50px' : '95px'),
+    height: props => (props.isEditDeckButton ? '50x' : '95px'),
     color: 'rgba(0, 0, 0, .6)',
     borderRadius: '10px',
     transition: 'all .2s',
@@ -26,7 +26,7 @@ const styles = {
       alignItems: 'center',
       justifyContent: 'center',
       transition: 'all .12s',
-      fontSize: props => (props.isSelectionButton ? '46px' : '36px'),
+      fontSize: props => (props.isEditDeckButton ? '1.5rem' : '36px'),
       margin: '0px 0px 0px 0px',
       height: '60%',
     },
@@ -38,7 +38,7 @@ const styles = {
     '&:hover': {
       cursor: 'pointer',
       color: 'rgba(7, 177, 77, 1)',
-      boxShadow: props => (!props.isSelectionButton && '0px 2px 5px 1px rgba(0, 0, 0, 0.3)'),
+      boxShadow: props => (!props.isEditDeckButton && '0px 2px 5px 1px rgba(0, 0, 0, 0.3)'),
     },
   },
   IconCardInnerSelected: {
@@ -105,13 +105,13 @@ function IconCard(props) {
     selectedIcon,
     setSelectedIcon,
     setSelectedIconClass,
-    handleShowIcons,
+    handleHideIcons,
   } = props;
 
   const handleClick = () => {
     setSelectedIcon(iconName);
     setSelectedIconClass(iconClass);
-    handleShowIcons();
+    handleHideIcons();
   };
 
   if (props.disabled) {
@@ -122,12 +122,11 @@ function IconCard(props) {
       </div>
     );
   }
-  if (props.isSelectionButton) {
+  if (props.isEditDeckButton) {
     return (
       <div className={classes.IconCardOuter}>
         <div className={classes.IconCardInner} onClick={props.selectedIconAction}>
           <i className={iconClass} />
-          <p>{iconName}</p>
         </div>
       </div>
     );

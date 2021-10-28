@@ -117,6 +117,7 @@ function EditDeckList(props) {
   });
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedFilter, setSelectedFilter] = useState('');
+
   const open = Boolean(anchorEl);
   const {
     classes,
@@ -184,6 +185,7 @@ function EditDeckList(props) {
 
   return (
     <div className={classes.EditDeckList}>
+
       <div className={classes.menuBar}>
         <h2>Edit Decks</h2>
       </div>
@@ -254,12 +256,8 @@ function EditDeckList(props) {
           <EditDeckListItem
             key={userCardSet.id}
             userCardSet={userCardSet}
-            category={userCardSet.category}
-            iconClass={userCardSet.iconClass}
-            setName={userCardSet.setName}
             totalCards={userCardSet.cards.length}
             setEditDeckState={setEditDeckState}
-            mastery={userCardSet.mastery}
             uid={uid}
             addUserDatabaseSet={addUserDatabaseSet}
             deleteUserDatabaseSet={deleteUserDatabaseSet}
@@ -270,12 +268,8 @@ function EditDeckList(props) {
           <EditDeckListItem
             key={userCardSet.id}
             userCardSet={userCardSet}
-            category={userCardSet.category}
-            iconClass={userCardSet.iconClass}
-            setName={userCardSet.setName}
             totalCards={userCardSet.cards.length}
             setEditDeckState={setEditDeckState}
-            mastery={userCardSet.mastery}
             uid={uid}
             addUserDatabaseSet={addUserDatabaseSet}
             deleteUserDatabaseSet={deleteUserDatabaseSet}
