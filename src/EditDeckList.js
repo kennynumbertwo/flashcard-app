@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
@@ -124,8 +124,18 @@ function EditDeckList(props) {
     isLoggedIn,
     setEditDeckState,
     uid,
+    addUserDatabaseSet,
     deleteUserDatabaseSet,
+    fetchUserCardSets,
   } = props;
+
+  useEffect(() => {
+    fetchUserCardSets();
+  }, []);
+
+  useEffect(() => {
+    if (userCardSetDatabase) { sortBySetName(); }
+  }, [userCardSetDatabase]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -243,6 +253,7 @@ function EditDeckList(props) {
         ? sortState.sortedDatabase.map(userCardSet => (
           <EditDeckListItem
             key={userCardSet.id}
+            userCardSet={userCardSet}
             category={userCardSet.category}
             iconClass={userCardSet.iconClass}
             setName={userCardSet.setName}
@@ -250,12 +261,15 @@ function EditDeckList(props) {
             setEditDeckState={setEditDeckState}
             mastery={userCardSet.mastery}
             uid={uid}
+            addUserDatabaseSet={addUserDatabaseSet}
             deleteUserDatabaseSet={deleteUserDatabaseSet}
+            fetchUserCardSets={fetchUserCardSets}
           />
         ))
         : userCardSetDatabase.map(userCardSet => (
           <EditDeckListItem
             key={userCardSet.id}
+            userCardSet={userCardSet}
             category={userCardSet.category}
             iconClass={userCardSet.iconClass}
             setName={userCardSet.setName}
@@ -263,7 +277,9 @@ function EditDeckList(props) {
             setEditDeckState={setEditDeckState}
             mastery={userCardSet.mastery}
             uid={uid}
+            addUserDatabaseSet={addUserDatabaseSet}
             deleteUserDatabaseSet={deleteUserDatabaseSet}
+            fetchUserCardSets={fetchUserCardSets}
           />
         ))}
     </div>

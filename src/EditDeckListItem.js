@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { doc, updateDoc, deleteField } from 'firebase/firestore/lite';
+import { doc, updateDoc, deleteField, setDoc } from 'firebase/firestore/lite';
 import TextField from '@mui/material/TextField';
 import useInputState from './hooks/useInputState';
 import db from './firebase.config';
@@ -154,7 +154,10 @@ function EditDeckListItem(props) {
     setEditDeckState,
     mastery,
     uid,
+    addUserDatabaseSet,
     deleteUserDatabaseSet,
+    userCardSet,
+    fetchUserCardSets,
   } = props;
 
   const [isEditing, setIsEditing] = useState(false);
@@ -190,8 +193,31 @@ function EditDeckListItem(props) {
     });
   };
 
-  const handleSaveClick = () => {
-
+  const handleSaveClick = async () => {
+    let updatedCardSet = {
+      ...userCardSet,
+      setName: setNameInput,
+      category: categoryInput,
+      id: setNameInput.replace(/\s+/g, '-').toLowerCase(),
+    };
+    if (updatedCardSet.cards.length) {
+      let updatedCards = [];
+      updatedCardSet.cards.forEach(card => {
+        card = { ...card, setName: setNameInput, category: categoryInput };
+        updatedCards.push(card);
+      });
+      updatedCardSet = { ...updatedCardSet, cards: updatedCards };
+    }
+    const userRef = doc(db, 'users', uid);
+    await setDoc(userRef, { [updatedCardSet.id]: updatedCardSet }, { merge: true });
+    if (updatedCardSet.setName !== setName) {
+      const updateString = `${setName.toLowerCase().replace(/\s+/g, '-')}`;
+      await updateDoc(
+        userRef, { [updateString]: deleteField() },
+      );
+    }
+    setIsEditing(!isEditing);
+    fetchUserCardSets();
   };
 
   const handleDeleteClick = async () => {
