@@ -263,6 +263,7 @@ function EditDeckList(props) {
             isEditingCardsTab={isEditingCardsTab}
           />
         ))}
+      <div className={classes.dividerEnd} />
       <div className={classes.addIconWrapper}>
         <i className="far fa-plus-square" onClick={handleAddIconClick} />
       </div>

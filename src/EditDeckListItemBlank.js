@@ -7,7 +7,7 @@ import useInputState from './hooks/useInputState';
 import db from './firebase.config';
 import IconListModal from './IconListModal';
 import IconCard from './IconCard';
-import styles from './styles/EditDeckListItemStyles';
+import styles from './styles/EditDeckListItemBlankStyles';
 
 function EditDeckListItem(props) {
   // State for the IconListModal
@@ -125,7 +125,7 @@ function EditDeckListItem(props) {
       </div>
       <div className={classes.iconWrapperEditing}>
         {selectedIconClass === '' ? (
-          <div className={classes.EditingDeckListItemIcon}>
+          <div className={classes.EditingDeckListItemIconBlank}>
             <IconCard
               iconClass="far fa-times-circle"
               iconName={selectedIcon}
