@@ -135,139 +135,144 @@ function EditDeckList(props) {
     return <Redirect to="/login" />;
   }
 
-  return (
-    <div className={classes.EditDeckList}>
-      <div className={classes.menuBar}>
-        <div className={classes.headerWrapper}>
-          <h2>My Collections</h2>
-        </div>
-        <div className={classes.navWrapperOuter}>
-          <div className={classes.navWrapperInner}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              sx={{ width: '80%' }}
-              centered
+  if (userCardSetDatabase) {
+    return (
+      <div className={classes.EditDeckList}>
+        <div className={classes.menuBar}>
+          <div className={classes.headerWrapper}>
+            <h2>My Collections</h2>
+          </div>
+          <div className={classes.navWrapperOuter}>
+            <div className={classes.navWrapperInner}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                sx={{ width: '80%' }}
+                centered
+              >
+                <Tab label="Add Deck" sx={{ width: '30%', marginRight: 'auto' }} onClick={handleAddDeckClick} />
+                <Tab label="Edit Decks" sx={{ width: '30%' }} onClick={handleEditDecksClick} />
+                <Tab label="Edit Cards" sx={{ width: '30%', marginLeft: 'auto' }} onClick={handleEditCardsClick} />
+              </Tabs>
+            </div>
+          </div>
+          <div className={classes.sortWrapper}>
+            <Button
+              sx={{
+                backgroundColor: 'rgba(250, 250, 250, 0.0)',
+                color: 'rgba(0, 0, 0, 0.6)',
+                height: '35px',
+                '&:hover': {
+                  backgroundColor: 'rgba(250, 250, 250, 0.0)',
+                  color: 'rgba(0, 0, 0, 0.8)',
+                },
+              }}
+              id="demo-customized-button"
+              aria-controls="demo-customized-menu"
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              variant="contained"
+              disableElevation
+              onClick={handleClick}
+              endIcon={<KeyboardArrowDownIcon />}
             >
-              <Tab label="Add Deck" sx={{ width: '30%', marginRight: 'auto' }} onClick={handleAddDeckClick} />
-              <Tab label="Edit Decks" sx={{ width: '30%' }} onClick={handleEditDecksClick} />
-              <Tab label="Edit Cards" sx={{ width: '30%', marginLeft: 'auto' }} onClick={handleEditCardsClick} />
-            </Tabs>
+              Sort
+            </Button>
+            <Menu
+              id="long-menu"
+              MenuListProps={{
+                'aria-labelledby': 'long-button',
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              PaperProps={{
+                style: {
+                  maxHeight: ITEM_HEIGHT * 5.5,
+                  width: '20ch',
+                },
+              }}
+            >
+              {options.map((option) => (
+                <MenuItem key={option} selected={option === selectedFilter} onClick={handleClose}>
+                  {option}
+                </MenuItem>
+              ))}
+            </Menu>
           </div>
         </div>
-        <div className={classes.sortWrapper}>
-          <Button
-            sx={{
-              backgroundColor: 'rgba(250, 250, 250, 0.0)',
-              color: 'rgba(0, 0, 0, 0.6)',
-              height: '35px',
-              '&:hover': {
-                backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                color: 'rgba(0, 0, 0, 0.8)',
-              },
-            }}
-            id="demo-customized-button"
-            aria-controls="demo-customized-menu"
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            variant="contained"
-            disableElevation
-            onClick={handleClick}
-            endIcon={<KeyboardArrowDownIcon />}
-          >
-            Sort
-          </Button>
-          <Menu
-            id="long-menu"
-            MenuListProps={{
-              'aria-labelledby': 'long-button',
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            PaperProps={{
-              style: {
-                maxHeight: ITEM_HEIGHT * 5.5,
-                width: '20ch',
-              },
-            }}
-          >
-            {options.map((option) => (
-              <MenuItem key={option} selected={option === selectedFilter} onClick={handleClose}>
-                {option}
-              </MenuItem>
-            ))}
-          </Menu>
+        <div className={classes.divider} />
+        <div className={classes.headerCard}>
+          <div className={classes.setNameWrapper}>
+            <p className={classes.label}>Set Name:</p>
+          </div>
+          <div className={classes.categoryWrapper}>
+            <p className={classes.label}>Category:</p>
+          </div>
+          <div className={classes.iconWrapper}>
+            <p className={classes.label}>Icon:</p>
+          </div>
+          <div className={classes.masteryWrapper}>
+            <p className={classes.label}>Mastery:</p>
+          </div>
+          <div className={classes.totalCardsWrapper}>
+            <p className={classes.label}>Total Cards:</p>
+          </div>
+          <div className={classes.actionsWrapper}>
+            <p className={classes.label}>Actions:</p>
+          </div>
         </div>
-      </div>
-      <div className={classes.divider} />
-      <div className={classes.headerCard}>
-        <div className={classes.setNameWrapper}>
-          <p className={classes.label}>Set Name:</p>
-        </div>
-        <div className={classes.categoryWrapper}>
-          <p className={classes.label}>Category:</p>
-        </div>
-        <div className={classes.iconWrapper}>
-          <p className={classes.label}>Icon:</p>
-        </div>
-        <div className={classes.masteryWrapper}>
-          <p className={classes.label}>Mastery:</p>
-        </div>
-        <div className={classes.totalCardsWrapper}>
-          <p className={classes.label}>Total Cards:</p>
-        </div>
-        <div className={classes.actionsWrapper}>
-          <p className={classes.label}>Actions:</p>
-        </div>
-      </div>
-      {isAddingDeck && (
-        <EditDeckListItemBlank
-          key="new-deck"
-          setEditDeckState={setEditDeckState}
-          uid={uid}
-          deleteUserDatabaseSet={deleteUserDatabaseSet}
-          fetchUserCardSets={fetchUserCardSets}
-          isAddingDeck={isAddingDeck}
-          setIsAddingDeck={setIsAddingDeck}
-        />
-      )}
-      { sortState.isSorted
-        ? sortState.sortedDatabase.map(userCardSet => (
-          <EditDeckListItem
-            key={userCardSet.id}
-            userCardSet={userCardSet}
-            totalCards={userCardSet.cards.length}
+        {isAddingDeck && (
+          <EditDeckListItemBlank
+            key="new-deck"
             setEditDeckState={setEditDeckState}
             uid={uid}
             deleteUserDatabaseSet={deleteUserDatabaseSet}
             fetchUserCardSets={fetchUserCardSets}
-            isAddingDeckTab={isAddingDeckTab}
             isAddingDeck={isAddingDeck}
-            isEditingDecksTab={isEditingDecksTab}
-            isEditingCardsTab={isEditingCardsTab}
+            setIsAddingDeck={setIsAddingDeck}
           />
-        ))
-        : userCardSetDatabase.map(userCardSet => (
-          <EditDeckListItem
-            key={userCardSet.id}
-            userCardSet={userCardSet}
-            totalCards={userCardSet.cards.length}
-            setEditDeckState={setEditDeckState}
-            uid={uid}
-            deleteUserDatabaseSet={deleteUserDatabaseSet}
-            fetchUserCardSets={fetchUserCardSets}
-            isAddingDeckTab={isAddingDeckTab}
-            isAddingDeck={isAddingDeck}
-            isEditingDecksTab={isEditingDecksTab}
-            isEditingCardsTab={isEditingCardsTab}
-          />
-        ))}
-      <div className={classes.dividerEnd} />
-      <div className={classes.addIconWrapper}>
-        <i className="far fa-plus-square" onClick={handleAddIconClick} />
+        )}
+        { sortState.isSorted && sortState.sortedDatabase.length > 0
+          ? sortState.sortedDatabase.map(userCardSet => (
+            <EditDeckListItem
+              key={userCardSet.id}
+              userCardSet={userCardSet}
+              totalCards={userCardSet.cards.length}
+              setEditDeckState={setEditDeckState}
+              uid={uid}
+              deleteUserDatabaseSet={deleteUserDatabaseSet}
+              fetchUserCardSets={fetchUserCardSets}
+              isAddingDeckTab={isAddingDeckTab}
+              isAddingDeck={isAddingDeck}
+              isEditingDecksTab={isEditingDecksTab}
+              isEditingCardsTab={isEditingCardsTab}
+            />
+          ))
+          : userCardSetDatabase.map(userCardSet => (
+            <EditDeckListItem
+              key={userCardSet.id}
+              userCardSet={userCardSet}
+              totalCards={userCardSet.cards.length}
+              setEditDeckState={setEditDeckState}
+              uid={uid}
+              deleteUserDatabaseSet={deleteUserDatabaseSet}
+              fetchUserCardSets={fetchUserCardSets}
+              isAddingDeckTab={isAddingDeckTab}
+              isAddingDeck={isAddingDeck}
+              isEditingDecksTab={isEditingDecksTab}
+              isEditingCardsTab={isEditingCardsTab}
+            />
+          ))}
+        <div className={classes.dividerEnd} />
+        <div className={classes.addIconWrapper}>
+          <i className="far fa-plus-square" onClick={handleAddIconClick} />
+        </div>
       </div>
-    </div>
+    );
+  }
+  return (
+    <div>loading</div>
   );
 }
 
