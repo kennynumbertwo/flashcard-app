@@ -5,8 +5,11 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import EditDeckListItem from './EditDeckListItem';
+import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 import styles from './styles/EditDeckListStyles';
+import EditDeckListItem from './EditDeckListItem';
 
 const ITEM_HEIGHT = 48;
 const options = ['Set Name', 'Category', 'Total Cards'];
@@ -17,13 +20,20 @@ function EditDeckList(props) {
     sortedDatabase: [],
     isSorted: false,
   });
-  const [isAddingCards, setIsAddingCards] = useState(false);
+  const [isAddingDeck, setIsAddingDeck] = useState(false);
+  const [isEditingDecks, setIsEditingDecks] = useState(true);
+  const [isEditingCards, setIsEditingCards] = useState(false);
 
   // State for Material UI Dropdown
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedFilter, setSelectedFilter] = useState('');
   const open = Boolean(anchorEl);
 
+  const [value, setValue] = React.useState(1);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   // Destructured Props
   const {
     classes,
@@ -93,8 +103,28 @@ function EditDeckList(props) {
   //  ^---------------  End functions for Material UI Dropdown   ---------------^
 
   // Click handler for the Add Cards button
-  const handleAddClick = () => {
-    setIsAddingCards(!isAddingCards);
+  const handleAddDeckClick = () => {
+    if (!isAddingDeck) {
+      setIsAddingDeck(true);
+      setIsEditingDecks(false);
+      setIsEditingCards(false);
+    }
+  };
+  // Click handler for the Edit Decks button
+  const handleEditDecksClick = () => {
+    if (!isEditingDecks) {
+      setIsAddingDeck(false);
+      setIsEditingDecks(true);
+      setIsEditingCards(false);
+    }
+  };
+  // Click handler for the Edit Cards button
+  const handleEditCardsClick = () => {
+    if (!isEditingCards) {
+      setIsAddingDeck(false);
+      setIsEditingDecks(false);
+      setIsEditingCards(true);
+    }
   };
 
   if (!isLoggedIn) {
@@ -104,8 +134,23 @@ function EditDeckList(props) {
   return (
     <div className={classes.EditDeckList}>
       <div className={classes.menuBar}>
-        <h2>My Collections</h2>
-        <button className={classes.button} type="button" onClick={handleAddClick}>Add Cards</button>
+        <div className={classes.headerWrapper}>
+          <h2>My Collections</h2>
+        </div>
+        <div className={classes.navWrapperOuter}>
+          <div className={classes.navWrapperInner}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              sx={{ width: '80%' }}
+              centered
+            >
+              <Tab label="Add Deck" sx={{ width: '30%', marginRight: 'auto' }} onClick={handleAddDeckClick} />
+              <Tab label="Edit Decks" sx={{ width: '30%' }} onClick={handleEditDecksClick} />
+              <Tab label="Edit Cards" sx={{ width: '30%', marginLeft: 'auto' }} onClick={handleEditCardsClick} />
+            </Tabs>
+          </div>
+        </div>
         <div className={classes.sortWrapper}>
           <Button
             sx={{
@@ -183,7 +228,9 @@ function EditDeckList(props) {
             addUserDatabaseSet={addUserDatabaseSet}
             deleteUserDatabaseSet={deleteUserDatabaseSet}
             fetchUserCardSets={fetchUserCardSets}
-            isAddingCards={isAddingCards}
+            isAddingDeck={isAddingDeck}
+            isEditingDecks={isEditingDecks}
+            isEditingCards={isEditingCards}
           />
         ))
         : userCardSetDatabase.map(userCardSet => (
@@ -196,7 +243,9 @@ function EditDeckList(props) {
             addUserDatabaseSet={addUserDatabaseSet}
             deleteUserDatabaseSet={deleteUserDatabaseSet}
             fetchUserCardSets={fetchUserCardSets}
-            isAddingCards={isAddingCards}
+            isAddingDeck={isAddingDeck}
+            isEditingDecks={isEditingDecks}
+            isEditingCards={isEditingCards}
           />
         ))}
     </div>

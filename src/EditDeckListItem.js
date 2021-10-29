@@ -29,7 +29,9 @@ function EditDeckListItem(props) {
     deleteUserDatabaseSet,
     userCardSet,
     fetchUserCardSets,
-    isAddingCards,
+    isAddingDeck,
+    isEditingDecks,
+    isEditingCards,
   } = props;
   const { setName, category, iconClass, mastery } = userCardSet;
 
@@ -156,7 +158,7 @@ function EditDeckListItem(props) {
           </div>
         </div>
         <div className={classes.masteryWrapper}>
-          <p className={classes.info}>100%</p>
+          <p className={classes.info}>{mastery.masteryPercentage}%</p>
         </div>
         <div className={classes.totalCardsWrapper}>
           <p className={classes.info}>{totalCards}</p>
@@ -170,7 +172,7 @@ function EditDeckListItem(props) {
       </div>
     );
   }
-  if (isAddingCards) {
+  if (isEditingCards) {
     return (
       <div className={classes.EditDeckListCard}>
         <div className={classes.setNameWrapper}>
@@ -185,7 +187,7 @@ function EditDeckListItem(props) {
           </div>
         </div>
         <div className={classes.masteryWrapper}>
-          <p className={classes.info}>100%</p>
+          <p className={classes.info}>{mastery.masteryPercentage}%</p>
         </div>
         <div className={classes.totalCardsWrapper}>
           <p className={classes.info}>{totalCards}</p>
@@ -199,33 +201,64 @@ function EditDeckListItem(props) {
       </div>
     );
   }
-  return (
-    <div className={classes.EditDeckListCard}>
-      <div className={classes.setNameWrapper}>
-        <p className={classes.info}>{setName}</p>
-      </div>
-      <div className={classes.categoryWrapper}>
-        <p className={classes.info}>{category}</p>
-      </div>
-      <div className={classes.iconWrapper}>
-        <div className={classes.EditDeckListItemIcon}>
-          <i className={iconClass} />
+  if (isEditingDecks) {
+    return (
+      <div className={classes.EditDeckListCard}>
+        <div className={classes.setNameWrapper}>
+          <p className={classes.info}>{setName}</p>
+        </div>
+        <div className={classes.categoryWrapper}>
+          <p className={classes.info}>{category}</p>
+        </div>
+        <div className={classes.iconWrapper}>
+          <div className={classes.EditDeckListItemIcon}>
+            <i className={iconClass} />
+          </div>
+        </div>
+        <div className={classes.masteryWrapper}>
+          <p className={classes.info}>{mastery.masteryPercentage}%</p>
+        </div>
+        <div className={classes.totalCardsWrapper}>
+          <p className={classes.info}>{totalCards}</p>
+        </div>
+        <div className={classes.buttonWrapper}>
+          <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>
+        </div>
+        <div className={classes.buttonWrapper}>
+          <button className={classes.button} type="button" onClick={handleDeleteClick}>Delete</button>
         </div>
       </div>
-      <div className={classes.masteryWrapper}>
-        <p className={classes.info}>100%</p>
+    );
+  }
+  if (isAddingDeck) {
+    return (
+      <div className={classes.EditDeckListCard}>
+        <div className={classes.setNameWrapper}>
+          <p className={classes.info}>{setName}</p>
+        </div>
+        <div className={classes.categoryWrapper}>
+          <p className={classes.info}>{category}</p>
+        </div>
+        <div className={classes.iconWrapper}>
+          <div className={classes.EditDeckListItemIcon}>
+            <i className={iconClass} />
+          </div>
+        </div>
+        <div className={classes.masteryWrapper}>
+          <p className={classes.info}>{mastery.masteryPercentage}%</p>
+        </div>
+        <div className={classes.totalCardsWrapper}>
+          <p className={classes.info}>{totalCards}</p>
+        </div>
+        <div className={classes.buttonWrapper}>
+          <button className={classes.button} type="button" onClick={handleEditClick}>Cancel</button>
+        </div>
+        <div className={classes.buttonWrapper}>
+          <button className={classes.button} type="button" onClick={handleDeleteClick}>Save</button>
+        </div>
       </div>
-      <div className={classes.totalCardsWrapper}>
-        <p className={classes.info}>{totalCards}</p>
-      </div>
-      <div className={classes.buttonWrapper}>
-        <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>
-      </div>
-      <div className={classes.buttonWrapper}>
-        <button className={classes.button} type="button" onClick={handleDeleteClick}>Delete</button>
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default withStyles(styles)(EditDeckListItem);
