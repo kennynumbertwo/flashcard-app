@@ -180,4 +180,21 @@ export default {
       cursor: 'pointer',
     },
   },
+  addIconWrapper: {
+    // border: '1px solid black',
+    width: '100%',
+    height: '80px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: '1.8rem',
+    '& i': {
+      transition: 'all 0.4s ease 0s',
+      '&:hover': {
+        color: 'rgba(7, 177, 77, 0.7)',
+        transition: 'all 0.4s ease 0s',
+        cursor: 'pointer',
+      },
+    },
+  },
 };

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import { doc, updateDoc, deleteField, setDoc } from 'firebase/firestore/lite';
 import TextField from '@mui/material/TextField';
 import useInputState from './hooks/useInputState';
@@ -29,9 +28,10 @@ function EditDeckListItem(props) {
     deleteUserDatabaseSet,
     userCardSet,
     fetchUserCardSets,
+    isAddingDeckTab,
     isAddingDeck,
-    isEditingDecks,
-    isEditingCards,
+    isEditingDecksTab,
+    isEditingCardsTab,
   } = props;
   const { setName, category, iconClass, mastery } = userCardSet;
 
@@ -172,7 +172,7 @@ function EditDeckListItem(props) {
       </div>
     );
   }
-  if (isEditingCards) {
+  if (isEditingCardsTab) {
     return (
       <div className={classes.EditDeckListCard}>
         <div className={classes.setNameWrapper}>
@@ -201,7 +201,7 @@ function EditDeckListItem(props) {
       </div>
     );
   }
-  if (isEditingDecks) {
+  if (isEditingDecksTab) {
     return (
       <div className={classes.EditDeckListCard}>
         <div className={classes.setNameWrapper}>
@@ -230,7 +230,7 @@ function EditDeckListItem(props) {
       </div>
     );
   }
-  if (isAddingDeck) {
+  if (isAddingDeckTab) {
     return (
       <div className={classes.EditDeckListCard}>
         <div className={classes.setNameWrapper}>
@@ -251,7 +251,7 @@ function EditDeckListItem(props) {
           <p className={classes.info}>{totalCards}</p>
         </div>
         <div className={classes.buttonWrapper}>
-          <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>
+          <button className={classes.button} type="button" onClick={handleEditClick}>Add Cards</button>
         </div>
         <div className={classes.buttonWrapper}>
           <button className={classes.button} type="button" onClick={handleDeleteClick}>Delete</button>

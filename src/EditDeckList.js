@@ -20,9 +20,10 @@ function EditDeckList(props) {
     sortedDatabase: [],
     isSorted: false,
   });
+  const [isAddingDeckTab, setIsAddingDeckTab] = useState(false);
   const [isAddingDeck, setIsAddingDeck] = useState(false);
-  const [isEditingDecks, setIsEditingDecks] = useState(true);
-  const [isEditingCards, setIsEditingCards] = useState(false);
+  const [isEditingDecksTab, setIsEditingDecksTab] = useState(true);
+  const [isEditingCardsTab, setIsEditingCardsTab] = useState(false);
 
   // State for Material UI Dropdown
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -103,27 +104,31 @@ function EditDeckList(props) {
 
   // Click handler for the Add Cards button
   const handleAddDeckClick = () => {
-    if (!isAddingDeck) {
-      setIsAddingDeck(true);
-      setIsEditingDecks(false);
-      setIsEditingCards(false);
+    if (!isAddingDeckTab) {
+      setIsAddingDeckTab(true);
+      setIsEditingDecksTab(false);
+      setIsEditingCardsTab(false);
     }
   };
   // Click handler for the Edit Decks button
   const handleEditDecksClick = () => {
-    if (!isEditingDecks) {
-      setIsAddingDeck(false);
-      setIsEditingDecks(true);
-      setIsEditingCards(false);
+    if (!isEditingDecksTab) {
+      setIsAddingDeckTab(false);
+      setIsEditingDecksTab(true);
+      setIsEditingCardsTab(false);
     }
   };
   // Click handler for the Edit Cards button
   const handleEditCardsClick = () => {
-    if (!isEditingCards) {
-      setIsAddingDeck(false);
-      setIsEditingDecks(false);
-      setIsEditingCards(true);
+    if (!isEditingCardsTab) {
+      setIsAddingDeckTab(false);
+      setIsEditingDecksTab(false);
+      setIsEditingCardsTab(true);
     }
+  };
+  // Click handler for the add icon
+  const handleAddIconClick = () => {
+    setIsAddingDeck(true);
   };
 
   if (!isLoggedIn) {
@@ -224,6 +229,7 @@ function EditDeckList(props) {
           deleteUserDatabaseSet={deleteUserDatabaseSet}
           fetchUserCardSets={fetchUserCardSets}
           isAddingDeck={isAddingDeck}
+          setIsAddingDeck={setIsAddingDeck}
         />
       )}
       { sortState.isSorted
@@ -236,9 +242,10 @@ function EditDeckList(props) {
             uid={uid}
             deleteUserDatabaseSet={deleteUserDatabaseSet}
             fetchUserCardSets={fetchUserCardSets}
+            isAddingDeckTab={isAddingDeckTab}
             isAddingDeck={isAddingDeck}
-            isEditingDecks={isEditingDecks}
-            isEditingCards={isEditingCards}
+            isEditingDecksTab={isEditingDecksTab}
+            isEditingCardsTab={isEditingCardsTab}
           />
         ))
         : userCardSetDatabase.map(userCardSet => (
@@ -250,11 +257,15 @@ function EditDeckList(props) {
             uid={uid}
             deleteUserDatabaseSet={deleteUserDatabaseSet}
             fetchUserCardSets={fetchUserCardSets}
+            isAddingDeckTab={isAddingDeckTab}
             isAddingDeck={isAddingDeck}
-            isEditingDecks={isEditingDecks}
-            isEditingCards={isEditingCards}
+            isEditingDecksTab={isEditingDecksTab}
+            isEditingCardsTab={isEditingCardsTab}
           />
         ))}
+      <div className={classes.addIconWrapper}>
+        <i className="far fa-plus-square" onClick={handleAddIconClick} />
+      </div>
     </div>
   );
 }

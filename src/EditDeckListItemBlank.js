@@ -10,8 +10,6 @@ import IconCard from './IconCard';
 import styles from './styles/EditDeckListItemStyles';
 
 function EditDeckListItem(props) {
-  // State for editing an individual deck
-  const [isEditing, setIsEditing] = useState(false);
   // State for the IconListModal
   const [isShowingIconList, setIsShowingIconList] = useState(false);
   const [isAnimatingModal, setIsAnimatingModal] = useState(false);
@@ -30,15 +28,9 @@ function EditDeckListItem(props) {
   // Destructured Props
   const {
     classes,
-    totalCards,
-    setEditDeckState,
     uid,
-    deleteUserDatabaseSet,
-    userCardSet,
     fetchUserCardSets,
-    isAddingDeck,
-    isEditingDecks,
-    isEditingCards,
+    setIsAddingDeck,
   } = props;
 
   useEffect(() => {
@@ -47,13 +39,6 @@ function EditDeckListItem(props) {
       iconClass: selectedIconClass,
     });
   }, [deckFields.setName, selectedIconClass]);
-  // Click handler for the Edit Deck button
-  const handleEditClick = () => {
-    setIsEditing(!isEditing);
-    setInputValue('');
-    setCategoryValue('');
-    setSelectedIconClass('');
-  };
 
   // Click handler for the Add Cards button
   const handleAddClick = () => {
@@ -67,6 +52,10 @@ function EditDeckListItem(props) {
     //   },
     //   deckToEdit: {},
     // });
+  };
+  // Click handler for the Add Cards button
+  const handleCancelClick = () => {
+    setIsAddingDeck(false);
   };
 
   // Click handler for showing the IconListModal when Editing Deck
@@ -101,7 +90,6 @@ function EditDeckListItem(props) {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.id);
     setDeckFields({ ...deckFields, [e.target.id]: e.target.value });
   };
 
@@ -158,13 +146,13 @@ function EditDeckListItem(props) {
           )}
       </div>
       <div className={classes.masteryWrapper}>
-        <p className={classes.info}>0%</p>
+        <p className={classes.info}>-</p>
       </div>
       <div className={classes.totalCardsWrapper}>
-        <p className={classes.info}>0</p>
+        <p className={classes.info}>-</p>
       </div>
       <div className={classes.buttonWrapper}>
-        <button className={classes.buttonCancel} type="button" onClick={handleEditClick}>Cancel</button>
+        <button className={classes.buttonCancel} type="button" onClick={handleCancelClick}>Cancel</button>
       </div>
       <div className={classes.buttonWrapper}>
         <button className={classes.buttonSave} type="button" onClick={handleSaveDeck}>Save</button>
