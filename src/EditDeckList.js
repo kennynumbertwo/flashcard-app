@@ -5,11 +5,11 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import styles from './styles/EditDeckListStyles';
 import EditDeckListItem from './EditDeckListItem';
+import EditDeckListItemBlank from './EditDeckListItemBlank';
 
 const ITEM_HEIGHT = 48;
 const options = ['Set Name', 'Category', 'Total Cards'];
@@ -41,7 +41,6 @@ function EditDeckList(props) {
     isLoggedIn,
     setEditDeckState,
     uid,
-    addUserDatabaseSet,
     deleteUserDatabaseSet,
     fetchUserCardSets,
   } = props;
@@ -217,6 +216,16 @@ function EditDeckList(props) {
           <p className={classes.label}>Actions:</p>
         </div>
       </div>
+      {isAddingDeck && (
+        <EditDeckListItemBlank
+          key="new-deck"
+          setEditDeckState={setEditDeckState}
+          uid={uid}
+          deleteUserDatabaseSet={deleteUserDatabaseSet}
+          fetchUserCardSets={fetchUserCardSets}
+          isAddingDeck={isAddingDeck}
+        />
+      )}
       { sortState.isSorted
         ? sortState.sortedDatabase.map(userCardSet => (
           <EditDeckListItem
@@ -225,7 +234,6 @@ function EditDeckList(props) {
             totalCards={userCardSet.cards.length}
             setEditDeckState={setEditDeckState}
             uid={uid}
-            addUserDatabaseSet={addUserDatabaseSet}
             deleteUserDatabaseSet={deleteUserDatabaseSet}
             fetchUserCardSets={fetchUserCardSets}
             isAddingDeck={isAddingDeck}
@@ -240,7 +248,6 @@ function EditDeckList(props) {
             totalCards={userCardSet.cards.length}
             setEditDeckState={setEditDeckState}
             uid={uid}
-            addUserDatabaseSet={addUserDatabaseSet}
             deleteUserDatabaseSet={deleteUserDatabaseSet}
             fetchUserCardSets={fetchUserCardSets}
             isAddingDeck={isAddingDeck}

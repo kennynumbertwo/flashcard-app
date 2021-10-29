@@ -251,10 +251,10 @@ function EditDeckListItem(props) {
           <p className={classes.info}>{totalCards}</p>
         </div>
         <div className={classes.buttonWrapper}>
-          <button className={classes.button} type="button" onClick={handleEditClick}>Cancel</button>
+          <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>
         </div>
         <div className={classes.buttonWrapper}>
-          <button className={classes.button} type="button" onClick={handleDeleteClick}>Save</button>
+          <button className={classes.button} type="button" onClick={handleDeleteClick}>Delete</button>
         </div>
       </div>
     );
