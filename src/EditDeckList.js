@@ -268,7 +268,7 @@ function EditDeckList(props) {
               isViewingCardsState={isViewingCardsState}
               setIsViewingCardsState={setIsViewingCardsState}
             />
-            { isViewingCardsState.cardSet.cards.map(card => (
+            { isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards.map(card => (
               <CardItem
                 userCardSetDatabase={userCardSetDatabase}
                 cardSet={isViewingCardsState.cardSet}
