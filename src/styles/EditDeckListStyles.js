@@ -38,7 +38,7 @@ export default {
   },
   navWrapperInner: {
     height: '50px',
-    width: '80%',
+    width: '60%',
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
@@ -191,19 +191,23 @@ export default {
   },
   addIconWrapper: {
     // border: '1px solid black',
-    width: '100%',
+    // width: '100%',
+    paddingTop: '15px',
     height: '80px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'column',
     fontSize: '1.8rem',
-    '& i': {
+    color: 'rgba(0, 0, 0, 0.6)',
+    transition: 'all 0.4s ease 0s',
+    '& p': {
+      fontSize: '.8rem',
+    },
+    '&:hover': {
+      color: 'rgba(7, 177, 77, 0.7)',
       transition: 'all 0.4s ease 0s',
-      '&:hover': {
-        color: 'rgba(7, 177, 77, 0.7)',
-        transition: 'all 0.4s ease 0s',
-        cursor: 'pointer',
-      },
+      cursor: 'pointer',
     },
   },
 };

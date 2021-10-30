@@ -115,6 +115,14 @@ export default {
     height: '50px',
     width: '10%',
   },
+  buttonWrapperSingle: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    height: '50px',
+    width: '20%',
+  },
   button: {
     display: 'flex',
     justifyContent: 'center',

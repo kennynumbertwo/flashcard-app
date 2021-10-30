@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
 import { doc, updateDoc, deleteField, setDoc } from 'firebase/firestore/lite';
 import TextField from '@mui/material/TextField';
+import { Link } from 'react-router-dom';
+import Snackbar from '@mui/material/Snackbar';
 import useInputState from './hooks/useInputState';
 import db from './firebase.config';
 import IconListModal from './IconListModal';
@@ -28,10 +30,9 @@ function EditDeckListItem(props) {
     deleteUserDatabaseSet,
     userCardSet,
     fetchUserCardSets,
-    isAddingDeckTab,
-    isAddingDeck,
     isEditingDecksTab,
     isEditingCardsTab,
+    setIsViewingCardsState,
   } = props;
   const { setName, category, iconClass, mastery } = userCardSet;
 
@@ -56,6 +57,13 @@ function EditDeckListItem(props) {
       deckToEdit: {},
     });
   };
+
+  // Changes isEditing to false when tab changes
+  useEffect(() => {
+    if (!isEditingDecksTab) {
+      setIsEditing(false);
+    }
+  }, [isEditingCardsTab]);
 
   // Click handler for showing the IconListModal when Editing Deck
   const handleShowIcons = () => {
@@ -112,6 +120,11 @@ function EditDeckListItem(props) {
     await updateDoc(
       userRef, { [updateString]: deleteField() },
     );
+  };
+
+  // Click handler for the Delete button
+  const handleViewCardsClick = () => {
+    setIsViewingCardsState({ isViewing: true, cardSet: { ...userCardSet }, setName });
   };
 
   if (isEditing) {
@@ -192,11 +205,8 @@ function EditDeckListItem(props) {
         <div className={classes.totalCardsWrapper}>
           <p className={classes.info}>{totalCards}</p>
         </div>
-        <div className={classes.buttonWrapper}>
-          <button className={classes.button} type="button" onClick={handleEditClick}>Add Cards</button>
-        </div>
-        <div className={classes.buttonWrapper}>
-          <button className={classes.button} type="button" onClick={handleAddClick}>Delete Cards</button>
+        <div className={classes.buttonWrapperSingle}>
+          <button className={classes.button} type="button" onClick={handleViewCardsClick}>View Cards</button>
         </div>
       </div>
     );
@@ -223,35 +233,6 @@ function EditDeckListItem(props) {
         </div>
         <div className={classes.buttonWrapper}>
           <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>
-        </div>
-        <div className={classes.buttonWrapper}>
-          <button className={classes.button} type="button" onClick={handleDeleteClick}>Delete</button>
-        </div>
-      </div>
-    );
-  }
-  if (isAddingDeckTab) {
-    return (
-      <div className={classes.EditDeckListCard}>
-        <div className={classes.setNameWrapper}>
-          <p className={classes.info}>{setName}</p>
-        </div>
-        <div className={classes.categoryWrapper}>
-          <p className={classes.info}>{category}</p>
-        </div>
-        <div className={classes.iconWrapper}>
-          <div className={classes.EditDeckListItemIcon}>
-            <i className={iconClass} />
-          </div>
-        </div>
-        <div className={classes.masteryWrapper}>
-          <p className={classes.info}>{mastery.masteryPercentage}%</p>
-        </div>
-        <div className={classes.totalCardsWrapper}>
-          <p className={classes.info}>{totalCards}</p>
-        </div>
-        <div className={classes.buttonWrapper}>
-          <button className={classes.button} type="button" onClick={handleEditClick}>Add Cards</button>
         </div>
         <div className={classes.buttonWrapper}>
           <button className={classes.button} type="button" onClick={handleDeleteClick}>Delete</button>

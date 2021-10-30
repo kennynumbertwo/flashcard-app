@@ -10,6 +10,8 @@ import Tab from '@mui/material/Tab';
 import styles from './styles/EditDeckListStyles';
 import EditDeckListItem from './EditDeckListItem';
 import EditDeckListItemBlank from './EditDeckListItemBlank';
+import CardItem from './CardItem';
+import NewCardItem from './NewCardItem';
 
 const ITEM_HEIGHT = 48;
 const options = ['Set Name', 'Category', 'Total Cards'];
@@ -20,17 +22,21 @@ function EditDeckList(props) {
     sortedDatabase: [],
     isSorted: false,
   });
-  const [isAddingDeckTab, setIsAddingDeckTab] = useState(false);
   const [isAddingDeck, setIsAddingDeck] = useState(false);
+  const [isAddingCard, setIsAddingCard] = useState(false);
   const [isEditingDecksTab, setIsEditingDecksTab] = useState(true);
   const [isEditingCardsTab, setIsEditingCardsTab] = useState(false);
+  const [isViewingCardsState, setIsViewingCardsState] = useState({
+    isViewing: false,
+    cardSet: {},
+  });
 
   // State for Material UI Dropdown
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedFilter, setSelectedFilter] = useState('');
   const open = Boolean(anchorEl);
 
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -55,6 +61,24 @@ function EditDeckList(props) {
   useEffect(() => {
     if (userCardSetDatabase) { sortBySetName(); }
   }, [userCardSetDatabase]);
+
+  // Sorts the database by setName, if it exists
+  useEffect(() => {
+    if (userCardSetDatabase && isViewingCardsState.isViewing) {
+      const updatedViewState = getUpdatedViewState();
+      setIsViewingCardsState({ ...isViewingCardsState, cardSet: updatedViewState });
+    }
+  }, [userCardSetDatabase]);
+
+  const getUpdatedViewState = () => {
+    let updatedViewState = {};
+    userCardSetDatabase.forEach(cardSet => {
+      if (cardSet.setName === isViewingCardsState.setName) {
+        updatedViewState = { ...cardSet };
+      }
+    });
+    return updatedViewState;
+  };
 
   // Click handler for the Material UI sort dropdown
   const handleClick = (event) => {
@@ -102,33 +126,28 @@ function EditDeckList(props) {
   };
   //  ^---------------  End functions for Material UI Dropdown   ---------------^
 
-  // Click handler for the Add Cards button
-  const handleAddDeckClick = () => {
-    if (!isAddingDeckTab) {
-      setIsAddingDeckTab(true);
-      setIsEditingDecksTab(false);
-      setIsEditingCardsTab(false);
-    }
-  };
   // Click handler for the Edit Decks button
   const handleEditDecksClick = () => {
     if (!isEditingDecksTab) {
-      setIsAddingDeckTab(false);
       setIsEditingDecksTab(true);
       setIsEditingCardsTab(false);
+      setIsViewingCardsState({ isViewing: false, cardSet: {} });
     }
   };
   // Click handler for the Edit Cards button
   const handleEditCardsClick = () => {
     if (!isEditingCardsTab) {
-      setIsAddingDeckTab(false);
-      setIsEditingDecksTab(false);
       setIsEditingCardsTab(true);
+      setIsEditingDecksTab(false);
     }
   };
-  // Click handler for the add icon
-  const handleAddIconClick = () => {
+  // Click handler for the Add Deck
+  const handleAddDeckClick = () => {
     setIsAddingDeck(true);
+  };
+  // Click handler for the Add Card
+  const handleAddCardClick = () => {
+    setIsAddingCard(true);
   };
 
   if (!isLoggedIn) {
@@ -150,9 +169,8 @@ function EditDeckList(props) {
                 sx={{ width: '80%' }}
                 centered
               >
-                <Tab label="Add Deck" sx={{ width: '30%', marginRight: 'auto' }} onClick={handleAddDeckClick} />
-                <Tab label="Edit Decks" sx={{ width: '30%' }} onClick={handleEditDecksClick} />
-                <Tab label="Edit Cards" sx={{ width: '30%', marginLeft: 'auto' }} onClick={handleEditCardsClick} />
+                <Tab label="Edit Decks" sx={{ width: '40%' }} onClick={handleEditDecksClick} />
+                <Tab label="Edit Cards" sx={{ width: '40%', marginLeft: 'auto' }} onClick={handleEditCardsClick} />
               </Tabs>
             </div>
           </div>
@@ -222,6 +240,7 @@ function EditDeckList(props) {
             <p className={classes.label}>Actions:</p>
           </div>
         </div>
+        {/* Blank EditDeckListItem is shown when Add Deck is clicked */}
         {isAddingDeck && (
           <EditDeckListItemBlank
             key="new-deck"
@@ -233,41 +252,95 @@ function EditDeckList(props) {
             setIsAddingDeck={setIsAddingDeck}
           />
         )}
-        { sortState.isSorted && sortState.sortedDatabase.length > 0
-          ? sortState.sortedDatabase.map(userCardSet => (
+        {isViewingCardsState.isViewing ? (
+          <div>
             <EditDeckListItem
-              key={userCardSet.id}
-              userCardSet={userCardSet}
-              totalCards={userCardSet.cards.length}
+              key={isViewingCardsState.cardSet.id}
+              userCardSet={isViewingCardsState.cardSet}
+              totalCards={isViewingCardsState.cardSet.cards.length}
               setEditDeckState={setEditDeckState}
               uid={uid}
               deleteUserDatabaseSet={deleteUserDatabaseSet}
               fetchUserCardSets={fetchUserCardSets}
-              isAddingDeckTab={isAddingDeckTab}
               isAddingDeck={isAddingDeck}
               isEditingDecksTab={isEditingDecksTab}
               isEditingCardsTab={isEditingCardsTab}
+              isViewingCardsState={isViewingCardsState}
+              setIsViewingCardsState={setIsViewingCardsState}
             />
-          ))
-          : userCardSetDatabase.map(userCardSet => (
-            <EditDeckListItem
-              key={userCardSet.id}
-              userCardSet={userCardSet}
-              totalCards={userCardSet.cards.length}
-              setEditDeckState={setEditDeckState}
-              uid={uid}
-              deleteUserDatabaseSet={deleteUserDatabaseSet}
-              fetchUserCardSets={fetchUserCardSets}
-              isAddingDeckTab={isAddingDeckTab}
-              isAddingDeck={isAddingDeck}
-              isEditingDecksTab={isEditingDecksTab}
-              isEditingCardsTab={isEditingCardsTab}
-            />
-          ))}
+            { isViewingCardsState.cardSet.cards.map(card => (
+              <CardItem
+                userCardSetDatabase={userCardSetDatabase}
+                cardSet={isViewingCardsState.cardSet}
+                card={card}
+                fetchUserCardSets={fetchUserCardSets}
+                setIsViewingCardsState={setIsViewingCardsState}
+              />
+            ))}
+            {isAddingCard && (
+              <NewCardItem
+                uid={uid}
+                userCardSetDatabase={userCardSetDatabase}
+                cardSet={isViewingCardsState.cardSet}
+                fetchUserCardSets={fetchUserCardSets}
+                setIsViewingCardsState={setIsViewingCardsState}
+                setIsAddingCard={setIsAddingCard}
+                isViewingCardsState={isViewingCardsState}
+              />
+            )}
+          </div>
+        )
+          : (
+            <div>
+              { sortState.isSorted && sortState.sortedDatabase.length > 0
+                ? sortState.sortedDatabase.map(userCardSet => (
+                  <EditDeckListItem
+                    key={userCardSet.id}
+                    userCardSet={userCardSet}
+                    totalCards={userCardSet.cards.length}
+                    setEditDeckState={setEditDeckState}
+                    uid={uid}
+                    deleteUserDatabaseSet={deleteUserDatabaseSet}
+                    fetchUserCardSets={fetchUserCardSets}
+                    isAddingDeck={isAddingDeck}
+                    isEditingDecksTab={isEditingDecksTab}
+                    isEditingCardsTab={isEditingCardsTab}
+                    isViewingCardsState={isViewingCardsState}
+                    setIsViewingCardsState={setIsViewingCardsState}
+                  />
+                ))
+                : userCardSetDatabase.map(userCardSet => (
+                  <EditDeckListItem
+                    key={userCardSet.id}
+                    userCardSet={userCardSet}
+                    totalCards={userCardSet.cards.length}
+                    setEditDeckState={setEditDeckState}
+                    uid={uid}
+                    deleteUserDatabaseSet={deleteUserDatabaseSet}
+                    fetchUserCardSets={fetchUserCardSets}
+                    isAddingDeck={isAddingDeck}
+                    isEditingDecksTab={isEditingDecksTab}
+                    isEditingCardsTab={isEditingCardsTab}
+                    isViewingCardsState={isViewingCardsState}
+                    setIsViewingCardsState={setIsViewingCardsState}
+                  />
+                ))}
+            </div>
+          )}
         <div className={classes.dividerEnd} />
-        <div className={classes.addIconWrapper}>
-          <i className="far fa-plus-square" onClick={handleAddIconClick} />
-        </div>
+        {isViewingCardsState.isViewing ? (
+          <div className={classes.addIconWrapper}>
+            <i className="far fa-plus-square" onClick={handleAddCardClick} />
+            <p className={classes.addDeckLabel}>ADD CARD</p>
+          </div>
+
+        )
+          : (
+            <div className={classes.addIconWrapper}>
+              <i className="far fa-plus-square" onClick={handleAddDeckClick} />
+              <p className={classes.addDeckLabel}>ADD DECK</p>
+            </div>
+          )}
       </div>
     );
   }

@@ -405,18 +405,6 @@ export default function DrawerNav(props) {
               />
             )}
           />
-          {/* CREATE DECK PAGE */}
-          <Route
-            exact
-            path="/create-deck"
-            render={() => (
-              <CreateDeck
-                isLoggedIn={isLoggedIn}
-                uid={user.uid}
-                fetchUserCardSets={fetchUserCardSets}
-              />
-            )}
-          />
           {/* EDIT DECK LIST PAGE */}
           <Route
             exact
@@ -432,32 +420,6 @@ export default function DrawerNav(props) {
                 deleteUserDatabaseSet={deleteUserDatabaseSet}
                 fetchUserCardSets={fetchUserCardSets}
               />
-            )}
-          />
-          {/* EDIT DECK PAGE */}
-          <Route
-            exact
-            path="/edit-deck/:deckName"
-            render={() => (
-              <EditDeck
-                isLoggedIn={isLoggedIn}
-                uid={user.uid}
-              />
-            )}
-          />
-          {/* ADD CARD FORM PAGE */}
-          <Route
-            exact
-            path="/edit-deck/:deckName/add-cards"
-            render={() => (
-              <AddCardForm
-                isLoggedIn={isLoggedIn}
-                uid={user.uid}
-                fetchUserCardSets={fetchUserCardSets}
-                editDeckState={editDeckState}
-                userCardSetDatabase={userDeckState.userCardSetDatabase}
-              />
-
             )}
           />
           {/* ABOUT PAGE */}
