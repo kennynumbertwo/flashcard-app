@@ -210,4 +210,10 @@ export default {
       cursor: 'pointer',
     },
   },
+  loadingSpinnerWrapper: {
+    height: '200px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 };

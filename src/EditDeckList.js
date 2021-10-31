@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import PuffLoader from 'react-spinners/PuffLoader';
 import styles from './styles/EditDeckListStyles';
 import EditDeckListItem from './EditDeckListItem';
 import EditDeckListItemBlank from './EditDeckListItemBlank';
@@ -331,7 +332,9 @@ function EditDeckList(props) {
         </>
       )
         : (
-          <div>Loading</div>
+          <div className={classes.loadingSpinnerWrapper}>
+            <PuffLoader color="rgba(0, 0, 0, 0.7)" size="3rem" loading />
+          </div>
         )}
 
       <div className={classes.dividerEnd} />
