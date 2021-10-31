@@ -8,6 +8,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PuffLoader from 'react-spinners/PuffLoader';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './styles/EditDeckListStyles';
 import EditDeckListItem from './EditDeckListItem';
 import EditDeckListItemBlank from './EditDeckListItemBlank';
@@ -272,6 +273,7 @@ function EditDeckList(props) {
               />
               { isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards.map(card => (
                 <CardItem
+                  key={uuidv4()}
                   userCardSetDatabase={userCardSetDatabase}
                   cardSet={isViewingCardsState.cardSet}
                   card={card}

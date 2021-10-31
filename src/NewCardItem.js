@@ -13,7 +13,7 @@ const styles = {
 };
 
 function NewCardItem(props) {
-  const { classes, userCardSetDatabase, fetchUserCardSets, cardSet, uid, setIsViewingCardsState, isViewingCardsState, setIsAddingCard } = props;
+  const { classes, userCardSetDatabase, fetchUserCardSets, cardSet, uid, setIsAddingCard } = props;
   // Default state for New Cards
   const [newCardFields, setNewCardFields] = useState({
     question: '',
@@ -30,6 +30,15 @@ function NewCardItem(props) {
   useEffect(() => {
     if (userCardSetDatabase) {
       getDeckLength();
+    }
+  }, [userCardSetDatabase]);
+
+  useEffect(() => {
+    if (userCardSetDatabase) {
+      let mastery = getTotalMasteryRating(cardSet.cards);
+      console.log(mastery.masteryPercentage);
+      console.log(cardSet.mastery.masteryPercentage);
+      if (cardSet.mastery.masteryPercentage !== mastery.masteryPercentage) { updateMastery(mastery); }
     }
   }, [userCardSetDatabase]);
 
@@ -60,7 +69,32 @@ function NewCardItem(props) {
       masteryRating: 0,
     });
     setIsAddingCard(false);
-    // setIsViewingCardsState({ ...isViewingCardsState, isViewing: false });
+  };
+
+  const getTotalMasteryRating = (array) => {
+    let totalMasteryRating = 0;
+    array.forEach(flashcard => {
+      totalMasteryRating += flashcard.masteryRating;
+    });
+    let percentage = Math.floor((totalMasteryRating / (array.length * 2)) * 100);
+    const mastery = {
+      masteryTotal: totalMasteryRating,
+      masteryPotential: array.length * 2,
+      masteryPercentage: percentage,
+    };
+    return mastery;
+  };
+
+  const updateMastery = async (mastery) => {
+    const userRef = doc(db, 'users', uid);
+    const updateString = `${cardSet.setName.toLowerCase().replace(/\s+/g, '-')}.mastery`;
+    await updateDoc(
+      userRef, { [updateString]: mastery }, { merge: true },
+    );
+  };
+
+  const handleCancel = () => {
+    setIsAddingCard(false);
   };
 
   return (
@@ -81,6 +115,7 @@ function NewCardItem(props) {
           size="small"
         />
         <button onClick={handleSaveCard} type="button">Save</button>
+        <button onClick={handleCancel} type="button">Cancel</button>
       </div>
     </div>
   );

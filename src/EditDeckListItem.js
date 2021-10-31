@@ -171,7 +171,7 @@ function EditDeckListItem(props) {
           </div>
         </div>
         <div className={classes.masteryWrapper}>
-          <p className={classes.info}>{mastery.masteryPercentage}%</p>
+          <p className={classes.info}>{mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
         </div>
         <div className={classes.totalCardsWrapper}>
           <p className={classes.info}>{totalCards}</p>
@@ -200,7 +200,7 @@ function EditDeckListItem(props) {
           </div>
         </div>
         <div className={classes.masteryWrapper}>
-          <p className={classes.info}>{mastery.masteryPercentage}%</p>
+          <p className={classes.info}>{mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
         </div>
         <div className={classes.totalCardsWrapper}>
           <p className={classes.info}>{totalCards}</p>
@@ -226,7 +226,7 @@ function EditDeckListItem(props) {
           </div>
         </div>
         <div className={classes.masteryWrapper}>
-          <p className={classes.info}>{mastery.masteryPercentage}%</p>
+          <p className={classes.info}>{mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
         </div>
         <div className={classes.totalCardsWrapper}>
           <p className={classes.info}>{totalCards}</p>
