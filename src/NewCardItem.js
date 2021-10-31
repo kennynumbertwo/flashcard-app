@@ -13,7 +13,7 @@ const styles = {
 };
 
 function NewCardItem(props) {
-  const { classes, userCardSetDatabase, cardSet, uid, setIsAddingCard, fetchUserCardSets } = props;
+  const { classes, userCardSetDatabase, cardSet, uid, setIsAddingCard, fetchUserCardSets, getTotalMasteryRating } = props;
   // Default state for New Cards
   const [newCardFields, setNewCardFields] = useState({
     question: '',
@@ -41,20 +41,6 @@ function NewCardItem(props) {
     );
     fetchUserCardSets();
     setIsAddingCard(false);
-  };
-
-  const getTotalMasteryRating = (array) => {
-    let totalMasteryRating = 0;
-    array.forEach(flashcard => {
-      totalMasteryRating += flashcard.masteryRating;
-    });
-    let percentage = Math.floor((totalMasteryRating / (array.length * 2)) * 100);
-    const mastery = {
-      masteryTotal: totalMasteryRating,
-      masteryPotential: array.length * 2,
-      masteryPercentage: percentage,
-    };
-    return mastery;
   };
 
   const handleCancel = () => {

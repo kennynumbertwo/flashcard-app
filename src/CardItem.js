@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core';
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore/lite';
+import db from './firebase.config';
 
 const styles = {
   CardItemWrapper: {
@@ -10,10 +12,19 @@ const styles = {
 };
 
 function CardItem(props) {
-  const { classes, card: { question, answer } } = props;
+  const { classes, card, card: { question, answer }, getDeletedCardArray, fetchUserCardSets, uid, getTotalMasteryRating } = props;
 
-  const handleDelete = () => {
-    console.log('deleting');
+  const handleDelete = async () => {
+    let updatedCards = getDeletedCardArray(card);
+    const userRef = doc(db, 'users', uid);
+    const updateCardsString = `${card.setName.toLowerCase().replace(/\s+/g, '-')}.cards`;
+    await updateDoc(userRef, { [updateCardsString]: updatedCards });
+    let mastery = getTotalMasteryRating(updatedCards);
+    const updateMasteryString = `${card.setName.toLowerCase().replace(/\s+/g, '-')}.mastery`;
+    await updateDoc(
+      userRef, { [updateMasteryString]: mastery }, { merge: true },
+    );
+    fetchUserCardSets();
   };
 
   return (

@@ -127,7 +127,8 @@ function EditDeckList(props) {
     );
     return setSortState({ isSorted: true, sortedDatabase: sortedByTotalCards });
   };
-  //  ^---------------  End functions for Material UI Dropdown   ---------------^
+
+  //  <---------------  Click Handlers for EditDeckList   --------------->
 
   // Click handler for the Edit Decks button
   const handleEditDecksClick = () => {
@@ -154,6 +155,32 @@ function EditDeckList(props) {
   // Click handler for the Add Card
   const handleAddCardClick = () => {
     setIsAddingCard(true);
+  };
+
+  const getTotalMasteryRating = (array) => {
+    let totalMasteryRating = 0;
+    array.forEach(flashcard => {
+      totalMasteryRating += flashcard.masteryRating;
+    });
+    let percentage = Math.floor((totalMasteryRating / (array.length * 2)) * 100);
+    const mastery = {
+      masteryTotal: totalMasteryRating,
+      masteryPotential: array.length * 2,
+      masteryPercentage: percentage,
+    };
+    return mastery;
+  };
+
+  const getDeletedCardArray = (cardToDelete) => {
+    let cardNum = 1;
+    let deletedArray = isViewingCardsState.cardSet.cards.filter(card => card !== cardToDelete);
+    let finalArray = [];
+    deletedArray.forEach(card => {
+      let updatedCard = { ...card, cardNumber: cardNum };
+      finalArray.push(updatedCard);
+      cardNum += 1;
+    });
+    return finalArray;
   };
 
   if (!isLoggedIn) {
@@ -278,11 +305,14 @@ function EditDeckList(props) {
               { isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards.map(card => (
                 <CardItem
                   key={uuidv4()}
+                  uid={uid}
                   userCardSetDatabase={userCardSetDatabase}
                   cardSet={isViewingCardsState.cardSet}
                   card={card}
                   fetchUserCardSets={fetchUserCardSets}
                   setIsViewingCardsState={setIsViewingCardsState}
+                  getDeletedCardArray={getDeletedCardArray}
+                  getTotalMasteryRating={getTotalMasteryRating}
                 />
               ))}
               {isAddingCard && (
@@ -294,6 +324,7 @@ function EditDeckList(props) {
                 setIsViewingCardsState={setIsViewingCardsState}
                 setIsAddingCard={setIsAddingCard}
                 isViewingCardsState={isViewingCardsState}
+                getTotalMasteryRating={getTotalMasteryRating}
               />
               )}
             </div>
