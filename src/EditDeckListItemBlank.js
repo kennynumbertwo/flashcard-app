@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
-import { doc, updateDoc, deleteField, setDoc } from 'firebase/firestore/lite';
+import { doc, setDoc } from 'firebase/firestore/lite';
 import TextField from '@mui/material/TextField';
 import db from './firebase.config';
 import IconListModal from './IconListModal';
@@ -39,19 +39,6 @@ function EditDeckListItem(props) {
   }, [deckFields.setName, selectedIconClass]);
 
   // Click handler for the Add Cards button
-  const handleAddClick = () => {
-    // setEditDeckState({
-    //   deckToAddCards: {
-    //     setName,
-    //     category,
-    //     iconClass,
-    //     totalCards,
-    //     mastery,
-    //   },
-    //   deckToEdit: {},
-    // });
-  };
-  // Click handler for the Add Cards button
   const handleCancelClick = () => {
     setIsAddingDeck(false);
   };
@@ -73,18 +60,8 @@ function EditDeckListItem(props) {
   const handleSaveDeck = async () => {
     const userRef = doc(db, 'users', uid);
     await setDoc(userRef, { [deckFields.id]: deckFields }, { merge: true });
-    setDeckFields({
-      setName: '',
-      category: '',
-      iconClass: '',
-      id: '',
-      owner: uid,
-      cards: '',
-      mastery: {},
-    });
-    setSelectedIcon('');
-    setSelectedIconClass('');
     fetchUserCardSets();
+    setIsAddingDeck(false);
   };
 
   const handleChange = (e) => {

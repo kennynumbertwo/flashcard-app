@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore/lite';
+import { doc, updateDoc } from 'firebase/firestore/lite';
 import db from './firebase.config';
 
 const styles = {

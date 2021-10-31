@@ -22,20 +22,16 @@ import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { Route, Switch, Link } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { getDoc, doc } from 'firebase/firestore/lite';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import CollectionsPage from './CollectionsPage';
 import UserCollectionsPage from './UserCollectionsPage';
 import NestedListItem from './NestedListItem';
 import FlashcardTray from './FlashcardTray';
-import CreateDeck from './CreateDeck';
 import About from './About';
 import Login from './Login';
 import HomePage from './HomePage';
 import AccountMenu from './AccountMenu';
 import db from './firebase.config';
-import AddCardForm from './AddCardForm';
-import EditDeck from './EditDeck';
 import EditDeckList from './EditDeckList';
 import UserFlashcardTray from './UserFlashcardTray';
 
@@ -129,10 +125,10 @@ export default function DrawerNav(props) {
     errorMessage: '',
     userCardSetDatabase: null,
   });
-  const [editDeckState, setEditDeckState] = useState({
-    deckToEdit: {},
-    deckToAddCards: {},
-  });
+  // const [editDeckState, setEditDeckState] = useState({
+  //   deckToEdit: {},
+  //   deckToAddCards: {},
+  // });
   const [roundState, setRoundState] = useState({
     cardQuantity: 0,
 
@@ -416,7 +412,7 @@ export default function DrawerNav(props) {
                 userCardSetDatabase={userDeckState.userCardSetDatabase}
                 userCardCollections={userCardCollections}
                 updateCardSetName={updateCardSetName}
-                setEditDeckState={setEditDeckState}
+                // setEditDeckState={setEditDeckState}
                 deleteUserDatabaseSet={deleteUserDatabaseSet}
                 fetchUserCardSets={fetchUserCardSets}
               />

@@ -49,7 +49,7 @@ function EditDeckList(props) {
     classes,
     userCardSetDatabase,
     isLoggedIn,
-    setEditDeckState,
+    // setEditDeckState,
     uid,
     deleteUserDatabaseSet,
     fetchUserCardSets,
@@ -278,7 +278,7 @@ function EditDeckList(props) {
           {isAddingDeck && (
           <EditDeckListItemBlank
             key="new-deck"
-            setEditDeckState={setEditDeckState}
+            // setEditDeckState={setEditDeckState}
             uid={uid}
             deleteUserDatabaseSet={deleteUserDatabaseSet}
             fetchUserCardSets={fetchUserCardSets}
@@ -292,7 +292,7 @@ function EditDeckList(props) {
                 key={isViewingCardsState.cardSet.id}
                 userCardSet={isViewingCardsState.cardSet}
                 totalCards={isViewingCardsState.cardSet.cards.length}
-                setEditDeckState={setEditDeckState}
+                // setEditDeckState={setEditDeckState}
                 uid={uid}
                 deleteUserDatabaseSet={deleteUserDatabaseSet}
                 fetchUserCardSets={fetchUserCardSets}
@@ -337,7 +337,7 @@ function EditDeckList(props) {
                       key={userCardSet.id}
                       userCardSet={userCardSet}
                       totalCards={userCardSet.cards.length}
-                      setEditDeckState={setEditDeckState}
+                      // setEditDeckState={setEditDeckState}
                       uid={uid}
                       deleteUserDatabaseSet={deleteUserDatabaseSet}
                       fetchUserCardSets={fetchUserCardSets}
@@ -353,7 +353,7 @@ function EditDeckList(props) {
                       key={userCardSet.id}
                       userCardSet={userCardSet}
                       totalCards={userCardSet.cards.length}
-                      setEditDeckState={setEditDeckState}
+                      // setEditDeckState={setEditDeckState}
                       uid={uid}
                       deleteUserDatabaseSet={deleteUserDatabaseSet}
                       fetchUserCardSets={fetchUserCardSets}

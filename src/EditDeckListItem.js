@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
 import { doc, updateDoc, deleteField, setDoc } from 'firebase/firestore/lite';
 import TextField from '@mui/material/TextField';
-import Snackbar from '@mui/material/Snackbar';
 import useInputState from './hooks/useInputState';
 import db from './firebase.config';
 import IconListModal from './IconListModal';
@@ -24,7 +23,6 @@ function EditDeckListItem(props) {
   const {
     classes,
     totalCards,
-    setEditDeckState,
     uid,
     deleteUserDatabaseSet,
     userCardSet,
@@ -42,20 +40,6 @@ function EditDeckListItem(props) {
     setInputValue(setName);
     setCategoryValue(category);
     setSelectedIconClass(iconClass);
-  };
-
-  // Click handler for the Add Cards button
-  const handleAddClick = () => {
-    setEditDeckState({
-      deckToAddCards: {
-        setName,
-        category,
-        iconClass,
-        totalCards,
-        mastery,
-      },
-      deckToEdit: {},
-    });
   };
 
   // Changes isEditing to false when tab changes
@@ -173,7 +157,7 @@ function EditDeckListItem(props) {
           </div>
         </div>
         <div className={classes.masteryWrapper}>
-          <p className={classes.info}>{mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
+          <p className={classes.info}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
         </div>
         <div className={classes.totalCardsWrapper}>
           <p className={classes.info}>{totalCards}</p>
@@ -202,7 +186,7 @@ function EditDeckListItem(props) {
           </div>
         </div>
         <div className={classes.masteryWrapper}>
-          <p className={classes.info}>{mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
+          <p className={classes.info}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
         </div>
         <div className={classes.totalCardsWrapper}>
           <p className={classes.info}>{totalCards}</p>
@@ -228,7 +212,7 @@ function EditDeckListItem(props) {
           </div>
         </div>
         <div className={classes.masteryWrapper}>
-          <p className={classes.info}>{mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
+          <p className={classes.info}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
         </div>
         <div className={classes.totalCardsWrapper}>
           <p className={classes.info}>{totalCards}</p>

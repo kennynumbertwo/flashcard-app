@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core';
 import { doc, updateDoc, arrayUnion } from 'firebase/firestore/lite';
 import TextField from '@mui/material/TextField';
@@ -13,7 +13,7 @@ const styles = {
 };
 
 function NewCardItem(props) {
-  const { classes, userCardSetDatabase, cardSet, uid, setIsAddingCard, fetchUserCardSets, getTotalMasteryRating } = props;
+  const { classes, cardSet, uid, setIsAddingCard, fetchUserCardSets, getTotalMasteryRating } = props;
   // Default state for New Cards
   const [newCardFields, setNewCardFields] = useState({
     question: '',
