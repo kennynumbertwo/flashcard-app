@@ -25,48 +25,36 @@ function NewCardItem(props) {
     masteryRating: 0,
   });
 
-  // useEffect(() => {
-  //   if (userCardSetDatabase) {
-  //     let mastery = getTotalMasteryRating(cardSet.cards);
-  //     console.log(mastery.masteryPercentage);
-  //     console.log(cardSet.mastery.masteryPercentage);
-  //     if (cardSet.mastery.masteryPercentage !== mastery.masteryPercentage) { updateMastery(mastery); }
-  //   }
-  // }, [userCardSetDatabase]);
-
   const handleChange = (e) => {
     setNewCardFields({ ...newCardFields, [e.target.id]: e.target.value });
   };
 
   const handleSaveCard = async () => {
     const userRef = doc(db, 'users', uid);
-    const updateString = `${cardSet.setName.toLowerCase().replace(/\s+/g, '-')}.cards`;
-    await updateDoc(userRef, { [updateString]: arrayUnion({
+    const updateCardsString = `${cardSet.setName.toLowerCase().replace(/\s+/g, '-')}.cards`;
+    await updateDoc(userRef, { [updateCardsString]: arrayUnion({
       ...newCardFields }) });
+    let mastery = getTotalMasteryRating([...cardSet.cards, newCardFields]);
+    const updateMasteryString = `${cardSet.setName.toLowerCase().replace(/\s+/g, '-')}.mastery`;
+    await updateDoc(
+      userRef, { [updateMasteryString]: mastery }, { merge: true },
+    );
     fetchUserCardSets();
     setIsAddingCard(false);
   };
 
-  // const getTotalMasteryRating = (array) => {
-  //   let totalMasteryRating = 0;
-  //   array.forEach(flashcard => {
-  //     totalMasteryRating += flashcard.masteryRating;
-  //   });
-  //   let percentage = Math.floor((totalMasteryRating / (array.length * 2)) * 100);
-  //   const mastery = {
-  //     masteryTotal: totalMasteryRating,
-  //     masteryPotential: array.length * 2,
-  //     masteryPercentage: percentage,
-  //   };
-  //   return mastery;
-  // };
-
-  const updateMastery = async (mastery) => {
-    const userRef = doc(db, 'users', uid);
-    const updateString = `${cardSet.setName.toLowerCase().replace(/\s+/g, '-')}.mastery`;
-    await updateDoc(
-      userRef, { [updateString]: mastery }, { merge: true },
-    );
+  const getTotalMasteryRating = (array) => {
+    let totalMasteryRating = 0;
+    array.forEach(flashcard => {
+      totalMasteryRating += flashcard.masteryRating;
+    });
+    let percentage = Math.floor((totalMasteryRating / (array.length * 2)) * 100);
+    const mastery = {
+      masteryTotal: totalMasteryRating,
+      masteryPotential: array.length * 2,
+      masteryPercentage: percentage,
+    };
+    return mastery;
   };
 
   const handleCancel = () => {

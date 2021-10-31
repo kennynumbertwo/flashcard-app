@@ -137,6 +137,7 @@ function EditDeckList(props) {
       setIsViewingCardsState({ isViewing: false, cardSet: {} });
     }
   };
+
   // Click handler for the Edit Cards button
   const handleEditCardsClick = () => {
     if (!isEditingCardsTab) {
@@ -144,10 +145,12 @@ function EditDeckList(props) {
       setIsEditingDecksTab(false);
     }
   };
+
   // Click handler for the Add Deck
   const handleAddDeckClick = () => {
     setIsAddingDeck(true);
   };
+
   // Click handler for the Add Card
   const handleAddCardClick = () => {
     setIsAddingCard(true);
@@ -342,15 +345,15 @@ function EditDeckList(props) {
 
       <div className={classes.dividerEnd} />
       {isViewingCardsState.isViewing ? (
-        <div className={classes.addIconWrapper}>
-          <i className="far fa-plus-square" onClick={handleAddCardClick} />
+        <div className={classes.addIconWrapper} onClick={handleAddCardClick}>
+          <i className="far fa-plus-square" />
           <p className={classes.addDeckLabel}>ADD CARD</p>
         </div>
 
       )
         : (
-          <div className={classes.addIconWrapper}>
-            <i className="far fa-plus-square" onClick={handleAddDeckClick} />
+          <div className={classes.addIconWrapper} onClick={handleAddDeckClick}>
+            <i className="far fa-plus-square" />
             <p className={classes.addDeckLabel}>ADD DECK</p>
           </div>
         )}

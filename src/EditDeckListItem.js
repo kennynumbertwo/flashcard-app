@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
 import { doc, updateDoc, deleteField, setDoc } from 'firebase/firestore/lite';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
 import useInputState from './hooks/useInputState';
 import db from './firebase.config';
@@ -149,7 +148,6 @@ function EditDeckListItem(props) {
           <TextField
             label="Set Name"
             id="outlined-size-small"
-            defaultValue={setName}
             value={setNameInput}
             onChange={updateSetNameInput}
             size="small"
@@ -159,7 +157,6 @@ function EditDeckListItem(props) {
           <TextField
             label="Category"
             id="outlined-size-small"
-            defaultValue={category}
             value={categoryInput}
             onChange={updateCategoryInput}
             size="small"
