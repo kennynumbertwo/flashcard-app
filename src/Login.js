@@ -8,7 +8,7 @@ import {
   createUserWithEmailAndPassword, signInWithEmailAndPassword }
   from 'firebase/auth';
 import { Redirect } from 'react-router-dom';
-import { setDoc, doc } from 'firebase/firestore/lite';
+import { doc } from 'firebase/firestore/lite';
 import CreateEmailLogin from './CreateEmailForm';
 import LoginEmailForm from './LoginEmailForm';
 import db from './firebase.config';

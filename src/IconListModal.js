@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core';
-import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -31,7 +29,7 @@ const styles = {
     animationName: props => (props.isAnimatingModal ? 'IconModalFadeIn' : 'IconModalFadeOut'),
     animationIterationCount: '1',
     animationTimingFunction: 'ease-in',
-    animationDuration: '0.25s',
+    animationDuration: '0.15s',
   },
   IconListWrapper: {
     display: 'flex',
@@ -40,7 +38,6 @@ const styles = {
     width: '100%',
     height: '100%',
     // border: '1px solid black',
-    // backgroundColor: 'rgba(0, 0 ,0 , .2)',
   },
   IconListCard: {
     display: 'flex',
@@ -167,7 +164,6 @@ function IconList(props) {
     selectedIcon,
     setSelectedIcon,
     setSelectedIconClass,
-    handleShowIcons,
     handleHideIcons,
   } = props;
 

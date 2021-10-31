@@ -383,10 +383,15 @@ function EditDeckList(props) {
 
       )
         : (
-          <div className={classes.addIconWrapper} onClick={handleAddDeckClick}>
-            <i className="far fa-plus-square" />
-            <p className={classes.addDeckLabel}>ADD DECK</p>
-          </div>
+          <>
+            { isEditingDecksTab && (
+            <div className={classes.addIconWrapper} onClick={handleAddDeckClick}>
+              <i className="far fa-plus-square" />
+              <p className={classes.addDeckLabel}>ADD DECK</p>
+            </div>
+
+            ) }
+          </>
         )}
     </div>
   );

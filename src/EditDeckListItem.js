@@ -60,7 +60,7 @@ function EditDeckListItem(props) {
     setIsAnimatingModal(false);
     setTimeout(() => {
       setIsShowingIconList(!isShowingIconList);
-    }, 230);
+    }, 140);
   };
 
   // Click handler for the Save button when editing a deck

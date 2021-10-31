@@ -34,7 +34,7 @@ export default function NestedListItem(props) {
     setOpen(!open);
   };
 
-  const { setNames, updateCardSetName, category, categoryId } = props;
+  const { setNames, updateCardSetName, category } = props;
   return (
     <List>
       <ListItem button onClick={handleClick}>
