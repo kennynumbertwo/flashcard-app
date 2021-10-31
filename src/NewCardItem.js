@@ -13,42 +13,26 @@ const styles = {
 };
 
 function NewCardItem(props) {
-  const { classes, userCardSetDatabase, fetchUserCardSets, cardSet, uid, setIsAddingCard } = props;
+  const { classes, userCardSetDatabase, cardSet, uid, setIsAddingCard, fetchUserCardSets } = props;
   // Default state for New Cards
   const [newCardFields, setNewCardFields] = useState({
     question: '',
     answer: '',
     setName: cardSet.setName,
     category: cardSet.category,
+    cardNumber: cardSet.cards.length + 1,
     iconClass: cardSet.iconClass,
     masteryRating: 0,
   });
-  const [currentDeckLength, setCurrentDeckLength] = useState(
-    cardSet.cards.length,
-  );
 
-  useEffect(() => {
-    if (userCardSetDatabase) {
-      getDeckLength();
-    }
-  }, [userCardSetDatabase]);
-
-  useEffect(() => {
-    if (userCardSetDatabase) {
-      let mastery = getTotalMasteryRating(cardSet.cards);
-      console.log(mastery.masteryPercentage);
-      console.log(cardSet.mastery.masteryPercentage);
-      if (cardSet.mastery.masteryPercentage !== mastery.masteryPercentage) { updateMastery(mastery); }
-    }
-  }, [userCardSetDatabase]);
-
-  const getDeckLength = () => {
-    userCardSetDatabase.forEach(userCardSet => {
-      if (userCardSet.setName === cardSet.setName) {
-        setCurrentDeckLength(cardSet.cards.length);
-      }
-    });
-  };
+  // useEffect(() => {
+  //   if (userCardSetDatabase) {
+  //     let mastery = getTotalMasteryRating(cardSet.cards);
+  //     console.log(mastery.masteryPercentage);
+  //     console.log(cardSet.mastery.masteryPercentage);
+  //     if (cardSet.mastery.masteryPercentage !== mastery.masteryPercentage) { updateMastery(mastery); }
+  //   }
+  // }, [userCardSetDatabase]);
 
   const handleChange = (e) => {
     setNewCardFields({ ...newCardFields, [e.target.id]: e.target.value });
@@ -58,32 +42,24 @@ function NewCardItem(props) {
     const userRef = doc(db, 'users', uid);
     const updateString = `${cardSet.setName.toLowerCase().replace(/\s+/g, '-')}.cards`;
     await updateDoc(userRef, { [updateString]: arrayUnion({
-      ...newCardFields, cardNumber: currentDeckLength + 1 }) });
+      ...newCardFields }) });
     fetchUserCardSets();
-    setNewCardFields({
-      question: '',
-      answer: '',
-      setName: cardSet.setName,
-      category: cardSet.category,
-      iconClass: cardSet.iconClass,
-      masteryRating: 0,
-    });
     setIsAddingCard(false);
   };
 
-  const getTotalMasteryRating = (array) => {
-    let totalMasteryRating = 0;
-    array.forEach(flashcard => {
-      totalMasteryRating += flashcard.masteryRating;
-    });
-    let percentage = Math.floor((totalMasteryRating / (array.length * 2)) * 100);
-    const mastery = {
-      masteryTotal: totalMasteryRating,
-      masteryPotential: array.length * 2,
-      masteryPercentage: percentage,
-    };
-    return mastery;
-  };
+  // const getTotalMasteryRating = (array) => {
+  //   let totalMasteryRating = 0;
+  //   array.forEach(flashcard => {
+  //     totalMasteryRating += flashcard.masteryRating;
+  //   });
+  //   let percentage = Math.floor((totalMasteryRating / (array.length * 2)) * 100);
+  //   const mastery = {
+  //     masteryTotal: totalMasteryRating,
+  //     masteryPotential: array.length * 2,
+  //     masteryPercentage: percentage,
+  //   };
+  //   return mastery;
+  // };
 
   const updateMastery = async (mastery) => {
     const userRef = doc(db, 'users', uid);

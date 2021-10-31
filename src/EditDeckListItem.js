@@ -33,6 +33,7 @@ function EditDeckListItem(props) {
     isEditingDecksTab,
     isEditingCardsTab,
     setIsViewingCardsState,
+    isViewingCardsState,
   } = props;
   const { setName, category, iconClass, mastery } = userCardSet;
 
@@ -124,7 +125,11 @@ function EditDeckListItem(props) {
 
   // Click handler for the Delete button
   const handleViewCardsClick = () => {
-    setIsViewingCardsState({ isViewing: true, cardSet: { ...userCardSet }, setName });
+    if (!isViewingCardsState.isViewing) {
+      setIsViewingCardsState({ isViewing: true, cardSet: { ...userCardSet }, setName });
+    } else {
+      setIsViewingCardsState({ isViewing: false, cardSet: {}, setName: '' });
+    }
   };
 
   if (isEditing) {
@@ -206,7 +211,7 @@ function EditDeckListItem(props) {
           <p className={classes.info}>{totalCards}</p>
         </div>
         <div className={classes.buttonWrapperSingle}>
-          <button className={classes.button} type="button" onClick={handleViewCardsClick}>View Cards</button>
+          <button className={classes.button} type="button" onClick={handleViewCardsClick}>{isViewingCardsState.isViewing ? 'Hide Cards' : 'View Cards'}</button>
         </div>
       </div>
     );
