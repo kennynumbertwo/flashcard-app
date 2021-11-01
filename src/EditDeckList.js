@@ -45,19 +45,10 @@ function EditDeckList(props) {
   const [selectedFilter, setSelectedFilter] = useState('');
   const open = Boolean(anchorEl);
 
+  // State for Material UI Tabs
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
-
-  const getFilterOptions = () => {
-    let options = [];
-    userCardSetDatabase.forEach(cardSet => {
-      if (!options.includes(cardSet.category)) { options.push(cardSet.category); }
-    });
-    const sortedOptions = options.sort((a, b) => (a < b ? -1 : 1));
-    return sortedOptions;
   };
 
   // Destructured Props
@@ -86,6 +77,13 @@ function EditDeckList(props) {
     if (userCardSetDatabase) { setFilterOptions(getFilterOptions()); }
   }, [userCardSetDatabase]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (selectedFilter !== '') (setFilterState({ ...filterState, showClearFilter: true }));
+      if (selectedFilter === '') (setFilterState({ ...filterState, showClearFilter: false }));
+    }, 600);
+  }, [selectedFilter]);
+
   // Sorts the database by setName, if it exists
   useEffect(() => {
     if (userCardSetDatabase && isViewingCardsState.isViewing) {
@@ -94,6 +92,7 @@ function EditDeckList(props) {
     }
   }, [userCardSetDatabase]);
 
+  // Updates the state when Viewing a decks and adding or deleting cards
   const getUpdatedViewState = () => {
     let updatedViewState = {};
     userCardSetDatabase.forEach(cardSet => {
@@ -103,6 +102,8 @@ function EditDeckList(props) {
     });
     return updatedViewState;
   };
+
+  //  <---------------  Filter functions for Material UI Dropdown   --------------->
 
   // Click handler for the Material UI sort dropdown
   const handleClick = (event) => {
@@ -114,10 +115,8 @@ function EditDeckList(props) {
     let filtered = [];
     if (e.target.role === 'menuitem') {
       if (e.target.innerText === 'Clear Filter') {
+        setSelectedFilter('');
         setFilterState({ ...filterState, filtered: [], isFiltered: false });
-        setTimeout(() => {
-          setFilterState({ ...filterState, showClearFilter: false });
-        }, 500);
       }
       if (e.target.innerText !== 'Clear Filter') {
         sortState.sortedDatabase.forEach(cardSet => {
@@ -125,28 +124,25 @@ function EditDeckList(props) {
             filtered.push(cardSet);
           }
         });
+        setSelectedFilter(e.target.innerText);
         setFilterState({ ...filterState, filtered, isFiltered: true });
-        setTimeout(() => {
-          setFilterState({ ...filterState, showClearFilter: true });
-        }, 500);
       }
     }
     setAnchorEl(null);
   };
 
-  //  <---------------  Sort functions for Material UI Dropdown   --------------->
-  const sortCollections = (id) => {
-    const dbCopy = [...userCardSetDatabase];
-    if (sortState.sortAsc) {
-      const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? 1 : -1));
-      return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
-    }
-    const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? -1 : 1));
-    return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
+  const getFilterOptions = () => {
+    let options = [];
+    userCardSetDatabase.forEach(cardSet => {
+      if (!options.includes(cardSet.category)) { options.push(cardSet.category); }
+    });
+    const sortedOptions = options.sort((a, b) => (a < b ? -1 : 1));
+    return sortedOptions;
   };
 
   //  <---------------  Click Handlers for EditDeckList   --------------->
 
+  // Handles Set Name and Category Sort
   const handleSortClick = (e) => {
     let target = e.currentTarget.id;
     if (target !== sortState.sortId) {
@@ -184,6 +180,8 @@ function EditDeckList(props) {
     setIsAddingCard(true);
   };
 
+  //  <---------------  Utility Functions for EditDeckList   --------------->
+
   const getTotalMasteryRating = (array) => {
     let totalMasteryRating = 0;
     array.forEach(flashcard => {
@@ -209,6 +207,18 @@ function EditDeckList(props) {
     });
     return finalArray;
   };
+
+  const sortCollections = (id) => {
+    const dbCopy = [...userCardSetDatabase];
+    if (sortState.sortAsc) {
+      const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? 1 : -1));
+      return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
+    }
+    const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? -1 : 1));
+    return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
+  };
+
+  // Render
 
   if (!isLoggedIn) {
     return <Redirect to="/login" />;
@@ -385,7 +395,8 @@ function EditDeckList(props) {
           )
             : (
               <div>
-                { sortState.isSorted && sortState.sortedDatabase.length > 0
+                {/* Renders the sorted database */}
+                { !filterState.isFiltered && sortState.sortedDatabase.length > 0
                   ? sortState.sortedDatabase.map(userCardSet => (
                     <EditDeckListItem
                       key={userCardSet.id}
@@ -401,7 +412,8 @@ function EditDeckList(props) {
                       setIsViewingCardsState={setIsViewingCardsState}
                     />
                   ))
-                  : userCardSetDatabase.map(userCardSet => (
+                  // Renders the filtered database if isFiltered is true
+                  : filterState.filtered.map(userCardSet => (
                     <EditDeckListItem
                       key={userCardSet.id}
                       userCardSet={userCardSet}
