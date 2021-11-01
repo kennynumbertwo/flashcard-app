@@ -216,4 +216,20 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
   },
+  sortIconWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '30px',
+    height: '100%',
+    paddingBottom: '2px',
+  },
+  sortClickWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
 };

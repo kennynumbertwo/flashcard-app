@@ -23,6 +23,8 @@ function EditDeckList(props) {
   const [sortState, setSortState] = useState({
     sortedDatabase: [],
     isSorted: false,
+    sortId: 'setName',
+    sortAsc: true,
   });
   const [isAddingDeck, setIsAddingDeck] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
@@ -62,8 +64,8 @@ function EditDeckList(props) {
 
   // Sorts the database by setName, if it exists
   useEffect(() => {
-    if (userCardSetDatabase) { sortBySetName(); }
-  }, [userCardSetDatabase]);
+    if (userCardSetDatabase) { sortCollections(sortState.sortId); }
+  }, [userCardSetDatabase, sortState.sortAsc, sortState.sortId]);
 
   // Sorts the database by setName, if it exists
   useEffect(() => {
@@ -106,11 +108,21 @@ function EditDeckList(props) {
   };
 
   //  <---------------  Sort functions for Material UI Dropdown   --------------->
-  const sortBySetName = () => {
+  const sortCollections = (id) => {
+    console.log(`sorting by ${id}`);
     const dbCopy = [...userCardSetDatabase];
-    const sortedByName = dbCopy.sort((a, b) => (a.setName > b.setName ? 1 : -1));
-    return setSortState({ isSorted: true, sortedDatabase: sortedByName });
+    if (sortState.sortAsc) {
+      const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? 1 : -1));
+      return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
+    }
+    const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? -1 : 1));
+    return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
   };
+  // const sortBySetName = (id) => {
+  //   const dbCopy = [...userCardSetDatabase];
+  //   const sortedByName = dbCopy.sort((a, b) => (asetName > b.setName ? 1 : -1));
+  //   return setSortState({ isSorted: true, sortedDatabase: sortedByName });
+  // };
 
   const sortBycategory = () => {
     const dbCopy = [...userCardSetDatabase];
@@ -129,6 +141,16 @@ function EditDeckList(props) {
   };
 
   //  <---------------  Click Handlers for EditDeckList   --------------->
+
+  const handleSortClick = (e) => {
+    let target = e.currentTarget.id;
+    if (target !== sortState.sortId) {
+      setSortState({ ...sortState, sortId: target, sortAsc: true });
+    }
+    if (target === sortState.sortId) {
+      setSortState({ ...sortState, sortAsc: !sortState.sortAsc });
+    }
+  };
 
   // Click handler for the Edit Decks button
   const handleEditDecksClick = () => {
@@ -254,22 +276,44 @@ function EditDeckList(props) {
       <div className={classes.divider} />
       <div className={classes.headerCard}>
         <div className={classes.setNameWrapper}>
-          <p className={classes.label}>Set Name:</p>
+          <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
+            <p className={classes.label}>Set Name</p>
+            <div className={classes.sortIconWrapper}>
+              {sortState.sortId === 'setName' && sortState.sortAsc
+                ? <i className="fas fa-sort-up" />
+                : null}
+              {sortState.sortId === 'setName' && !sortState.sortAsc
+                ? <i className="fas fa-sort-down" />
+                : null}
+              {sortState.sortId !== 'setName' && <i className="fas fa-sort" />}
+            </div>
+          </div>
         </div>
         <div className={classes.categoryWrapper}>
-          <p className={classes.label}>Category:</p>
+          <div className={classes.sortClickWrapper} id="category" onClick={handleSortClick}>
+            <p className={classes.label}>Category</p>
+            <div className={classes.sortIconWrapper}>
+              {sortState.sortId === 'category' && sortState.sortAsc
+                ? <i className="fas fa-sort-up" />
+                : null}
+              {sortState.sortId === 'category' && !sortState.sortAsc
+                ? <i className="fas fa-sort-down" />
+                : null}
+              {sortState.sortId !== 'category' && <i className="fas fa-sort" />}
+            </div>
+          </div>
         </div>
         <div className={classes.iconWrapper}>
-          <p className={classes.label}>Icon:</p>
+          <p className={classes.label}>Icon</p>
         </div>
         <div className={classes.masteryWrapper}>
-          <p className={classes.label}>Mastery:</p>
+          <p className={classes.label}>Mastery</p>
         </div>
         <div className={classes.totalCardsWrapper}>
-          <p className={classes.label}>Total Cards:</p>
+          <p className={classes.label}>Total Cards</p>
         </div>
         <div className={classes.actionsWrapper}>
-          <p className={classes.label}>Actions:</p>
+          <p className={classes.label}>Actions</p>
         </div>
       </div>
       {/* Blank EditDeckListItem is shown when Add Deck is clicked */}
@@ -389,7 +433,6 @@ function EditDeckList(props) {
               <i className="far fa-plus-square" />
               <p className={classes.addDeckLabel}>ADD DECK</p>
             </div>
-
             ) }
           </>
         )}
