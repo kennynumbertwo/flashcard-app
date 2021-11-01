@@ -16,7 +16,6 @@ import CardItem from './CardItem';
 import NewCardItem from './NewCardItem';
 
 const ITEM_HEIGHT = 48;
-const options = ['Set Name', 'Category', 'Total Cards'];
 
 function EditDeckList(props) {
   // State for EditDeckList
@@ -26,6 +25,11 @@ function EditDeckList(props) {
     sortId: 'setName',
     sortAsc: true,
   });
+  const [filterState, setFilterState] = useState({
+    isFiltered: false,
+    showClearFilter: false,
+    filtered: [],
+  });
   const [isAddingDeck, setIsAddingDeck] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [isEditingDecksTab, setIsEditingDecksTab] = useState(true);
@@ -34,6 +38,7 @@ function EditDeckList(props) {
     isViewing: false,
     cardSet: {},
   });
+  const [filterOptions, setFilterOptions] = useState([]);
 
   // State for Material UI Dropdown
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -44,6 +49,15 @@ function EditDeckList(props) {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const getFilterOptions = () => {
+    let options = [];
+    userCardSetDatabase.forEach(cardSet => {
+      if (!options.includes(cardSet.category)) { options.push(cardSet.category); }
+    });
+    const sortedOptions = options.sort((a, b) => (a < b ? -1 : 1));
+    return sortedOptions;
   };
 
   // Destructured Props
@@ -66,6 +80,11 @@ function EditDeckList(props) {
   useEffect(() => {
     if (userCardSetDatabase) { sortCollections(sortState.sortId); }
   }, [userCardSetDatabase, sortState.sortAsc, sortState.sortId]);
+
+  // Sets filter options to the state
+  useEffect(() => {
+    if (userCardSetDatabase) { setFilterOptions(getFilterOptions()); }
+  }, [userCardSetDatabase]);
 
   // Sorts the database by setName, if it exists
   useEffect(() => {
@@ -92,24 +111,31 @@ function EditDeckList(props) {
 
   // Close handler for the Material UI sort dropdown
   const handleClose = (e) => {
+    let filtered = [];
     if (e.target.role === 'menuitem') {
-      if (e.target.innerText === 'Set Name') {
-        sortBySetName();
+      if (e.target.innerText === 'Clear Filter') {
+        setFilterState({ ...filterState, filtered: [], isFiltered: false });
+        setTimeout(() => {
+          setFilterState({ ...filterState, showClearFilter: false });
+        }, 500);
       }
-      if (e.target.innerText === 'Category') {
-        sortBycategory();
+      if (e.target.innerText !== 'Clear Filter') {
+        sortState.sortedDatabase.forEach(cardSet => {
+          if (cardSet.category === e.target.innerText) {
+            filtered.push(cardSet);
+          }
+        });
+        setFilterState({ ...filterState, filtered, isFiltered: true });
+        setTimeout(() => {
+          setFilterState({ ...filterState, showClearFilter: true });
+        }, 500);
       }
-      if (e.target.innerText === 'Total Cards') {
-        sortByTotalCards();
-      }
-      setSelectedFilter(e.target.innerText);
     }
     setAnchorEl(null);
   };
 
   //  <---------------  Sort functions for Material UI Dropdown   --------------->
   const sortCollections = (id) => {
-    console.log(`sorting by ${id}`);
     const dbCopy = [...userCardSetDatabase];
     if (sortState.sortAsc) {
       const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? 1 : -1));
@@ -117,27 +143,6 @@ function EditDeckList(props) {
     }
     const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? -1 : 1));
     return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
-  };
-  // const sortBySetName = (id) => {
-  //   const dbCopy = [...userCardSetDatabase];
-  //   const sortedByName = dbCopy.sort((a, b) => (asetName > b.setName ? 1 : -1));
-  //   return setSortState({ isSorted: true, sortedDatabase: sortedByName });
-  // };
-
-  const sortBycategory = () => {
-    const dbCopy = [...userCardSetDatabase];
-    const sortedBycategory = dbCopy.sort(
-      (a, b) => (a.category > b.category ? 1 : -1),
-    );
-    return setSortState({ isSorted: true, sortedDatabase: sortedBycategory });
-  };
-
-  const sortByTotalCards = () => {
-    const dbCopy = [...userCardSetDatabase];
-    const sortedByTotalCards = dbCopy.sort(
-      (a, b) => (a.cards.length < b.cards.length ? 1 : -1),
-    );
-    return setSortState({ isSorted: true, sortedDatabase: sortedByTotalCards });
   };
 
   //  <---------------  Click Handlers for EditDeckList   --------------->
@@ -228,7 +233,7 @@ function EditDeckList(props) {
             </Tabs>
           </div>
         </div>
-        <div className={classes.sortWrapper}>
+        <div className={classes.filterWrapper}>
           <Button
             sx={{
               backgroundColor: 'rgba(250, 250, 250, 0.0)',
@@ -248,7 +253,7 @@ function EditDeckList(props) {
             onClick={handleClick}
             endIcon={<KeyboardArrowDownIcon />}
           >
-            Sort
+            Category Filter
           </Button>
           <Menu
             id="long-menu"
@@ -265,7 +270,12 @@ function EditDeckList(props) {
               },
             }}
           >
-            {options.map((option) => (
+            {filterState.showClearFilter && (
+            <MenuItem key="clear-filter" onClick={handleClose}>
+              Clear Filter
+            </MenuItem>
+            )}
+            {filterOptions.map((option) => (
               <MenuItem key={option} selected={option === selectedFilter} onClick={handleClose}>
                 {option}
               </MenuItem>
@@ -381,7 +391,6 @@ function EditDeckList(props) {
                       key={userCardSet.id}
                       userCardSet={userCardSet}
                       totalCards={userCardSet.cards.length}
-                      // setEditDeckState={setEditDeckState}
                       uid={uid}
                       deleteUserDatabaseSet={deleteUserDatabaseSet}
                       fetchUserCardSets={fetchUserCardSets}
@@ -397,7 +406,6 @@ function EditDeckList(props) {
                       key={userCardSet.id}
                       userCardSet={userCardSet}
                       totalCards={userCardSet.cards.length}
-                      // setEditDeckState={setEditDeckState}
                       uid={uid}
                       deleteUserDatabaseSet={deleteUserDatabaseSet}
                       fetchUserCardSets={fetchUserCardSets}

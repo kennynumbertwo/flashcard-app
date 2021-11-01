@@ -50,7 +50,7 @@ export default {
     },
     // border: '1px solid black',
   },
-  sortWrapper: {
+  filterWrapper: {
     height: '50px',
     width: '20%',
     display: 'flex',
