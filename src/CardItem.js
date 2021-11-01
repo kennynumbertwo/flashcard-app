@@ -4,10 +4,84 @@ import { doc, updateDoc } from 'firebase/firestore/lite';
 import db from './firebase.config';
 
 const styles = {
-  CardItemWrapper: {
+  CardItemWrapperOuter: {
     display: 'flex',
     justifyContent: 'center',
-    alignItem: 'center',
+    alignItems: 'center',
+    width: '1000px',
+    height: '50px',
+    color: 'rgba(0, 0, 0, 0.7)',
+    fontSize: '.88rem',
+    // border: '1px solid black',
+  },
+  CardItemWrapperInner: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '1000px',
+    backgroundColor: 'white',
+    height: '45px',
+    borderRadius: '3px',
+    border: '1px solid rgba(0, 0, 0, 0.1)',
+    '&:hover': {
+      boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, 0.1)',
+    },
+  },
+  CardItemQuestionWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: '50%',
+    padding: '0px 0px 0px 22px',
+    // border: '1px solid black',
+
+  },
+  CardItemAnswerWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: '30%',
+    // border: '1px solid black',
+
+  },
+  CardItemQuestion: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  CardItemAnswer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deleteButtonWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '20%',
+    // border: '1px solid black',
+  },
+  deleteButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
+    textDecoration: 'none',
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    fontSize: '.8rem',
+    fontWeight: '500',
+    background: 'rgba(0, 0, 0, 0.6)',
+    width: '80px',
+    height: '30px',
+    border: '1.5px solid rgba(0, 0, 0, 0.0)',
+    transition: 'all 0.4s ease 0s',
+    borderRadius: '5px',
+    '&:hover': {
+      background: 'rgba(7, 177, 77, 0.7)',
+      borderColor: 'rgba(7, 177, 77, 0.7)',
+      transition: 'all 0.4s ease 0s',
+      cursor: 'pointer',
+    },
   },
 };
 
@@ -29,10 +103,18 @@ function CardItem(props) {
 
   return (
     <div>
-      <div className={classes.CardItemWrapper}>
-        <div className={classes.CardItemQuestion}>Question: {question}</div>
-        <div className={classes.CardItemAnswer}>Answer: {answer}</div>
-        <button onClick={handleDelete} type="button">Delete</button>
+      <div className={classes.CardItemWrapperOuter}>
+        <div className={classes.CardItemWrapperInner}>
+          <div className={classes.CardItemQuestionWrapper}>
+            <p className={classes.CardItemQuestion}>Question: {question}</p>
+          </div>
+          <div className={classes.CardItemAnswerWrapper}>
+            <p className={classes.CardItemAnswer}>Answer: {answer}</p>
+          </div>
+          <div className={classes.deleteButtonWrapper}>
+            <button className={classes.deleteButton} onClick={handleDelete} type="button">Delete</button>
+          </div>
+        </div>
       </div>
     </div>
   );
