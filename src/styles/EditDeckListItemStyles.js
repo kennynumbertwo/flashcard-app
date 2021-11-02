@@ -7,15 +7,16 @@ export default {
     height: '50px',
     padding: '0px 0px 0px 0px',
     margin: '5px 0px 5px 0px',
-    borderRadius: '2px',
+    borderRadius: '3px',
     color: 'rgba(0, 0, 0, 0.7)',
-    backgroundColor: 'rgba(250, 250, 250, 0)',
+    backgroundColor: 'white',
     fontSize: '1rem',
     transition: 'all .2s',
     textDecoration: 'none',
+    border: '1px solid rgba(0, 0, 0, 0.1)',
     '&:hover': {
-      boxShadow: '0px 2px 5px 1px rgba(0, 0, 0, 0.3)',
-      backgroundColor: 'white',
+      boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, 0.1)',
+
     },
   },
   setNameWrapper: {

@@ -167,6 +167,7 @@ function EditDeckList(props) {
     if (!isEditingCardsTab) {
       setIsEditingCardsTab(true);
       setIsEditingDecksTab(false);
+      setIsAddingDeck(false);
     }
   };
 
@@ -294,48 +295,52 @@ function EditDeckList(props) {
         </div>
       </div>
       <div className={classes.divider} />
-      <div className={classes.headerCard}>
-        <div className={classes.setNameWrapper}>
-          <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
-            <p className={classes.label}>Set Name</p>
-            <div className={classes.sortIconWrapper}>
-              {sortState.sortId === 'setName' && sortState.sortAsc
-                ? <i className="fas fa-sort-up" />
-                : null}
-              {sortState.sortId === 'setName' && !sortState.sortAsc
-                ? <i className="fas fa-sort-down" />
-                : null}
-              {sortState.sortId !== 'setName' && <i className="fas fa-sort" />}
+      {!isViewingCardsState.isViewing && (
+        <>
+          <div className={classes.headerCard}>
+            <div className={classes.setNameWrapper}>
+              <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
+                <p className={classes.label}>Set Name</p>
+                <div className={classes.sortIconWrapper}>
+                  {sortState.sortId === 'setName' && sortState.sortAsc
+                    ? <i className="fas fa-sort-up" />
+                    : null}
+                  {sortState.sortId === 'setName' && !sortState.sortAsc
+                    ? <i className="fas fa-sort-down" />
+                    : null}
+                  {sortState.sortId !== 'setName' && <i className="fas fa-sort" />}
+                </div>
+              </div>
+            </div>
+            <div className={classes.categoryWrapper}>
+              <div className={classes.sortClickWrapper} id="category" onClick={handleSortClick}>
+                <p className={classes.label}>Category</p>
+                <div className={classes.sortIconWrapper}>
+                  {sortState.sortId === 'category' && sortState.sortAsc
+                    ? <i className="fas fa-sort-up" />
+                    : null}
+                  {sortState.sortId === 'category' && !sortState.sortAsc
+                    ? <i className="fas fa-sort-down" />
+                    : null}
+                  {sortState.sortId !== 'category' && <i className="fas fa-sort" />}
+                </div>
+              </div>
+            </div>
+            <div className={classes.iconWrapper}>
+              <p className={classes.label}>Icon</p>
+            </div>
+            <div className={classes.masteryWrapper}>
+              <p className={classes.label}>Mastery</p>
+            </div>
+            <div className={classes.totalCardsWrapper}>
+              <p className={classes.label}>Total Cards</p>
+            </div>
+            <div className={classes.actionsWrapper}>
+              <p className={classes.label}>Actions</p>
             </div>
           </div>
-        </div>
-        <div className={classes.categoryWrapper}>
-          <div className={classes.sortClickWrapper} id="category" onClick={handleSortClick}>
-            <p className={classes.label}>Category</p>
-            <div className={classes.sortIconWrapper}>
-              {sortState.sortId === 'category' && sortState.sortAsc
-                ? <i className="fas fa-sort-up" />
-                : null}
-              {sortState.sortId === 'category' && !sortState.sortAsc
-                ? <i className="fas fa-sort-down" />
-                : null}
-              {sortState.sortId !== 'category' && <i className="fas fa-sort" />}
-            </div>
-          </div>
-        </div>
-        <div className={classes.iconWrapper}>
-          <p className={classes.label}>Icon</p>
-        </div>
-        <div className={classes.masteryWrapper}>
-          <p className={classes.label}>Mastery</p>
-        </div>
-        <div className={classes.totalCardsWrapper}>
-          <p className={classes.label}>Total Cards</p>
-        </div>
-        <div className={classes.actionsWrapper}>
-          <p className={classes.label}>Actions</p>
-        </div>
-      </div>
+        </>
+      )}
       {/* Blank EditDeckListItem is shown when Add Deck is clicked */}
       {userCardSetDatabase ? (
         <>
@@ -366,6 +371,18 @@ function EditDeckList(props) {
                 isViewingCardsState={isViewingCardsState}
                 setIsViewingCardsState={setIsViewingCardsState}
               />
+              {isAddingCard && (
+                <NewCardItem
+                  uid={uid}
+                  userCardSetDatabase={userCardSetDatabase}
+                  cardSet={isViewingCardsState.cardSet}
+                  fetchUserCardSets={fetchUserCardSets}
+                  setIsViewingCardsState={setIsViewingCardsState}
+                  setIsAddingCard={setIsAddingCard}
+                  isViewingCardsState={isViewingCardsState}
+                  getTotalMasteryRating={getTotalMasteryRating}
+                />
+              )}
               { isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards.map(card => (
                 <CardItem
                   key={uuidv4()}
@@ -379,18 +396,6 @@ function EditDeckList(props) {
                   getTotalMasteryRating={getTotalMasteryRating}
                 />
               ))}
-              {isAddingCard && (
-              <NewCardItem
-                uid={uid}
-                userCardSetDatabase={userCardSetDatabase}
-                cardSet={isViewingCardsState.cardSet}
-                fetchUserCardSets={fetchUserCardSets}
-                setIsViewingCardsState={setIsViewingCardsState}
-                setIsAddingCard={setIsAddingCard}
-                isViewingCardsState={isViewingCardsState}
-                getTotalMasteryRating={getTotalMasteryRating}
-              />
-              )}
             </div>
           )
             : (

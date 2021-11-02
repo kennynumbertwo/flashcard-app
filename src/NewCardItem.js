@@ -5,10 +5,116 @@ import TextField from '@mui/material/TextField';
 import db from './firebase.config';
 
 const styles = {
-  CardItemWrapper: {
+  CardItemWrapperOuter: {
     display: 'flex',
     justifyContent: 'center',
-    alignItem: 'center',
+    alignItems: 'center',
+    width: '1000px',
+    height: '70px',
+    color: 'rgba(0, 0, 0, 0.7)',
+    fontSize: '.88rem',
+    // border: '1px solid black',
+  },
+  CardItemWrapperInner: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '1000px',
+    backgroundColor: 'white',
+    height: '60px',
+    borderRadius: '3px',
+    border: '1px solid rgba(0, 0, 0, 0.1)',
+    boxShadow: '0px 1px 7px 0px rgba(0, 0, 0, 0.1)',
+  },
+  CardItemNumWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: '5%',
+    padding: '0px 0px 0px 22px',
+    // border: '1px solid black',
+  },
+  CardItemQuestionWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: '45%',
+    height: '100%',
+    padding: '0px 0px 0px 0px',
+    // border: '1px solid black',
+    '& .MuiFormControl-root.MuiTextField-root.MuiFormControl-root.MuiTextField-root': {
+      width: '100%',
+    },
+  },
+  CardItemAnswerWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: '30%',
+    '& .MuiFormControl-root.MuiTextField-root.MuiFormControl-root.MuiTextField-root': {
+      width: '100%',
+    },
+  },
+  CardItemNum: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  CardItemAnswer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  deleteButtonWrapper: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: '20%',
+    // border: '1px solid black',
+  },
+  saveButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
+    textDecoration: 'none',
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    fontSize: '.8rem',
+    fontWeight: '500',
+    background: 'rgba(0, 0, 0, 0.6)',
+    width: '80px',
+    height: '30px',
+    border: '1.5px solid rgba(0, 0, 0, 0.0)',
+    transition: 'all 0.4s ease 0s',
+    borderRadius: '5px',
+    '&:hover': {
+      background: 'rgba(7, 177, 77, 0.7)',
+      borderColor: 'rgba(7, 177, 77, 0.7)',
+      transition: 'all 0.4s ease 0s',
+      cursor: 'pointer',
+    },
+  },
+  cancelButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
+    textDecoration: 'none',
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    fontSize: '.8rem',
+    fontWeight: '500',
+    background: 'rgba(0, 0, 0, 0.6)',
+    width: '80px',
+    height: '30px',
+    border: '1.5px solid rgba(0, 0, 0, 0.0)',
+    transition: 'all 0.4s ease 0s',
+    borderRadius: '5px',
+    '&:hover': {
+      background: 'rgba(7, 177, 77, 0.7)',
+      borderColor: 'rgba(7, 177, 77, 0.7)',
+      transition: 'all 0.4s ease 0s',
+      cursor: 'pointer',
+    },
   },
 };
 
@@ -49,23 +155,34 @@ function NewCardItem(props) {
 
   return (
     <div>
-      <div className={classes.CardItemWrapper}>
-        <TextField
-          label="Category"
-          id="question"
-          value={newCardFields.question}
-          onChange={handleChange}
-          size="small"
-        />
-        <TextField
-          label="Answer"
-          id="answer"
-          value={newCardFields.answer}
-          onChange={handleChange}
-          size="small"
-        />
-        <button onClick={handleSaveCard} type="button">Save</button>
-        <button onClick={handleCancel} type="button">Cancel</button>
+      <div className={classes.CardItemWrapperOuter}>
+        <div className={classes.CardItemWrapperInner}>
+          <div className={classes.CardItemNumWrapper}>
+            <p className={classes.CardItemNum}>{newCardFields.cardNumber}</p>
+          </div>
+          <div className={classes.CardItemQuestionWrapper}>
+            <TextField
+              label="Question"
+              id="question"
+              value={newCardFields.question}
+              onChange={handleChange}
+              size="small"
+            />
+          </div>
+          <div className={classes.CardItemAnswerWrapper}>
+            <TextField
+              label="Answer"
+              id="answer"
+              value={newCardFields.answer}
+              onChange={handleChange}
+              size="small"
+            />
+          </div>
+          <div className={classes.deleteButtonWrapper}>
+            <button className={classes.cancelButton} onClick={handleCancel} type="button">Cancel</button>
+            <button className={classes.saveButton} onClick={handleSaveCard} type="button">Save</button>
+          </div>
+        </div>
       </div>
     </div>
   );

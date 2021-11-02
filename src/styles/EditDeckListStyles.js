@@ -72,7 +72,7 @@ export default {
     height: '1px',
     width: '1000px',
     borderBottom: '1px solid rgba(0, 0, 0, 0.2)',
-    margin: '10px 0px 15px 0px',
+    margin: '0px 0px 15px 0px',
     padding: '1px 0px 2px 0px',
     boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
   },
