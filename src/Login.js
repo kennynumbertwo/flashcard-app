@@ -187,6 +187,7 @@ function Login(props) {
     return (
       <CreateEmailLogin
         createEmailAccount={createEmailAccount}
+        setCreatingEmailLogin={setCreatingEmailLogin}
         userToLogIn={userToLogIn}
         user={props.user}
         setUser={props.setUser}

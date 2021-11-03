@@ -73,7 +73,7 @@ export default {
     width: '1000px',
     borderBottom: '1px solid rgba(0, 0, 0, 0.2)',
     margin: '0px 0px 15px 0px',
-    padding: '1px 0px 2px 0px',
+    padding: '4px 0px 2px 0px',
     boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
   },
   mainCard: {
@@ -122,6 +122,11 @@ export default {
     width: '25%',
     height: '50px',
     padding: '0px 0px 0px 15px',
+    '& p': {
+      whiteSpace: 'no-wrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
     // border: '1px solid black',
   },
   categoryWrapper: {
@@ -131,7 +136,6 @@ export default {
     width: '25%',
     height: '50px',
     padding: '0px 0px 0px 15px',
-
     // border: '1px solid black',
   },
   masteryWrapper: {

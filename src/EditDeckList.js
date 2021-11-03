@@ -229,7 +229,7 @@ function EditDeckList(props) {
     <div className={classes.EditDeckList}>
       <div className={classes.menuBar}>
         <div className={classes.headerWrapper}>
-          <h2>My Collections</h2>
+          <h2>Edit Collections</h2>
         </div>
         <div className={classes.navWrapperOuter}>
           <div className={classes.navWrapperInner}>

@@ -9,6 +9,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import styles from './styles/CreateEmailFormStyles';
 
 function CreateEmailForm(props) {
@@ -31,6 +32,7 @@ function CreateEmailForm(props) {
     firstSignIn,
     setUser,
     setIsLoggedIn,
+    setCreatingEmailLogin,
   } = props;
 
   useEffect(() => {
@@ -56,7 +58,14 @@ function CreateEmailForm(props) {
       createEmailAccount(email, values.password);
     } else {
       setNoPasswordMatch(true);
+      setTimeout(() => {
+        setNoPasswordMatch(false);
+      }, 1000);
     }
+  };
+
+  const handleBackToLogin = () => {
+    setCreatingEmailLogin(false);
   };
 
   const handleEmailChange = (e) => {
@@ -154,10 +163,10 @@ function CreateEmailForm(props) {
               )}
               />
             </FormControl>
+            <div className={classes.noMatchWrapper}>
+              {noPasswordMatch && <p className={classes.noMatchText}>Passwords do not match</p>}
+            </div>
           </div>
-        </div>
-        <div className={classes.noMatchWrapper}>
-          {noPasswordMatch && <p className={classes.noMatchText}>Passwords do not match</p>}
         </div>
         <div className={classes.buttonWrapper}>
           <button
@@ -166,6 +175,13 @@ function CreateEmailForm(props) {
             type="submit"
           ><span className={classes.buttonText}>Submit</span>
           </button>
+        </div>
+        <div className={classes.backToLoginWrapper}>
+          <a
+            className={classes.backToLoginText}
+            onClick={handleBackToLogin}
+          ><span className={classes.arrowWrapper}><ArrowRightAltIcon className="navArrow" /></span>Back To Login
+          </a>
         </div>
       </div>
     </nav>

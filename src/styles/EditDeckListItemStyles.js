@@ -26,6 +26,11 @@ export default {
     width: '25%',
     height: '50px',
     padding: '0px 0px 0px 22px',
+    '& p': {
+      whiteSpace: 'no-wrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
   },
   setNameWrapperInput: {
     display: 'flex',
@@ -42,6 +47,11 @@ export default {
     width: '25%',
     height: '50px',
     padding: '0px 0px 0px 22px',
+    '& p': {
+      whiteSpace: 'no-wrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
   },
   categoryWrapperInput: {
     display: 'flex',
