@@ -377,6 +377,7 @@ export default function DrawerNav(props) {
             path="/my-collections"
             render={() => (
               <UserCollectionsPage
+                cardSetDatabase={cardSetDatabase}
                 userCardSetDatabase={userDeckState.userCardSetDatabase}
                 updateCardSetName={updateCardSetName}
                 setCurrentCardSetName={setCurrentCardSetName}

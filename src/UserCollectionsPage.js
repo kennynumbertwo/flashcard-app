@@ -202,9 +202,16 @@ const styles = {
 };
 
 function UserCollectionsPage(props) {
-  // State for EditDeckList
+  // State for UserCollectionsPage
   const [sortState, setSortState] = useState({
     sortedDatabase: [],
+    isSorted: false,
+    sortId: 'setName',
+    sortAsc: true,
+  });
+
+  const [stockSortState, setStockSortState] = useState({
+    sortedStockDatabase: [],
     isSorted: false,
     sortId: 'setName',
     sortAsc: true,
@@ -223,6 +230,8 @@ function UserCollectionsPage(props) {
   const open = Boolean(anchorEl);
 
   // State for Material UI Tabs
+  const [myDecksTab, setMyDecksTab] = useState(true);
+  const [stockDecksTab, setStockDecksTab] = useState(false);
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -230,6 +239,7 @@ function UserCollectionsPage(props) {
 
   const {
     classes,
+    cardSetDatabase,
     userCardSetDatabase,
     isLoggedIn,
     roundState,
@@ -246,6 +256,11 @@ function UserCollectionsPage(props) {
   useEffect(() => {
     if (userCardSetDatabase) { sortCollections(sortState.sortId); }
   }, [userCardSetDatabase, sortState.sortAsc, sortState.sortId]);
+
+  // Sorts the stock database by setName, if it exists
+  useEffect(() => {
+    if (cardSetDatabase) { sortStockCollections(stockSortState.sortId); }
+  }, [cardSetDatabase, stockSortState.sortAsc, stockSortState.sortId]);
 
   // Sets filter options to the state
   useEffect(() => {
@@ -305,11 +320,21 @@ function UserCollectionsPage(props) {
   // Handles Set Name and Category Sort
   const handleSortClick = (e) => {
     let target = e.currentTarget.id;
-    if (target !== sortState.sortId) {
-      setSortState({ ...sortState, sortId: target, sortAsc: true });
+    if (myDecksTab) {
+      if (target !== sortState.sortId) {
+        setSortState({ ...sortState, sortId: target, sortAsc: true });
+      }
+      if (target === sortState.sortId) {
+        setSortState({ ...sortState, sortAsc: !sortState.sortAsc });
+      }
     }
-    if (target === sortState.sortId) {
-      setSortState({ ...sortState, sortAsc: !sortState.sortAsc });
+    if (stockDecksTab) {
+      if (target !== stockSortState.sortId) {
+        setStockSortState({ ...stockSortState, sortId: target, sortAsc: true });
+      }
+      if (target === stockSortState.sortId) {
+        setStockSortState({ ...stockSortState, sortAsc: !stockSortState.sortAsc });
+      }
     }
   };
 
@@ -325,12 +350,27 @@ function UserCollectionsPage(props) {
     return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
   };
 
-  const handleMyDecksClick = () => {
-
+  const sortStockCollections = (id) => {
+    const dbCopy = [...cardSetDatabase];
+    if (stockSortState.sortAsc) {
+      const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? 1 : -1));
+      return setStockSortState({ ...stockSortState, isSorted: true, sortedStockDatabase: sorted });
+    }
+    const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? -1 : 1));
+    return setStockSortState({ ...stockSortState, isSorted: true, sortedStockDatabase: sorted });
   };
 
+  const handleMyDecksClick = () => {
+    if (!myDecksTab) {
+      setMyDecksTab(true);
+      setStockDecksTab(false);
+    }
+  };
   const handleStockDecksClick = () => {
-
+    if (!stockDecksTab) {
+      setMyDecksTab(false);
+      setStockDecksTab(true);
+    }
   };
 
   if (!isLoggedIn) {
@@ -411,6 +451,7 @@ function UserCollectionsPage(props) {
         <div className={classes.setNameWrapper}>
           <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
             <p className={classes.label}>Set Name</p>
+            {myDecksTab && (
             <div className={classes.sortIconWrapper}>
               {sortState.sortId === 'setName' && sortState.sortAsc
                 ? <i className="fas fa-sort-up" />
@@ -420,11 +461,24 @@ function UserCollectionsPage(props) {
                 : null}
               {sortState.sortId !== 'setName' && <i className="fas fa-sort" />}
             </div>
+            )}
+            {stockDecksTab && (
+            <div className={classes.sortIconWrapper}>
+              {stockSortState.sortId === 'setName' && stockSortState.sortAsc
+                ? <i className="fas fa-sort-up" />
+                : null}
+              {stockSortState.sortId === 'setName' && !stockSortState.sortAsc
+                ? <i className="fas fa-sort-down" />
+                : null}
+              {stockSortState.sortId !== 'setName' && <i className="fas fa-sort" />}
+            </div>
+            )}
           </div>
         </div>
         <div className={classes.categoryWrapper}>
           <div className={classes.sortClickWrapper} id="category" onClick={handleSortClick}>
             <p className={classes.label}>Category</p>
+            {myDecksTab && (
             <div className={classes.sortIconWrapper}>
               {sortState.sortId === 'category' && sortState.sortAsc
                 ? <i className="fas fa-sort-up" />
@@ -434,6 +488,18 @@ function UserCollectionsPage(props) {
                 : null}
               {sortState.sortId !== 'category' && <i className="fas fa-sort" />}
             </div>
+            )}
+            {stockDecksTab && (
+            <div className={classes.sortIconWrapper}>
+              {stockSortState.sortId === 'category' && stockSortState.sortAsc
+                ? <i className="fas fa-sort-up" />
+                : null}
+              {stockSortState.sortId === 'category' && !stockSortState.sortAsc
+                ? <i className="fas fa-sort-down" />
+                : null}
+              {stockSortState.sortId !== 'category' && <i className="fas fa-sort" />}
+            </div>
+            )}
           </div>
         </div>
         <div className={classes.iconWrapper}>
@@ -449,39 +515,80 @@ function UserCollectionsPage(props) {
           <p className={classes.label}>Actions</p>
         </div>
       </div>
-      { !filterState.isFiltered && sortState.sortedDatabase.length > 0
-        ? sortState.sortedDatabase.map(userCardSet => (
-          <UserCollectionCardDetails
-            key={userCardSet.setName}
-            category={userCardSet.category}
-            iconClass={userCardSet.iconClass}
-            mastery={userCardSet.mastery}
-            setName={userCardSet.setName}
-            totalCards={userCardSet.cards.length}
-            roundState={roundState}
-            setRoundState={setRoundState}
-            setCurrentCardSetName={setCurrentCardSetName}
-            url={`/my-collections/${userCardSet.id}`}
-            fetchUserCardSets={fetchUserCardSets}
-            resetUserCollectionsState={resetUserCollectionsState}
-          />
-        ))
-        : filterState.filtered.map(userCardSet => (
-          <UserCollectionCardDetails
-            key={userCardSet.setName}
-            category={userCardSet.category}
-            iconClass={userCardSet.iconClass}
-            mastery={userCardSet.mastery}
-            setName={userCardSet.setName}
-            totalCards={userCardSet.cards.length}
-            roundState={roundState}
-            setRoundState={setRoundState}
-            setCurrentCardSetName={setCurrentCardSetName}
-            url={`/my-collections/${userCardSet.id}`}
-            fetchUserCardSets={fetchUserCardSets}
-            resetUserCollectionsState={resetUserCollectionsState}
-          />
-        ))}
+      {myDecksTab && (
+      <>
+        { !filterState.isFiltered && sortState.sortedDatabase.length > 0
+          ? sortState.sortedDatabase.map(userCardSet => (
+            <UserCollectionCardDetails
+              key={userCardSet.setName}
+              category={userCardSet.category}
+              iconClass={userCardSet.iconClass}
+              mastery={userCardSet.mastery}
+              setName={userCardSet.setName}
+              totalCards={userCardSet.cards.length}
+              roundState={roundState}
+              setRoundState={setRoundState}
+              setCurrentCardSetName={setCurrentCardSetName}
+              url={`/my-collections/${userCardSet.id}`}
+              fetchUserCardSets={fetchUserCardSets}
+              resetUserCollectionsState={resetUserCollectionsState}
+            />
+          ))
+          : filterState.filtered.map(userCardSet => (
+            <UserCollectionCardDetails
+              key={userCardSet.setName}
+              category={userCardSet.category}
+              iconClass={userCardSet.iconClass}
+              mastery={userCardSet.mastery}
+              setName={userCardSet.setName}
+              totalCards={userCardSet.cards.length}
+              roundState={roundState}
+              setRoundState={setRoundState}
+              setCurrentCardSetName={setCurrentCardSetName}
+              url={`/my-collections/${userCardSet.id}`}
+              fetchUserCardSets={fetchUserCardSets}
+              resetUserCollectionsState={resetUserCollectionsState}
+            />
+          ))}
+      </>
+      )}
+      {stockDecksTab && (
+      <>
+        { !filterState.isFiltered && stockSortState.sortedStockDatabase.length > 0
+          ? stockSortState.sortedStockDatabase.map(cardSet => (
+            <UserCollectionCardDetails
+              key={cardSet.setName}
+              category={cardSet.category}
+              iconClass={cardSet.iconClass}
+              mastery={cardSet.mastery}
+              setName={cardSet.setName}
+              totalCards={cardSet.cards.length}
+              roundState={roundState}
+              setRoundState={setRoundState}
+              setCurrentCardSetName={setCurrentCardSetName}
+              url={`/collections/${cardSet.id}`}
+              fetchUserCardSets={fetchUserCardSets}
+              resetUserCollectionsState={resetUserCollectionsState}
+            />
+          ))
+          : filterState.filtered.map(cardSet => (
+            <UserCollectionCardDetails
+              key={cardSet.setName}
+              category={cardSet.category}
+              iconClass={cardSet.iconClass}
+              mastery={cardSet.mastery}
+              setName={cardSet.setName}
+              totalCards={cardSet.cards.length}
+              roundState={roundState}
+              setRoundState={setRoundState}
+              setCurrentCardSetName={setCurrentCardSetName}
+              url={`/collections/${cardSet.id}`}
+              fetchUserCardSets={fetchUserCardSets}
+              resetUserCollectionsState={resetUserCollectionsState}
+            />
+          ))}
+      </>
+      )}
       <div className={classes.dividerEnd} />
     </div>
   );

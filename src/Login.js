@@ -180,7 +180,7 @@ function Login(props) {
 
   // If a user is logged in, redirect to the stock collections page
   if (isLoggedIn) {
-    return <Redirect to="/edit-deck" />;
+    return <Redirect to="/my-collections" />;
   }
   // If a user clicked 'Don't Have An Account?', show CreateEmailForm
   if (creatingEmailLogin) {
