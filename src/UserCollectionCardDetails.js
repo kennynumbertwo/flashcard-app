@@ -13,25 +13,43 @@ const styles = {
     width: '1000px',
     height: '50px',
     padding: '0px 0px 0px 0px',
-    margin: '5px 0px 5px 0px',
-    borderRadius: '2px',
+    margin: '5px 0px 0px 0px',
+    borderRadius: '3px',
     color: 'rgba(0, 0, 0, 0.7)',
-    backgroundColor: 'rgba(250, 250, 250, 0)',
+    backgroundColor: 'white',
     fontSize: '1rem',
     transition: 'all .2s',
     textDecoration: 'none',
+    border: '1px solid rgba(0, 0, 0, 0.1)',
     '&:hover': {
-      boxShadow: '0px 2px 5px 1px rgba(0, 0, 0, 0.3)',
-      backgroundColor: 'white',
+      boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, 0.1)',
     },
   },
-  labelWrapper: {
+  setNameWrapper: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    width: '20%',
+    justifyContent: 'flex-start',
+    width: '25%',
     height: '50px',
-    // border: '1px solid black',
+    padding: '0px 0px 0px 22px',
+    '& p': {
+      whiteSpace: 'no-wrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+  },
+  categoryWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '25%',
+    height: '50px',
+    padding: '0px 0px 0px 22px',
+    '& p': {
+      whiteSpace: 'no-wrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
   },
   label: {
     margin: '0px 10px 0px 0px',
@@ -41,7 +59,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '20%',
+    width: '10%',
     height: '50px',
     // border: '1px solid black',
   },
@@ -53,7 +71,7 @@ const styles = {
     height: '50px',
     // border: '1px solid black',
   },
-  thisRoundWrapper: {
+  cardsWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -84,7 +102,7 @@ const styles = {
     justifyContent: 'center',
     flexDirection: 'column',
     height: '50px',
-    width: '10%',
+    width: '20%',
     // border: '1px solid black',
   },
   button: {
@@ -163,11 +181,10 @@ function UserCollectionCardDetails(props) {
 
   return (
     <div className={classes.UserCollectionCardDetailsCard}>
-
-      <div className={classes.labelWrapper}>
+      <div className={classes.setNameWrapper}>
         <p className={classes.info}>{setName}</p>
       </div>
-      <div className={classes.labelWrapper}>
+      <div className={classes.categoryWrapper}>
         <p className={classes.info}>{category}</p>
       </div>
       <div className={classes.iconWrapper}>
@@ -175,15 +192,10 @@ function UserCollectionCardDetails(props) {
           <i className={iconClass} />
         </div>
       </div>
-      <div className={classes.labelWrapper}>
-        {mastery.masteryPercentage
-          ? <p className={classes.info}>{mastery.masteryPercentage}%</p>
-          : <p>-</p>}
+      <div className={classes.masteryWrapper}>
+        <p className={classes.info}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
       </div>
-      <div className={classes.totalCardsWrapper}>
-        <p className={classes.info}>{totalCards}</p>
-      </div>
-      <div className={classes.thisRoundWrapper}>
+      <div className={classes.cardsWrapper}>
         <FormControl variant="standard" sx={{ m: 2, minWidth: 75 }}>
           <Select
             labelId="demo-simple-select-standard-label"

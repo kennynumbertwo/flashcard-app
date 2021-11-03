@@ -3,14 +3,14 @@ import { withStyles } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import UserCollectionCardDetails from './UserCollectionCardDetails';
 
 const ITEM_HEIGHT = 48;
 const ITEM_WIDTH = 1050;
-
-const options = ['Set Name', 'Category', 'Total Cards'];
 
 const styles = {
   UserCardSetsPage: {
@@ -28,12 +28,64 @@ const styles = {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    fontWeight: 'bold',
+    // border: '1px solid black',
+  },
+  headerWrapper: {
+    height: '50px',
+    width: '20%',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingLeft: '10px',
+    // border: '1px solid black',
+  },
+  navWrapperOuter: {
+    height: '50px',
+    width: '60%',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    // border: '1px solid black',
+  },
+  navWrapperInner: {
+    height: '50px',
+    width: '60%',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    '& .MuiTab-root.MuiTab-textColorPrimary.Mui-selected': {
+      color: 'rgba(74, 145, 103, 1)',
+    },
+    '& .MuiTabs-indicator': {
+      backgroundColor: 'rgba(74, 145, 103, 1)',
+    },
+    // border: '1px solid black',
+  },
+  filterWrapper: {
+    height: '50px',
+    width: '20%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingRight: '10px',
+    // border: '1px solid black',
+    marginLeft: 'auto',
   },
   divider: {
     height: '1px',
     width: ITEM_WIDTH,
     borderBottom: '1px solid rgba(0, 0, 0, 0.2)',
     margin: '0px 0px 15px 0px',
+    padding: '0px 0px 2px 0px',
+    boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
+  },
+  dividerEnd: {
+    height: '1px',
+    width: '1000px',
+    borderBottom: '1px solid rgba(0, 0, 0, 0.2)',
+    margin: '0px 0px 15px 0px',
+    padding: '9px 0px 2px 0px',
     boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
   },
   mainCard: {
@@ -66,24 +118,39 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'space-evenly',
     width: '1000px',
-    height: '60px',
+    height: '55px',
     padding: '0px 0px 0px 0px',
     margin: '0px 0px 0px 0px',
-    borderRadius: '2px',
+    borderRadius: '5px',
     color: 'rgba(0, 0, 0, 0.7)',
     backgroundColor: 'white',
     fontSize: '1rem',
     fontWeight: 'bold',
   },
-  labelWrapper: {
+  setNameWrapper: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    width: '20%',
+    justifyContent: 'flex-start',
+    width: '25%',
     height: '50px',
+    padding: '0px 0px 0px 15px',
+    '& p': {
+      whiteSpace: 'no-wrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
     // border: '1px solid black',
   },
-  totalCardsWrapper: {
+  categoryWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '25%',
+    height: '50px',
+    padding: '0px 0px 0px 15px',
+    // border: '1px solid black',
+  },
+  masteryWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -91,7 +158,7 @@ const styles = {
     height: '50px',
     // border: '1px solid black',
   },
-  thisRoundWrapper: {
+  totalCardsWrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -107,25 +174,60 @@ const styles = {
     height: '50px',
     // border: '1px solid black',
   },
-  sortWrapper: {
-    height: '50px',
-    width: '10%',
+  sortIconWrapper: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingRight: '10px',
+    width: '30px',
+    height: '100%',
+    paddingBottom: '2px',
+  },
+  sortClickWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
+  actionsWrapper: {
+    height: '50px',
+    width: '20%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // paddingRight: '10px',
     // border: '1px solid black',
   },
 };
 
 function UserCollectionsPage(props) {
+  // State for EditDeckList
   const [sortState, setSortState] = useState({
     sortedDatabase: [],
     isSorted: false,
+    sortId: 'setName',
+    sortAsc: true,
   });
+  // State for filter
+  const [filterState, setFilterState] = useState({
+    isFiltered: false,
+    showClearFilter: false,
+    filtered: [],
+  });
+
+  // State for Material UI Dropdown
+  const [filterOptions, setFilterOptions] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedFilter, setSelectedFilter] = useState('');
   const open = Boolean(anchorEl);
+
+  // State for Material UI Tabs
+  const [value, setValue] = React.useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   const {
     classes,
     userCardSetDatabase,
@@ -140,9 +242,22 @@ function UserCollectionsPage(props) {
     fetchUserCardSets();
   }, []);
 
+  // Sorts the database by setName, if it exists
   useEffect(() => {
-    if (userCardSetDatabase) { sortBySetName(); }
+    if (userCardSetDatabase) { sortCollections(sortState.sortId); }
+  }, [userCardSetDatabase, sortState.sortAsc, sortState.sortId]);
+
+  // Sets filter options to the state
+  useEffect(() => {
+    if (userCardSetDatabase) { setFilterOptions(getFilterOptions()); }
   }, [userCardSetDatabase]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (selectedFilter !== '') (setFilterState({ ...filterState, showClearFilter: true }));
+      if (selectedFilter === '') (setFilterState({ ...filterState, showClearFilter: false }));
+    }, 600);
+  }, [selectedFilter]);
 
   const resetUserCollectionsState = () => {
     setSortState({
@@ -155,42 +270,67 @@ function UserCollectionsPage(props) {
     setAnchorEl(event.currentTarget);
   };
 
+  // Close handler for the Material UI sort dropdown
   const handleClose = (e) => {
+    let filtered = [];
     if (e.target.role === 'menuitem') {
-      if (e.target.innerText === 'Set Name') {
-        sortBySetName();
+      if (e.target.innerText === 'Clear Filter') {
+        setSelectedFilter('');
+        setFilterState({ ...filterState, filtered: [], isFiltered: false });
       }
-      if (e.target.innerText === 'Category') {
-        sortBycategory();
+      if (e.target.innerText !== 'Clear Filter') {
+        sortState.sortedDatabase.forEach(cardSet => {
+          if (cardSet.category === e.target.innerText) {
+            filtered.push(cardSet);
+          }
+        });
+        setSelectedFilter(e.target.innerText);
+        setFilterState({ ...filterState, filtered, isFiltered: true });
       }
-      if (e.target.innerText === 'Total Cards') {
-        sortByTotalCards();
-      }
-      setSelectedFilter(e.target.innerText);
     }
     setAnchorEl(null);
   };
 
-  const sortBySetName = () => {
-    const dbCopy = [...userCardSetDatabase];
-    const sortedByName = dbCopy.sort((a, b) => (a.setName > b.setName ? 1 : -1));
-    return setSortState({ isSorted: true, sortedDatabase: sortedByName });
+  const getFilterOptions = () => {
+    let options = [];
+    userCardSetDatabase.forEach(cardSet => {
+      if (!options.includes(cardSet.category)) { options.push(cardSet.category); }
+    });
+    const sortedOptions = options.sort((a, b) => (a < b ? -1 : 1));
+    return sortedOptions;
   };
 
-  const sortBycategory = () => {
-    const dbCopy = [...userCardSetDatabase];
-    const sortedBycategory = dbCopy.sort(
-      (a, b) => (a.category > b.category ? 1 : -1),
-    );
-    return setSortState({ isSorted: true, sortedDatabase: sortedBycategory });
+  //  <---------------  Click Handlers for UserCollections   --------------->
+
+  // Handles Set Name and Category Sort
+  const handleSortClick = (e) => {
+    let target = e.currentTarget.id;
+    if (target !== sortState.sortId) {
+      setSortState({ ...sortState, sortId: target, sortAsc: true });
+    }
+    if (target === sortState.sortId) {
+      setSortState({ ...sortState, sortAsc: !sortState.sortAsc });
+    }
   };
 
-  const sortByTotalCards = () => {
+  //  <---------------  Utility Functions for EditDeckList   --------------->
+
+  const sortCollections = (id) => {
     const dbCopy = [...userCardSetDatabase];
-    const sortedByTotalCards = dbCopy.sort(
-      (a, b) => (a.cards.length < b.cards.length ? 1 : -1),
-    );
-    return setSortState({ isSorted: true, sortedDatabase: sortedByTotalCards });
+    if (sortState.sortAsc) {
+      const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? 1 : -1));
+      return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
+    }
+    const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? -1 : 1));
+    return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
+  };
+
+  const handleMyDecksClick = () => {
+
+  };
+
+  const handleStockDecksClick = () => {
+
   };
 
   if (!isLoggedIn) {
@@ -200,29 +340,23 @@ function UserCollectionsPage(props) {
   return (
     <div className={classes.UserCardSetsPage}>
       <div className={classes.menuBar}>
-        <h2>Select Deck To Run</h2>
-      </div>
-      <div className={classes.divider} />
-      <div className={classes.headerCard}>
-        <div className={classes.labelWrapper}>
-          <p className={classes.label}>Set Name:</p>
+        <div className={classes.headerWrapper}>
+          <h2>Run Decks</h2>
         </div>
-        <div className={classes.labelWrapper}>
-          <p className={classes.label}>Category:</p>
+        <div className={classes.navWrapperOuter}>
+          <div className={classes.navWrapperInner}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              sx={{ width: '80%' }}
+              centered
+            >
+              <Tab label="My Decks" sx={{ width: '40%' }} onClick={handleMyDecksClick} />
+              <Tab label="Stock Decks" sx={{ width: '45%', marginLeft: 'auto' }} onClick={handleStockDecksClick} />
+            </Tabs>
+          </div>
         </div>
-        <div className={classes.iconWrapper}>
-          <p className={classes.label}>Icon:</p>
-        </div>
-        <div className={classes.labelWrapper}>
-          <p className={classes.label}>Mastery:</p>
-        </div>
-        <div className={classes.totalCardsWrapper}>
-          <p className={classes.label}>Total Cards:</p>
-        </div>
-        <div className={classes.thisRoundWrapper}>
-          <p className={classes.label}>This Round:</p>
-        </div>
-        <div className={classes.sortWrapper}>
+        <div className={classes.filterWrapper}>
           <Button
             sx={{
               backgroundColor: 'rgba(250, 250, 250, 0.0)',
@@ -242,7 +376,7 @@ function UserCollectionsPage(props) {
             onClick={handleClick}
             endIcon={<KeyboardArrowDownIcon />}
           >
-            Sort
+            Category Filter
           </Button>
           <Menu
             id="long-menu"
@@ -259,7 +393,12 @@ function UserCollectionsPage(props) {
               },
             }}
           >
-            {options.map((option) => (
+            {filterState.showClearFilter && (
+            <MenuItem key="clear-filter" onClick={handleClose}>
+              Clear Filter
+            </MenuItem>
+            )}
+            {filterOptions.map((option) => (
               <MenuItem key={option} selected={option === selectedFilter} onClick={handleClose}>
                 {option}
               </MenuItem>
@@ -267,7 +406,50 @@ function UserCollectionsPage(props) {
           </Menu>
         </div>
       </div>
-      { sortState.isSorted
+      <div className={classes.divider} />
+      <div className={classes.headerCard}>
+        <div className={classes.setNameWrapper}>
+          <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
+            <p className={classes.label}>Set Name</p>
+            <div className={classes.sortIconWrapper}>
+              {sortState.sortId === 'setName' && sortState.sortAsc
+                ? <i className="fas fa-sort-up" />
+                : null}
+              {sortState.sortId === 'setName' && !sortState.sortAsc
+                ? <i className="fas fa-sort-down" />
+                : null}
+              {sortState.sortId !== 'setName' && <i className="fas fa-sort" />}
+            </div>
+          </div>
+        </div>
+        <div className={classes.categoryWrapper}>
+          <div className={classes.sortClickWrapper} id="category" onClick={handleSortClick}>
+            <p className={classes.label}>Category</p>
+            <div className={classes.sortIconWrapper}>
+              {sortState.sortId === 'category' && sortState.sortAsc
+                ? <i className="fas fa-sort-up" />
+                : null}
+              {sortState.sortId === 'category' && !sortState.sortAsc
+                ? <i className="fas fa-sort-down" />
+                : null}
+              {sortState.sortId !== 'category' && <i className="fas fa-sort" />}
+            </div>
+          </div>
+        </div>
+        <div className={classes.iconWrapper}>
+          <p className={classes.label}>Icon</p>
+        </div>
+        <div className={classes.masteryWrapper}>
+          <p className={classes.label}>Mastery</p>
+        </div>
+        <div className={classes.totalCardsWrapper}>
+          <p className={classes.label}>Cards</p>
+        </div>
+        <div className={classes.actionsWrapper}>
+          <p className={classes.label}>Actions</p>
+        </div>
+      </div>
+      { !filterState.isFiltered && sortState.sortedDatabase.length > 0
         ? sortState.sortedDatabase.map(userCardSet => (
           <UserCollectionCardDetails
             key={userCardSet.setName}
@@ -284,7 +466,7 @@ function UserCollectionsPage(props) {
             resetUserCollectionsState={resetUserCollectionsState}
           />
         ))
-        : userCardSetDatabase.map(userCardSet => (
+        : filterState.filtered.map(userCardSet => (
           <UserCollectionCardDetails
             key={userCardSet.setName}
             category={userCardSet.category}
@@ -300,6 +482,7 @@ function UserCollectionsPage(props) {
             resetUserCollectionsState={resetUserCollectionsState}
           />
         ))}
+      <div className={classes.dividerEnd} />
     </div>
   );
 }

@@ -25,6 +25,7 @@ function EditDeckList(props) {
     sortId: 'setName',
     sortAsc: true,
   });
+    // State for filter
   const [filterState, setFilterState] = useState({
     isFiltered: false,
     showClearFilter: false,
@@ -38,9 +39,9 @@ function EditDeckList(props) {
     isViewing: false,
     cardSet: {},
   });
-  const [filterOptions, setFilterOptions] = useState([]);
 
   // State for Material UI Dropdown
+  const [filterOptions, setFilterOptions] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedFilter, setSelectedFilter] = useState('');
   const open = Boolean(anchorEl);
@@ -56,7 +57,6 @@ function EditDeckList(props) {
     classes,
     userCardSetDatabase,
     isLoggedIn,
-    // setEditDeckState,
     uid,
     deleteUserDatabaseSet,
     fetchUserCardSets,
@@ -84,7 +84,7 @@ function EditDeckList(props) {
     }, 600);
   }, [selectedFilter]);
 
-  // Sorts the database by setName, if it exists
+  // Gets the viewState
   useEffect(() => {
     if (userCardSetDatabase && isViewingCardsState.isViewing) {
       const updatedViewState = getUpdatedViewState();
@@ -333,7 +333,7 @@ function EditDeckList(props) {
               <p className={classes.label}>Mastery</p>
             </div>
             <div className={classes.totalCardsWrapper}>
-              <p className={classes.label}>Total Cards</p>
+              <p className={classes.label}>Cards</p>
             </div>
             <div className={classes.actionsWrapper}>
               <p className={classes.label}>Actions</p>
