@@ -77,6 +77,13 @@ function EditDeckList(props) {
     if (userCardSetDatabase) { setFilterOptions(getFilterOptions()); }
   }, [userCardSetDatabase]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (selectedFilter !== '') (setFilterState({ ...filterState, showClearFilter: true }));
+      if (selectedFilter === '') (setFilterState({ ...filterState, showClearFilter: false }));
+    }, 600);
+  }, [selectedFilter]);
+
   // Gets the viewState
   useEffect(() => {
     if (userCardSetDatabase && isViewingCardsState.isViewing) {
@@ -237,6 +244,7 @@ function EditDeckList(props) {
             </Tabs>
           </div>
         </div>
+        {!isViewingCardsState.isViewing && (
         <div className={classes.filterWrapper}>
           <Button
             sx={{
@@ -286,6 +294,7 @@ function EditDeckList(props) {
             ))}
           </Menu>
         </div>
+        )}
       </div>
       <div className={classes.divider} />
       {!isViewingCardsState.isViewing && (
