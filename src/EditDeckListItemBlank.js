@@ -54,7 +54,7 @@ function EditDeckListItem(props) {
     setIsAnimatingModal(false);
     setTimeout(() => {
       setIsShowingIconList(!isShowingIconList);
-    }, 230);
+    }, 140);
   };
 
   const handleSaveDeck = async () => {

@@ -10,8 +10,6 @@ import CollectionCardDetails from './CollectionCardDetails';
 const ITEM_HEIGHT = 48;
 const ITEM_WIDTH = 1050;
 
-const options = ['Set Name', 'Category', 'Total Cards'];
-
 const styles = {
   cardSetsPage: {
     display: 'flex',

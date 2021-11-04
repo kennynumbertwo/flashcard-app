@@ -77,13 +77,6 @@ function EditDeckList(props) {
     if (userCardSetDatabase) { setFilterOptions(getFilterOptions()); }
   }, [userCardSetDatabase]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (selectedFilter !== '') (setFilterState({ ...filterState, showClearFilter: true }));
-      if (selectedFilter === '') (setFilterState({ ...filterState, showClearFilter: false }));
-    }, 600);
-  }, [selectedFilter]);
-
   // Gets the viewState
   useEffect(() => {
     if (userCardSetDatabase && isViewingCardsState.isViewing) {

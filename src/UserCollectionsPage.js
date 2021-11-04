@@ -265,7 +265,7 @@ function UserCollectionsPage(props) {
   // Sets filter options to the state
   useEffect(() => {
     if (userCardSetDatabase) { setFilterOptions(getFilterOptions()); }
-  }, [userCardSetDatabase]);
+  }, [userCardSetDatabase, myDecksTab, stockDecksTab]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -294,11 +294,20 @@ function UserCollectionsPage(props) {
         setFilterState({ ...filterState, filtered: [], isFiltered: false });
       }
       if (e.target.innerText !== 'Clear Filter') {
-        sortState.sortedDatabase.forEach(cardSet => {
-          if (cardSet.category === e.target.innerText) {
-            filtered.push(cardSet);
-          }
-        });
+        if (myDecksTab) {
+          sortState.sortedDatabase.forEach(cardSet => {
+            if (cardSet.category === e.target.innerText) {
+              filtered.push(cardSet);
+            }
+          });
+        }
+        if (stockDecksTab) {
+          stockSortState.sortedStockDatabase.forEach(cardSet => {
+            if (cardSet.category === e.target.innerText) {
+              filtered.push(cardSet);
+            }
+          });
+        }
         setSelectedFilter(e.target.innerText);
         setFilterState({ ...filterState, filtered, isFiltered: true });
       }
@@ -308,9 +317,16 @@ function UserCollectionsPage(props) {
 
   const getFilterOptions = () => {
     let options = [];
-    userCardSetDatabase.forEach(cardSet => {
-      if (!options.includes(cardSet.category)) { options.push(cardSet.category); }
-    });
+    if (myDecksTab) {
+      userCardSetDatabase.forEach(cardSet => {
+        if (!options.includes(cardSet.category)) { options.push(cardSet.category); }
+      });
+    }
+    if (stockDecksTab) {
+      cardSetDatabase.forEach(cardSet => {
+        if (!options.includes(cardSet.category)) { options.push(cardSet.category); }
+      });
+    }
     const sortedOptions = options.sort((a, b) => (a < b ? -1 : 1));
     return sortedOptions;
   };
@@ -364,12 +380,22 @@ function UserCollectionsPage(props) {
     if (!myDecksTab) {
       setMyDecksTab(true);
       setStockDecksTab(false);
+      setFilterState({
+        isFiltered: false,
+        showClearFilter: false,
+        filtered: [],
+      });
     }
   };
   const handleStockDecksClick = () => {
     if (!stockDecksTab) {
       setMyDecksTab(false);
       setStockDecksTab(true);
+      setFilterState({
+        isFiltered: false,
+        showClearFilter: false,
+        filtered: [],
+      });
     }
   };
 

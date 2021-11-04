@@ -16,7 +16,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import CreateIcon from '@material-ui/icons/Create';
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import InfoIcon from '@material-ui/icons/Info';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { Route, Switch, Link } from 'react-router-dom';
@@ -25,7 +24,6 @@ import { getDoc, doc } from 'firebase/firestore/lite';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import CollectionsPage from './CollectionsPage';
 import UserCollectionsPage from './UserCollectionsPage';
-import NestedListItem from './NestedListItem';
 import FlashcardTray from './FlashcardTray';
 import About from './About';
 import Login from './Login';
@@ -246,17 +244,6 @@ export default function DrawerNav(props) {
             <ListSubheader component="div" id="navigation-header">
               Navigation
             </ListSubheader>
-            <Link to="/collections" className={classes.navLink}>
-              <ListItem
-                className={classes.navItem}
-                key="collections"
-                button
-              >
-                <ListItemIcon><LibraryBooksIcon /></ListItemIcon>
-                <ListItemText primary="Run Our Decks" />
-                <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
-              </ListItem>
-            </Link>
             <Link to="/my-collections" className={classes.navLink}>
               <ListItem
                 className={classes.navItem}
@@ -264,7 +251,7 @@ export default function DrawerNav(props) {
                 button
               >
                 <ListItemIcon><ContactsIcon /></ListItemIcon>
-                <ListItemText primary="Run My Decks" />
+                <ListItemText primary="Run Decks" />
                 <ListItemIcon><ArrowRightAltIcon className="navArrow" /></ListItemIcon>
               </ListItem>
             </Link>
@@ -291,26 +278,6 @@ export default function DrawerNav(props) {
           </List>
           <Divider />
           {/* Create Nested Lists for "My Flashcards" section in drawer */}
-          <List
-            sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-            component="nav"
-            aria-labelledby="nested-list-subheader"
-            subheader={(
-              <ListSubheader component="div" id="nested-list-subheader">
-                My Flashcards - Quick Nav
-              </ListSubheader>
-          )}
-          >
-            {userCardCollections.map((col) => (
-              <NestedListItem
-                key={col.categoryId}
-                category={col.category}
-                categoryId={col.categoryId}
-                setNames={col.setNames}
-                updateCardSetName={updateCardSetName}
-              />
-            ))}
-          </List>
         </>
         )}
       </Drawer>
