@@ -1,7 +1,7 @@
 export default {
   Flashcard: {
-    height: '50vh',
-    width: '40vw',
+    height: '350px',
+    width: '600px',
     // border: '1px solid black',
     display: 'flex',
     justifyContent: 'center',

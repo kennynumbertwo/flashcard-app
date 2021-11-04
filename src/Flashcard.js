@@ -8,7 +8,6 @@ function Flashcard(props) {
   const questionBlock = (
     <div>
       <p>{question}</p>
-
     </div>
   );
 

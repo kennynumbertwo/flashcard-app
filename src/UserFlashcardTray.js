@@ -8,6 +8,7 @@ import { doc, updateDoc } from 'firebase/firestore/lite';
 import styles from './styles/UserFlashcardTrayStyles';
 import useToggle from './hooks/useToggle';
 import Flashcard from './Flashcard';
+import FlashcardStats from './FlashcardStats';
 import db from './firebase.config';
 
 function UserFlashcardTray(props) {
@@ -17,6 +18,7 @@ function UserFlashcardTray(props) {
   const [cardCount, setCardCount] = useState(0);
   const [showAnswer, toggleShowAnswer] = useToggle(false);
   const [currentMasteryRating, setCurrentMasteryRating] = useState(0);
+  const [currentMasteryPercentage, setCurrentMasteryPercentage] = useState(0);
   const [starState, setstarState] = useState({
     starOne: true,
     starTwo: false,
@@ -41,6 +43,8 @@ function UserFlashcardTray(props) {
       const shuffled = (shuffleDeck([...flashcards]));
       setShuffledDeck(shuffled);
       setCardQuantity(roundState.cardQuantity);
+      const masteryPercentage = getMasteryPercentage([...flashcards]);
+      setCurrentMasteryPercentage(masteryPercentage);
     }
   }, [userCardSetDatabase, flashcards.length, currentCardSetName]);
 
@@ -144,6 +148,8 @@ function UserFlashcardTray(props) {
     setFlashcards(flashcardsCopy);
     updateMasteryRating(flashcardsCopy);
     const mastery = getTotalMasteryRating(flashcardsCopy);
+    const masteryPercentage = getMasteryPercentage(flashcardsCopy);
+    setCurrentMasteryPercentage(masteryPercentage);
     updateMastery(mastery);
   };
 
@@ -159,6 +165,15 @@ function UserFlashcardTray(props) {
       masteryPercentage: percentage,
     };
     return mastery;
+  };
+
+  const getMasteryPercentage = (array) => {
+    let totalMasteryRating = 0;
+    array.forEach(flashcard => {
+      totalMasteryRating += flashcard.masteryRating;
+    });
+    let percentage = Math.floor((totalMasteryRating / (array.length * 2)) * 100);
+    return percentage;
   };
 
   const updateMasteryRating = async (updatedFlashcards) => {
@@ -187,8 +202,13 @@ function UserFlashcardTray(props) {
   }
   return (
     <div className={classes.root}>
-      <h2>{currentCardSetName}</h2>
-      <h4>Card {cardCount + 1} of {cardQuantity}</h4>
+      <FlashcardStats
+        currentCardSetName={currentCardSetName}
+        masteryRating={shuffledDeck[cardCount].masteryRating}
+        currentMasteryPercentage={currentMasteryPercentage}
+        cardCount={cardCount + 1}
+        cardQuantity={cardQuantity}
+      />
       {shuffledDeck.length > 0
         && (
           <Flashcard
