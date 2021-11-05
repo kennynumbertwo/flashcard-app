@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/styles';
-import { Button } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import StarIcon from '@mui/icons-material/Star';
 import { doc, updateDoc } from 'firebase/firestore/lite';
 import styles from './styles/UserFlashcardTrayStyles';
 import useToggle from './hooks/useToggle';
 import Flashcard from './Flashcard';
 import FlashcardStats from './FlashcardStats';
+import FlashcardActions from './FlashcardActions';
+import ProgressBar from './ProgressBar';
 import db from './firebase.config';
 
 function UserFlashcardTray(props) {
@@ -34,7 +33,6 @@ function UserFlashcardTray(props) {
     roundState,
     uid,
   } = props;
-  const { starOne, starTwo, starThree } = starState;
 
   // Sets flashcards to the currentCardSetName
   useEffect(() => {
@@ -100,23 +98,27 @@ function UserFlashcardTray(props) {
   };
 
   // Function to see the next card in shuffledDeck
-  const nextCard = () => {
-    setCardCount(cardCount + 1);
-    if (showAnswer) {
-      toggleShowAnswer();
+  const handleNextCard = () => {
+    if ((cardCount + 1) !== cardQuantity) {
+      setCardCount(cardCount + 1);
+      if (showAnswer) {
+        toggleShowAnswer();
+      }
     }
   };
 
   // Function to see the next card in shuffledDeck
-  const previousCard = () => {
-    setCardCount(cardCount - 1);
-    if (showAnswer) {
-      toggleShowAnswer();
+  const handlePreviousCard = () => {
+    if (cardCount > 0) {
+      setCardCount(cardCount - 1);
+      if (showAnswer) {
+        toggleShowAnswer();
+      }
     }
   };
 
   // Reshuffles the deck once you've drawn all cards
-  const startOver = () => {
+  const handleStartOver = () => {
     setCardCount(0);
     const shuffled = (shuffleDeck(flashcards));
     setShuffledDeck(shuffled);
@@ -202,14 +204,21 @@ function UserFlashcardTray(props) {
   }
   return (
     <div className={classes.root}>
-      <FlashcardStats
-        currentCardSetName={currentCardSetName}
-        masteryRating={shuffledDeck[cardCount].masteryRating}
-        currentMasteryPercentage={currentMasteryPercentage}
-        cardCount={cardCount + 1}
-        cardQuantity={cardQuantity}
-      />
-      {shuffledDeck.length > 0
+      <div className={classes.flashcardStatsWrapper}>
+        <FlashcardStats
+          currentCardSetName={currentCardSetName}
+          masteryRating={shuffledDeck[cardCount].masteryRating}
+          currentMasteryPercentage={currentMasteryPercentage}
+          cardCount={cardCount + 1}
+          cardQuantity={cardQuantity}
+          iconClass={flashcards[0].iconClass}
+        />
+      </div>
+      <div className={classes.progressBarWrapper}>
+        <ProgressBar progressPercent={((cardCount + 1) / cardQuantity) * 100} />
+      </div>
+      <div className={classes.flashcardWrapper}>
+        {shuffledDeck.length > 0
         && (
           <Flashcard
             question={shuffledDeck[cardCount].question}
@@ -220,64 +229,20 @@ function UserFlashcardTray(props) {
             setstarState={setstarState}
           />
         )}
-      <div className={classes.buttonContainer}>
-        <Button
-          className={classes.previousButton}
-          variant="contained"
-          type="button"
-          onClick={previousCard}
-        >
-          Previous Question
-        </Button>
-        <Button
-          className={classes.showButton}
-          variant="contained"
-          onClick={toggleShowAnswer}
-        >{showAnswer ? 'Hide Answer' : 'Show Answer'}
-
-        </Button>
-        {(cardCount + 1) !== cardQuantity
-          ? (
-            <Button
-              className={classes.nextButton}
-              variant="contained"
-              type="button"
-              onClick={nextCard}
-            >
-              Next Question
-            </Button>
-          )
-          : (
-            <Button
-              className={classes.startOverButton}
-              variant="contained"
-              color="secondary"
-              type="button"
-              onClick={startOver}
-            >
-              Start Over
-            </Button>
-          )}
       </div>
-      <div className={classes.masteryWrapper}>
-        <h4>Mastery Rating:</h4>
-        <div className={classes.starsWrapper}>
-          <div className={classes.starOneWrapper}>
-            {starOne
-              ? <StarIcon onClick={handleStarClick} id="starOne" />
-              : <StarBorderIcon onClick={handleStarClick} id="starOne" />}
-          </div>
-          <div className={classes.starTwoWrapper}>
-            {starTwo
-              ? <StarIcon onClick={handleStarClick} id="starTwo" />
-              : <StarBorderIcon onClick={handleStarClick} id="starTwo" />}
-          </div>
-          <div className={classes.starThreeWrapper}>
-            {starThree
-              ? <StarIcon onClick={handleStarClick} id="starThree" />
-              : <StarBorderIcon onClick={handleStarClick} id="starThree" />}
-          </div>
-        </div>
+      <div className={classes.actionsWrapper}>
+        <FlashcardActions
+          handleStarClick={handleStarClick}
+          handleStartOver={handleStartOver}
+          handlePreviousCard={handlePreviousCard}
+          handleNextCard={handleNextCard}
+          cardCount={cardCount}
+          cardQuantity={cardQuantity}
+          starState={starState}
+        />
+      </div>
+      <div className={classes.rate}>
+        <h4>Rate Mastery</h4>
       </div>
     </div>
   );

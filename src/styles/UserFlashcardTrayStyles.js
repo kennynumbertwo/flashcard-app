@@ -14,36 +14,21 @@ export default {
       alignItems: 'center',
     },
   },
-  preStart: {
+  flashcardStatsWrapper: {
+    border: '1px solid black',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    height: '200px',
+    width: '100%',
+  },
+  flashcardWrapper: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column',
-    height: '100%',
+    border: '1px solid black',
+    // height: '350px',
     width: '100%',
-  },
-  cardQuantitySelect: {
-    display: 'flex',
-    width: '100%',
-    height: '100px',
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    margin: '3rem',
-  },
-  buttonContainer: {
-    height: '100px',
-    width: '25vw',
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
-  nextButton: {
-    width: '160px',
-    backgroundColor: 'rgba(7, 177, 77, 0.9)',
-    color: 'white',
-    '&:hover': {
-      backgroundColor: 'rgba(7, 177, 77, 0.7)',
-    },
   },
   startButton: {
     width: '200px',
@@ -55,25 +40,32 @@ export default {
       backgroundColor: 'rgba(7, 177, 77, 0.7)',
     },
   },
+  progressBarWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '75px',
+  },
   showButton: {
     width: '160px',
   },
   startOverButton: {
     width: '160px',
   },
-  masteryWrapper: {
+  rate: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
+    alignItems: 'flex-start',
+    // border: '1px solid black',
+    width: '100%',
+    height: '50px',
     '& h4': {
-      fontSize: '1.2rem',
+      padding: '0px 0px 0px 0px',
+      margin: '0px 0px 0px 0px',
     },
   },
-  starsWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    cursor: 'pointer',
+  actionsWrapper: {
+    width: '100%',
   },
 };
