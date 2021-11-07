@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/styles';
 import { Redirect } from 'react-router-dom';
 import { doc, updateDoc } from 'firebase/firestore/lite';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import styles from './styles/UserFlashcardTrayStyles';
 import useToggle from './hooks/useToggle';
 import Flashcard from './Flashcard';
 import FlashcardStats from './FlashcardStats';
 import FlashcardActions from './FlashcardActions';
-import ProgressBar from './ProgressBar';
 import db from './firebase.config';
 
 function UserFlashcardTray(props) {
@@ -126,11 +127,20 @@ function UserFlashcardTray(props) {
     }
   };
 
+  // Function to toggle viewing the answer
+  const handleShowAnswer = () => {
+    toggleShowAnswer(!showAnswer);
+  };
+
   // Reshuffles the deck once you've drawn all cards
   const handleStartOver = () => {
     setCardCount(0);
     const shuffled = (shuffleDeck(flashcards));
     setShuffledDeck(shuffled);
+    setCardAnimation('animateStartOver');
+    setTimeout(() => {
+      setCardAnimation('animateInFirst');
+    }, 100);
   };
 
   const handleStarClick = (e) => {
@@ -247,15 +257,19 @@ function UserFlashcardTray(props) {
           handleStartOver={handleStartOver}
           handlePreviousCard={handlePreviousCard}
           handleNextCard={handleNextCard}
+          handleShowAnswer={handleShowAnswer}
           cardCount={cardCount}
           cardQuantity={cardQuantity}
           starState={starState}
           height={100}
         />
       </div>
-      <div className={classes.rate}>
-        <h4>Rate Mastery</h4>
-      </div>
+      <button className={classes.showAnswerButton} type="button">
+        <VisibilityIcon fontSize="large" onClick={handleShowAnswer} />
+      </button>
+      <button className={classes.restartButton} type="button">
+        <RestartAltIcon fontSize="medium" onClick={handleStartOver} />
+      </button>
     </div>
   );
 }

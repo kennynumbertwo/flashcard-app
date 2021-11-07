@@ -59,6 +59,12 @@ export default {
       animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
       animationDuration: '350ms',
     },
+    '& .animateStartOver': {
+      animationName: '$flashcardStartOver',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '500ms',
+    },
   },
 
   '@keyframes flashcardSlideInFirst': {
@@ -103,6 +109,16 @@ export default {
       transform: 'translateX(200%)',
     },
   },
+  '@keyframes flashcardStartOver': {
+    '0%': {
+
+      opacity: '1',
+    },
+    '100%': {
+
+      opacity: '0',
+    },
+  },
 
   startButton: {
     width: '200px',
@@ -138,9 +154,78 @@ export default {
       fontSize: '1.2rem',
       padding: '0px 0px 0px 0px',
       margin: '0px 0px 0px 0px',
+      width: '120px',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      animationName: '$wipe',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '1500ms',
+    },
+  },
+  '@keyframes wipe': {
+    '0%': {
+      width: '0px',
+    },
+    '60%': {
+      width: '0px',
     },
   },
   actionsWrapper: {
     width: '100%',
+  },
+  showAnswerButton: {
+    border: 'none',
+    backgroundColor: 'white',
+    borderRadius: '50px',
+    marginTop: '30px',
+    boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 1px 2px 0px rgba(0, 0, 0, 0.6)' : null),
+    '& svg': {
+      transition: 'all .5s ease-in-out',
+      color: props => ((props.cardCount + 1) !== props.cardQuantity ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.2)'),
+    },
+    '&:hover': {
+      cursor: props => ((props.cardCount + 1) !== props.cardQuantity ? 'pointer' : null),
+      boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 2px 3px 0px rgba(0, 0, 0, 0.6)' : null),
+    },
+    animationName: '$answerButtonFadeIn',
+    animationIterationCount: '1',
+    animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+    animationDuration: '1900ms',
+  },
+  '@keyframes answerButtonFadeIn': {
+    '0%': {
+      opacity: '0',
+    },
+    '50%': {
+      opacity: '0',
+    },
+  },
+  restartButton: {
+    border: 'none',
+    backgroundColor: 'white',
+    borderRadius: '50px',
+    marginTop: '30px',
+    boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 1px 2px 0px rgba(0, 0, 0, 0.6)' : null),
+    '& svg': {
+      transition: 'all .5s ease-in-out',
+      color: props => ((props.cardCount + 1) !== props.cardQuantity ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.2)'),
+    },
+    '&:hover': {
+      cursor: props => ((props.cardCount + 1) !== props.cardQuantity ? 'pointer' : null),
+      boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 2px 3px 0px rgba(0, 0, 0, 0.6)' : null),
+    },
+    animationName: '$answerButtonFadeIn',
+    animationIterationCount: '1',
+    animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+    animationDuration: '2000ms',
+  },
+  '@keyframes restartButtonFadeIn': {
+    '0%': {
+      opacity: '0',
+    },
+    '50%': {
+      opacity: '0',
+    },
   },
 };

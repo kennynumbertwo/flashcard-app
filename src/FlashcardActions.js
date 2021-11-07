@@ -8,8 +8,9 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 const styles = {
   FlashcardActionsWrapper: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    flexDirection: 'column',
     // border: '1px solid black',
     width: '100%',
     height: props => (`${props.height}px`),
@@ -35,7 +36,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // cursor: 'pointer',
   },
   starOneWrapper: {
     display: 'flex',
@@ -43,6 +43,20 @@ const styles = {
     alignItems: 'center',
     cursor: 'pointer',
     width: '30px',
+    animationName: '$starSlideUp',
+    animationIterationCount: '1',
+    animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+    animationDuration: '1000ms',
+  },
+  '@keyframes starSlideUp': {
+    '0%': {
+      transform: 'translateY(200%)',
+      opacity: '0',
+    },
+    '50%': {
+      transform: 'translateY(200%)',
+      opacity: '0',
+    },
   },
   starTwoWrapper: {
     display: 'flex',
@@ -50,6 +64,10 @@ const styles = {
     alignItems: 'center',
     cursor: 'pointer',
     width: '30px',
+    animationName: '$starSlideUp',
+    animationIterationCount: '1',
+    animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+    animationDuration: '1100ms',
   },
   starThreeWrapper: {
     display: 'flex',
@@ -57,6 +75,14 @@ const styles = {
     alignItems: 'center',
     cursor: 'pointer',
     width: '30px',
+    animationName: '$starSlideUp',
+    animationIterationCount: '1',
+    animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+    animationDuration: '1200ms',
+    transition: 'color 300ms ease-in-out',
+    '&:hover': {
+      color: 'rgba(0, 0, 0, 0.8)',
+    },
   },
   prevCardButton: {
     border: 'none',
@@ -70,6 +96,18 @@ const styles = {
     '&:hover': {
       cursor: props => (props.cardCount > 0 ? 'pointer' : null),
       boxShadow: props => (props.cardCount > 0 ? '1px 2px 3px 0px rgba(0, 0, 0, 0.6)' : null),
+    },
+    animationName: '$buttonFadeIn',
+    animationIterationCount: '1',
+    animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+    animationDuration: '1500ms',
+  },
+  '@keyframes buttonFadeIn': {
+    '0%': {
+      opacity: '0',
+    },
+    '50%': {
+      opacity: '0',
     },
   },
   nextCardButton: {
@@ -85,6 +123,10 @@ const styles = {
       cursor: props => ((props.cardCount + 1) !== props.cardQuantity ? 'pointer' : null),
       boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 2px 3px 0px rgba(0, 0, 0, 0.6)' : null),
     },
+    animationName: '$buttonFadeIn',
+    animationIterationCount: '1',
+    animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+    animationDuration: '1550ms',
   },
 };
 
@@ -102,7 +144,6 @@ function FlashcardActions(props) {
   return (
     <div className={classes.FlashcardActionsWrapper}>
       <div className={classes.FlashcardActionsWrapperInner}>
-
         <button className={classes.prevCardButton} type="button">
           <ChevronLeftIcon fontSize="large" onClick={handlePreviousCard} />
         </button>
