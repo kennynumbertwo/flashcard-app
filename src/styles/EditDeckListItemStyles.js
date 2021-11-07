@@ -72,6 +72,17 @@ export default {
     height: '50px',
     // border: '1px solid black',
   },
+  masteryWrapperInner: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '50px',
+    height: '50px',
+    // border: '1px solid black',
+  },
+  masteryInfo: {
+    padding: '0px 0px 0px 8px',
+  },
   totalCardsWrapper: {
     display: 'flex',
     alignItems: 'center',

@@ -7,6 +7,7 @@ import db from './firebase.config';
 import IconListModal from './IconListModal';
 import IconCard from './IconCard';
 import styles from './styles/EditDeckListItemStyles';
+import ProgressBarVert from './ProgressBarVert';
 
 function EditDeckListItem(props) {
   // State for editing an individual deck
@@ -157,7 +158,12 @@ function EditDeckListItem(props) {
           </div>
         </div>
         <div className={classes.masteryWrapper}>
-          <p className={classes.info}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
+          <div className={classes.masteryWrapperInner}>
+            {mastery && mastery.masteryPercentage ? (
+              <ProgressBarVert progressPercent={mastery.masteryPercentage} width={12} height={25} />)
+              : <ProgressBarVert progressPercent={0} width={12} height={25} />}
+            <p className={classes.masteryInfo}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
+          </div>
         </div>
         <div className={classes.totalCardsWrapper}>
           <p className={classes.info}>{totalCards}</p>
@@ -186,7 +192,12 @@ function EditDeckListItem(props) {
           </div>
         </div>
         <div className={classes.masteryWrapper}>
-          <p className={classes.info}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
+          <div className={classes.masteryWrapperInner}>
+            {mastery && mastery.masteryPercentage ? (
+              <ProgressBarVert progressPercent={mastery.masteryPercentage} width={12} height={25} />)
+              : <ProgressBarVert progressPercent={0} width={12} height={25} />}
+            <p className={classes.masteryInfo}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
+          </div>
         </div>
         <div className={classes.totalCardsWrapper}>
           <p className={classes.info}>{totalCards}</p>
@@ -212,7 +223,12 @@ function EditDeckListItem(props) {
           </div>
         </div>
         <div className={classes.masteryWrapper}>
-          <p className={classes.info}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
+          <div className={classes.masteryWrapperInner}>
+            {mastery && mastery.masteryPercentage ? (
+              <ProgressBarVert progressPercent={mastery.masteryPercentage} width={12} height={25} />)
+              : <ProgressBarVert progressPercent={0} width={12} height={25} />}
+            <p className={classes.masteryInfo}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
+          </div>
         </div>
         <div className={classes.totalCardsWrapper}>
           <p className={classes.info}>{totalCards}</p>

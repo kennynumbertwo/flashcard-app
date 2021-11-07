@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import ProgressBarVert from './ProgressBarVert';
 
 const styles = {
   UserCollectionCardDetailsCard: {
@@ -62,6 +63,17 @@ const styles = {
     width: '10%',
     height: '50px',
     // border: '1px solid black',
+  },
+  masteryWrapperInner: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '50px',
+    height: '50px',
+    // border: '1px solid black',
+  },
+  masteryInfo: {
+    padding: '0px 0px 0px 8px',
   },
   totalCardsWrapper: {
     display: 'flex',
@@ -193,7 +205,12 @@ function UserCollectionCardDetails(props) {
         </div>
       </div>
       <div className={classes.masteryWrapper}>
-        <p className={classes.info}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
+        <div className={classes.masteryWrapperInner}>
+          {mastery && mastery.masteryPercentage ? (
+            <ProgressBarVert progressPercent={mastery.masteryPercentage} width={12} height={25} />)
+            : <ProgressBarVert progressPercent={0} width={12} height={25} />}
+          <p className={classes.masteryInfo}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
+        </div>
       </div>
       <div className={classes.cardsWrapper}>
         <FormControl variant="standard" sx={{ m: 2, minWidth: 75 }}>

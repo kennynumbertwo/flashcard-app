@@ -215,7 +215,7 @@ function UserFlashcardTray(props) {
         />
       </div>
       <div className={classes.progressBarWrapper}>
-        <ProgressBar progressPercent={((cardCount + 1) / cardQuantity) * 100} />
+        {/* <ProgressBar progressPercent={((cardCount + 1) / cardQuantity) * 100} /> */}
       </div>
       <div className={classes.flashcardWrapper}>
         {shuffledDeck.length > 0
@@ -239,6 +239,7 @@ function UserFlashcardTray(props) {
           cardCount={cardCount}
           cardQuantity={cardQuantity}
           starState={starState}
+          height={100}
         />
       </div>
       <div className={classes.rate}>

@@ -9,16 +9,21 @@ const styles = {
   FlashcardActionsWrapper: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     // border: '1px solid black',
     width: '100%',
-    height: '60px',
+    height: props => (`${props.height}px`),
+  },
+  FlashcardActionsWrapperInner: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   masteryWrapper: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column',
+    // flexDirection: 'column',
     // border: '1px solid black',
     height: '100%',
     width: '180px',
@@ -96,31 +101,34 @@ function FlashcardActions(props) {
   const { starOne, starTwo, starThree } = starState;
   return (
     <div className={classes.FlashcardActionsWrapper}>
-      <button className={classes.prevCardButton} type="button">
-        <ChevronLeftIcon fontSize="large" onClick={handlePreviousCard} />
-      </button>
-      <div className={classes.masteryWrapper}>
-        <div className={classes.starsWrapper}>
-          <div className={classes.starOneWrapper}>
-            {starOne
-              ? <StarIcon onClick={handleStarClick} id="starOne" />
-              : <StarBorderIcon onClick={handleStarClick} id="starOne" />}
-          </div>
-          <div className={classes.starTwoWrapper}>
-            {starTwo
-              ? <StarIcon onClick={handleStarClick} id="starTwo" />
-              : <StarBorderIcon onClick={handleStarClick} id="starTwo" />}
-          </div>
-          <div className={classes.starThreeWrapper}>
-            {starThree
-              ? <StarIcon onClick={handleStarClick} id="starThree" />
-              : <StarBorderIcon onClick={handleStarClick} id="starThree" />}
+      <div className={classes.FlashcardActionsWrapperInner}>
+
+        <button className={classes.prevCardButton} type="button">
+          <ChevronLeftIcon fontSize="large" onClick={handlePreviousCard} />
+        </button>
+        <div className={classes.masteryWrapper}>
+          <div className={classes.starsWrapper}>
+            <div className={classes.starOneWrapper}>
+              {starOne
+                ? <StarIcon onClick={handleStarClick} id="starOne" />
+                : <StarBorderIcon onClick={handleStarClick} id="starOne" />}
+            </div>
+            <div className={classes.starTwoWrapper}>
+              {starTwo
+                ? <StarIcon onClick={handleStarClick} id="starTwo" />
+                : <StarBorderIcon onClick={handleStarClick} id="starTwo" />}
+            </div>
+            <div className={classes.starThreeWrapper}>
+              {starThree
+                ? <StarIcon onClick={handleStarClick} id="starThree" />
+                : <StarBorderIcon onClick={handleStarClick} id="starThree" />}
+            </div>
           </div>
         </div>
+        <button className={classes.nextCardButton} type="button">
+          <ChevronRightIcon fontSize="large" onClick={handleNextCard} />
+        </button>
       </div>
-      <button className={classes.nextCardButton} type="button">
-        <ChevronRightIcon fontSize="large" onClick={handleNextCard} />
-      </button>
     </div>
   );
 }
