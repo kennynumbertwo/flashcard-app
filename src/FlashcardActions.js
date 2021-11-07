@@ -135,7 +135,6 @@ function FlashcardActions(props) {
     classes,
     starState,
     handleStarClick,
-    handleStartOver,
     handlePreviousCard,
     handleNextCard,
   } = props;
@@ -149,17 +148,17 @@ function FlashcardActions(props) {
         </button>
         <div className={classes.masteryWrapper}>
           <div className={classes.starsWrapper}>
-            <div className={classes.starOneWrapper}>
+            <div className={classes.starOneWrapper} id="starOne">
               {starOne
                 ? <StarIcon onClick={handleStarClick} id="starOne" />
                 : <StarBorderIcon onClick={handleStarClick} id="starOne" />}
             </div>
-            <div className={classes.starTwoWrapper}>
+            <div className={classes.starTwoWrapper} id="starTwo">
               {starTwo
                 ? <StarIcon onClick={handleStarClick} id="starTwo" />
                 : <StarBorderIcon onClick={handleStarClick} id="starTwo" />}
             </div>
-            <div className={classes.starThreeWrapper}>
+            <div className={classes.starThreeWrapper} id="starThree">
               {starThree
                 ? <StarIcon onClick={handleStarClick} id="starThree" />
                 : <StarBorderIcon onClick={handleStarClick} id="starThree" />}

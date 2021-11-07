@@ -34,6 +34,7 @@ function UserFlashcardTray(props) {
     userCardSetDatabase,
     roundState,
     uid,
+    fetchUserCardSets,
   } = props;
 
   // Sets flashcards to the currentCardSetName
@@ -42,11 +43,12 @@ function UserFlashcardTray(props) {
     if (flashcards) {
       const shuffled = (shuffleDeck([...flashcards]));
       setShuffledDeck(shuffled);
+      setCardCount(0);
       setCardQuantity(roundState.cardQuantity);
       const masteryPercentage = getMasteryPercentage([...flashcards]);
       setCurrentMasteryPercentage(masteryPercentage);
     }
-  }, [userCardSetDatabase, flashcards.length, currentCardSetName]);
+  }, [userCardSetDatabase, flashcards.length, currentCardSetName], isLoading);
 
   useEffect(() => {
     if (shuffledDeck.length > 0) {
@@ -134,11 +136,10 @@ function UserFlashcardTray(props) {
 
   // Reshuffles the deck once you've drawn all cards
   const handleStartOver = () => {
-    setCardCount(0);
-    const shuffled = (shuffleDeck(flashcards));
-    setShuffledDeck(shuffled);
     setCardAnimation('animateStartOver');
     setTimeout(() => {
+      setIsLoading(true);
+      fetchUserCardSets();
       setCardAnimation('animateInFirst');
     }, 100);
   };

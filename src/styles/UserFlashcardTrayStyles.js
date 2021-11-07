@@ -63,7 +63,7 @@ export default {
       animationName: '$flashcardStartOver',
       animationIterationCount: '1',
       animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
-      animationDuration: '500ms',
+      animationDuration: '1000ms',
     },
   },
 
@@ -114,7 +114,7 @@ export default {
 
       opacity: '1',
     },
-    '100%': {
+    '50%': {
 
       opacity: '0',
     },
