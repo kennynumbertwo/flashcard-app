@@ -15,6 +15,7 @@ function UserFlashcardTray(props) {
   const [shuffledDeck, setShuffledDeck] = useState([]);
   const [cardQuantity, setCardQuantity] = React.useState(0);
   const [cardCount, setCardCount] = useState(0);
+  const [cardAnimation, setCardAnimation] = useState('animateInFirst');
   const [showAnswer, toggleShowAnswer] = useToggle(false);
   const [currentMasteryRating, setCurrentMasteryRating] = useState(0);
   const [currentMasteryPercentage, setCurrentMasteryPercentage] = useState(0);
@@ -101,9 +102,13 @@ function UserFlashcardTray(props) {
   const handleNextCard = () => {
     if ((cardCount + 1) !== cardQuantity) {
       setCardCount(cardCount + 1);
+      setCardAnimation('animateOut');
       if (showAnswer) {
         toggleShowAnswer();
       }
+      setTimeout(() => {
+        setCardAnimation('animateIn');
+      }, 100);
     }
   };
 
@@ -111,9 +116,13 @@ function UserFlashcardTray(props) {
   const handlePreviousCard = () => {
     if (cardCount > 0) {
       setCardCount(cardCount - 1);
+      setCardAnimation('animatePrevOut');
       if (showAnswer) {
         toggleShowAnswer();
       }
+      setTimeout(() => {
+        setCardAnimation('animatePrevIn');
+      }, 100);
     }
   };
 
@@ -217,17 +226,19 @@ function UserFlashcardTray(props) {
       <div className={classes.progressBarWrapper}>
         {/* <ProgressBar progressPercent={((cardCount + 1) / cardQuantity) * 100} /> */}
       </div>
-      <div className={classes.flashcardWrapper}>
+      <div className={`${classes.flashcardWrapper} ${cardAnimation}`}>
         {shuffledDeck.length > 0
         && (
-          <Flashcard
-            question={shuffledDeck[cardCount].question}
-            answer={shuffledDeck[cardCount].answer}
-            cardNumber={shuffledDeck[cardCount].cardNumber}
-            showAnswer={showAnswer}
-            masteryRating={shuffledDeck[cardCount].masteryRating}
-            setstarState={setstarState}
-          />
+          <div className={cardAnimation}>
+            <Flashcard
+              question={shuffledDeck[cardCount].question}
+              answer={shuffledDeck[cardCount].answer}
+              cardNumber={shuffledDeck[cardCount].cardNumber}
+              showAnswer={showAnswer}
+              masteryRating={shuffledDeck[cardCount].masteryRating}
+              setstarState={setstarState}
+            />
+          </div>
         )}
       </div>
       <div className={classes.actionsWrapper}>

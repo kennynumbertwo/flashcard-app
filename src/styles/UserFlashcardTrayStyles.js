@@ -29,7 +29,81 @@ export default {
     // border: '1px solid black',
     // height: '350px',
     width: '100%',
+    '& .animateInFirst': {
+      animationName: '$flashcardSlideInFirst',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '1000ms',
+    },
+    '& .animateIn': {
+      animationName: '$flashcardSlideIn',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '350ms',
+    },
+    '& .animateOut': {
+      animationName: '$flashcardSlideOut',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '350ms',
+    },
+    '& .animatePrevIn': {
+      animationName: '$flashcardSlidePrevIn',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '350ms',
+    },
+    '& .animatePrevOut': {
+      animationName: '$flashcardSlidePrevOut',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '350ms',
+    },
   },
+
+  '@keyframes flashcardSlideInFirst': {
+    '0%': {
+      transform: 'translateX(200%)',
+    },
+    '50%': {
+      transform: 'translateX(200%)',
+    },
+  },
+
+  '@keyframes flashcardSlideIn': {
+    '0%': {
+      transform: 'translateX(200%)',
+    },
+    '1000%': {
+      transform: 'translateX(0%)',
+    },
+  },
+
+  '@keyframes flashcardSlideOut': {
+    '0%': {
+      transform: 'translateX(0%)',
+    },
+    '100%': {
+      transform: 'translateX(-200%)',
+    },
+  },
+  '@keyframes flashcardSlidePrevIn': {
+    '0%': {
+      transform: 'translateX(-200%)',
+    },
+    '100%': {
+      transform: 'translateX(0)',
+    },
+  },
+  '@keyframes flashcardSlidePrevOut': {
+    '0%': {
+      transform: 'translateX(0%)',
+    },
+    '100%': {
+      transform: 'translateX(200%)',
+    },
+  },
+
   startButton: {
     width: '200px',
     height: '50px',
