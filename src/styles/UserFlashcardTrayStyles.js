@@ -26,6 +26,7 @@ export default {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: '75px',
     // border: '1px solid black',
     // height: '350px',
     width: '100%',
@@ -80,7 +81,7 @@ export default {
     '0%': {
       transform: 'translateX(200%)',
     },
-    '1000%': {
+    '100%': {
       transform: 'translateX(0%)',
     },
   },

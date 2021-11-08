@@ -13,7 +13,21 @@ const styles = {
     height: '70px',
     color: 'rgba(0, 0, 0, 0.7)',
     fontSize: '.88rem',
-    // border: '1px solid black',
+    animationName: '$newCardSlide',
+    animationDuration: '300ms',
+    animationTimingFunction: 'ease-in-out',
+    animationIterationCount: '1',
+  },
+
+  '@keyframes newCardSlide': {
+    '0%': {
+      // transform: 'translateY(-50%)',
+      opacity: '0',
+    },
+    '100%': {
+      // transform: 'translateY(0%)',
+      opacity: '1',
+    },
   },
   CardItemWrapperInner: {
     display: 'flex',
@@ -25,6 +39,7 @@ const styles = {
     borderRadius: '3px',
     border: '1px solid rgba(0, 0, 0, 0.1)',
     boxShadow: '0px 1px 7px 0px rgba(0, 0, 0, 0.1)',
+
   },
   CardItemNumWrapper: {
     display: 'flex',

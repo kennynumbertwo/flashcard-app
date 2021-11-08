@@ -27,7 +27,6 @@ import UserCollectionsPage from './UserCollectionsPage';
 import FlashcardTray from './FlashcardTray';
 import About from './About';
 import Login from './Login';
-import HomePage from './HomePage';
 import AccountMenu from './AccountMenu';
 import db from './firebase.config';
 import EditDeckList from './EditDeckList';
@@ -123,13 +122,8 @@ export default function DrawerNav(props) {
     errorMessage: '',
     userCardSetDatabase: null,
   });
-  // const [editDeckState, setEditDeckState] = useState({
-  //   deckToEdit: {},
-  //   deckToAddCards: {},
-  // });
   const [roundState, setRoundState] = useState({
     cardQuantity: 0,
-
   });
   // Checks if user is logged in, if not, login page is shown
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -289,12 +283,6 @@ export default function DrawerNav(props) {
       >
         {/* ROUTES */}
         <Switch>
-          {/* HOME PAGE */}
-          <Route
-            exact
-            path="/"
-            render={() => <HomePage isLoggedIn={isLoggedIn} />}
-          />
           {/* LOGIN PAGE */}
           <Route
             exact

@@ -9,6 +9,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PuffLoader from 'react-spinners/PuffLoader';
 import { v4 as uuidv4 } from 'uuid';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import styles from './styles/EditDeckListStyles';
 import EditDeckListItem from './EditDeckListItem';
 import EditDeckListItemBlank from './EditDeckListItemBlank';
@@ -39,6 +41,8 @@ function EditDeckList(props) {
     isViewing: false,
     cardSet: {},
   });
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(10);
 
   // State for Material UI Dropdown
   const [filterOptions, setFilterOptions] = useState([]);
@@ -158,6 +162,8 @@ function EditDeckList(props) {
     if (!isEditingDecksTab) {
       setIsEditingDecksTab(true);
       setIsEditingCardsTab(false);
+      setStartIndex(0);
+      setEndIndex(10);
       setIsViewingCardsState({ isViewing: false, cardSet: {} });
     }
   };
@@ -179,6 +185,19 @@ function EditDeckList(props) {
   // Click handler for the Add Card
   const handleAddCardClick = () => {
     setIsAddingCard(true);
+  };
+
+  const handlePrevPage = () => {
+    if (startIndex > 0) {
+      setStartIndex(startIndex - 10);
+      setEndIndex(endIndex - 10);
+    }
+  };
+  const handleNextPage = () => {
+    if (endIndex < isViewingCardsState.cardSet.cards.length) {
+      setStartIndex(startIndex + 10);
+      setEndIndex(endIndex + 10);
+    }
   };
 
   //  <---------------  Utility Functions for EditDeckList   --------------->
@@ -358,7 +377,7 @@ function EditDeckList(props) {
           />
           )}
           {isViewingCardsState.isViewing ? (
-            <div>
+            <div className={classes.viewingCardsWrapper}>
               <EditDeckListItem
                 key={isViewingCardsState.cardSet.id}
                 userCardSet={isViewingCardsState.cardSet}
@@ -385,19 +404,20 @@ function EditDeckList(props) {
                   getTotalMasteryRating={getTotalMasteryRating}
                 />
               )}
-              { isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards.map(card => (
-                <CardItem
-                  key={uuidv4()}
-                  uid={uid}
-                  userCardSetDatabase={userCardSetDatabase}
-                  cardSet={isViewingCardsState.cardSet}
-                  card={card}
-                  fetchUserCardSets={fetchUserCardSets}
-                  setIsViewingCardsState={setIsViewingCardsState}
-                  getDeletedCardArray={getDeletedCardArray}
-                  getTotalMasteryRating={getTotalMasteryRating}
-                />
-              ))}
+              { isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards
+                .slice(startIndex, endIndex).map(card => (
+                  <CardItem
+                    key={uuidv4()}
+                    uid={uid}
+                    userCardSetDatabase={userCardSetDatabase}
+                    cardSet={isViewingCardsState.cardSet}
+                    card={card}
+                    fetchUserCardSets={fetchUserCardSets}
+                    setIsViewingCardsState={setIsViewingCardsState}
+                    getDeletedCardArray={getDeletedCardArray}
+                    getTotalMasteryRating={getTotalMasteryRating}
+                  />
+                ))}
             </div>
           )
             : (
@@ -447,9 +467,17 @@ function EditDeckList(props) {
 
       <div className={classes.dividerEnd} />
       {isViewingCardsState.isViewing ? (
-        <div className={classes.addIconWrapper} onClick={handleAddCardClick}>
-          <i className="far fa-plus-square" />
-          <p className={classes.addDeckLabel}>ADD CARD</p>
+        <div className={classes.viewingButtonWrapper}>
+          <button className={classes.prevCardButton} type="button">
+            <ChevronLeftIcon fontSize="large" onClick={handlePrevPage} />
+          </button>
+          <div className={classes.addIconWrapper} onClick={handleAddCardClick}>
+            <i className="far fa-plus-square" />
+            <p className={classes.addDeckLabel}>ADD CARD</p>
+          </div>
+          <button className={classes.nextCardButton} type="button">
+            <ChevronRightIcon fontSize="large" onClick={handleNextPage} />
+          </button>
         </div>
 
       )

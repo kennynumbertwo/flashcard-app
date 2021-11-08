@@ -236,4 +236,57 @@ export default {
       cursor: 'pointer',
     },
   },
+  prevCardButton: {
+    border: 'none',
+    backgroundColor: 'white',
+    borderRadius: '50px',
+    boxShadow: '1px 1px 2px 0px rgba(0, 0, 0, 0.6)',
+    '& svg': {
+      transition: 'all .5s ease-in-out',
+      color: 'rgba(0, 0, 0, 0.6)',
+    },
+    '&:hover': {
+      cursor: 'pointer',
+      boxShadow: '1px 2px 3px 0px rgba(0, 0, 0, 0.6)',
+    },
+    animationName: '$buttonFadeIn',
+    animationIterationCount: '1',
+    animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+    animationDuration: '800ms',
+  },
+  '@keyframes buttonFadeIn': {
+    '0%': {
+      opacity: '0',
+    },
+    '50%': {
+      opacity: '0',
+    },
+  },
+  nextCardButton: {
+    border: 'none',
+    backgroundColor: 'white',
+    borderRadius: '50px',
+    boxShadow: '1px 1px 2px 0px rgba(0, 0, 0, 0.6)',
+    '& svg': {
+      transition: 'all .5s ease-in-out',
+      color: 'rgba(0, 0, 0, 0.6)',
+    },
+    '&:hover': {
+      cursor: 'pointer',
+      boxShadow: '1px 2px 3px 0px rgba(0, 0, 0, 0.6)',
+    },
+    animationName: '$buttonFadeIn',
+    animationIterationCount: '1',
+    animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+    animationDuration: '850ms',
+  },
+  viewingButtonWrapper: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: '300px',
+  },
+  viewingCardsWrapper: {
+    minHeight: '562px',
+  },
 };

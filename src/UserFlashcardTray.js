@@ -234,9 +234,6 @@ function UserFlashcardTray(props) {
           iconClass={flashcards[0].iconClass}
         />
       </div>
-      <div className={classes.progressBarWrapper}>
-        {/* <ProgressBar progressPercent={((cardCount + 1) / cardQuantity) * 100} /> */}
-      </div>
       <div className={`${classes.flashcardWrapper} ${cardAnimation}`}>
         {shuffledDeck.length > 0
         && (
