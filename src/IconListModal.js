@@ -81,14 +81,22 @@ const styles = {
     height: '600px',
     // border: '1px solid black',
   },
-
+  iconsWrapperOuter: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    width: '100%',
+    height: '552px',
+    // border: '1px solid black',
+  },
   iconsWrapperInner: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    // height: '300px',
+    // height: '552px',
     // border: '1px solid black',
   },
 
@@ -97,7 +105,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: '50px',
+    height: '65px',
     // border: '1px solid black',
 
   },
@@ -258,7 +266,7 @@ function IconList(props) {
             ))}
           </Menu>
         </div>
-        <div className={classes.iconListModal}>
+        <div className={classes.iconsWrapperOuter}>
           <div className={classes.iconsWrapperInner}>
             {!isFiltered && pageList[showPageNum].map(icon => (
               <IconCard
