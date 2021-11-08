@@ -5,25 +5,15 @@ import styles from './styles/FlashcardSyles';
 function Flashcard(props) {
   const { classes, question, answer } = props;
 
-  const questionBlock = (
-    <div>
-      <p>{question}</p>
-    </div>
-  );
-
-  const answerBlock = (
-    <div>
-      <p>{answer}</p>
-    </div>
-  );
-
   return (
     <div className={classes.Flashcard}>
-      <div className={classes.question}>
-        {questionBlock}
+      <div className={classes.questionWrapper}>
+        <p className={classes.questionText}>{question}</p>
       </div>
-      <div className={classes.answer}>
-        {props.showAnswer && answerBlock}
+      <div className={classes.answerWrapper}>
+        {props.showAnswer && (
+          <p className={classes.answerText}>{answer}</p>
+        )}
       </div>
     </div>
   );

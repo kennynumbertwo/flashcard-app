@@ -12,18 +12,45 @@ export default {
     boxShadow: '5px 5px 10px 5px rgba(0, 0, 0, .1)',
     color: 'rgb(30, 30, 30)',
   },
-  question: {
+  questionWrapper: {
+    height: '50%',
+    width: '100%',
+    // border: '1px solid black',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+  },
+  questionText: {
     // border: '1px solid black',
     height: '15%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  answer: {
-    height: '10%',
+  answerWrapper: {
+    height: '50%',
+    width: '100%',
     // border: '1px solid black',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+
+  },
+  answerText: {
+    animationName: '$answerIn',
+    animationDuration: '400ms',
+    animationTimingFunction: 'ease-in-out',
+    animationCount: '1',
+  },
+
+  '@keyframes answerIn': {
+    '0%': {
+      opacity: 0,
+
+    },
+    '100%': {
+      opacity: 1,
+
+    },
   },
 };
