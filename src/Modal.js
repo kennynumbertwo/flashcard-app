@@ -14,8 +14,8 @@ function Modal(props) {
     secondButtonText,
   } = props;
 
-  const handleButtonClick = () => {
-    if (buttonAction) {
+  const handleButtonClick = (e) => {
+    if (e.target.id === 'accept' && buttonAction) {
       buttonAction();
     }
     setAnimatingOut(true);
@@ -36,8 +36,8 @@ function Modal(props) {
               {secondButton
                 ? (
                   <div className="secondButtonContainer">
-                    <button className="closeModalDeny" onClick={handleButtonClick} type="button">{secondButtonText}</button>
-                    <button className="closeModalAccept" onClick={handleButtonClick} type="button">{buttonText}</button>
+                    <button id="deny" className="closeModalDeny" onClick={handleButtonClick} type="button">{secondButtonText}</button>
+                    <button id="accept" className="closeModalAccept" onClick={handleButtonClick} type="button">{buttonText}</button>
                   </div>
                 )
                 : <button className="closeModal" onClick={handleButtonClick} type="button">{buttonText}</button>}

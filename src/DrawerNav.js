@@ -24,7 +24,6 @@ import { getDoc, doc } from 'firebase/firestore/lite';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import CollectionsPage from './CollectionsPage';
 import UserCollectionsPage from './UserCollectionsPage';
-import StockFlashcardTray from './StockFlashcardTray';
 import About from './About';
 import Login from './Login';
 import AccountMenu from './AccountMenu';
@@ -117,6 +116,8 @@ export default function DrawerNav(props) {
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = useState({});
   const [userCardCollections, setUserCardCollections] = useState([]);
+  const [isShowingMastery, setIsShowingMastery] = useState(false);
+  const [isShowingModal, setIsShowingModal] = useState(true);
   const [userDeckState, setUserDeckState] = useState({
     isLoading: false,
     errorMessage: '',
@@ -297,7 +298,7 @@ export default function DrawerNav(props) {
               />
             )}
           />
-          {/* COLLECTION PAGE */}
+          {/* STOCK COLLECTION PAGE */}
           <Route
             exact
             path="/collections"
@@ -309,25 +310,6 @@ export default function DrawerNav(props) {
                 isLoggedIn={isLoggedIn}
                 roundState={roundState}
                 setRoundState={setRoundState}
-              />
-            )}
-          />
-          {/* STOCK INDIVIDUAL SET / FLASHCARD PAGE */}
-          <Route
-            exact
-            path="/collections/:setName"
-            render={() => (
-              <UserFlashcardTray
-                userCardSetDatabase={cardSetDatabase}
-                currentCardSetName={currentCardSetName}
-                isLoggedIn={isLoggedIn}
-                roundState={roundState}
-                setRoundState={setRoundState}
-                fetchUserCardSets={fetchUserCardSets}
-                uid={user.uid}
-                isShowingMastery={false}
-                stockCardSet
-                fetchStockCards={fetchStockCards}
               />
             )}
           />
@@ -348,6 +330,29 @@ export default function DrawerNav(props) {
               />
             )}
           />
+          {/* STOCK INDIVIDUAL SET / FLASHCARD PAGE */}
+          <Route
+            exact
+            path="/collections/:setName"
+            render={() => (
+              <UserFlashcardTray
+                userCardSetDatabase={cardSetDatabase}
+                currentCardSetName={currentCardSetName}
+                isLoggedIn={isLoggedIn}
+                roundState={roundState}
+                setRoundState={setRoundState}
+                fetchUserCardSets={fetchUserCardSets}
+                uid={user.uid}
+                isShowingMastery={isShowingMastery}
+                setIsShowingMastery={setIsShowingMastery}
+                stockCardSet
+                fetchStockCards={fetchStockCards}
+                isShowingModal={isShowingModal}
+                setIsShowingModal={setIsShowingModal}
+              />
+            )}
+          />
+          {/* USER INDIVIDUAL SET / FLASHCARD PAGE */}
           <Route
             exact
             path="/my-collections/:setName"
@@ -360,7 +365,6 @@ export default function DrawerNav(props) {
                 setRoundState={setRoundState}
                 fetchUserCardSets={fetchUserCardSets}
                 uid={user.uid}
-                isShowingMastery
                 userCardSet
               />
             )}

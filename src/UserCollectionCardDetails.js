@@ -152,11 +152,13 @@ function UserCollectionCardDetails(props) {
     totalCards,
     iconClass,
     url,
+    addSetUrl,
     setRoundState,
     setCurrentCardSetName,
     fetchUserCardSets,
     mastery,
     resetUserCollectionsState,
+    stockDeck,
   } = props;
 
   const [cardQuantity, setCardQuantity] = React.useState(totalCards);
@@ -228,10 +230,20 @@ function UserCollectionCardDetails(props) {
         </FormControl>
       </div>
       <div className={classes.buttonWrapper}>
-        <Link className={classes.buttonLink} to={url}>
-          <button className={classes.button} type="button" onClick={handleStart}>Start</button>
-        </Link>
+        {stockDeck
+          ? (
+            <Link className={classes.buttonLink} to={addingToCollection ? addSetUrl : url}>
+              <button className={classes.button} type="button" onClick={handleStart}>Start</button>
+            </Link>
+          )
+          : (
+            <Link className={classes.buttonLink} to={url}>
+              <button className={classes.button} type="button" onClick={handleStart}>Start</button>
+            </Link>
+          )}
+
       </div>
+
     </div>
   );
 }

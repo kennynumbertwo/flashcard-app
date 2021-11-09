@@ -38,10 +38,18 @@ export default {
   },
   answerText: {
     color: 'rgba(0, 0, 0, 0.6)',
-    animationName: '$answerIn',
-    animationDuration: '400ms',
-    animationTimingFunction: 'ease-in-out',
-    animationCount: '1',
+    '&.answerIn': {
+      animationName: '$answerIn',
+      animationDuration: '300ms',
+      animationTimingFunction: 'ease-in-out',
+      animationCount: '1',
+    },
+    '&.answerOut': {
+      animationName: '$answerOut',
+      animationDuration: '250ms',
+      animationTimingFunction: 'ease-in-out',
+      animationCount: '1',
+    },
   },
 
   '@keyframes answerIn': {
@@ -51,6 +59,16 @@ export default {
     },
     '100%': {
       opacity: 1,
+
+    },
+  },
+  '@keyframes answerOut': {
+    '0%': {
+      opacity: 1,
+
+    },
+    '100%': {
+      opacity: 0,
 
     },
   },

@@ -216,6 +216,7 @@ function UserCollectionsPage(props) {
     sortId: 'setName',
     sortAsc: true,
   });
+
   // State for filter
   const [filterState, setFilterState] = useState({
     isFiltered: false,

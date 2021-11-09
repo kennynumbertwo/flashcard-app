@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/styles';
 import styles from './styles/FlashcardSyles';
 
 function Flashcard(props) {
-  const { classes, question, answer } = props;
+  const { classes, question, answer, answerAnimation } = props;
 
   return (
     <div className={classes.Flashcard}>
@@ -12,7 +12,7 @@ function Flashcard(props) {
       </div>
       <div className={classes.answerWrapper}>
         {props.showAnswer && (
-          <p className={classes.answerText}>{answer}</p>
+          <p className={`${classes.answerText} ${answerAnimation}`}>{answer}</p>
         )}
       </div>
     </div>

@@ -10,6 +10,7 @@ import Flashcard from './Flashcard';
 import FlashcardStats from './FlashcardStats';
 import FlashcardActions from './FlashcardActions';
 import db from './firebase.config';
+import Modal from './Modal';
 
 function UserFlashcardTray(props) {
   const [flashcards, setFlashcards] = useState([]);
@@ -17,6 +18,7 @@ function UserFlashcardTray(props) {
   const [cardQuantity, setCardQuantity] = React.useState(0);
   const [cardCount, setCardCount] = useState(0);
   const [cardAnimation, setCardAnimation] = useState('animateInFirst');
+  const [answerAnimation, setAnswerAnimation] = useState('answerIn');
   const [showAnswer, toggleShowAnswer] = useToggle(false);
   const [currentMasteryRating, setCurrentMasteryRating] = useState(0);
   const [currentMasteryPercentage, setCurrentMasteryPercentage] = useState(0);
@@ -37,9 +39,17 @@ function UserFlashcardTray(props) {
     fetchUserCardSets,
     fetchStockCards,
     isShowingMastery,
+    setIsShowingMastery,
     userCardSet,
     stockCardSet,
+    isShowingModal,
+    setIsShowingModal,
   } = props;
+
+  useEffect(() => {
+    setIsShowingModal(true);
+    setIsShowingMastery(false);
+  }, []);
 
   // Sets flashcards to the currentCardSetName
   useEffect(() => {
@@ -135,7 +145,16 @@ function UserFlashcardTray(props) {
 
   // Function to toggle viewing the answer
   const handleShowAnswer = () => {
-    toggleShowAnswer(!showAnswer);
+    if (showAnswer) {
+      setAnswerAnimation('answerOut');
+      setTimeout(() => {
+        toggleShowAnswer(false);
+      }, 200);
+    }
+    if (!showAnswer) {
+      toggleShowAnswer(true);
+      setAnswerAnimation('answerIn');
+    }
   };
 
   // Reshuffles the deck once you've drawn all cards
@@ -228,6 +247,13 @@ function UserFlashcardTray(props) {
     );
   };
 
+  const handleModalYes = () => {
+    setIsShowingMastery(true);
+  };
+  const handleModalHide = () => {
+    setIsShowingModal(false);
+  };
+
   if (!isLoggedIn) {
     return <Redirect to="/login" />;
   }
@@ -255,6 +281,7 @@ function UserFlashcardTray(props) {
             <Flashcard
               question={shuffledDeck[cardCount].question}
               answer={shuffledDeck[cardCount].answer}
+              answerAnimation={answerAnimation}
               cardNumber={shuffledDeck[cardCount].cardNumber}
               showAnswer={showAnswer}
               masteryRating={shuffledDeck[cardCount].masteryRating}
@@ -283,6 +310,15 @@ function UserFlashcardTray(props) {
       <button className={classes.restartButton} type="button">
         <RestartAltIcon fontSize="medium" onClick={handleStartOver} />
       </button>
+      <Modal
+        isShowing={isShowingModal}
+        buttonText="Yes"
+        secondButton
+        secondButtonText="No"
+        messageText="Would you like to add this deck to your collection and track mastery?"
+        buttonAction={handleModalYes}
+        hide={handleModalHide}
+      />
     </div>
   );
 }
