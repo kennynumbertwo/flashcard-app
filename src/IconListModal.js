@@ -55,14 +55,12 @@ const styles = {
     display: 'flex',
     justifyContent: 'flex-end',
     alignItem: 'center',
-    // border: '1px solid black',
     paddingBottom: '0px',
     width: '98%',
     '& svg': {
       color: 'rgba(0, 0, 0, .6)',
       display: 'flex',
       marginRight: 'auto',
-      // marginLeft: '15px',
       alignSelf: 'center',
       transition: 'all .5s',
       '&:hover': {
@@ -79,7 +77,6 @@ const styles = {
     alignItems: 'flex-start',
     width: '100%',
     height: '600px',
-    // border: '1px solid black',
   },
   iconsWrapperOuter: {
     display: 'flex',
@@ -88,7 +85,6 @@ const styles = {
     alignItems: 'flex-start',
     width: '100%',
     height: '552px',
-    // border: '1px solid black',
   },
   iconsWrapperInner: {
     display: 'flex',
@@ -96,8 +92,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    // height: '552px',
-    // border: '1px solid black',
   },
 
   pageNavWrapper: {
@@ -106,8 +100,6 @@ const styles = {
     alignItems: 'center',
     width: '100%',
     height: '65px',
-    // border: '1px solid black',
-
   },
   pageNavArrowWrapper: {
     display: 'flex',
@@ -117,7 +109,6 @@ const styles = {
     width: '35px',
     padding: '0px 0px 0px 0px',
     margin: '0px 15px 0px 15px',
-    // border: '1px solid black',
     borderRadius: '50px',
     transition: 'all .5s',
     color: 'rgba(0, 0, 0, .6)',

@@ -14,7 +14,7 @@ export default {
   },
   questionWrapper: {
     height: '50%',
-    width: '100%',
+    width: '85%',
     // border: '1px solid black',
     display: 'flex',
     justifyContent: 'center',
@@ -29,14 +29,15 @@ export default {
   },
   answerWrapper: {
     height: '50%',
-    width: '100%',
+    width: '85%',
     // border: '1px solid black',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
-
+    paddingTop: '5px',
   },
   answerText: {
+    color: 'rgba(0, 0, 0, 0.6)',
     animationName: '$answerIn',
     animationDuration: '400ms',
     animationTimingFunction: 'ease-in-out',

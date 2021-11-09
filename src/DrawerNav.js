@@ -24,7 +24,7 @@ import { getDoc, doc } from 'firebase/firestore/lite';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import CollectionsPage from './CollectionsPage';
 import UserCollectionsPage from './UserCollectionsPage';
-import FlashcardTray from './FlashcardTray';
+import StockFlashcardTray from './StockFlashcardTray';
 import About from './About';
 import Login from './Login';
 import AccountMenu from './AccountMenu';
@@ -134,6 +134,7 @@ export default function DrawerNav(props) {
     setCurrentCardSetName,
     currentCardSetName,
     getCardCollections,
+    fetchStockCards,
   } = props;
 
   // Opens Material UI Drawer
@@ -316,13 +317,17 @@ export default function DrawerNav(props) {
             exact
             path="/collections/:setName"
             render={() => (
-              <FlashcardTray
-                cardSetDatabase={cardSetDatabase}
-                userCardSetDatabase={userDeckState.userCardSetDatabase}
+              <UserFlashcardTray
+                userCardSetDatabase={cardSetDatabase}
                 currentCardSetName={currentCardSetName}
                 isLoggedIn={isLoggedIn}
                 roundState={roundState}
                 setRoundState={setRoundState}
+                fetchUserCardSets={fetchUserCardSets}
+                uid={user.uid}
+                isShowingMastery={false}
+                stockCardSet
+                fetchStockCards={fetchStockCards}
               />
             )}
           />
@@ -355,6 +360,8 @@ export default function DrawerNav(props) {
                 setRoundState={setRoundState}
                 fetchUserCardSets={fetchUserCardSets}
                 uid={user.uid}
+                isShowingMastery
+                userCardSet
               />
             )}
           />

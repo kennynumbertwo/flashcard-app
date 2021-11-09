@@ -35,10 +35,6 @@ function UserFlashcardTray(props) {
     roundState,
     uid,
     fetchUserCardSets,
-    fetchStockCards,
-    isShowingMastery,
-    userCardSet,
-    stockCardSet,
   } = props;
 
   // Sets flashcards to the currentCardSetName
@@ -140,22 +136,12 @@ function UserFlashcardTray(props) {
 
   // Reshuffles the deck once you've drawn all cards
   const handleStartOver = () => {
-    if (userCardSet) {
-      setCardAnimation('animateStartOver');
-      setTimeout(() => {
-        setIsLoading(true);
-        fetchUserCardSets();
-        setCardAnimation('animateInFirst');
-      }, 100);
-    }
-    if (stockCardSet) {
-      setCardAnimation('animateStartOver');
-      setTimeout(() => {
-        setIsLoading(true);
-        fetchStockCards();
-        setCardAnimation('animateInFirst');
-      }, 100);
-    }
+    setCardAnimation('animateStartOver');
+    setTimeout(() => {
+      setIsLoading(true);
+      fetchUserCardSets();
+      setCardAnimation('animateInFirst');
+    }, 100);
   };
 
   const handleStarClick = (e) => {
@@ -274,7 +260,6 @@ function UserFlashcardTray(props) {
           cardQuantity={cardQuantity}
           starState={starState}
           height={100}
-          isShowingMastery={isShowingMastery}
         />
       </div>
       <button className={classes.showAnswerButton} type="button">

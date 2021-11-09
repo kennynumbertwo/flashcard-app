@@ -20,7 +20,7 @@ function MainContainer(props) {
 
   // Fetches cards from Firebase on first render and set's them to the cardSetDatabase
   useEffect(() => {
-    fetchCards();
+    fetchStockCards();
     setLoading(false);
   }, []);
 
@@ -30,7 +30,7 @@ function MainContainer(props) {
   }, [cardSetDatabase]);
 
   // Function to fetch the Firebase DB and set it to cardSetDatabase
-  const fetchCards = async () => {
+  const fetchStockCards = async () => {
     let cardArray = [];
     const cardSet = collection(db, 'cardSets');
     const cardData = await getDocs(cardSet);
@@ -68,6 +68,7 @@ function MainContainer(props) {
   return (
     <div className={classes.root}>
       <DrawerNav
+        fetchStockCards={fetchStockCards}
         cardSetDatabase={cardSetDatabase}
         cardCollections={cardCollections}
         updateCardSetName={updateCardSetName}
