@@ -310,6 +310,7 @@ export default function DrawerNav(props) {
                 isLoggedIn={isLoggedIn}
                 roundState={roundState}
                 setRoundState={setRoundState}
+                handleDrawerClose={handleDrawerClose}
               />
             )}
           />
@@ -327,6 +328,7 @@ export default function DrawerNav(props) {
                 roundState={roundState}
                 setRoundState={setRoundState}
                 fetchUserCardSets={fetchUserCardSets}
+                handleDrawerClose={handleDrawerClose}
               />
             )}
           />
@@ -364,6 +366,7 @@ export default function DrawerNav(props) {
                 roundState={roundState}
                 setRoundState={setRoundState}
                 fetchUserCardSets={fetchUserCardSets}
+                isShowingMastery
                 uid={user.uid}
                 userCardSet
               />

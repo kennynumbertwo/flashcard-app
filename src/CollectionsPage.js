@@ -121,6 +121,7 @@ function CollectionsPage(props) {
     roundState,
     setRoundState,
     setCurrentCardSetName,
+    handleDrawerClose,
   } = props;
 
   useEffect(() => {

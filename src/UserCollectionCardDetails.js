@@ -159,6 +159,7 @@ function UserCollectionCardDetails(props) {
     mastery,
     resetUserCollectionsState,
     stockDeck,
+    handleDrawerClose,
   } = props;
 
   const [cardQuantity, setCardQuantity] = React.useState(totalCards);
@@ -167,6 +168,7 @@ function UserCollectionCardDetails(props) {
     setRoundState({ cardQuantity });
     setCurrentCardSetName(setName);
     resetUserCollectionsState();
+    handleDrawerClose();
     fetchUserCardSets();
   };
 

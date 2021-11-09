@@ -194,15 +194,16 @@ export default {
     },
   },
   addIconWrapper: {
-    // border: '1px solid black',
     // width: '100%',
     paddingTop: '15px',
-    height: '80px',
+    height: '75px',
+    width: '80px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
     fontSize: '1.8rem',
+    borderRadius: '10px',
     color: 'rgba(0, 0, 0, 0.6)',
     transition: 'all 0.4s ease 0s',
     '& p': {
@@ -238,16 +239,17 @@ export default {
   },
   prevCardButton: {
     border: 'none',
-    backgroundColor: 'white',
+    backgroundColor: 'inherit',
     borderRadius: '50px',
-    boxShadow: '1px 1px 2px 0px rgba(0, 0, 0, 0.6)',
+    transition: 'all 0.4s ease 0s',
     '& svg': {
       transition: 'all .5s ease-in-out',
       color: 'rgba(0, 0, 0, 0.6)',
-    },
-    '&:hover': {
-      cursor: 'pointer',
-      boxShadow: '1px 2px 3px 0px rgba(0, 0, 0, 0.6)',
+      '&:hover': {
+        color: 'rgba(7, 177, 77, 0.7)',
+        transition: 'all 0.4s ease 0s',
+        cursor: 'pointer',
+      },
     },
     animationName: '$buttonFadeIn',
     animationIterationCount: '1',
@@ -264,16 +266,17 @@ export default {
   },
   nextCardButton: {
     border: 'none',
-    backgroundColor: 'white',
+    backgroundColor: 'inherit',
     borderRadius: '50px',
-    boxShadow: '1px 1px 2px 0px rgba(0, 0, 0, 0.6)',
+    transition: 'all 0.4s ease 0s',
     '& svg': {
       transition: 'all .5s ease-in-out',
       color: 'rgba(0, 0, 0, 0.6)',
-    },
-    '&:hover': {
-      cursor: 'pointer',
-      boxShadow: '1px 2px 3px 0px rgba(0, 0, 0, 0.6)',
+      '&:hover': {
+        color: 'rgba(7, 177, 77, 0.7)',
+        transition: 'all 0.4s ease 0s',
+        cursor: 'pointer',
+      },
     },
     animationName: '$buttonFadeIn',
     animationIterationCount: '1',

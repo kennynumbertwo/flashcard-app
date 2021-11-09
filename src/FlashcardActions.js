@@ -10,7 +10,6 @@ const styles = {
     justifyContent: 'flex-end',
     alignItems: 'center',
     flexDirection: 'column',
-    // border: '1px solid black',
     width: '100%',
     height: props => (`${props.height}px`),
   },
@@ -79,14 +78,14 @@ function FlashcardActions(props) {
   return (
     <div className={classes.FlashcardActionsWrapper}>
       <div className={classes.FlashcardActionsWrapperInner}>
-        <button className={classes.prevCardButton} type="button">
-          <ChevronLeftIcon fontSize="large" onClick={handlePreviousCard} />
+        <button className={classes.prevCardButton} type="button" onClick={handlePreviousCard}>
+          <ChevronLeftIcon fontSize="large" />
         </button>
         {isShowingMastery
           ? (<Mastery starState={starState} handleStarClick={handleStarClick} />)
           : (<Mastery starState={starState} disabled />)}
-        <button className={classes.nextCardButton} type="button">
-          <ChevronRightIcon fontSize="large" onClick={handleNextCard} />
+        <button className={classes.nextCardButton} type="button" onClick={handleNextCard}>
+          <ChevronRightIcon fontSize="large" />
         </button>
       </div>
     </div>

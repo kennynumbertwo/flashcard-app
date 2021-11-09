@@ -247,6 +247,7 @@ function UserCollectionsPage(props) {
     setRoundState,
     setCurrentCardSetName,
     fetchUserCardSets,
+    handleDrawerClose,
   } = props;
 
   useEffect(() => {
@@ -559,6 +560,7 @@ function UserCollectionsPage(props) {
               url={`/my-collections/${userCardSet.id}`}
               fetchUserCardSets={fetchUserCardSets}
               resetUserCollectionsState={resetUserCollectionsState}
+              handleDrawerClose={handleDrawerClose}
             />
           ))
           : filterState.filtered.map(userCardSet => (
@@ -575,6 +577,7 @@ function UserCollectionsPage(props) {
               url={`/my-collections/${userCardSet.id}`}
               fetchUserCardSets={fetchUserCardSets}
               resetUserCollectionsState={resetUserCollectionsState}
+              handleDrawerClose={handleDrawerClose}
             />
           ))}
       </>
@@ -596,6 +599,7 @@ function UserCollectionsPage(props) {
               url={`/collections/${cardSet.id}`}
               fetchUserCardSets={fetchUserCardSets}
               resetUserCollectionsState={resetUserCollectionsState}
+              handleDrawerClose={handleDrawerClose}
             />
           ))
           : filterState.filtered.map(cardSet => (
@@ -612,6 +616,7 @@ function UserCollectionsPage(props) {
               url={`/collections/${cardSet.id}`}
               fetchUserCardSets={fetchUserCardSets}
               resetUserCollectionsState={resetUserCollectionsState}
+              handleDrawerClose={handleDrawerClose}
             />
           ))}
       </>

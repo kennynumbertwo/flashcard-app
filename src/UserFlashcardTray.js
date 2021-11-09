@@ -47,8 +47,10 @@ function UserFlashcardTray(props) {
   } = props;
 
   useEffect(() => {
-    setIsShowingModal(true);
-    setIsShowingMastery(false);
+    if (stockCardSet) {
+      setIsShowingModal(true);
+      setIsShowingMastery(false);
+    }
   }, []);
 
   // Sets flashcards to the currentCardSetName
@@ -250,6 +252,7 @@ function UserFlashcardTray(props) {
   const handleModalYes = () => {
     setIsShowingMastery(true);
   };
+
   const handleModalHide = () => {
     setIsShowingModal(false);
   };
@@ -312,9 +315,9 @@ function UserFlashcardTray(props) {
       </button>
       <Modal
         isShowing={isShowingModal}
-        buttonText="Yes"
+        buttonText={<i className="fas fa-thumbs-up" style={{ fontSize: '1.2rem' }} />}
         secondButton
-        secondButtonText="No"
+        secondButtonText={<i className="fas fa-thumbs-down" style={{ fontSize: '1.2rem' }} />}
         messageText="Would you like to add this deck to your collection and track mastery?"
         buttonAction={handleModalYes}
         hide={handleModalHide}

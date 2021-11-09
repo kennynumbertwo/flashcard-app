@@ -90,8 +90,8 @@ const styles = {
     transition: 'all 0.4s ease 0s',
     borderRadius: '5px',
     '&:hover': {
-      background: 'rgba(7, 177, 77, 0.7)',
-      borderColor: 'rgba(7, 177, 77, 0.7)',
+      background: 'rgba(245, 0, 86, 0.9)',
+      borderColor: 'rgba(245, 0, 86, 0.9)',
       transition: 'all 0.4s ease 0s',
       cursor: 'pointer',
     },

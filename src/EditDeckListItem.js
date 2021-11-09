@@ -8,6 +8,7 @@ import IconListModal from './IconListModal';
 import IconCard from './IconCard';
 import styles from './styles/EditDeckListItemStyles';
 import ProgressBarVert from './ProgressBarVert';
+import Modal from './Modal';
 
 function EditDeckListItem(props) {
   // State for editing an individual deck
@@ -19,6 +20,7 @@ function EditDeckListItem(props) {
   const [isAnimatingModal, setIsAnimatingModal] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState('');
   const [selectedIconClass, setSelectedIconClass] = useState(props.userCardSet.iconClass);
+  const [isShowingModal, setIsShowingModal] = useState(false);
 
   // Destructured Props
   const {
@@ -99,12 +101,21 @@ function EditDeckListItem(props) {
 
   // Click handler for the Delete button
   const handleDeleteClick = async () => {
+    setIsShowingModal(true);
+  };
+
+  // Click handler for the Delete button
+  const handleDeleteConfirm = async () => {
     const userRef = doc(db, 'users', uid);
     const updateString = `${setName.toLowerCase().replace(/\s+/g, '-')}`;
     deleteUserDatabaseSet(setName);
     await updateDoc(
       userRef, { [updateString]: deleteField() },
     );
+  };
+
+  const handleModalHide = () => {
+    setIsShowingModal(false);
   };
 
   // Click handler for the Delete button
@@ -237,8 +248,17 @@ function EditDeckListItem(props) {
           <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>
         </div>
         <div className={classes.buttonWrapper}>
-          <button className={classes.button} type="button" onClick={handleDeleteClick}>Delete</button>
+          <button className={classes.deleteButton} type="button" onClick={handleDeleteClick}>Delete</button>
         </div>
+        <Modal
+          isShowing={isShowingModal}
+          buttonText={<i className="fas fa-thumbs-up" style={{ fontSize: '1.2rem' }} />}
+          secondButton
+          secondButtonText={<i className="fas fa-thumbs-down" style={{ fontSize: '1.2rem' }} />}
+          messageText={`Are you sure you want to delete the ${setName} deck from your collection?`}
+          buttonAction={handleDeleteConfirm}
+          hide={handleModalHide}
+        />
       </div>
     );
   }
