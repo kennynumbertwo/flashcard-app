@@ -15,7 +15,7 @@ function Modal(props) {
   } = props;
 
   const handleButtonClick = (e) => {
-    if (e.target.id === 'accept' && buttonAction) {
+    if (e.currentTarget.id === 'accept' && buttonAction) {
       buttonAction();
     }
     setAnimatingOut(true);

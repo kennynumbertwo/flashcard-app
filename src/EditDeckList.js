@@ -11,6 +11,10 @@ import PuffLoader from 'react-spinners/PuffLoader';
 import { v4 as uuidv4 } from 'uuid';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import CheckIcon from '@mui/icons-material/Check';
 import styles from './styles/EditDeckListStyles';
 import EditDeckListItem from './EditDeckListItem';
 import EditDeckListItemBlank from './EditDeckListItemBlank';
@@ -55,6 +59,24 @@ function EditDeckList(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  // State for Material UI Snackbar
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnackbar(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <CheckIcon sx={{ paddingRight: '10px' }} />
+    </React.Fragment>
+  );
 
   // Destructured Props
   const {
@@ -374,6 +396,8 @@ function EditDeckList(props) {
             fetchUserCardSets={fetchUserCardSets}
             isAddingDeck={isAddingDeck}
             setIsAddingDeck={setIsAddingDeck}
+            setOpenSnackbar={setOpenSnackbar}
+            setSnackbarMessage={setSnackbarMessage}
           />
           )}
           {isViewingCardsState.isViewing ? (
@@ -402,6 +426,8 @@ function EditDeckList(props) {
                   setIsAddingCard={setIsAddingCard}
                   isViewingCardsState={isViewingCardsState}
                   getTotalMasteryRating={getTotalMasteryRating}
+                  setOpenSnackbar={setOpenSnackbar}
+                  setSnackbarMessage={setSnackbarMessage}
                 />
               )}
               { isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards
@@ -416,6 +442,8 @@ function EditDeckList(props) {
                     setIsViewingCardsState={setIsViewingCardsState}
                     getDeletedCardArray={getDeletedCardArray}
                     getTotalMasteryRating={getTotalMasteryRating}
+                    setOpenSnackbar={setOpenSnackbar}
+                    setSnackbarMessage={setSnackbarMessage}
                   />
                 ))}
             </div>
@@ -437,6 +465,8 @@ function EditDeckList(props) {
                       isEditingCardsTab={isEditingCardsTab}
                       isViewingCardsState={isViewingCardsState}
                       setIsViewingCardsState={setIsViewingCardsState}
+                      setOpenSnackbar={setOpenSnackbar}
+                      setSnackbarMessage={setSnackbarMessage}
                     />
                   ))
                   // Renders the filtered database if isFiltered is true
@@ -453,6 +483,8 @@ function EditDeckList(props) {
                       isEditingCardsTab={isEditingCardsTab}
                       isViewingCardsState={isViewingCardsState}
                       setIsViewingCardsState={setIsViewingCardsState}
+                      setOpenSnackbar={setOpenSnackbar}
+                      setSnackbarMessage={setSnackbarMessage}
                     />
                   ))}
               </div>
@@ -491,6 +523,13 @@ function EditDeckList(props) {
             ) }
           </>
         )}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+        message={snackbarMessage}
+        action={action}
+      />
     </div>
   );
 }

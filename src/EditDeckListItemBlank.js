@@ -29,6 +29,8 @@ function EditDeckListItem(props) {
     uid,
     fetchUserCardSets,
     setIsAddingDeck,
+    setOpenSnackbar,
+    setSnackbarMessage,
   } = props;
 
   useEffect(() => {
@@ -62,6 +64,8 @@ function EditDeckListItem(props) {
     await setDoc(userRef, { [deckFields.id]: deckFields }, { merge: true });
     fetchUserCardSets();
     setIsAddingDeck(false);
+    setOpenSnackbar(true);
+    setSnackbarMessage('Deck Added');
   };
 
   const handleChange = (e) => {

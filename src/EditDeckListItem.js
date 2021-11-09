@@ -34,6 +34,8 @@ function EditDeckListItem(props) {
     isEditingCardsTab,
     setIsViewingCardsState,
     isViewingCardsState,
+    setOpenSnackbar,
+    setSnackbarMessage,
   } = props;
   const { setName, category, iconClass, mastery } = userCardSet;
 
@@ -68,6 +70,8 @@ function EditDeckListItem(props) {
 
   // Click handler for the Save button when editing a deck
   const handleSaveClick = async () => {
+    setOpenSnackbar(true);
+    setSnackbarMessage('Deck Saved');
     let updatedCardSet = {
       ...userCardSet,
       setName: setNameInput,
@@ -108,6 +112,8 @@ function EditDeckListItem(props) {
   const handleDeleteConfirm = async () => {
     const userRef = doc(db, 'users', uid);
     const updateString = `${setName.toLowerCase().replace(/\s+/g, '-')}`;
+    setOpenSnackbar(true);
+    setSnackbarMessage('Deck Deleted');
     deleteUserDatabaseSet(setName);
     await updateDoc(
       userRef, { [updateString]: deleteField() },

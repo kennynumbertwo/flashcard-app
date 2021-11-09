@@ -134,7 +134,16 @@ const styles = {
 };
 
 function NewCardItem(props) {
-  const { classes, cardSet, uid, setIsAddingCard, fetchUserCardSets, getTotalMasteryRating } = props;
+  const {
+    classes,
+    cardSet,
+    uid,
+    setIsAddingCard,
+    fetchUserCardSets,
+    getTotalMasteryRating,
+    setOpenSnackbar,
+    setSnackbarMessage,
+  } = props;
   // Default state for New Cards
   const [newCardFields, setNewCardFields] = useState({
     question: '',
@@ -151,6 +160,8 @@ function NewCardItem(props) {
   };
 
   const handleSaveCard = async () => {
+    setSnackbarMessage('Card Added');
+    setOpenSnackbar(true);
     const userRef = doc(db, 'users', uid);
     const updateCardsString = `${cardSet.setName.toLowerCase().replace(/\s+/g, '-')}.cards`;
     await updateDoc(userRef, { [updateCardsString]: arrayUnion({

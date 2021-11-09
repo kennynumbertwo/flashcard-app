@@ -103,7 +103,16 @@ const styles = {
 };
 
 function CardItem(props) {
-  const { classes, card, card: { question, answer, cardNumber }, getDeletedCardArray, fetchUserCardSets, uid, getTotalMasteryRating } = props;
+  const { classes,
+    card,
+    card: { question, answer, cardNumber },
+    getDeletedCardArray,
+    fetchUserCardSets,
+    uid,
+    getTotalMasteryRating,
+    setOpenSnackbar,
+    setSnackbarMessage,
+  } = props;
 
   const handleDelete = async () => {
     let updatedCards = getDeletedCardArray(card);
@@ -115,6 +124,8 @@ function CardItem(props) {
     await updateDoc(
       userRef, { [updateMasteryString]: mastery }, { merge: true },
     );
+    setOpenSnackbar(true);
+    setSnackbarMessage('Card Deleted');
     fetchUserCardSets();
   };
 
