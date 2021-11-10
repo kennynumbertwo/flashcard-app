@@ -29,7 +29,6 @@ const styles = {
     justifyContent: 'flex-start',
     alignItems: 'center',
     fontWeight: 'bold',
-    // border: '1px solid black',
   },
   headerWrapper: {
     height: '50px',
@@ -38,7 +37,6 @@ const styles = {
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingLeft: '10px',
-    // border: '1px solid black',
   },
   navWrapperOuter: {
     height: '50px',
@@ -46,7 +44,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    // border: '1px solid black',
   },
   navWrapperInner: {
     height: '50px',
@@ -60,7 +57,6 @@ const styles = {
     '& .MuiTabs-indicator': {
       backgroundColor: 'rgba(74, 145, 103, 1)',
     },
-    // border: '1px solid black',
   },
   filterWrapper: {
     height: '50px',
@@ -69,7 +65,6 @@ const styles = {
     justifyContent: 'flex-end',
     alignItems: 'center',
     paddingRight: '10px',
-    // border: '1px solid black',
     marginLeft: 'auto',
   },
   divider: {
@@ -103,7 +98,7 @@ const styles = {
     backgroundColor: 'rgba(250, 250, 250, 0.4)',
     fontSize: '1rem',
     fontWeight: 'bold',
-    // border: '1px solid black',
+
   },
   headerCardWrapper: {
     display: 'flex',
@@ -139,7 +134,6 @@ const styles = {
       overflow: 'hidden',
       textOverflow: 'ellipsis',
     },
-    // border: '1px solid black',
   },
   categoryWrapper: {
     display: 'flex',
@@ -148,7 +142,6 @@ const styles = {
     width: '25%',
     height: '50px',
     padding: '0px 0px 0px 15px',
-    // border: '1px solid black',
   },
   masteryWrapper: {
     display: 'flex',
@@ -156,7 +149,6 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
-    // border: '1px solid black',
   },
   totalCardsWrapper: {
     display: 'flex',
@@ -164,7 +156,6 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
-    // border: '1px solid black',
   },
   iconWrapper: {
     display: 'flex',
@@ -172,7 +163,6 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
-    // border: '1px solid black',
   },
   sortIconWrapper: {
     display: 'flex',
@@ -196,8 +186,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // paddingRight: '10px',
-    // border: '1px solid black',
   },
 };
 

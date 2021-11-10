@@ -12,8 +12,8 @@ export default {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: 'white',
-    color: 'black',
+    backgroundColor: 'var(--background-white)',
+    color: 'var(--text-primary-dark)',
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -62,14 +62,14 @@ export default {
   },
   navLink: {
     textDecoration: 'none',
-    color: 'rgba(0, 0, 0, .8)',
+    color: 'var(--text-primary)',
     '& .navArrow': {
-      color: 'rgba(0, 0, 0, 0)',
+      color: 'var(--text-primary-dark)',
       transition: 'all .25s',
       transitionTimingFunction: 'ease-in-out',
     },
     '&:hover .navArrow': {
-      color: 'rgba(0, 0, 0, .8)',
+      color: 'var(--text-primary-dark)',
       transform: 'translateX(35%)',
     },
   },

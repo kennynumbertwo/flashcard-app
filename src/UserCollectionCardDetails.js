@@ -54,7 +54,6 @@ const styles = {
   },
   label: {
     margin: '0px 10px 0px 0px',
-    // border: '1px solid black',
   },
   masteryWrapper: {
     display: 'flex',
@@ -62,7 +61,6 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
-    // border: '1px solid black',
   },
   masteryWrapperInner: {
     display: 'flex',
@@ -70,7 +68,6 @@ const styles = {
     justifyContent: 'flex-start',
     width: '50px',
     height: '50px',
-    // border: '1px solid black',
   },
   masteryInfo: {
     padding: '0px 0px 0px 8px',
@@ -81,7 +78,6 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
-    // border: '1px solid black',
   },
   cardsWrapper: {
     display: 'flex',
@@ -89,7 +85,6 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
-    // border: '1px solid black',
   },
   iconWrapper: {
     display: 'flex',
@@ -97,7 +92,6 @@ const styles = {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
-    // border: '1px solid black',
   },
   iconImage: {
     height: '100%',
@@ -106,7 +100,6 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: '1.5rem',
-    // border: '1px solid black',
   },
   buttonWrapper: {
     display: 'flex',
@@ -115,7 +108,6 @@ const styles = {
     flexDirection: 'column',
     height: '50px',
     width: '20%',
-    // border: '1px solid black',
   },
   button: {
     display: 'flex',
