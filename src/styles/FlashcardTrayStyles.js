@@ -1,49 +1,126 @@
 export default {
   root: {
     // border: '1px solid black',
-    height: '100%',
-    width: '100%',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flext-start',
     alignItems: 'center',
     flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+    margin: '40px 0px 0px 0px',
     '& button': {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
     },
   },
-  preStart: {
+  flashcardStatsWrapper: {
+    // border: '1px solid black',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    height: '125px',
+    width: '100%',
+  },
+  flashcardWrapper: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column',
-    height: '100%',
+    marginTop: '75px',
+    // border: '1px solid black',
+    // height: '350px',
     width: '100%',
-  },
-  cardQuantitySelect: {
-    display: 'flex',
-    width: '100%',
-    height: '100px',
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    margin: '3rem',
-  },
-  buttonContainer: {
-    height: '100px',
-    width: '25vw',
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
-  nextButton: {
-    width: '160px',
-    backgroundColor: 'rgba(7, 177, 77, 0.9)',
-    color: 'white',
-    '&:hover': {
-      backgroundColor: 'rgba(7, 177, 77, 0.7)',
+    '& .animateInFirst': {
+      animationName: '$flashcardSlideInFirst',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '1000ms',
+    },
+    '& .animateIn': {
+      animationName: '$flashcardSlideIn',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '350ms',
+    },
+    '& .animateOut': {
+      animationName: '$flashcardSlideOut',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '350ms',
+    },
+    '& .animatePrevIn': {
+      animationName: '$flashcardSlidePrevIn',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '350ms',
+    },
+    '& .animatePrevOut': {
+      animationName: '$flashcardSlidePrevOut',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '350ms',
+    },
+    '& .animateStartOver': {
+      animationName: '$flashcardStartOver',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '1000ms',
     },
   },
+
+  '@keyframes flashcardSlideInFirst': {
+    '0%': {
+      transform: 'translateX(200%)',
+    },
+    '50%': {
+      transform: 'translateX(200%)',
+    },
+  },
+
+  '@keyframes flashcardSlideIn': {
+    '0%': {
+      transform: 'translateX(200%)',
+    },
+    '100%': {
+      transform: 'translateX(0%)',
+    },
+  },
+
+  '@keyframes flashcardSlideOut': {
+    '0%': {
+      transform: 'translateX(0%)',
+    },
+    '100%': {
+      transform: 'translateX(-200%)',
+    },
+  },
+  '@keyframes flashcardSlidePrevIn': {
+    '0%': {
+      transform: 'translateX(-200%)',
+    },
+    '100%': {
+      transform: 'translateX(0)',
+    },
+  },
+  '@keyframes flashcardSlidePrevOut': {
+    '0%': {
+      transform: 'translateX(0%)',
+    },
+    '100%': {
+      transform: 'translateX(200%)',
+    },
+  },
+  '@keyframes flashcardStartOver': {
+    '0%': {
+
+      opacity: '1',
+    },
+    '50%': {
+
+      opacity: '0',
+    },
+  },
+
   startButton: {
     width: '200px',
     height: '50px',
@@ -54,10 +131,102 @@ export default {
       backgroundColor: 'rgba(7, 177, 77, 0.7)',
     },
   },
+  progressBarWrapper: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '75px',
+  },
   showButton: {
     width: '160px',
   },
   startOverButton: {
     width: '160px',
+  },
+  rate: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    // border: '1px solid black',
+    width: '100%',
+    height: '60px',
+    '& h4': {
+      fontSize: '1.2rem',
+      padding: '0px 0px 0px 0px',
+      margin: '0px 0px 0px 0px',
+      width: '120px',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      animationName: '$wipe',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '1500ms',
+    },
+  },
+  '@keyframes wipe': {
+    '0%': {
+      width: '0px',
+    },
+    '60%': {
+      width: '0px',
+    },
+  },
+  actionsWrapper: {
+    width: '100%',
+  },
+  showAnswerButton: {
+    border: 'none',
+    backgroundColor: 'white',
+    borderRadius: '50px',
+    marginTop: '30px',
+    boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 1px 2px 0px rgba(0, 0, 0, 0.6)' : null),
+    '& svg': {
+      transition: 'all .5s ease-in-out',
+      color: props => ((props.cardCount + 1) !== props.cardQuantity ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.2)'),
+    },
+    '&:hover': {
+      cursor: props => ((props.cardCount + 1) !== props.cardQuantity ? 'pointer' : null),
+      boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 2px 3px 0px rgba(0, 0, 0, 0.6)' : null),
+    },
+    animationName: '$answerButtonFadeIn',
+    animationIterationCount: '1',
+    animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+    animationDuration: '1900ms',
+  },
+  '@keyframes answerButtonFadeIn': {
+    '0%': {
+      opacity: '0',
+    },
+    '50%': {
+      opacity: '0',
+    },
+  },
+  restartButton: {
+    border: 'none',
+    backgroundColor: 'white',
+    borderRadius: '50px',
+    marginTop: '30px',
+    boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 1px 2px 0px rgba(0, 0, 0, 0.6)' : null),
+    '& svg': {
+      transition: 'all .5s ease-in-out',
+      color: props => ((props.cardCount + 1) !== props.cardQuantity ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.2)'),
+    },
+    '&:hover': {
+      cursor: props => ((props.cardCount + 1) !== props.cardQuantity ? 'pointer' : null),
+      boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 2px 3px 0px rgba(0, 0, 0, 0.6)' : null),
+    },
+    animationName: '$answerButtonFadeIn',
+    animationIterationCount: '1',
+    animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+    animationDuration: '2000ms',
+  },
+  '@keyframes restartButtonFadeIn': {
+    '0%': {
+      opacity: '0',
+    },
+    '50%': {
+      opacity: '0',
+    },
   },
 };

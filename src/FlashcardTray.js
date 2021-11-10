@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { doc, updateDoc } from 'firebase/firestore/lite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import styles from './styles/UserFlashcardTrayStyles';
+import styles from './styles/FlashcardTrayStyles';
 import useToggle from './hooks/useToggle';
 import Flashcard from './Flashcard';
 import FlashcardStats from './FlashcardStats';

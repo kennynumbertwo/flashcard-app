@@ -12,7 +12,6 @@ const styles = {
     height: '50px',
     color: 'rgba(0, 0, 0, 0.7)',
     fontSize: '.88rem',
-    // border: '1px solid black',
   },
   CardItemWrapperInner: {
     display: 'flex',
@@ -33,7 +32,6 @@ const styles = {
     alignItems: 'center',
     width: '5%',
     padding: '0px 0px 0px 22px',
-    // border: '1px solid black',
   },
   CardItemQuestionWrapper: {
     display: 'flex',
@@ -41,16 +39,12 @@ const styles = {
     alignItems: 'center',
     width: '45%',
     padding: '0px 0px 0px 10px',
-    // border: '1px solid black',
-
   },
   CardItemAnswerWrapper: {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
     width: '30%',
-    // border: '1px solid black',
-
   },
   CardItemQuestion: {
     display: 'flex',
@@ -72,7 +66,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     width: '20%',
-    // border: '1px solid black',
   },
   deleteButton: {
     display: 'flex',

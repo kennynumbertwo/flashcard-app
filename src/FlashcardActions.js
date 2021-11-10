@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/styles';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import Mastery from './Mastery';
+import FlashcardMastery from './FlashcardMastery';
 
 const styles = {
   FlashcardActionsWrapper: {
@@ -82,8 +82,8 @@ function FlashcardActions(props) {
           <ChevronLeftIcon fontSize="large" />
         </button>
         {isShowingMastery
-          ? (<Mastery starState={starState} handleStarClick={handleStarClick} />)
-          : (<Mastery starState={starState} disabled />)}
+          ? (<FlashcardMastery starState={starState} handleStarClick={handleStarClick} />)
+          : (<FlashcardMastery starState={starState} disabled />)}
         <button className={classes.nextCardButton} type="button" onClick={handleNextCard}>
           <ChevronRightIcon fontSize="large" />
         </button>

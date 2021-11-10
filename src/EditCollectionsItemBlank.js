@@ -5,9 +5,9 @@ import TextField from '@mui/material/TextField';
 import db from './firebase.config';
 import IconListModal from './IconListModal';
 import IconCard from './IconCard';
-import styles from './styles/EditDeckListItemBlankStyles';
+import styles from './styles/EditCollectionsItemBlankStyles';
 
-function EditDeckListItem(props) {
+function EditCollectionsItemBlank(props) {
   // State for the IconListModal
   const [isShowingIconList, setIsShowingIconList] = useState(false);
   const [isAnimatingModal, setIsAnimatingModal] = useState(false);
@@ -73,7 +73,7 @@ function EditDeckListItem(props) {
   };
 
   return (
-    <div className={classes.EditDeckListCard}>
+    <div className={classes.EditCollectionsItemBlankCard}>
       {isShowingIconList && (
         <IconListModal
           selectedIcon={selectedIcon}
@@ -104,7 +104,7 @@ function EditDeckListItem(props) {
       </div>
       <div className={classes.iconWrapperEditing}>
         {selectedIconClass === '' ? (
-          <div className={classes.EditingDeckListItemIconBlank}>
+          <div className={classes.EditCollectionsItemBlankIcon}>
             <IconCard
               iconClass="far fa-times-circle"
               iconName={selectedIcon}
@@ -114,7 +114,7 @@ function EditDeckListItem(props) {
           </div>
         )
           : (
-            <div className={classes.EditingDeckListItemIcon}>
+            <div className={classes.EditCollectionsItemBlankIcon}>
               <IconCard
                 iconClass={selectedIconClass}
                 iconName={selectedIcon}
@@ -140,4 +140,4 @@ function EditDeckListItem(props) {
   );
 }
 
-export default withStyles(styles)(EditDeckListItem);
+export default withStyles(styles)(EditCollectionsItemBlank);

@@ -22,14 +22,13 @@ import { Route, Switch, Link } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { getDoc, doc } from 'firebase/firestore/lite';
 import ContactsIcon from '@mui/icons-material/Contacts';
-import CollectionsPage from './CollectionsPage';
 import UserCollectionsPage from './UserCollectionsPage';
 import About from './About';
 import Login from './Login';
 import AccountMenu from './AccountMenu';
 import db from './firebase.config';
-import EditDeckList from './EditDeckList';
-import UserFlashcardTray from './UserFlashcardTray';
+import EditCollections from './EditCollections';
+import FlashcardTray from './FlashcardTray';
 
 const drawerWidth = 350;
 
@@ -298,22 +297,6 @@ export default function DrawerNav(props) {
               />
             )}
           />
-          {/* STOCK COLLECTION PAGE */}
-          <Route
-            exact
-            path="/collections"
-            render={() => (
-              <CollectionsPage
-                cardSetDatabase={cardSetDatabase}
-                updateCardSetName={updateCardSetName}
-                setCurrentCardSetName={setCurrentCardSetName}
-                isLoggedIn={isLoggedIn}
-                roundState={roundState}
-                setRoundState={setRoundState}
-                handleDrawerClose={handleDrawerClose}
-              />
-            )}
-          />
           {/* USER COLLECTION PAGE */}
           <Route
             exact
@@ -337,7 +320,7 @@ export default function DrawerNav(props) {
             exact
             path="/collections/:setName"
             render={() => (
-              <UserFlashcardTray
+              <FlashcardTray
                 userCardSetDatabase={cardSetDatabase}
                 currentCardSetName={currentCardSetName}
                 isLoggedIn={isLoggedIn}
@@ -359,7 +342,7 @@ export default function DrawerNav(props) {
             exact
             path="/my-collections/:setName"
             render={() => (
-              <UserFlashcardTray
+              <FlashcardTray
                 userCardSetDatabase={userDeckState.userCardSetDatabase}
                 currentCardSetName={currentCardSetName}
                 isLoggedIn={isLoggedIn}
@@ -377,7 +360,7 @@ export default function DrawerNav(props) {
             exact
             path="/edit-deck"
             render={() => (
-              <EditDeckList
+              <EditCollections
                 isLoggedIn={isLoggedIn}
                 uid={user.uid}
                 userCardSetDatabase={userDeckState.userCardSetDatabase}

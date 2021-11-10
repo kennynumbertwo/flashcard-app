@@ -1,7 +1,7 @@
 const ITEM_WIDTH = 1050;
 
 export default {
-  EditDeckList: {
+  EditCollections: {
     display: 'flex',
     justifyContent: 'flext-start',
     alignItems: 'center',

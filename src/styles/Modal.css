@@ -12,7 +12,7 @@
   opacity: 1;
   animation-name: modalFadeIn;
   animation-iteration-count: 1;
-  animation-timing-function: ease-in;
+  animation-timing-function: ease-in-out;
   animation-duration: 0.25s;
 }
 
@@ -29,7 +29,7 @@
 .modalOverlay.fadeOut {
   animation-name: modalFadeOut;
   animation-iteration-count: 1;
-  animation-timing-function: ease-out;
+  animation-timing-function: ease-in-out;
   animation-duration: 0.25s;
 }
 
@@ -56,7 +56,7 @@
   box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.1);
   animation-name: modalSlideIn;
   animation-iteration-count: 1;
-  animation-timing-function: ease-in;
+  animation-timing-function: ease-in-out;
   animation-duration: 0.25s;
 }
 
@@ -77,7 +77,7 @@
 .modalContainer.modalSlideOut {
   animation-name: modalSlideOut;
   animation-iteration-count: 1;
-  animation-timing-function: ease-out;
+  animation-timing-function: ease-in-out;
   animation-duration: 0.25s;
 }
 

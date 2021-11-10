@@ -1,12 +1,12 @@
 export default {
-  EditDeckListCard: {
+  EditCollectionsItemCard: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
     width: '1000px',
     height: '50px',
     padding: '0px 0px 0px 0px',
-    margin: '5px 0px 0px 0px',
+    margin: '5px 0px 5px 0px',
     borderRadius: '3px',
     color: 'rgba(0, 0, 0, 0.7)',
     backgroundColor: 'white',
@@ -16,6 +16,7 @@ export default {
     border: '1px solid rgba(0, 0, 0, 0.1)',
     '&:hover': {
       boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, 0.1)',
+
     },
   },
   setNameWrapper: {
@@ -25,6 +26,11 @@ export default {
     width: '25%',
     height: '50px',
     padding: '0px 0px 0px 22px',
+    '& p': {
+      whiteSpace: 'no-wrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
   },
   setNameWrapperInput: {
     display: 'flex',
@@ -41,6 +47,11 @@ export default {
     width: '25%',
     height: '50px',
     padding: '0px 0px 0px 22px',
+    '& p': {
+      whiteSpace: 'no-wrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
   },
   categoryWrapperInput: {
     display: 'flex',
@@ -60,6 +71,17 @@ export default {
     width: '10%',
     height: '50px',
     // border: '1px solid black',
+  },
+  masteryWrapperInner: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '50px',
+    height: '50px',
+    // border: '1px solid black',
+  },
+  masteryInfo: {
+    padding: '0px 0px 0px 8px',
   },
   totalCardsWrapper: {
     display: 'flex',
@@ -84,7 +106,7 @@ export default {
     height: '50px',
     // border: '1px solid black',
   },
-  EditDeckListItemIcon: {
+  EditCollectionsItemIcon: {
     height: '100%',
     width: '100%',
     display: 'flex',
@@ -94,7 +116,7 @@ export default {
     // border: '1px solid black',
 
   },
-  EditingDeckListItemIcon: {
+  EditingCollectionsItemIcon: {
     height: '40px',
     width: '50px',
     display: 'flex',
@@ -103,22 +125,6 @@ export default {
     fontSize: '1.5rem',
     border: '1px solid rgba(0, 0, 0, 0.3)',
     borderRadius: '5px',
-    '&:hover': {
-      border: '1px solid rgba(0, 0, 0, 0.7)',
-    },
-  },
-  EditingDeckListItemIconBlank: {
-    height: '40px',
-    width: '50px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '1.5rem',
-    border: '1px solid rgba(0, 0, 0, 0.3)',
-    borderRadius: '5px',
-    '& i': {
-      color: 'rgba(0, 0, 0, 0.3)',
-    },
     '&:hover': {
       border: '1px solid rgba(0, 0, 0, 0.7)',
     },
@@ -130,6 +136,14 @@ export default {
     flexDirection: 'column',
     height: '50px',
     width: '10%',
+  },
+  buttonWrapperSingle: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    height: '50px',
+    width: '20%',
   },
   button: {
     display: 'flex',
@@ -149,6 +163,28 @@ export default {
     '&:hover': {
       background: 'rgba(7, 177, 77, 0.7)',
       borderColor: 'rgba(7, 177, 77, 0.7)',
+      transition: 'all 0.4s ease 0s',
+      cursor: 'pointer',
+    },
+  },
+  deleteButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
+    textDecoration: 'none',
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    fontSize: '.8rem',
+    fontWeight: '500',
+    background: 'rgba(0, 0, 0, 0.6)',
+    width: '80px',
+    height: '30px',
+    border: '1.5px solid rgba(0, 0, 0, 0.0)',
+    transition: 'all 0.4s ease 0s',
+    borderRadius: '5px',
+    '&:hover': {
+      background: 'rgba(245, 0, 86, 0.9)',
+      borderColor: 'rgba(245, 0, 86, 0.9)',
       transition: 'all 0.4s ease 0s',
       cursor: 'pointer',
     },

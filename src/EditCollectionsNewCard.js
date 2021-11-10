@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import db from './firebase.config';
 
 const styles = {
-  CardItemWrapperOuter: {
+  cardItemWrapperOuter: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -21,15 +21,13 @@ const styles = {
 
   '@keyframes newCardSlide': {
     '0%': {
-      // transform: 'translateY(-50%)',
       opacity: '0',
     },
     '100%': {
-      // transform: 'translateY(0%)',
       opacity: '1',
     },
   },
-  CardItemWrapperInner: {
+  cardItemWrapperInner: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -41,7 +39,7 @@ const styles = {
     boxShadow: '0px 1px 7px 0px rgba(0, 0, 0, 0.1)',
 
   },
-  CardItemNumWrapper: {
+  cardItemNumWrapper: {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -49,7 +47,7 @@ const styles = {
     padding: '0px 0px 0px 22px',
     // border: '1px solid black',
   },
-  CardItemQuestionWrapper: {
+  cardItemQuestionWrapper: {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -61,7 +59,7 @@ const styles = {
       width: '100%',
     },
   },
-  CardItemAnswerWrapper: {
+  cardItemAnswerWrapper: {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -70,12 +68,12 @@ const styles = {
       width: '100%',
     },
   },
-  CardItemNum: {
+  cardItemNum: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  CardItemAnswer: {
+  cardItemAnswer: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -85,7 +83,7 @@ const styles = {
     justifyContent: 'space-evenly',
     alignItems: 'center',
     width: '20%',
-    // border: '1px solid black',
+
   },
   saveButton: {
     display: 'flex',
@@ -133,7 +131,7 @@ const styles = {
   },
 };
 
-function NewCardItem(props) {
+function EditCollectionsNewCard(props) {
   const {
     classes,
     cardSet,
@@ -168,11 +166,11 @@ function NewCardItem(props) {
       ...newCardFields }) });
     let mastery = getTotalMasteryRating([...cardSet.cards, newCardFields]);
     const updateMasteryString = `${cardSet.setName.toLowerCase().replace(/\s+/g, '-')}.mastery`;
+    setIsAddingCard(false);
     await updateDoc(
       userRef, { [updateMasteryString]: mastery }, { merge: true },
     );
     fetchUserCardSets();
-    setIsAddingCard(false);
   };
 
   const handleCancel = () => {
@@ -181,12 +179,12 @@ function NewCardItem(props) {
 
   return (
     <div>
-      <div className={classes.CardItemWrapperOuter}>
-        <div className={classes.CardItemWrapperInner}>
-          <div className={classes.CardItemNumWrapper}>
-            <p className={classes.CardItemNum}>{newCardFields.cardNumber}</p>
+      <div className={classes.cardItemWrapperOuter}>
+        <div className={classes.cardItemWrapperInner}>
+          <div className={classes.cardItemNumWrapper}>
+            <p className={classes.cardItemNum}>{newCardFields.cardNumber}</p>
           </div>
-          <div className={classes.CardItemQuestionWrapper}>
+          <div className={classes.cardItemQuestionWrapper}>
             <TextField
               label="Question"
               id="question"
@@ -195,7 +193,7 @@ function NewCardItem(props) {
               size="small"
             />
           </div>
-          <div className={classes.CardItemAnswerWrapper}>
+          <div className={classes.cardItemAnswerWrapper}>
             <TextField
               label="Answer"
               id="answer"
@@ -214,4 +212,4 @@ function NewCardItem(props) {
   );
 }
 
-export default withStyles(styles)(NewCardItem);
+export default withStyles(styles)(EditCollectionsNewCard);

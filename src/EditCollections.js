@@ -12,19 +12,17 @@ import { v4 as uuidv4 } from 'uuid';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
-import styles from './styles/EditDeckListStyles';
-import EditDeckListItem from './EditDeckListItem';
-import EditDeckListItemBlank from './EditDeckListItemBlank';
-import CardItem from './CardItem';
-import NewCardItem from './NewCardItem';
+import styles from './styles/EditCollectionsStyles';
+import EditCollectionsItem from './EditCollectionsItem';
+import EditCollectionsItemBlank from './EditCollectionsItemBlank';
+import EditCollectionsCardItem from './EditCollectionsCardItem';
+import EditCollectionsNewCard from './EditCollectionsNewCard';
 
 const ITEM_HEIGHT = 48;
 
-function EditDeckList(props) {
-  // State for EditDeckList
+function EditCollections(props) {
+  // State for EditCollections
   const [sortState, setSortState] = useState({
     sortedDatabase: [],
     isSorted: false,
@@ -166,7 +164,7 @@ function EditDeckList(props) {
     return sortedOptions;
   };
 
-  //  <---------------  Click Handlers for EditDeckList   --------------->
+  //  <---------------  Click Handlers for EditCollections   --------------->
 
   // Handles Set Name and Category Sort
   const handleSortClick = (e) => {
@@ -222,7 +220,7 @@ function EditDeckList(props) {
     }
   };
 
-  //  <---------------  Utility Functions for EditDeckList   --------------->
+  //  <---------------  Utility Functions for EditCollections   --------------->
 
   const getTotalMasteryRating = (array) => {
     let totalMasteryRating = 0;
@@ -267,7 +265,7 @@ function EditDeckList(props) {
   }
 
   return (
-    <div className={classes.EditDeckList}>
+    <div className={classes.EditCollections}>
       <div className={classes.menuBar}>
         <div className={classes.headerWrapper}>
           <h2>Edit Collections</h2>
@@ -384,11 +382,11 @@ function EditDeckList(props) {
           </div>
         </>
       )}
-      {/* Blank EditDeckListItem is shown when Add Deck is clicked */}
+      {/* Blank EditCollectionsItem is shown when Add Deck is clicked */}
       {userCardSetDatabase ? (
         <>
           {isAddingDeck && (
-          <EditDeckListItemBlank
+          <EditCollectionsItemBlank
             key="new-deck"
             // setEditDeckState={setEditDeckState}
             uid={uid}
@@ -402,7 +400,7 @@ function EditDeckList(props) {
           )}
           {isViewingCardsState.isViewing ? (
             <div className={classes.viewingCardsWrapper}>
-              <EditDeckListItem
+              <EditCollectionsItem
                 key={isViewingCardsState.cardSet.id}
                 userCardSet={isViewingCardsState.cardSet}
                 totalCards={isViewingCardsState.cardSet.cards.length}
@@ -417,7 +415,7 @@ function EditDeckList(props) {
                 setIsViewingCardsState={setIsViewingCardsState}
               />
               {isAddingCard && (
-                <NewCardItem
+                <EditCollectionsNewCard
                   uid={uid}
                   userCardSetDatabase={userCardSetDatabase}
                   cardSet={isViewingCardsState.cardSet}
@@ -432,7 +430,7 @@ function EditDeckList(props) {
               )}
               { isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards
                 .slice(startIndex, endIndex).map(card => (
-                  <CardItem
+                  <EditCollectionsCardItem
                     key={uuidv4()}
                     uid={uid}
                     userCardSetDatabase={userCardSetDatabase}
@@ -453,7 +451,7 @@ function EditDeckList(props) {
                 {/* Renders the sorted database */}
                 { !filterState.isFiltered && sortState.sortedDatabase.length > 0
                   ? sortState.sortedDatabase.map(userCardSet => (
-                    <EditDeckListItem
+                    <EditCollectionsItem
                       key={userCardSet.id}
                       userCardSet={userCardSet}
                       totalCards={userCardSet.cards.length}
@@ -471,7 +469,7 @@ function EditDeckList(props) {
                   ))
                   // Renders the filtered database if isFiltered is true
                   : filterState.filtered.map(userCardSet => (
-                    <EditDeckListItem
+                    <EditCollectionsItem
                       key={userCardSet.id}
                       userCardSet={userCardSet}
                       totalCards={userCardSet.cards.length}
@@ -534,4 +532,4 @@ function EditDeckList(props) {
   );
 }
 
-export default withStyles(styles)(EditDeckList);
+export default withStyles(styles)(EditCollections);

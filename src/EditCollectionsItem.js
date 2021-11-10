@@ -6,11 +6,11 @@ import useInputState from './hooks/useInputState';
 import db from './firebase.config';
 import IconListModal from './IconListModal';
 import IconCard from './IconCard';
-import styles from './styles/EditDeckListItemStyles';
+import styles from './styles/EditCollectionsItemStyles';
 import ProgressBarVert from './ProgressBarVert';
 import Modal from './Modal';
 
-function EditDeckListItem(props) {
+function EditCollectionsItem(props) {
   // State for editing an individual deck
   const [isEditing, setIsEditing] = useState(false);
   const [setNameInput, updateSetNameInput, setInputValue] = useInputState(props.setName);
@@ -135,7 +135,7 @@ function EditDeckListItem(props) {
 
   if (isEditing) {
     return (
-      <div className={classes.EditDeckListCard}>
+      <div className={classes.EditCollectionsItemCard}>
         {isShowingIconList && (
         <IconListModal
           selectedIcon={selectedIcon}
@@ -165,7 +165,7 @@ function EditDeckListItem(props) {
           />
         </div>
         <div className={classes.iconWrapperEditing}>
-          <div className={classes.EditingDeckListItemIcon}>
+          <div className={classes.EditingCollectionsItemIcon}>
             <IconCard
               iconClass={selectedIconClass}
               iconName={selectedIcon}
@@ -196,7 +196,7 @@ function EditDeckListItem(props) {
   }
   if (isEditingCardsTab) {
     return (
-      <div className={classes.EditDeckListCard}>
+      <div className={classes.EditCollectionsItemCard}>
         <div className={classes.setNameWrapper}>
           <p className={classes.info}>{setName}</p>
         </div>
@@ -204,7 +204,7 @@ function EditDeckListItem(props) {
           <p className={classes.info}>{category}</p>
         </div>
         <div className={classes.iconWrapper}>
-          <div className={classes.EditDeckListItemIcon}>
+          <div className={classes.EditCollectionsItemIcon}>
             <i className={iconClass} />
           </div>
         </div>
@@ -227,7 +227,7 @@ function EditDeckListItem(props) {
   }
   if (isEditingDecksTab) {
     return (
-      <div className={classes.EditDeckListCard}>
+      <div className={classes.EditCollectionsItemCard}>
         <div className={classes.setNameWrapper}>
           <p className={classes.info}>{setName}</p>
         </div>
@@ -235,7 +235,7 @@ function EditDeckListItem(props) {
           <p className={classes.info}>{category}</p>
         </div>
         <div className={classes.iconWrapper}>
-          <div className={classes.EditDeckListItemIcon}>
+          <div className={classes.EditCollectionsItemIcon}>
             <i className={iconClass} />
           </div>
         </div>
@@ -270,4 +270,4 @@ function EditDeckListItem(props) {
   }
 }
 
-export default withStyles(styles)(EditDeckListItem);
+export default withStyles(styles)(EditCollectionsItem);
