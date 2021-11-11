@@ -21,7 +21,7 @@ const styles = {
 
   prevCardButton: {
     border: 'none',
-    backgroundColor: 'white',
+    backgroundColor: 'var(--background-white)',
     borderRadius: '50px',
     boxShadow: props => (props.cardCount > 0 ? '1px 1px 2px 0px rgba(0, 0, 0, 0.6)' : null),
     '& svg': {
@@ -47,7 +47,7 @@ const styles = {
   },
   nextCardButton: {
     border: 'none',
-    backgroundColor: 'white',
+    backgroundColor: 'var(--background-white)',
     borderRadius: '50px',
     boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 1px 2px 0px rgba(0, 0, 0, 0.6)' : null),
     '& svg': {

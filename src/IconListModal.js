@@ -47,7 +47,7 @@ const styles = {
     flexDirection: 'column',
     width: '1000px',
     height: '700px',
-    backgroundColor: 'white',
+    backgroundColor: 'var(--background-white)',
     borderRadius: '5px',
     boxShadow: '0px 5px 10px 3px rgba(0, 0, 0, 0.3)',
   },
@@ -58,7 +58,7 @@ const styles = {
     paddingBottom: '0px',
     width: '98%',
     '& svg': {
-      color: 'rgba(0, 0, 0, .6)',
+      color: 'var(--text-primary)',
       display: 'flex',
       marginRight: 'auto',
       alignSelf: 'center',
@@ -111,13 +111,13 @@ const styles = {
     margin: '0px 15px 0px 15px',
     borderRadius: '50px',
     transition: 'all .5s',
-    color: 'rgba(0, 0, 0, .6)',
+    color: 'var(--text-primary)',
     '& i': {
       transition: 'all .5s',
     },
     '&:hover': {
       cursor: 'pointer',
-      color: 'rgba(7, 177, 77, 1)',
+      color: 'var(--button-accept-primary)',
       boxShadow: '0px 2px 5px 1px rgba(0, 0, 0, 0.3)',
     },
   },

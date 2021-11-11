@@ -46,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: 'white',
-    color: 'black',
+    backgroundColor: 'var(--drawer-header)',
+    color: 'var(--text-primary-dark)',
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -96,14 +96,14 @@ const useStyles = makeStyles((theme) => ({
   },
   navLink: {
     textDecoration: 'none',
-    color: 'rgba(0, 0, 0, .8)',
+    color: 'var(--text-primary-dark)',
     '& .navArrow': {
       color: 'rgba(0, 0, 0, 0)',
       transition: 'all .25s',
       transitionTimingFunction: 'ease-in-out',
     },
     '&:hover .navArrow': {
-      color: 'rgba(0, 0, 0, .8)',
+      color: 'var(--text-primary-dark)',
       transform: 'translateX(35%)',
     },
   },

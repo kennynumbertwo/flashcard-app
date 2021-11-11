@@ -1,6 +1,5 @@
 export default {
   root: {
-    // border: '1px solid black',
     display: 'flex',
     justifyContent: 'flext-start',
     alignItems: 'center',
@@ -15,7 +14,6 @@ export default {
     },
   },
   flashcardStatsWrapper: {
-    // border: '1px solid black',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
@@ -27,8 +25,6 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '75px',
-    // border: '1px solid black',
-    // height: '350px',
     width: '100%',
     '& .animateInFirst': {
       animationName: '$flashcardSlideInFirst',
@@ -120,17 +116,6 @@ export default {
       opacity: '0',
     },
   },
-
-  startButton: {
-    width: '200px',
-    height: '50px',
-    backgroundColor: 'rgba(7, 177, 77, 0.9)',
-    fontSize: '1.1rem',
-    color: 'white',
-    '&:hover': {
-      backgroundColor: 'rgba(7, 177, 77, 0.7)',
-    },
-  },
   progressBarWrapper: {
     width: '100%',
     display: 'flex',
@@ -148,7 +133,6 @@ export default {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-end',
-    // border: '1px solid black',
     width: '100%',
     height: '60px',
     '& h4': {
@@ -204,7 +188,7 @@ export default {
   },
   restartButton: {
     border: 'none',
-    backgroundColor: 'white',
+    backgroundColor: 'var(--background-white)',
     borderRadius: '50px',
     marginTop: '30px',
     boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 1px 2px 0px rgba(0, 0, 0, 0.6)' : null),

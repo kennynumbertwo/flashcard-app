@@ -17,7 +17,6 @@ export default {
     justifyContent: 'flex-start',
     alignItems: 'center',
     fontWeight: 'bold',
-    // border: '1px solid black',
   },
   headerWrapper: {
     height: '50px',
@@ -26,7 +25,6 @@ export default {
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingLeft: '10px',
-    // border: '1px solid black',
   },
   navWrapperOuter: {
     height: '50px',
@@ -34,7 +32,6 @@ export default {
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    // border: '1px solid black',
   },
   navWrapperInner: {
     height: '50px',
@@ -43,12 +40,11 @@ export default {
     justifyContent: 'space-evenly',
     alignItems: 'center',
     '& .MuiTab-root.MuiTab-textColorPrimary.Mui-selected': {
-      color: 'rgba(74, 145, 103, 1)',
+      color: 'var(--tab-primary)',
     },
     '& .MuiTabs-indicator': {
-      backgroundColor: 'rgba(74, 145, 103, 1)',
+      backgroundColor: 'var(--tab-primary)',
     },
-    // border: '1px solid black',
   },
   filterWrapper: {
     height: '50px',
@@ -57,7 +53,6 @@ export default {
     justifyContent: 'flex-end',
     alignItems: 'center',
     paddingRight: '10px',
-    // border: '1px solid black',
     marginLeft: 'auto',
   },
   divider: {
@@ -87,11 +82,10 @@ export default {
     margin: '5px 0px 5px 0px',
     borderRadius: '2px',
     boxShadow: '0px 1px 5px 1px rgba(0, 0, 0, 0.1)',
-    color: 'rgba(0, 0, 0, 0.7)',
-    backgroundColor: 'rgba(250, 250, 250, 0.4)',
+    color: 'var(--text-primary)',
+    backgroundColor: 'var(--background-collection-item)',
     fontSize: '1rem',
     fontWeight: 'bold',
-    // border: '1px solid black',
   },
   headerCardWrapper: {
     display: 'flex',
@@ -99,7 +93,7 @@ export default {
     justifyContent: 'space-evenly',
     width: ITEM_WIDTH,
     height: '60px',
-    backgroundColor: 'white',
+    backgroundColor: '(var(--background-white))',
   },
   headerCard: {
     display: 'flex',
@@ -110,8 +104,8 @@ export default {
     padding: '0px 0px 0px 0px',
     margin: '0px 0px 0px 0px',
     borderRadius: '5px',
-    color: 'rgba(0, 0, 0, 0.7)',
-    backgroundColor: 'white',
+    color: 'var(--text-primary)',
+    backgroundColor: 'var(--background-white)',
     fontSize: '1rem',
     fontWeight: 'bold',
   },
@@ -127,7 +121,6 @@ export default {
       overflow: 'hidden',
       textOverflow: 'ellipsis',
     },
-    // border: '1px solid black',
   },
   categoryWrapper: {
     display: 'flex',
@@ -136,7 +129,6 @@ export default {
     width: '25%',
     height: '50px',
     padding: '0px 0px 0px 15px',
-    // border: '1px solid black',
   },
   masteryWrapper: {
     display: 'flex',
@@ -144,7 +136,6 @@ export default {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
-    // border: '1px solid black',
   },
   totalCardsWrapper: {
     display: 'flex',
@@ -152,7 +143,6 @@ export default {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
-    // border: '1px solid black',
   },
   iconWrapper: {
     display: 'flex',
@@ -160,7 +150,6 @@ export default {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
-    // border: '1px solid black',
   },
   actionsWrapper: {
     height: '50px',
@@ -168,33 +157,8 @@ export default {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // paddingRight: '10px',
-    // border: '1px solid black',
-  },
-  button: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textDecoration: 'none',
-    color: 'rgba(0, 0, 0, 0.6)',
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    fontSize: '.8rem',
-    fontWeight: '500',
-    background: 'rgba(0, 0, 0, 0.0)',
-    width: '80px',
-    height: '30px',
-    border: '1.5px solid rgba(0, 0, 0, 0.0)',
-    transition: 'all 0.4s ease 0s',
-    borderRadius: '5px',
-    '&:hover': {
-      background: 'rgba(0, 0, 0, 0.1)',
-      borderColor: 'rgba(0, 0, 0, 0.1)',
-      transition: 'all 0.4s ease 0s',
-      cursor: 'pointer',
-    },
   },
   addIconWrapper: {
-    // width: '100%',
     paddingTop: '15px',
     height: '75px',
     width: '80px',
@@ -204,13 +168,13 @@ export default {
     flexDirection: 'column',
     fontSize: '1.8rem',
     borderRadius: '10px',
-    color: 'rgba(0, 0, 0, 0.6)',
+    color: 'var(--text-primary-light)',
     transition: 'all 0.4s ease 0s',
     '& p': {
       fontSize: '.8rem',
     },
     '&:hover': {
-      color: 'rgba(7, 177, 77, 0.7)',
+      color: 'var(--text-accept)',
       transition: 'all 0.4s ease 0s',
       cursor: 'pointer',
     },
@@ -244,9 +208,9 @@ export default {
     transition: 'all 0.4s ease 0s',
     '& svg': {
       transition: 'all .5s ease-in-out',
-      color: 'rgba(0, 0, 0, 0.6)',
+      color: 'var(--text-primary)',
       '&:hover': {
-        color: 'rgba(7, 177, 77, 0.7)',
+        color: 'var(--text-accept)',
         transition: 'all 0.4s ease 0s',
         cursor: 'pointer',
       },
@@ -271,9 +235,9 @@ export default {
     transition: 'all 0.4s ease 0s',
     '& svg': {
       transition: 'all .5s ease-in-out',
-      color: 'rgba(0, 0, 0, 0.6)',
+      color: 'var(--text-primary)',
       '&:hover': {
-        color: 'rgba(7, 177, 77, 0.7)',
+        color: 'var(--text-accept)',
         transition: 'all 0.4s ease 0s',
         cursor: 'pointer',
       },

@@ -18,7 +18,7 @@ const styles = {
     flexDirection: 'column',
     width: props => (props.isEditDeckButton ? '50px' : '95px'),
     height: props => (props.isEditDeckButton ? '50x' : '95px'),
-    color: 'rgba(0, 0, 0, .6)',
+    color: 'var(--text-primary)',
     borderRadius: '10px',
     transition: 'all .2s',
     '& i': {
@@ -37,7 +37,7 @@ const styles = {
     },
     '&:hover': {
       cursor: 'pointer',
-      color: 'rgba(7, 177, 77, 1)',
+      color: 'var(--button-accept-primary)',
       boxShadow: props => (!props.isEditDeckButton && '0px 2px 5px 1px rgba(0, 0, 0, 0.3)'),
     },
   },
@@ -48,7 +48,7 @@ const styles = {
     flexDirection: 'column',
     width: '95px',
     height: '95px',
-    color: 'rgba(7, 177, 77, 1)',
+    color: 'var(--button-accept-primary)',
     boxShadow: '0px 2px 5px 1px rgba(0, 0, 0, 0.3)',
     borderRadius: '10px',
     transition: 'all .2s',
@@ -77,7 +77,7 @@ const styles = {
     flexDirection: 'column',
     width: '95px',
     height: '95px',
-    color: 'rgba(0, 0, 0, .6)',
+    color: 'var(--text-primary)',
     borderRadius: '10px',
     transition: 'all .2s',
     '& i': {

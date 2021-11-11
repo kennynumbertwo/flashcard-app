@@ -6,7 +6,6 @@ export default {
     justifyContent: 'center',
   },
   LoginCardTop: {
-    // border: '1px solid black',
     display: 'flex',
     justifyContent: 'center',
     alightItems: 'center',
@@ -22,13 +21,13 @@ export default {
   },
   signInText: {
     paddingTop: '25px',
+    color: 'var(--text-primary-dark)',
   },
   inputWrapper: {
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
     flexDirection: 'column',
-    // border: '1px solid black',
     width: '100%',
     height: '28.25%',
     paddingBottom: '0px',
@@ -38,7 +37,6 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
-    // border: '1px solid black',
     height: '18.75%',
     width: '100%',
   },
@@ -52,18 +50,17 @@ export default {
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     fontSize: '16px',
     fontWeight: '400',
-    background: 'rgba(0, 0, 0, 0.7)',
+    background: 'var(--button-primary-dark)',
     width: '125px',
     height: '50px',
-    border: '1.5px solid rgba(0, 0, 0, 0.7)',
+    border: 'none',
     transition: 'all 0.4s ease 0s',
     borderRadius: '5px',
     '& svg': {
       fontSize: '30px',
     },
     '&:hover': {
-      background: 'rgba(7, 177, 77, 0.7)',
-      borderColor: 'rgba(7, 177, 77, 0.7)',
+      background: 'var(--button-accept-primary)',
       transition: 'all 0.4s ease 0s',
       cursor: 'pointer',
     },
@@ -72,7 +69,6 @@ export default {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    // border: '1px solid black',
     height: '7.5%',
     width: '100%',
   },
@@ -89,7 +85,7 @@ export default {
       transitionTimingFunction: 'ease-in-out',
     },
     '&:hover .navArrow': {
-      color: 'rgba(0, 0, 0, .8)',
+      color: 'var(--text-primary)',
       transform: 'translateX(35%)',
     },
   },
@@ -99,7 +95,6 @@ export default {
     alightItems: 'center',
     height: '8.33%',
     width: '100%',
-    // border: '1px solid black',
   },
   dividerLine: {
     display: 'flex',
@@ -124,12 +119,12 @@ export default {
     marginBottom: '15px',
     '& svg': {
       fontSize: '35px',
-      color: 'rgba(0, 0, 0, 0.7)',
+      color: '(--text-primary)',
       '&.facebook': {
         fontSize: '42px',
         transition: 'all 0.4s ease 0s',
         '&:hover': {
-          color: 'rgba(7, 177, 77, 0.7)',
+          color: 'var(--button-accept-primary)',
           transition: 'all 0.4s ease 0s',
           cursor: 'pointer',
         },
@@ -138,7 +133,7 @@ export default {
         fontSize: '39px',
         transition: 'all 0.4s ease 0s',
         '&:hover': {
-          color: 'rgba(7, 177, 77, 0.7)',
+          color: 'var(--button-accept-primary)',
           transition: 'all 0.4s ease 0s',
           cursor: 'pointer',
         },
@@ -146,7 +141,7 @@ export default {
       '&.github': {
         transition: 'all 0.4s ease 0s',
         '&:hover': {
-          color: 'rgba(7, 177, 77, 0.7)',
+          color: 'var(--button-accept-primary)',
           transition: 'all 0.4s ease 0s',
           cursor: 'pointer',
         },
@@ -173,7 +168,7 @@ export default {
     width: '100%',
     '& p': {
       fontSize: '14px',
-      color: '#f66666',
+      color: 'var(--text-warning)',
       paddingTop: '10px',
       animation: '$fadeIn .5s',
     },

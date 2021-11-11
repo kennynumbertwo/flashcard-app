@@ -52,10 +52,10 @@ const styles = {
     justifyContent: 'space-evenly',
     alignItems: 'center',
     '& .MuiTab-root.MuiTab-textColorPrimary.Mui-selected': {
-      color: 'rgba(74, 145, 103, 1)',
+      color: 'var(--tab-primary)',
     },
     '& .MuiTabs-indicator': {
-      backgroundColor: 'rgba(74, 145, 103, 1)',
+      backgroundColor: 'var(--tab-primary)',
     },
   },
   filterWrapper: {
@@ -94,7 +94,7 @@ const styles = {
     margin: '5px 0px 5px 0px',
     borderRadius: '2px',
     boxShadow: '0px 1px 5px 1px rgba(0, 0, 0, 0.1)',
-    color: 'rgba(0, 0, 0, 0.7)',
+    color: 'var(--text-primary)',
     backgroundColor: 'rgba(250, 250, 250, 0.4)',
     fontSize: '1rem',
     fontWeight: 'bold',
@@ -118,7 +118,7 @@ const styles = {
     margin: '0px 0px 0px 0px',
     borderRadius: '5px',
     color: 'rgba(0, 0, 0, 0.7)',
-    backgroundColor: 'white',
+    backgroundColor: 'var(--background-white)',
     fontSize: '1rem',
     fontWeight: 'bold',
   },

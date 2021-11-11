@@ -52,7 +52,7 @@
   align-items: center;
   flex-direction: column;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: var(--background-white);
   box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.1);
   animation-name: modalSlideIn;
   animation-iteration-count: 1;
@@ -101,7 +101,7 @@
   align-items: center;
   height: 50%;
   font-family: 'Roboto', sans-serif;
-  color: #878686;
+  color: var(--text-primary-light);
   text-align: center;
   line-height: 1.5;
   font-size: 0.9rem;
@@ -112,22 +112,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: var(--background-white);
   text-transform: uppercase;
   text-decoration: none;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--button-primary);
   width: 75px;
   height: 40px;
-  border: 1.5px solid rgba(0, 0, 0, 0.7);
+  border: none;
   transition: all 0.4s ease 0s;
   border-radius: 5px;
 }
 
 .closeModal:hover {
-  background: rgba(7, 177, 77, 0.7);
-  border-color: rgba(7, 177, 77, 0.7);
+  background: var(--button-accept);
   transition: all 0.4s ease 0s;
   cursor: pointer;
 }
@@ -135,22 +134,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: var(--background-white);
   text-transform: uppercase;
   text-decoration: none;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--button-primary);
   width: 80px;
   height: 70%;
-  border: 1.5px solid rgba(0, 0, 0, 0.7);
+  border: none;
   transition: all 0.4s ease 0s;
   border-radius: 5px;
 }
 
 .closeModalAccept:hover {
-  background: rgba(7, 177, 77, 0.7);
-  border-color: rgba(7, 177, 77, 0.7);
+  background: var(--button-accept-primary);
   transition: all 0.4s ease 0s;
   cursor: pointer;
 }
@@ -159,22 +157,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: var(--background-white);
   text-transform: uppercase;
   text-decoration: none;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--button-primary);
   width: 80px;
   height: 70%;
-  border: 1.5px solid rgba(0, 0, 0, 0.7);
+  border: none;
   transition: all 0.4s ease 0s;
   border-radius: 5px;
 }
 
 .closeModalDeny:hover {
-  background: rgba(245, 0, 86, 0.7);
-  border-color: rgba(245, 0, 86, 0.7);
+  background: var(--button-deny-primary);
   transition: all 0.4s ease 0s;
   cursor: pointer;
 }

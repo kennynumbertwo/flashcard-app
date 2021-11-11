@@ -64,10 +64,6 @@ const styles = {
     animationIterationCount: '1',
     animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
     animationDuration: '1200ms',
-    transition: 'color 300ms ease-in-out',
-    '&:hover': {
-      color: 'rgba(0, 0, 0, 0.8)',
-    },
   },
 };
 function Mastery(props) {
