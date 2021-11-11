@@ -180,7 +180,7 @@ export default {
     },
   },
   loadingSpinnerWrapper: {
-    height: '200px',
+    height: '562px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -228,6 +228,12 @@ export default {
       opacity: '0',
     },
   },
+  pageButtonWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '50px',
+  },
   nextCardButton: {
     border: 'none',
     backgroundColor: 'inherit',
@@ -252,8 +258,9 @@ export default {
     justifyContent: 'space-evenly',
     alignItems: 'center',
     width: '300px',
+    // border: '1px solid black',
   },
-  viewingCardsWrapper: {
+  itemsWrapper: {
     minHeight: '562px',
   },
 };

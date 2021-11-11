@@ -214,9 +214,17 @@ function EditCollections(props) {
     }
   };
   const handleNextPage = () => {
-    if (endIndex < isViewingCardsState.cardSet.cards.length) {
-      setStartIndex(startIndex + 10);
-      setEndIndex(endIndex + 10);
+    if (isViewingCardsState.isViewing) {
+      if (endIndex < isViewingCardsState.cardSet.cards.length) {
+        setStartIndex(startIndex + 10);
+        setEndIndex(endIndex + 10);
+      }
+    }
+    if (isEditingCardsTab || isEditingDecksTab) {
+      if (endIndex < sortState.sortedDatabase.length) {
+        setStartIndex(startIndex + 10);
+        setEndIndex(endIndex + 10);
+      }
     }
   };
 
@@ -384,11 +392,10 @@ function EditCollections(props) {
       )}
       {/* Blank EditCollectionsItem is shown when Add Deck is clicked */}
       {userCardSetDatabase ? (
-        <>
+        <div className={classes.itemsWrapper}>
           {isAddingDeck && (
           <EditCollectionsItemBlank
             key="new-deck"
-            // setEditDeckState={setEditDeckState}
             uid={uid}
             deleteUserDatabaseSet={deleteUserDatabaseSet}
             fetchUserCardSets={fetchUserCardSets}
@@ -399,12 +406,11 @@ function EditCollections(props) {
           />
           )}
           {isViewingCardsState.isViewing ? (
-            <div className={classes.viewingCardsWrapper}>
+            <div className={classes.itemsWrapper}>
               <EditCollectionsItem
                 key={isViewingCardsState.cardSet.id}
                 userCardSet={isViewingCardsState.cardSet}
                 totalCards={isViewingCardsState.cardSet.cards.length}
-                // setEditDeckState={setEditDeckState}
                 uid={uid}
                 deleteUserDatabaseSet={deleteUserDatabaseSet}
                 fetchUserCardSets={fetchUserCardSets}
@@ -413,6 +419,8 @@ function EditCollections(props) {
                 isEditingCardsTab={isEditingCardsTab}
                 isViewingCardsState={isViewingCardsState}
                 setIsViewingCardsState={setIsViewingCardsState}
+                setStartIndex={setStartIndex}
+                setEndIndex={setEndIndex}
               />
               {isAddingCard && (
                 <EditCollectionsNewCard
@@ -450,7 +458,7 @@ function EditCollections(props) {
               <div>
                 {/* Renders the sorted database */}
                 { !filterState.isFiltered && sortState.sortedDatabase.length > 0
-                  ? sortState.sortedDatabase.map(userCardSet => (
+                  ? sortState.sortedDatabase.slice(startIndex, endIndex).map(userCardSet => (
                     <EditCollectionsItem
                       key={userCardSet.id}
                       userCardSet={userCardSet}
@@ -465,10 +473,12 @@ function EditCollections(props) {
                       setIsViewingCardsState={setIsViewingCardsState}
                       setOpenSnackbar={setOpenSnackbar}
                       setSnackbarMessage={setSnackbarMessage}
+                      setStartIndex={setStartIndex}
+                      setEndIndex={setEndIndex}
                     />
                   ))
                   // Renders the filtered database if isFiltered is true
-                  : filterState.filtered.map(userCardSet => (
+                  : filterState.filtered.slice(startIndex, endIndex).map(userCardSet => (
                     <EditCollectionsItem
                       key={userCardSet.id}
                       userCardSet={userCardSet}
@@ -483,11 +493,13 @@ function EditCollections(props) {
                       setIsViewingCardsState={setIsViewingCardsState}
                       setOpenSnackbar={setOpenSnackbar}
                       setSnackbarMessage={setSnackbarMessage}
+                      setStartIndex={setStartIndex}
+                      setEndIndex={setEndIndex}
                     />
                   ))}
               </div>
             )}
-        </>
+        </div>
       )
         : (
           <div className={classes.loadingSpinnerWrapper}>
@@ -496,30 +508,50 @@ function EditCollections(props) {
         )}
 
       <div className={classes.dividerEnd} />
+      {/* Footer controls when viewing cards */}
       {isViewingCardsState.isViewing ? (
         <div className={classes.viewingButtonWrapper}>
-          <button className={classes.prevCardButton} type="button">
-            <ChevronLeftIcon fontSize="large" onClick={handlePrevPage} />
-          </button>
+          <div className={classes.pageButtonWrapper}>
+            {startIndex > 0 && (
+            <button className={classes.prevCardButton} type="button">
+              <ChevronLeftIcon fontSize="large" onClick={handlePrevPage} />
+            </button>
+            )}
+          </div>
           <div className={classes.addIconWrapper} onClick={handleAddCardClick}>
             <i className="far fa-plus-square" />
             <p className={classes.addDeckLabel}>ADD CARD</p>
           </div>
-          <button className={classes.nextCardButton} type="button">
-            <ChevronRightIcon fontSize="large" onClick={handleNextPage} />
-          </button>
+          <div className={classes.pageButtonWrapper}>
+            {isViewingCardsState.cardSet.cards.length > 10 && (
+            <button className={classes.nextCardButton} type="button">
+              <ChevronRightIcon fontSize="large" onClick={handleNextPage} />
+            </button>
+            )}
+          </div>
         </div>
-
       )
         : (
-          <>
-            { isEditingDecksTab && (
+          <div className={classes.viewingButtonWrapper}>
+            <div className={classes.pageButtonWrapper}>
+              {startIndex > 0 && (
+              <button className={classes.prevCardButton} type="button">
+                <ChevronLeftIcon fontSize="large" onClick={handlePrevPage} />
+              </button>
+              )}
+            </div>
             <div className={classes.addIconWrapper} onClick={handleAddDeckClick}>
               <i className="far fa-plus-square" />
               <p className={classes.addDeckLabel}>ADD DECK</p>
             </div>
-            ) }
-          </>
+            <div className={classes.pageButtonWrapper}>
+              {sortState.sortedDatabase.length > 10 && (
+              <button className={classes.nextCardButton} type="button">
+                <ChevronRightIcon fontSize="large" onClick={handleNextPage} />
+              </button>
+              )}
+            </div>
+          </div>
         )}
       <Snackbar
         open={openSnackbar}
