@@ -274,77 +274,78 @@ function EditCollections(props) {
 
   return (
     <div className={classes.EditCollections}>
-      <div className={classes.menuBar}>
-        <div className={classes.headerWrapper}>
-          <h2>Edit Collections</h2>
-        </div>
-        <div className={classes.navWrapperOuter}>
-          <div className={classes.navWrapperInner}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              sx={{ width: '80%' }}
-              centered
-            >
-              <Tab label="Edit Decks" sx={{ width: '40%' }} onClick={handleEditDecksClick} />
-              <Tab label="Edit Cards" sx={{ width: '40%', marginLeft: 'auto' }} onClick={handleEditCardsClick} />
-            </Tabs>
+      <div className={classes.mainCard}>
+        <div className={classes.menuBar}>
+          <div className={classes.headerWrapper}>
+            <h2>Edit Collections</h2>
           </div>
-        </div>
-        {!isViewingCardsState.isViewing && (
-        <div className={classes.filterWrapper}>
-          <Button
-            sx={{
-              backgroundColor: 'rgba(250, 250, 250, 0.0)',
-              color: 'rgba(0, 0, 0, 0.6)',
-              height: '35px',
-              '&:hover': {
+          <div className={classes.navWrapperOuter}>
+            <div className={classes.navWrapperInner}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                sx={{ width: '80%' }}
+                centered
+              >
+                <Tab label="Edit Decks" sx={{ width: '40%' }} onClick={handleEditDecksClick} />
+                <Tab label="Edit Cards" sx={{ width: '40%', marginLeft: 'auto' }} onClick={handleEditCardsClick} />
+              </Tabs>
+            </div>
+          </div>
+          {!isViewingCardsState.isViewing && (
+          <div className={classes.filterWrapper}>
+            <Button
+              sx={{
                 backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                color: 'rgba(0, 0, 0, 0.8)',
-              },
-            }}
-            id="demo-customized-button"
-            aria-controls="demo-customized-menu"
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            variant="contained"
-            disableElevation
-            onClick={handleClick}
-            endIcon={<KeyboardArrowDownIcon />}
-          >
-            Category Filter
-          </Button>
-          <Menu
-            id="long-menu"
-            MenuListProps={{
-              'aria-labelledby': 'long-button',
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            PaperProps={{
-              style: {
-                maxHeight: ITEM_HEIGHT * 5.5,
-                width: '20ch',
-              },
-            }}
-          >
-            {filterState.showClearFilter && (
-            <MenuItem key="clear-filter" onClick={handleClose}>
-              Clear Filter
-            </MenuItem>
-            )}
-            {filterOptions.map((option) => (
-              <MenuItem key={option} selected={option === selectedFilter} onClick={handleClose}>
-                {option}
+                color: 'rgba(0, 0, 0, 0.6)',
+                height: '35px',
+                '&:hover': {
+                  backgroundColor: 'rgba(250, 250, 250, 0.0)',
+                  color: 'rgba(0, 0, 0, 0.8)',
+                },
+              }}
+              id="demo-customized-button"
+              aria-controls="demo-customized-menu"
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              variant="contained"
+              disableElevation
+              onClick={handleClick}
+              endIcon={<KeyboardArrowDownIcon />}
+            >
+              Category Filter
+            </Button>
+            <Menu
+              id="long-menu"
+              MenuListProps={{
+                'aria-labelledby': 'long-button',
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              PaperProps={{
+                style: {
+                  maxHeight: ITEM_HEIGHT * 5.5,
+                  width: '20ch',
+                },
+              }}
+            >
+              {filterState.showClearFilter && (
+              <MenuItem key="clear-filter" onClick={handleClose}>
+                Clear Filter
               </MenuItem>
-            ))}
-          </Menu>
+              )}
+              {filterOptions.map((option) => (
+                <MenuItem key={option} selected={option === selectedFilter} onClick={handleClose}>
+                  {option}
+                </MenuItem>
+              ))}
+            </Menu>
+          </div>
+          )}
         </div>
-        )}
-      </div>
-      <div className={classes.divider} />
-      {!isViewingCardsState.isViewing && (
+        <div className={classes.divider} />
+        {!isViewingCardsState.isViewing && (
         <>
           <div className={classes.headerCard}>
             <div className={classes.setNameWrapper}>
@@ -389,40 +390,41 @@ function EditCollections(props) {
             </div>
           </div>
         </>
-      )}
-      {/* Blank EditCollectionsItem is shown when Add Deck is clicked */}
-      {userCardSetDatabase ? (
-        <div className={classes.itemsWrapper}>
-          {isAddingDeck && (
-          <EditCollectionsItemBlank
-            key="new-deck"
-            uid={uid}
-            deleteUserDatabaseSet={deleteUserDatabaseSet}
-            fetchUserCardSets={fetchUserCardSets}
-            isAddingDeck={isAddingDeck}
-            setIsAddingDeck={setIsAddingDeck}
-            setOpenSnackbar={setOpenSnackbar}
-            setSnackbarMessage={setSnackbarMessage}
-          />
-          )}
-          {isViewingCardsState.isViewing ? (
-            <div className={classes.itemsWrapper}>
-              <EditCollectionsItem
-                key={isViewingCardsState.cardSet.id}
-                userCardSet={isViewingCardsState.cardSet}
-                totalCards={isViewingCardsState.cardSet.cards.length}
-                uid={uid}
-                deleteUserDatabaseSet={deleteUserDatabaseSet}
-                fetchUserCardSets={fetchUserCardSets}
-                isAddingDeck={isAddingDeck}
-                isEditingDecksTab={isEditingDecksTab}
-                isEditingCardsTab={isEditingCardsTab}
-                isViewingCardsState={isViewingCardsState}
-                setIsViewingCardsState={setIsViewingCardsState}
-                setStartIndex={setStartIndex}
-                setEndIndex={setEndIndex}
-              />
-              {isAddingCard && (
+        )}
+
+        {/* Blank EditCollectionsItem is shown when Add Deck is clicked */}
+        {userCardSetDatabase ? (
+          <div className={classes.itemsWrapper}>
+            {isAddingDeck && (
+            <EditCollectionsItemBlank
+              key="new-deck"
+              uid={uid}
+              deleteUserDatabaseSet={deleteUserDatabaseSet}
+              fetchUserCardSets={fetchUserCardSets}
+              isAddingDeck={isAddingDeck}
+              setIsAddingDeck={setIsAddingDeck}
+              setOpenSnackbar={setOpenSnackbar}
+              setSnackbarMessage={setSnackbarMessage}
+            />
+            )}
+            {isViewingCardsState.isViewing ? (
+              <div className={classes.itemsWrapper}>
+                <EditCollectionsItem
+                  key={isViewingCardsState.cardSet.id}
+                  userCardSet={isViewingCardsState.cardSet}
+                  totalCards={isViewingCardsState.cardSet.cards.length}
+                  uid={uid}
+                  deleteUserDatabaseSet={deleteUserDatabaseSet}
+                  fetchUserCardSets={fetchUserCardSets}
+                  isAddingDeck={isAddingDeck}
+                  isEditingDecksTab={isEditingDecksTab}
+                  isEditingCardsTab={isEditingCardsTab}
+                  isViewingCardsState={isViewingCardsState}
+                  setIsViewingCardsState={setIsViewingCardsState}
+                  setStartIndex={setStartIndex}
+                  setEndIndex={setEndIndex}
+                />
+                {isAddingCard && (
                 <EditCollectionsNewCard
                   uid={uid}
                   userCardSetDatabase={userCardSetDatabase}
@@ -435,103 +437,81 @@ function EditCollections(props) {
                   setOpenSnackbar={setOpenSnackbar}
                   setSnackbarMessage={setSnackbarMessage}
                 />
-              )}
-              { isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards
-                .slice(startIndex, endIndex).map(card => (
-                  <EditCollectionsCardItem
-                    key={uuidv4()}
-                    uid={uid}
-                    userCardSetDatabase={userCardSetDatabase}
-                    cardSet={isViewingCardsState.cardSet}
-                    card={card}
-                    fetchUserCardSets={fetchUserCardSets}
-                    setIsViewingCardsState={setIsViewingCardsState}
-                    getDeletedCardArray={getDeletedCardArray}
-                    getTotalMasteryRating={getTotalMasteryRating}
-                    setOpenSnackbar={setOpenSnackbar}
-                    setSnackbarMessage={setSnackbarMessage}
-                  />
-                ))}
-            </div>
-          )
-            : (
-              <div>
-                {/* Renders the sorted database */}
-                { !filterState.isFiltered && sortState.sortedDatabase.length > 0
-                  ? sortState.sortedDatabase.slice(startIndex, endIndex).map(userCardSet => (
-                    <EditCollectionsItem
-                      key={userCardSet.id}
-                      userCardSet={userCardSet}
-                      totalCards={userCardSet.cards.length}
+                )}
+                { isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards
+                  .slice(startIndex, endIndex).map(card => (
+                    <EditCollectionsCardItem
+                      key={uuidv4()}
                       uid={uid}
-                      deleteUserDatabaseSet={deleteUserDatabaseSet}
+                      userCardSetDatabase={userCardSetDatabase}
+                      cardSet={isViewingCardsState.cardSet}
+                      card={card}
                       fetchUserCardSets={fetchUserCardSets}
-                      isAddingDeck={isAddingDeck}
-                      isEditingDecksTab={isEditingDecksTab}
-                      isEditingCardsTab={isEditingCardsTab}
-                      isViewingCardsState={isViewingCardsState}
                       setIsViewingCardsState={setIsViewingCardsState}
+                      getDeletedCardArray={getDeletedCardArray}
+                      getTotalMasteryRating={getTotalMasteryRating}
                       setOpenSnackbar={setOpenSnackbar}
                       setSnackbarMessage={setSnackbarMessage}
-                      setStartIndex={setStartIndex}
-                      setEndIndex={setEndIndex}
-                    />
-                  ))
-                  // Renders the filtered database if isFiltered is true
-                  : filterState.filtered.slice(startIndex, endIndex).map(userCardSet => (
-                    <EditCollectionsItem
-                      key={userCardSet.id}
-                      userCardSet={userCardSet}
-                      totalCards={userCardSet.cards.length}
-                      uid={uid}
-                      deleteUserDatabaseSet={deleteUserDatabaseSet}
-                      fetchUserCardSets={fetchUserCardSets}
-                      isAddingDeck={isAddingDeck}
-                      isEditingDecksTab={isEditingDecksTab}
-                      isEditingCardsTab={isEditingCardsTab}
-                      isViewingCardsState={isViewingCardsState}
-                      setIsViewingCardsState={setIsViewingCardsState}
-                      setOpenSnackbar={setOpenSnackbar}
-                      setSnackbarMessage={setSnackbarMessage}
-                      setStartIndex={setStartIndex}
-                      setEndIndex={setEndIndex}
                     />
                   ))}
               </div>
-            )}
-        </div>
-      )
-        : (
-          <div className={classes.loadingSpinnerWrapper}>
-            <PuffLoader color="rgba(0, 0, 0, 0.7)" size="3rem" loading />
+            )
+              : (
+                <div>
+                  {/* Renders the sorted database */}
+                  { !filterState.isFiltered && sortState.sortedDatabase.length > 0
+                    ? sortState.sortedDatabase.slice(startIndex, endIndex).map(userCardSet => (
+                      <EditCollectionsItem
+                        key={userCardSet.id}
+                        userCardSet={userCardSet}
+                        totalCards={userCardSet.cards.length}
+                        uid={uid}
+                        deleteUserDatabaseSet={deleteUserDatabaseSet}
+                        fetchUserCardSets={fetchUserCardSets}
+                        isAddingDeck={isAddingDeck}
+                        isEditingDecksTab={isEditingDecksTab}
+                        isEditingCardsTab={isEditingCardsTab}
+                        isViewingCardsState={isViewingCardsState}
+                        setIsViewingCardsState={setIsViewingCardsState}
+                        setOpenSnackbar={setOpenSnackbar}
+                        setSnackbarMessage={setSnackbarMessage}
+                        setStartIndex={setStartIndex}
+                        setEndIndex={setEndIndex}
+                      />
+                    ))
+                  // Renders the filtered database if isFiltered is true
+                    : filterState.filtered.slice(startIndex, endIndex).map(userCardSet => (
+                      <EditCollectionsItem
+                        key={userCardSet.id}
+                        userCardSet={userCardSet}
+                        totalCards={userCardSet.cards.length}
+                        uid={uid}
+                        deleteUserDatabaseSet={deleteUserDatabaseSet}
+                        fetchUserCardSets={fetchUserCardSets}
+                        isAddingDeck={isAddingDeck}
+                        isEditingDecksTab={isEditingDecksTab}
+                        isEditingCardsTab={isEditingCardsTab}
+                        isViewingCardsState={isViewingCardsState}
+                        setIsViewingCardsState={setIsViewingCardsState}
+                        setOpenSnackbar={setOpenSnackbar}
+                        setSnackbarMessage={setSnackbarMessage}
+                        setStartIndex={setStartIndex}
+                        setEndIndex={setEndIndex}
+                      />
+                    ))}
+                </div>
+              )}
           </div>
-        )}
+        )
+          : (
+            <div className={classes.loadingSpinnerWrapper}>
+              <PuffLoader color="rgba(0, 0, 0, 0.7)" size="3rem" loading />
+            </div>
+          )}
 
-      <div className={classes.dividerEnd} />
-      {/* Footer controls when viewing cards */}
-      {isViewingCardsState.isViewing ? (
-        <div className={classes.viewingButtonWrapper}>
-          <div className={classes.pageButtonWrapper}>
-            {startIndex > 0 && (
-            <button className={classes.prevCardButton} type="button">
-              <ChevronLeftIcon fontSize="large" onClick={handlePrevPage} />
-            </button>
-            )}
-          </div>
-          <div className={classes.addIconWrapper} onClick={handleAddCardClick}>
-            <i className="far fa-plus-square" />
-            <p className={classes.addDeckLabel}>ADD CARD</p>
-          </div>
-          <div className={classes.pageButtonWrapper}>
-            {isViewingCardsState.cardSet.cards.length > 10 && (
-            <button className={classes.nextCardButton} type="button">
-              <ChevronRightIcon fontSize="large" onClick={handleNextPage} />
-            </button>
-            )}
-          </div>
-        </div>
-      )
-        : (
+        <div className={classes.dividerEnd} />
+        {/* Footer controls when viewing cards */}
+        {isViewingCardsState.isViewing ? (
           <div className={classes.viewingButtonWrapper}>
             <div className={classes.pageButtonWrapper}>
               {startIndex > 0 && (
@@ -540,26 +520,49 @@ function EditCollections(props) {
               </button>
               )}
             </div>
-            <div className={classes.addIconWrapper} onClick={handleAddDeckClick}>
+            <div className={classes.addIconWrapper} onClick={handleAddCardClick}>
               <i className="far fa-plus-square" />
-              <p className={classes.addDeckLabel}>ADD DECK</p>
+              <p className={classes.addDeckLabel}>ADD CARD</p>
             </div>
             <div className={classes.pageButtonWrapper}>
-              {sortState.sortedDatabase.length > 10 && (
+              {isViewingCardsState.cardSet.cards.length > 10 && (
               <button className={classes.nextCardButton} type="button">
                 <ChevronRightIcon fontSize="large" onClick={handleNextPage} />
               </button>
               )}
             </div>
           </div>
-        )}
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={2000}
-        onClose={handleCloseSnackbar}
-        message={snackbarMessage}
-        action={action}
-      />
+        )
+          : (
+            <div className={classes.viewingButtonWrapper}>
+              <div className={classes.pageButtonWrapper}>
+                {startIndex > 0 && (
+                <button className={classes.prevCardButton} type="button">
+                  <ChevronLeftIcon fontSize="large" onClick={handlePrevPage} />
+                </button>
+                )}
+              </div>
+              <div className={classes.addIconWrapper} onClick={handleAddDeckClick}>
+                <i className="far fa-plus-square" />
+                <p className={classes.addDeckLabel}>ADD DECK</p>
+              </div>
+              <div className={classes.pageButtonWrapper}>
+                {sortState.sortedDatabase.length > 10 && (
+                <button className={classes.nextCardButton} type="button">
+                  <ChevronRightIcon fontSize="large" onClick={handleNextPage} />
+                </button>
+                )}
+              </div>
+            </div>
+          )}
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={2000}
+          onClose={handleCloseSnackbar}
+          message={snackbarMessage}
+          action={action}
+        />
+      </div>
     </div>
   );
 }

@@ -243,6 +243,7 @@ export default function DrawerNav(props) {
               <ListItem
                 className={classes.navItem}
                 key="my-collections"
+                onClick={handleDrawerClose}
                 button
               >
                 <ListItemIcon><ContactsIcon /></ListItemIcon>
@@ -253,6 +254,7 @@ export default function DrawerNav(props) {
             <Link to="/edit-deck" className={classes.navLink}>
               <ListItem
                 key="edit-deck"
+                onClick={handleDrawerClose}
                 button
               >
                 <ListItemIcon><CreateIcon /></ListItemIcon>
@@ -263,6 +265,7 @@ export default function DrawerNav(props) {
             <Link to="/about" className={classes.navLink}>
               <ListItem
                 key="about"
+                onClick={handleDrawerClose}
                 button
               >
                 <ListItemIcon><InfoIcon /></ListItemIcon>

@@ -22,6 +22,22 @@ const styles = {
     height: '100%',
     margin: '64px 0px 0px 0px',
   },
+  mainCard: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    width: '1100px',
+    height: '810px',
+    padding: '15px 0px 0px 0px',
+    margin: '0px 0px 0px 0px',
+    borderRadius: '2px',
+    boxShadow: '0px 1px 5px 1px rgba(0, 0, 0, 0.1)',
+    // color: 'var(--text-primary)',
+    backgroundColor: 'var(--background-collection-main)',
+    fontSize: '1rem',
+    fontWeight: '400',
+  },
   menuBar: {
     height: '50px',
     width: ITEM_WIDTH,
@@ -82,23 +98,6 @@ const styles = {
     margin: '0px 0px 15px 0px',
     padding: '9px 0px 2px 0px',
     boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
-  },
-  mainCard: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    flexDirection: 'column',
-    width: '1050px',
-    height: '85%',
-    padding: '0px 0px 0px 0px',
-    margin: '5px 0px 5px 0px',
-    borderRadius: '2px',
-    boxShadow: '0px 1px 5px 1px rgba(0, 0, 0, 0.1)',
-    color: 'var(--text-primary)',
-    backgroundColor: 'rgba(250, 250, 250, 0.4)',
-    fontSize: '1rem',
-    fontWeight: 'bold',
-
   },
   headerCardWrapper: {
     display: 'flex',
@@ -186,6 +185,9 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  deckListContainer: {
+    overflow: 'scroll',
   },
 };
 
@@ -395,221 +397,226 @@ function UserCollectionsPage(props) {
 
   return (
     <div className={classes.UserCardSetsPage}>
-      <div className={classes.menuBar}>
-        <div className={classes.headerWrapper}>
-          <h2>Run Decks</h2>
-        </div>
-        <div className={classes.navWrapperOuter}>
-          <div className={classes.navWrapperInner}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              sx={{ width: '80%' }}
-              centered
-            >
-              <Tab label="My Decks" sx={{ width: '40%' }} onClick={handleMyDecksClick} />
-              <Tab label="Stock Decks" sx={{ width: '45%', marginLeft: 'auto' }} onClick={handleStockDecksClick} />
-            </Tabs>
+      <div className={classes.mainCard}>
+
+        <div className={classes.menuBar}>
+          <div className={classes.headerWrapper}>
+            <h2>Run Decks</h2>
           </div>
-        </div>
-        <div className={classes.filterWrapper}>
-          <Button
-            sx={{
-              backgroundColor: 'rgba(250, 250, 250, 0.0)',
-              color: 'rgba(0, 0, 0, 0.6)',
-              height: '35px',
-              '&:hover': {
+          <div className={classes.navWrapperOuter}>
+            <div className={classes.navWrapperInner}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                sx={{ width: '80%' }}
+                centered
+              >
+                <Tab label="My Decks" sx={{ width: '40%' }} onClick={handleMyDecksClick} />
+                <Tab label="Stock Decks" sx={{ width: '45%', marginLeft: 'auto' }} onClick={handleStockDecksClick} />
+              </Tabs>
+            </div>
+          </div>
+          <div className={classes.filterWrapper}>
+            <Button
+              sx={{
                 backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                color: 'rgba(0, 0, 0, 0.8)',
-              },
-            }}
-            id="demo-customized-button"
-            aria-controls="demo-customized-menu"
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            variant="contained"
-            disableElevation
-            onClick={handleClick}
-            endIcon={<KeyboardArrowDownIcon />}
-          >
-            Category Filter
-          </Button>
-          <Menu
-            id="long-menu"
-            MenuListProps={{
-              'aria-labelledby': 'long-button',
-            }}
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            PaperProps={{
-              style: {
-                maxHeight: ITEM_HEIGHT * 5.5,
-                width: '20ch',
-              },
-            }}
-          >
-            {filterState.showClearFilter && (
-            <MenuItem key="clear-filter" onClick={handleClose}>
-              Clear Filter
-            </MenuItem>
-            )}
-            {filterOptions.map((option) => (
-              <MenuItem key={option} selected={option === selectedFilter} onClick={handleClose}>
-                {option}
+                color: 'rgba(0, 0, 0, 0.6)',
+                height: '35px',
+                '&:hover': {
+                  backgroundColor: 'rgba(250, 250, 250, 0.0)',
+                  color: 'rgba(0, 0, 0, 0.8)',
+                },
+              }}
+              id="demo-customized-button"
+              aria-controls="demo-customized-menu"
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              variant="contained"
+              disableElevation
+              onClick={handleClick}
+              endIcon={<KeyboardArrowDownIcon />}
+            >
+              Category Filter
+            </Button>
+            <Menu
+              id="long-menu"
+              MenuListProps={{
+                'aria-labelledby': 'long-button',
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              PaperProps={{
+                style: {
+                  maxHeight: ITEM_HEIGHT * 5.5,
+                  width: '20ch',
+                },
+              }}
+            >
+              {filterState.showClearFilter && (
+              <MenuItem key="clear-filter" onClick={handleClose}>
+                Clear Filter
               </MenuItem>
-            ))}
-          </Menu>
-        </div>
-      </div>
-      <div className={classes.divider} />
-      <div className={classes.headerCard}>
-        <div className={classes.setNameWrapper}>
-          <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
-            <p className={classes.label}>Set Name</p>
-            {myDecksTab && (
-            <div className={classes.sortIconWrapper}>
-              {sortState.sortId === 'setName' && sortState.sortAsc
-                ? <i className="fas fa-sort-up" />
-                : null}
-              {sortState.sortId === 'setName' && !sortState.sortAsc
-                ? <i className="fas fa-sort-down" />
-                : null}
-              {sortState.sortId !== 'setName' && <i className="fas fa-sort" />}
-            </div>
-            )}
-            {stockDecksTab && (
-            <div className={classes.sortIconWrapper}>
-              {stockSortState.sortId === 'setName' && stockSortState.sortAsc
-                ? <i className="fas fa-sort-up" />
-                : null}
-              {stockSortState.sortId === 'setName' && !stockSortState.sortAsc
-                ? <i className="fas fa-sort-down" />
-                : null}
-              {stockSortState.sortId !== 'setName' && <i className="fas fa-sort" />}
-            </div>
-            )}
+              )}
+              {filterOptions.map((option) => (
+                <MenuItem key={option} selected={option === selectedFilter} onClick={handleClose}>
+                  {option}
+                </MenuItem>
+              ))}
+            </Menu>
           </div>
         </div>
-        <div className={classes.categoryWrapper}>
-          <div className={classes.sortClickWrapper} id="category" onClick={handleSortClick}>
-            <p className={classes.label}>Category</p>
-            {myDecksTab && (
-            <div className={classes.sortIconWrapper}>
-              {sortState.sortId === 'category' && sortState.sortAsc
-                ? <i className="fas fa-sort-up" />
-                : null}
-              {sortState.sortId === 'category' && !sortState.sortAsc
-                ? <i className="fas fa-sort-down" />
-                : null}
-              {sortState.sortId !== 'category' && <i className="fas fa-sort" />}
+        <div className={classes.divider} />
+        <div className={classes.headerCard}>
+          <div className={classes.setNameWrapper}>
+            <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
+              <p className={classes.label}>Set Name</p>
+              {myDecksTab && (
+              <div className={classes.sortIconWrapper}>
+                {sortState.sortId === 'setName' && sortState.sortAsc
+                  ? <i className="fas fa-sort-up" />
+                  : null}
+                {sortState.sortId === 'setName' && !sortState.sortAsc
+                  ? <i className="fas fa-sort-down" />
+                  : null}
+                {sortState.sortId !== 'setName' && <i className="fas fa-sort" />}
+              </div>
+              )}
+              {stockDecksTab && (
+              <div className={classes.sortIconWrapper}>
+                {stockSortState.sortId === 'setName' && stockSortState.sortAsc
+                  ? <i className="fas fa-sort-up" />
+                  : null}
+                {stockSortState.sortId === 'setName' && !stockSortState.sortAsc
+                  ? <i className="fas fa-sort-down" />
+                  : null}
+                {stockSortState.sortId !== 'setName' && <i className="fas fa-sort" />}
+              </div>
+              )}
             </div>
-            )}
-            {stockDecksTab && (
-            <div className={classes.sortIconWrapper}>
-              {stockSortState.sortId === 'category' && stockSortState.sortAsc
-                ? <i className="fas fa-sort-up" />
-                : null}
-              {stockSortState.sortId === 'category' && !stockSortState.sortAsc
-                ? <i className="fas fa-sort-down" />
-                : null}
-              {stockSortState.sortId !== 'category' && <i className="fas fa-sort" />}
+          </div>
+          <div className={classes.categoryWrapper}>
+            <div className={classes.sortClickWrapper} id="category" onClick={handleSortClick}>
+              <p className={classes.label}>Category</p>
+              {myDecksTab && (
+              <div className={classes.sortIconWrapper}>
+                {sortState.sortId === 'category' && sortState.sortAsc
+                  ? <i className="fas fa-sort-up" />
+                  : null}
+                {sortState.sortId === 'category' && !sortState.sortAsc
+                  ? <i className="fas fa-sort-down" />
+                  : null}
+                {sortState.sortId !== 'category' && <i className="fas fa-sort" />}
+              </div>
+              )}
+              {stockDecksTab && (
+              <div className={classes.sortIconWrapper}>
+                {stockSortState.sortId === 'category' && stockSortState.sortAsc
+                  ? <i className="fas fa-sort-up" />
+                  : null}
+                {stockSortState.sortId === 'category' && !stockSortState.sortAsc
+                  ? <i className="fas fa-sort-down" />
+                  : null}
+                {stockSortState.sortId !== 'category' && <i className="fas fa-sort" />}
+              </div>
+              )}
             </div>
-            )}
+          </div>
+          <div className={classes.iconWrapper}>
+            <p className={classes.label}>Icon</p>
+          </div>
+          <div className={classes.masteryWrapper}>
+            <p className={classes.label}>Mastery</p>
+          </div>
+          <div className={classes.totalCardsWrapper}>
+            <p className={classes.label}>Cards</p>
+          </div>
+          <div className={classes.actionsWrapper}>
+            <p className={classes.label}>Actions</p>
           </div>
         </div>
-        <div className={classes.iconWrapper}>
-          <p className={classes.label}>Icon</p>
+        <div className={classes.deckListContainer}>
+          {myDecksTab && (
+          <>
+            { !filterState.isFiltered && sortState.sortedDatabase.length > 0
+              ? sortState.sortedDatabase.map(userCardSet => (
+                <UserCollectionCardDetails
+                  key={userCardSet.setName}
+                  category={userCardSet.category}
+                  iconClass={userCardSet.iconClass}
+                  mastery={userCardSet.mastery}
+                  setName={userCardSet.setName}
+                  totalCards={userCardSet.cards.length}
+                  roundState={roundState}
+                  setRoundState={setRoundState}
+                  setCurrentCardSetName={setCurrentCardSetName}
+                  url={`/my-collections/${userCardSet.id}`}
+                  fetchUserCardSets={fetchUserCardSets}
+                  resetUserCollectionsState={resetUserCollectionsState}
+                  handleDrawerClose={handleDrawerClose}
+                />
+              ))
+              : filterState.filtered.map(userCardSet => (
+                <UserCollectionCardDetails
+                  key={userCardSet.setName}
+                  category={userCardSet.category}
+                  iconClass={userCardSet.iconClass}
+                  mastery={userCardSet.mastery}
+                  setName={userCardSet.setName}
+                  totalCards={userCardSet.cards.length}
+                  roundState={roundState}
+                  setRoundState={setRoundState}
+                  setCurrentCardSetName={setCurrentCardSetName}
+                  url={`/my-collections/${userCardSet.id}`}
+                  fetchUserCardSets={fetchUserCardSets}
+                  resetUserCollectionsState={resetUserCollectionsState}
+                  handleDrawerClose={handleDrawerClose}
+                />
+              ))}
+          </>
+          )}
+          {stockDecksTab && (
+          <>
+            { !filterState.isFiltered && stockSortState.sortedStockDatabase.length > 0
+              ? stockSortState.sortedStockDatabase.map(cardSet => (
+                <UserCollectionCardDetails
+                  key={cardSet.setName}
+                  category={cardSet.category}
+                  iconClass={cardSet.iconClass}
+                  mastery={cardSet.mastery}
+                  setName={cardSet.setName}
+                  totalCards={cardSet.cards.length}
+                  roundState={roundState}
+                  setRoundState={setRoundState}
+                  setCurrentCardSetName={setCurrentCardSetName}
+                  url={`/collections/${cardSet.id}`}
+                  fetchUserCardSets={fetchUserCardSets}
+                  resetUserCollectionsState={resetUserCollectionsState}
+                  handleDrawerClose={handleDrawerClose}
+                />
+              ))
+              : filterState.filtered.map(cardSet => (
+                <UserCollectionCardDetails
+                  key={cardSet.setName}
+                  category={cardSet.category}
+                  iconClass={cardSet.iconClass}
+                  mastery={cardSet.mastery}
+                  setName={cardSet.setName}
+                  totalCards={cardSet.cards.length}
+                  roundState={roundState}
+                  setRoundState={setRoundState}
+                  setCurrentCardSetName={setCurrentCardSetName}
+                  url={`/collections/${cardSet.id}`}
+                  fetchUserCardSets={fetchUserCardSets}
+                  resetUserCollectionsState={resetUserCollectionsState}
+                  handleDrawerClose={handleDrawerClose}
+                />
+              ))}
+          </>
+          )}
         </div>
-        <div className={classes.masteryWrapper}>
-          <p className={classes.label}>Mastery</p>
-        </div>
-        <div className={classes.totalCardsWrapper}>
-          <p className={classes.label}>Cards</p>
-        </div>
-        <div className={classes.actionsWrapper}>
-          <p className={classes.label}>Actions</p>
-        </div>
+        <div className={classes.dividerEnd} />
       </div>
-      {myDecksTab && (
-      <>
-        { !filterState.isFiltered && sortState.sortedDatabase.length > 0
-          ? sortState.sortedDatabase.map(userCardSet => (
-            <UserCollectionCardDetails
-              key={userCardSet.setName}
-              category={userCardSet.category}
-              iconClass={userCardSet.iconClass}
-              mastery={userCardSet.mastery}
-              setName={userCardSet.setName}
-              totalCards={userCardSet.cards.length}
-              roundState={roundState}
-              setRoundState={setRoundState}
-              setCurrentCardSetName={setCurrentCardSetName}
-              url={`/my-collections/${userCardSet.id}`}
-              fetchUserCardSets={fetchUserCardSets}
-              resetUserCollectionsState={resetUserCollectionsState}
-              handleDrawerClose={handleDrawerClose}
-            />
-          ))
-          : filterState.filtered.map(userCardSet => (
-            <UserCollectionCardDetails
-              key={userCardSet.setName}
-              category={userCardSet.category}
-              iconClass={userCardSet.iconClass}
-              mastery={userCardSet.mastery}
-              setName={userCardSet.setName}
-              totalCards={userCardSet.cards.length}
-              roundState={roundState}
-              setRoundState={setRoundState}
-              setCurrentCardSetName={setCurrentCardSetName}
-              url={`/my-collections/${userCardSet.id}`}
-              fetchUserCardSets={fetchUserCardSets}
-              resetUserCollectionsState={resetUserCollectionsState}
-              handleDrawerClose={handleDrawerClose}
-            />
-          ))}
-      </>
-      )}
-      {stockDecksTab && (
-      <>
-        { !filterState.isFiltered && stockSortState.sortedStockDatabase.length > 0
-          ? stockSortState.sortedStockDatabase.map(cardSet => (
-            <UserCollectionCardDetails
-              key={cardSet.setName}
-              category={cardSet.category}
-              iconClass={cardSet.iconClass}
-              mastery={cardSet.mastery}
-              setName={cardSet.setName}
-              totalCards={cardSet.cards.length}
-              roundState={roundState}
-              setRoundState={setRoundState}
-              setCurrentCardSetName={setCurrentCardSetName}
-              url={`/collections/${cardSet.id}`}
-              fetchUserCardSets={fetchUserCardSets}
-              resetUserCollectionsState={resetUserCollectionsState}
-              handleDrawerClose={handleDrawerClose}
-            />
-          ))
-          : filterState.filtered.map(cardSet => (
-            <UserCollectionCardDetails
-              key={cardSet.setName}
-              category={cardSet.category}
-              iconClass={cardSet.iconClass}
-              mastery={cardSet.mastery}
-              setName={cardSet.setName}
-              totalCards={cardSet.cards.length}
-              roundState={roundState}
-              setRoundState={setRoundState}
-              setCurrentCardSetName={setCurrentCardSetName}
-              url={`/collections/${cardSet.id}`}
-              fetchUserCardSets={fetchUserCardSets}
-              resetUserCollectionsState={resetUserCollectionsState}
-              handleDrawerClose={handleDrawerClose}
-            />
-          ))}
-      </>
-      )}
-      <div className={classes.dividerEnd} />
     </div>
   );
 }

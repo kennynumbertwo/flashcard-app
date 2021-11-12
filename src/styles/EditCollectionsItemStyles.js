@@ -9,13 +9,14 @@ export default {
     margin: '5px 0px 5px 0px',
     borderRadius: '3px',
     color: 'var(--text-primary)',
-    backgroundColor: 'var(--background-white)',
+    backgroundColor: 'var(--background-collection-item)',
     fontSize: '1rem',
     transition: 'all .2s',
     textDecoration: 'none',
-    border: '1px solid rgba(0, 0, 0, 0.1)',
+    border: '1px solid rgba(0, 0, 0, 0.08)',
     '&:hover': {
-      boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, 0.1)',
+      border: '1px solid rgba(0, 0, 0, 0.2)',
+      // boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, 0.1)',
     },
   },
   setNameWrapper: {
