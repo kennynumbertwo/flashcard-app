@@ -195,7 +195,7 @@ const styles = {
     alignItems: 'center',
     border: '2px solid rgba(0, 0, 0, 0.04)',
     width: '1020px',
-    borderRadius: '6px',
+    // borderRadius: '6px',
   },
 };
 

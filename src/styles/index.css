@@ -15,11 +15,11 @@ code {
 :root {
   /* BACKGROUND COLORS */
   --background-primary: rgba(124, 236, 238, 0.112);
-  --background-secondary: rgba(124, 236, 238, 0.112);
+  --background-secondary: rgba(124, 236, 238, 0.139);
   --background-white: white;
   --background-collection-main: rgba(255, 255, 255, 0.879);
   --background-collection-item: rgb(254, 254, 254);
-  --background-collection-container: rgba(242, 242, 242, 0.612);
+  --background-collection-container: rgba(201, 201, 201, 0.071);
 
   /* TEXT COLORS */
   --text-primary: rgba(0, 0, 0, 0.7);
@@ -27,18 +27,18 @@ code {
   --text-primary-dark: rgba(0, 0, 0, 0.9);
   --text-primary-invis: rgba(0, 0, 0, 0);
   --text-light: white;
-  --text-accept: rgba(7, 177, 77, 0.8);
+  --text-accept: rgb(8, 187, 134);
   --text-warning: rgba(246, 102, 102, 1);
 
   /* BUTTONS COLORS */
   --button-primary: rgba(0, 0, 0, 0.6);
   --button-primary-dark: rgba(0, 0, 0, 0.7);
   --button-primary-disabled: rgba(0, 0, 0, 0.3);
-  --button-accept-dark: rgba(7, 177, 77, 1);
-  --button-accept-primary: rgba(7, 177, 77, 0.8);
-  --button-accept-light: rgba(7, 177, 77, 0.6);
-  --button-deny-dark: rgba(245, 0, 86, 1);
-  --button-deny-primary: rgba(245, 0, 86, 0.9);
+  --button-accept-dark: rgb(28, 126, 103);
+  --button-accept-primary: rgb(8, 187, 134);
+  --button-accept-light: rgba(7, 177, 123, 0.913);
+  --button-deny-dark: rgb(157, 16, 65);
+  --button-deny-primary: rgb(238, 6, 88);
   --button-deny-light: rgba(245, 0, 86, 0.6);
 
   /* MUI Tab Colors */
