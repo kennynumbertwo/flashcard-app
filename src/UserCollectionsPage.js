@@ -188,7 +188,7 @@ const styles = {
   },
   itemsWrapper: {
     backgroundColor: 'var(--background-collection-container)',
-    height: '670px',
+    height: '650px',
     overflow: 'scroll',
     flexDirection: 'column',
     display: 'flex',

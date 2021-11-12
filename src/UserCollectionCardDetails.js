@@ -124,6 +124,13 @@ const styles = {
     border: 'none',
     transition: 'all 0.4s ease 0s',
     borderRadius: '5px',
+    '&.disabled': {
+      backgroundColor: 'var(--button-primary-disabled)',
+      '&:hover': {
+        cursor: 'default',
+        backgroundColor: 'var(--button-primary-disabled)',
+      },
+    },
     '&:hover': {
       background: 'var(--button-accept-primary)',
       transition: 'all 0.4s ease 0s',
@@ -230,9 +237,15 @@ function UserCollectionCardDetails(props) {
             </Link>
           )
           : (
-            <Link className={classes.buttonLink} to={url}>
-              <button className={classes.button} type="button" onClick={handleStart}>Start</button>
-            </Link>
+            <>
+              {totalCards !== 0 ? (
+                <Link className={classes.buttonLink} to={url}>
+                  <button className={classes.button} type="button" onClick={handleStart}>Start</button>
+                </Link>
+              ) : (
+                <button className={`${classes.button} disabled`} type="button">Start</button>
+              )}
+            </>
           )}
 
       </div>

@@ -33,6 +33,7 @@ code {
   /* BUTTONS COLORS */
   --button-primary: rgba(0, 0, 0, 0.6);
   --button-primary-dark: rgba(0, 0, 0, 0.7);
+  --button-primary-disabled: rgba(0, 0, 0, 0.3);
   --button-accept-dark: rgba(7, 177, 77, 1);
   --button-accept-primary: rgba(7, 177, 77, 0.8);
   --button-accept-light: rgba(7, 177, 77, 0.6);
