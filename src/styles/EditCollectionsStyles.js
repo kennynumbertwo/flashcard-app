@@ -76,7 +76,7 @@ export default {
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexDirection: 'column',
-    width: '1100px',
+    width: '1125px',
     maxHeight: '840px',
     padding: '15px 0px 0px 0px',
     margin: '0px 0px 0px 0px',
@@ -179,7 +179,7 @@ export default {
     flexDirection: 'column',
     fontSize: '1.8rem',
     borderRadius: '10px',
-    color: 'var(--text-primary-light)',
+    color: 'var(--text-primary)',
     transition: 'all 0.4s ease 0s',
     '& p': {
       fontSize: '.8rem',

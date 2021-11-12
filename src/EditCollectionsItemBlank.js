@@ -114,7 +114,7 @@ function EditCollectionsItemBlank(props) {
           </div>
         )
           : (
-            <div className={classes.EditCollectionsItemBlankIcon}>
+            <div className={classes.EditCollectionsItemIcon}>
               <IconCard
                 iconClass={selectedIconClass}
                 iconName={selectedIcon}

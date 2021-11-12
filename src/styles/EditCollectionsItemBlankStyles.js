@@ -98,6 +98,9 @@ export default {
     fontSize: '1.5rem',
     border: '1px solid rgba(0, 0, 0, 0.3)',
     borderRadius: '5px',
+    '& i': {
+      color: 'rgba(0, 0, 0, 0.7)',
+    },
     '&:hover': {
       border: '1px solid rgba(0, 0, 0, 0.7)',
     },

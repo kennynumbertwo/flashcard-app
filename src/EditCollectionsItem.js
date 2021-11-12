@@ -37,6 +37,7 @@ function EditCollectionsItem(props) {
     setOpenSnackbar,
     setSnackbarMessage,
     setIsAnimatingCardItem,
+    deleteDeckFilter,
   } = props;
   const { setName, category, iconClass, mastery } = userCardSet;
 
@@ -115,6 +116,7 @@ function EditCollectionsItem(props) {
     const updateString = `${setName.toLowerCase().replace(/\s+/g, '-')}`;
     setOpenSnackbar(true);
     setSnackbarMessage('Deck Deleted');
+    deleteDeckFilter(setName);
     deleteUserDatabaseSet(setName);
     await updateDoc(
       userRef, { [updateString]: deleteField() },

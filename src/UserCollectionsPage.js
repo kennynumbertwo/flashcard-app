@@ -27,7 +27,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexDirection: 'column',
-    width: '1100px',
+    width: '1125px',
     height: '825px',
     padding: '15px 0px 0px 0px',
     margin: '0px 0px 0px 0px',

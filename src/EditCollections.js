@@ -163,6 +163,18 @@ function EditCollections(props) {
     return sortedOptions;
   };
 
+  const deleteDeckFilter = (setName) => {
+    let filtered = [...filterState.filtered].filter(deck => deck.setName !== setName);
+    if (filtered.length !== 0) {
+      return setFilterState({ ...filterState, filtered });
+    }
+    return setFilterState({
+      isFiltered: false,
+      showClearFilter: false,
+      filtered: [],
+    });
+  };
+
   //  <---------------  Click Handlers for EditCollections   --------------->
 
   // Handles Set Name and Category Sort
@@ -452,6 +464,7 @@ function EditCollections(props) {
                         setSnackbarMessage={setSnackbarMessage}
                         index={index}
                         setIsAnimatingCardItem={setIsAnimatingCardItem}
+                        deleteDeckFilter={deleteDeckFilter}
                       />
                     ))
                   // Renders the filtered database if isFiltered is true
@@ -472,6 +485,7 @@ function EditCollections(props) {
                         setSnackbarMessage={setSnackbarMessage}
                         index={index}
                         setIsAnimatingCardItem={setIsAnimatingCardItem}
+                        deleteDeckFilter={deleteDeckFilter}
                       />
                     ))}
                 </div>

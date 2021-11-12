@@ -37,7 +37,7 @@ const styles = {
       opacity: 0,
     },
     '50%': {
-      opacity: 0,
+      opacity: 0.05,
     },
     '100%': {
       transform: 'translateY(0%)',

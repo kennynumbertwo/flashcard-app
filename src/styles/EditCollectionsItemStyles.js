@@ -29,7 +29,7 @@ export default {
       opacity: 0,
     },
     '50%': {
-      opacity: 0,
+      opacity: 0.1,
     },
     '100%': {
       transform: 'translateY(0%)',
