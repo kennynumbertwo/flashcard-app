@@ -36,8 +36,7 @@ function EditCollectionsItem(props) {
     isViewingCardsState,
     setOpenSnackbar,
     setSnackbarMessage,
-    setStartIndex,
-    setEndIndex,
+    setIsAnimatingCardItem,
   } = props;
   const { setName, category, iconClass, mastery } = userCardSet;
 
@@ -129,13 +128,11 @@ function EditCollectionsItem(props) {
   // Click handler for the Delete button
   const handleViewCardsClick = () => {
     if (!isViewingCardsState.isViewing) {
-      setStartIndex(0);
-      setEndIndex(10);
+      setIsAnimatingCardItem(true);
       setIsViewingCardsState({ isViewing: true, cardSet: { ...userCardSet }, setName });
     } else {
-      setStartIndex(0);
-      setEndIndex(10);
       setIsViewingCardsState({ isViewing: false, cardSet: {}, setName: '' });
+      setIsAnimatingCardItem(true);
     }
   };
 

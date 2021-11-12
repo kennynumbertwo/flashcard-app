@@ -138,6 +138,7 @@ function EditCollectionsNewCard(props) {
     getTotalMasteryRating,
     setOpenSnackbar,
     setSnackbarMessage,
+    setIsAnimatingCardItem,
   } = props;
   // Default state for New Cards
   const [newCardFields, setNewCardFields] = useState({
@@ -155,6 +156,7 @@ function EditCollectionsNewCard(props) {
   };
 
   const handleSaveCard = async () => {
+    setIsAnimatingCardItem(false);
     setSnackbarMessage('Card Added');
     setOpenSnackbar(true);
     const userRef = doc(db, 'users', uid);

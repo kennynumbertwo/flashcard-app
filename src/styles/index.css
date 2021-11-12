@@ -19,6 +19,7 @@ code {
   --background-white: white;
   --background-collection-main: rgba(255, 255, 255, 0.879);
   --background-collection-item: rgb(254, 254, 254);
+  --background-collection-container: rgba(242, 242, 242, 0.612);
 
   /* TEXT COLORS */
   --text-primary: rgba(0, 0, 0, 0.7);
@@ -40,7 +41,7 @@ code {
   --button-deny-light: rgba(245, 0, 86, 0.6);
 
   /* MUI Tab Colors */
-  --tab-primary: rgba(74, 145, 103, 1);
+  --tab-primary: rgb(5, 142, 117);
 
   /* MUI Drawer Colors */
   --drawer-header: white;

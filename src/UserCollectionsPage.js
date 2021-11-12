@@ -19,7 +19,7 @@ const styles = {
     alignItems: 'center',
     flexDirection: 'column',
     width: '100%',
-    height: '100%',
+    maxHeight: '100%',
     margin: '64px 0px 0px 0px',
   },
   mainCard: {
@@ -28,7 +28,7 @@ const styles = {
     justifyContent: 'flex-start',
     flexDirection: 'column',
     width: '1100px',
-    height: '810px',
+    height: '825px',
     padding: '15px 0px 0px 0px',
     margin: '0px 0px 0px 0px',
     borderRadius: '2px',
@@ -87,17 +87,17 @@ const styles = {
     height: '1px',
     width: ITEM_WIDTH,
     borderBottom: '1px solid rgba(0, 0, 0, 0.2)',
-    margin: '0px 0px 15px 0px',
+    margin: '0px 0px 5px 0px',
     padding: '0px 0px 2px 0px',
-    boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
+    // boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
   },
   dividerEnd: {
     height: '1px',
-    width: '1000px',
+    width: '1020px',
     borderBottom: '1px solid rgba(0, 0, 0, 0.2)',
-    margin: '0px 0px 15px 0px',
-    padding: '9px 0px 2px 0px',
-    boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
+    margin: '0px 0px 5px 0px',
+    padding: '4px 0px 2px 0px',
+    // boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
   },
   headerCardWrapper: {
     display: 'flex',
@@ -186,8 +186,16 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  deckListContainer: {
+  itemsWrapper: {
+    backgroundColor: 'var(--background-collection-container)',
+    height: '670px',
     overflow: 'scroll',
+    flexDirection: 'column',
+    display: 'flex',
+    alignItems: 'center',
+    border: '2px solid rgba(0, 0, 0, 0.04)',
+    width: '1020px',
+    borderRadius: '6px',
   },
 };
 
@@ -535,7 +543,7 @@ function UserCollectionsPage(props) {
             <p className={classes.label}>Actions</p>
           </div>
         </div>
-        <div className={classes.deckListContainer}>
+        <div className={classes.itemsWrapper}>
           {myDecksTab && (
           <>
             { !filterState.isFiltered && sortState.sortedDatabase.length > 0

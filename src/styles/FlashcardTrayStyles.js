@@ -66,10 +66,10 @@ export default {
 
   '@keyframes flashcardSlideInFirst': {
     '0%': {
-      transform: 'translateX(200%)',
+      transform: 'translateX(250%)',
     },
     '50%': {
-      transform: 'translateX(200%)',
+      transform: 'translateX(250%)',
     },
   },
 

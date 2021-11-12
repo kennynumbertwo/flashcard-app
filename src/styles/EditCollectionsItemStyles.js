@@ -14,9 +14,26 @@ export default {
     transition: 'all .2s',
     textDecoration: 'none',
     border: '1px solid rgba(0, 0, 0, 0.08)',
+    animationName: '$card-item-slide',
+    animationDuration: props => (`${props.index * 70}ms`),
+    animationTimingFunction: 'ease-in-out',
+    animationIterationCount: '1',
     '&:hover': {
       border: '1px solid rgba(0, 0, 0, 0.2)',
       // boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, 0.1)',
+    },
+  },
+  '@keyframes card-item-slide': {
+    '0%': {
+      transform: 'translateY(50%)',
+      opacity: 0,
+    },
+    '50%': {
+      opacity: 0,
+    },
+    '100%': {
+      transform: 'translateY(0%)',
+      opacity: 1,
     },
   },
   setNameWrapper: {

@@ -7,7 +7,7 @@ export default {
     alignItems: 'center',
     flexDirection: 'column',
     width: '100%',
-    height: '100%',
+    maxHeight: '100%',
     margin: '64px 0px 0px 0px',
   },
   menuBar: {
@@ -59,15 +59,15 @@ export default {
     height: '1px',
     width: ITEM_WIDTH,
     borderBottom: '1px solid rgba(0, 0, 0, 0.2)',
-    margin: '0px 0px 15px 0px',
+    margin: '0px 0px 5px 0px',
     padding: '0px 0px 2px 0px',
     // boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
   },
   dividerEnd: {
     height: '1px',
-    width: '1000px',
+    width: '1020px',
     borderBottom: '1px solid rgba(0, 0, 0, 0.2)',
-    margin: '0px 0px 15px 0px',
+    margin: '0px 0px 5px 0px',
     padding: '4px 0px 2px 0px',
     // boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
   },
@@ -77,15 +77,26 @@ export default {
     justifyContent: 'flex-start',
     flexDirection: 'column',
     width: '1100px',
-    height: '810px',
+    maxHeight: '840px',
     padding: '15px 0px 0px 0px',
     margin: '0px 0px 0px 0px',
     borderRadius: '2px',
     boxShadow: '0px 1px 5px 1px rgba(0, 0, 0, 0.1)',
-    // color: 'var(--text-primary)',
     backgroundColor: 'var(--background-collection-main)',
     fontSize: '1rem',
     fontWeight: '400',
+    // border: '1px solid black',
+  },
+  itemsWrapper: {
+    backgroundColor: 'var(--background-collection-container)',
+    minHeight: '610px',
+    maxHeight: '610px',
+    overflow: 'scroll',
+    display: 'flex',
+    justifyContent: 'center',
+    border: '2px solid rgba(0, 0, 0, 0.04)',
+    width: '1020px',
+    borderRadius: '6px',
   },
   headerCardWrapper: {
     display: 'flex',
@@ -159,7 +170,7 @@ export default {
     alignItems: 'center',
   },
   addIconWrapper: {
-    paddingTop: '15px',
+    paddingTop: '0px',
     height: '75px',
     width: '80px',
     display: 'flex',
@@ -172,6 +183,7 @@ export default {
     transition: 'all 0.4s ease 0s',
     '& p': {
       fontSize: '.8rem',
+      margin: '5px 0px 0px 0px',
     },
     '&:hover': {
       color: 'var(--text-accept)',
@@ -180,7 +192,7 @@ export default {
     },
   },
   loadingSpinnerWrapper: {
-    height: '562px',
+    height: '610px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -201,57 +213,11 @@ export default {
       cursor: 'pointer',
     },
   },
-  prevCardButton: {
-    border: 'none',
-    backgroundColor: 'inherit',
-    borderRadius: '50px',
-    transition: 'all 0.4s ease 0s',
-    '& svg': {
-      transition: 'all .5s ease-in-out',
-      color: 'var(--text-primary)',
-      '&:hover': {
-        color: 'var(--text-accept)',
-        transition: 'all 0.4s ease 0s',
-        cursor: 'pointer',
-      },
-    },
-    animationName: '$buttonFadeIn',
-    animationIterationCount: '1',
-    animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
-    animationDuration: '800ms',
-  },
-  '@keyframes buttonFadeIn': {
-    '0%': {
-      opacity: '0',
-    },
-    '50%': {
-      opacity: '0',
-    },
-  },
   pageButtonWrapper: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     width: '50px',
-  },
-  nextCardButton: {
-    border: 'none',
-    backgroundColor: 'inherit',
-    borderRadius: '50px',
-    transition: 'all 0.4s ease 0s',
-    '& svg': {
-      transition: 'all .5s ease-in-out',
-      color: 'var(--text-primary)',
-      '&:hover': {
-        color: 'var(--text-accept)',
-        transition: 'all 0.4s ease 0s',
-        cursor: 'pointer',
-      },
-    },
-    animationName: '$buttonFadeIn',
-    animationIterationCount: '1',
-    animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
-    animationDuration: '850ms',
   },
   viewingButtonWrapper: {
     display: 'flex',
@@ -260,7 +226,5 @@ export default {
     width: '300px',
     // border: '1px solid black',
   },
-  itemsWrapper: {
-    minHeight: '562px',
-  },
+
 };

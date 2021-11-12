@@ -22,8 +22,26 @@ const styles = {
     height: '45px',
     borderRadius: '3px',
     border: '1px solid rgba(0, 0, 0, 0.1)',
+    animationName: '$card-item-slide',
+    animationDuration: props => (`${props.card.cardNumber * 70}ms`),
+    animationTimingFunction: 'ease-in-out',
+    animationIterationCount: props => (props.isAnimatingCardItem ? 1 : 0),
     '&:hover': {
       boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, 0.1)',
+    },
+  },
+
+  '@keyframes card-item-slide': {
+    '0%': {
+      transform: 'translateY(50%)',
+      opacity: 0,
+    },
+    '50%': {
+      opacity: 0,
+    },
+    '100%': {
+      transform: 'translateY(0%)',
+      opacity: 1,
     },
   },
   CardItemNumWrapper: {
@@ -104,9 +122,11 @@ function CardItem(props) {
     getTotalMasteryRating,
     setOpenSnackbar,
     setSnackbarMessage,
+    setIsAnimatingCardItem,
   } = props;
 
   const handleDelete = async () => {
+    setIsAnimatingCardItem(false);
     let updatedCards = getDeletedCardArray(card);
     const userRef = doc(db, 'users', uid);
     const updateCardsString = `${card.setName.toLowerCase().replace(/\s+/g, '-')}.cards`;

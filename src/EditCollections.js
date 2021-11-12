@@ -9,8 +9,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PuffLoader from 'react-spinners/PuffLoader';
 import { v4 as uuidv4 } from 'uuid';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Snackbar from '@mui/material/Snackbar';
 import CheckIcon from '@mui/icons-material/Check';
 import styles from './styles/EditCollectionsStyles';
@@ -43,8 +41,9 @@ function EditCollections(props) {
     isViewing: false,
     cardSet: {},
   });
-  const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(10);
+
+  // Animation State
+  const [isAnimatingCardItem, setIsAnimatingCardItem] = useState(false);
 
   // State for Material UI Dropdown
   const [filterOptions, setFilterOptions] = useState([]);
@@ -182,8 +181,6 @@ function EditCollections(props) {
     if (!isEditingDecksTab) {
       setIsEditingDecksTab(true);
       setIsEditingCardsTab(false);
-      setStartIndex(0);
-      setEndIndex(10);
       setIsViewingCardsState({ isViewing: false, cardSet: {} });
     }
   };
@@ -205,27 +202,6 @@ function EditCollections(props) {
   // Click handler for the Add Card
   const handleAddCardClick = () => {
     setIsAddingCard(true);
-  };
-
-  const handlePrevPage = () => {
-    if (startIndex > 0) {
-      setStartIndex(startIndex - 10);
-      setEndIndex(endIndex - 10);
-    }
-  };
-  const handleNextPage = () => {
-    if (isViewingCardsState.isViewing) {
-      if (endIndex < isViewingCardsState.cardSet.cards.length) {
-        setStartIndex(startIndex + 10);
-        setEndIndex(endIndex + 10);
-      }
-    }
-    if (isEditingCardsTab || isEditingDecksTab) {
-      if (endIndex < sortState.sortedDatabase.length) {
-        setStartIndex(startIndex + 10);
-        setEndIndex(endIndex + 10);
-      }
-    }
   };
 
   //  <---------------  Utility Functions for EditCollections   --------------->
@@ -345,70 +321,53 @@ function EditCollections(props) {
           )}
         </div>
         <div className={classes.divider} />
-        {!isViewingCardsState.isViewing && (
-        <>
-          <div className={classes.headerCard}>
-            <div className={classes.setNameWrapper}>
-              <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
-                <p className={classes.label}>Set Name</p>
-                <div className={classes.sortIconWrapper}>
-                  {sortState.sortId === 'setName' && sortState.sortAsc
-                    ? <i className="fas fa-sort-up" />
-                    : null}
-                  {sortState.sortId === 'setName' && !sortState.sortAsc
-                    ? <i className="fas fa-sort-down" />
-                    : null}
-                  {sortState.sortId !== 'setName' && <i className="fas fa-sort" />}
-                </div>
+        <div className={classes.headerCard}>
+          <div className={classes.setNameWrapper}>
+            <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
+              <p className={classes.label}>Set Name</p>
+              <div className={classes.sortIconWrapper}>
+                {sortState.sortId === 'setName' && sortState.sortAsc
+                  ? <i className="fas fa-sort-up" />
+                  : null}
+                {sortState.sortId === 'setName' && !sortState.sortAsc
+                  ? <i className="fas fa-sort-down" />
+                  : null}
+                {sortState.sortId !== 'setName' && <i className="fas fa-sort" />}
               </div>
-            </div>
-            <div className={classes.categoryWrapper}>
-              <div className={classes.sortClickWrapper} id="category" onClick={handleSortClick}>
-                <p className={classes.label}>Category</p>
-                <div className={classes.sortIconWrapper}>
-                  {sortState.sortId === 'category' && sortState.sortAsc
-                    ? <i className="fas fa-sort-up" />
-                    : null}
-                  {sortState.sortId === 'category' && !sortState.sortAsc
-                    ? <i className="fas fa-sort-down" />
-                    : null}
-                  {sortState.sortId !== 'category' && <i className="fas fa-sort" />}
-                </div>
-              </div>
-            </div>
-            <div className={classes.iconWrapper}>
-              <p className={classes.label}>Icon</p>
-            </div>
-            <div className={classes.masteryWrapper}>
-              <p className={classes.label}>Mastery</p>
-            </div>
-            <div className={classes.totalCardsWrapper}>
-              <p className={classes.label}>Cards</p>
-            </div>
-            <div className={classes.actionsWrapper}>
-              <p className={classes.label}>Actions</p>
             </div>
           </div>
-        </>
-        )}
-
+          <div className={classes.categoryWrapper}>
+            <div className={classes.sortClickWrapper} id="category" onClick={handleSortClick}>
+              <p className={classes.label}>Category</p>
+              <div className={classes.sortIconWrapper}>
+                {sortState.sortId === 'category' && sortState.sortAsc
+                  ? <i className="fas fa-sort-up" />
+                  : null}
+                {sortState.sortId === 'category' && !sortState.sortAsc
+                  ? <i className="fas fa-sort-down" />
+                  : null}
+                {sortState.sortId !== 'category' && <i className="fas fa-sort" />}
+              </div>
+            </div>
+          </div>
+          <div className={classes.iconWrapper}>
+            <p className={classes.label}>Icon</p>
+          </div>
+          <div className={classes.masteryWrapper}>
+            <p className={classes.label}>Mastery</p>
+          </div>
+          <div className={classes.totalCardsWrapper}>
+            <p className={classes.label}>Cards</p>
+          </div>
+          <div className={classes.actionsWrapper}>
+            <p className={classes.label}>Actions</p>
+          </div>
+        </div>
         {/* Blank EditCollectionsItem is shown when Add Deck is clicked */}
         {userCardSetDatabase ? (
           <div className={classes.itemsWrapper}>
-            {isAddingDeck && (
-            <EditCollectionsItemBlank
-              key="new-deck"
-              uid={uid}
-              deleteUserDatabaseSet={deleteUserDatabaseSet}
-              fetchUserCardSets={fetchUserCardSets}
-              isAddingDeck={isAddingDeck}
-              setIsAddingDeck={setIsAddingDeck}
-              setOpenSnackbar={setOpenSnackbar}
-              setSnackbarMessage={setSnackbarMessage}
-            />
-            )}
             {isViewingCardsState.isViewing ? (
-              <div className={classes.itemsWrapper}>
+              <div>
                 <EditCollectionsItem
                   key={isViewingCardsState.cardSet.id}
                   userCardSet={isViewingCardsState.cardSet}
@@ -421,8 +380,8 @@ function EditCollections(props) {
                   isEditingCardsTab={isEditingCardsTab}
                   isViewingCardsState={isViewingCardsState}
                   setIsViewingCardsState={setIsViewingCardsState}
-                  setStartIndex={setStartIndex}
-                  setEndIndex={setEndIndex}
+                  isAnimatingCardItem={isAnimatingCardItem}
+                  setIsAnimatingCardItem={setIsAnimatingCardItem}
                 />
                 {isAddingCard && (
                 <EditCollectionsNewCard
@@ -436,10 +395,12 @@ function EditCollections(props) {
                   getTotalMasteryRating={getTotalMasteryRating}
                   setOpenSnackbar={setOpenSnackbar}
                   setSnackbarMessage={setSnackbarMessage}
+                  isAnimatingCardItem={isAnimatingCardItem}
+                  setIsAnimatingCardItem={setIsAnimatingCardItem}
                 />
                 )}
-                { isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards
-                  .slice(startIndex, endIndex).map(card => (
+                {isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards
+                  .map(card => (
                     <EditCollectionsCardItem
                       key={uuidv4()}
                       uid={uid}
@@ -452,15 +413,29 @@ function EditCollections(props) {
                       getTotalMasteryRating={getTotalMasteryRating}
                       setOpenSnackbar={setOpenSnackbar}
                       setSnackbarMessage={setSnackbarMessage}
+                      isAnimatingCardItem={isAnimatingCardItem}
+                      setIsAnimatingCardItem={setIsAnimatingCardItem}
                     />
                   ))}
               </div>
             )
               : (
                 <div>
+                  {isAddingDeck && (
+                  <EditCollectionsItemBlank
+                    key="new-deck"
+                    uid={uid}
+                    deleteUserDatabaseSet={deleteUserDatabaseSet}
+                    fetchUserCardSets={fetchUserCardSets}
+                    isAddingDeck={isAddingDeck}
+                    setIsAddingDeck={setIsAddingDeck}
+                    setOpenSnackbar={setOpenSnackbar}
+                    setSnackbarMessage={setSnackbarMessage}
+                  />
+                  )}
                   {/* Renders the sorted database */}
                   { !filterState.isFiltered && sortState.sortedDatabase.length > 0
-                    ? sortState.sortedDatabase.slice(startIndex, endIndex).map(userCardSet => (
+                    ? sortState.sortedDatabase.map((userCardSet, index) => (
                       <EditCollectionsItem
                         key={userCardSet.id}
                         userCardSet={userCardSet}
@@ -475,12 +450,12 @@ function EditCollections(props) {
                         setIsViewingCardsState={setIsViewingCardsState}
                         setOpenSnackbar={setOpenSnackbar}
                         setSnackbarMessage={setSnackbarMessage}
-                        setStartIndex={setStartIndex}
-                        setEndIndex={setEndIndex}
+                        index={index}
+                        setIsAnimatingCardItem={setIsAnimatingCardItem}
                       />
                     ))
                   // Renders the filtered database if isFiltered is true
-                    : filterState.filtered.slice(startIndex, endIndex).map(userCardSet => (
+                    : filterState.filtered.map((userCardSet, index) => (
                       <EditCollectionsItem
                         key={userCardSet.id}
                         userCardSet={userCardSet}
@@ -495,8 +470,8 @@ function EditCollections(props) {
                         setIsViewingCardsState={setIsViewingCardsState}
                         setOpenSnackbar={setOpenSnackbar}
                         setSnackbarMessage={setSnackbarMessage}
-                        setStartIndex={setStartIndex}
-                        setEndIndex={setEndIndex}
+                        index={index}
+                        setIsAnimatingCardItem={setIsAnimatingCardItem}
                       />
                     ))}
                 </div>
@@ -513,45 +488,17 @@ function EditCollections(props) {
         {/* Footer controls when viewing cards */}
         {isViewingCardsState.isViewing ? (
           <div className={classes.viewingButtonWrapper}>
-            <div className={classes.pageButtonWrapper}>
-              {startIndex > 0 && (
-              <button className={classes.prevCardButton} type="button">
-                <ChevronLeftIcon fontSize="large" onClick={handlePrevPage} />
-              </button>
-              )}
-            </div>
             <div className={classes.addIconWrapper} onClick={handleAddCardClick}>
               <i className="far fa-plus-square" />
               <p className={classes.addDeckLabel}>ADD CARD</p>
-            </div>
-            <div className={classes.pageButtonWrapper}>
-              {isViewingCardsState.cardSet.cards.length > 10 && (
-              <button className={classes.nextCardButton} type="button">
-                <ChevronRightIcon fontSize="large" onClick={handleNextPage} />
-              </button>
-              )}
             </div>
           </div>
         )
           : (
             <div className={classes.viewingButtonWrapper}>
-              <div className={classes.pageButtonWrapper}>
-                {startIndex > 0 && (
-                <button className={classes.prevCardButton} type="button">
-                  <ChevronLeftIcon fontSize="large" onClick={handlePrevPage} />
-                </button>
-                )}
-              </div>
               <div className={classes.addIconWrapper} onClick={handleAddDeckClick}>
                 <i className="far fa-plus-square" />
                 <p className={classes.addDeckLabel}>ADD DECK</p>
-              </div>
-              <div className={classes.pageButtonWrapper}>
-                {sortState.sortedDatabase.length > 10 && (
-                <button className={classes.nextCardButton} type="button">
-                  <ChevronRightIcon fontSize="large" onClick={handleNextPage} />
-                </button>
-                )}
               </div>
             </div>
           )}
