@@ -22,6 +22,7 @@ const styles = {
     maxHeight: '100%',
     margin: '64px 0px 0px 0px',
   },
+
   mainCard: {
     display: 'flex',
     alignItems: 'center',
@@ -53,6 +54,21 @@ const styles = {
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingLeft: '10px',
+  },
+  headerText: {
+    animationName: '$run-decks-slide-in',
+    animationDuration: '500ms',
+    animationIterationCount: 1,
+    animationTimingFunction: 'ease-in-out',
+  },
+  '@keyframes run-decks-slide-in': {
+    '0%': {
+      opacity: 0,
+      transform: 'translateY(20%)',
+    },
+    '50%': {
+      opacity: 0.4,
+    },
   },
   navWrapperOuter: {
     height: '50px',
@@ -411,7 +427,7 @@ function UserCollectionsPage(props) {
 
         <div className={classes.menuBar}>
           <div className={classes.headerWrapper}>
-            <h2>Run Decks</h2>
+            <h2 className={classes.headerText}>Run Decks</h2>
           </div>
           <div className={classes.navWrapperOuter}>
             <div className={classes.navWrapperInner}>

@@ -264,7 +264,7 @@ function EditCollections(props) {
       <div className={classes.mainCard}>
         <div className={classes.menuBar}>
           <div className={classes.headerWrapper}>
-            <h2>Edit Collections</h2>
+            <h2 className={classes.headerText}>Edit Collections</h2>
           </div>
           <div className={classes.navWrapperOuter}>
             <div className={classes.navWrapperInner}>

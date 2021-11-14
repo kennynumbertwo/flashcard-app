@@ -26,6 +26,21 @@ export default {
     alignItems: 'center',
     paddingLeft: '10px',
   },
+  headerText: {
+    animationName: '$edit-decks-slide-in',
+    animationDuration: '500ms',
+    animationIterationCount: 1,
+    animationTimingFunction: 'ease-in-out',
+  },
+  '@keyframes edit-decks-slide-in': {
+    '0%': {
+      opacity: 0,
+      transform: 'translateY(20%)',
+    },
+    '50%': {
+      opacity: 0.4,
+    },
+  },
   navWrapperOuter: {
     height: '50px',
     width: '60%',

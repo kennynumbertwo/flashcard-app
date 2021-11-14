@@ -22,7 +22,7 @@ const styles = {
     transition: 'all .2s',
     textDecoration: 'none',
     animationName: '$card-details-slide',
-    animationDuration: props => (`${props.cardNumber * 70}ms`),
+    animationDuration: props => (`${props.cardNumber * 100}ms`),
     animationTimingFunction: 'ease-in-out',
     animationIterationCount: props => (props.isAnimatingCardDetails ? 1 : 0),
     border: '1px solid rgba(0, 0, 0, 0.1)',
