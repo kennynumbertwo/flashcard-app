@@ -67,15 +67,11 @@ const styles = {
   CardItemQuestion: {
     display: 'flex',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     height: '40px',
     width: '100%',
     textAlign: 'left',
     padding: '0px 20px 0px 0px',
-    // border: '1px solid black',
-    whiteSpace: 'no-wrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
   },
   CardItemNum: {
     display: 'flex',
@@ -84,8 +80,12 @@ const styles = {
   },
   CardItemAnswer: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+    height: '40px',
+    width: '100%',
+    textAlign: 'left',
+    padding: '0px 20px 0px 0px',
   },
   deleteButtonWrapper: {
     display: 'flex',
@@ -157,10 +157,14 @@ function CardItem(props) {
             <p className={classes.CardItemNum}>{cardNumber}</p>
           </div>
           <div className={classes.CardItemQuestionWrapper}>
-            <span className={classes.label}>Question:</span><p className={classes.CardItemQuestion}>{question}</p>
+            <span className={classes.label}>Question:</span>
+            <p className={classes.CardItemQuestion}>
+              {question.length > 80 ? `${question.slice(0, 80)}...` : question}
+            </p>
           </div>
           <div className={classes.CardItemAnswerWrapper}>
-            <p className={classes.CardItemAnswer}><span className={classes.label}>Answer:</span> {answer}</p>
+            <span className={classes.label}>Answer:</span>
+            <p className={classes.CardItemAnswer}>{answer.length > 30 ? `${answer.slice(0, 30)}...` : answer}</p>
           </div>
           <div className={classes.deleteButtonWrapper}>
             <button className={classes.deleteButton} onClick={handleDelete} type="button">Delete</button>

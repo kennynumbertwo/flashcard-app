@@ -8,7 +8,7 @@ const styles = {
   root: {
     width: '100%',
     height: '100%',
-    backgroundImage: 'linear-gradient(var(--background-primary), var(--background-secondary))',
+    backgroundColor: 'var(--background-primary)',
   },
 };
 
