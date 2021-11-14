@@ -42,9 +42,6 @@ function EditCollections(props) {
     cardSet: {},
   });
 
-  // Animation State
-  const [isAnimatingCardItem, setIsAnimatingCardItem] = useState(false);
-
   // State for Material UI Dropdown
   const [filterOptions, setFilterOptions] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -83,6 +80,8 @@ function EditCollections(props) {
     uid,
     deleteUserDatabaseSet,
     fetchUserCardSets,
+    isAnimatingCardItem,
+    setIsAnimatingCardItem,
   } = props;
 
   // Fetches latest database from Firestore

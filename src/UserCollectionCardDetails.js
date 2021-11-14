@@ -21,9 +21,26 @@ const styles = {
     fontSize: '1rem',
     transition: 'all .2s',
     textDecoration: 'none',
+    animationName: '$card-details-slide',
+    animationDuration: props => (`${props.cardNumber * 70}ms`),
+    animationTimingFunction: 'ease-in-out',
+    animationIterationCount: props => (props.isAnimatingCardDetails ? 1 : 0),
     border: '1px solid rgba(0, 0, 0, 0.1)',
     '&:hover': {
       boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, 0.1)',
+    },
+  },
+  '@keyframes card-details-slide': {
+    '0%': {
+      transform: 'translateY(35%)',
+      opacity: 0,
+    },
+    '50%': {
+      opacity: 0.05,
+    },
+    '100%': {
+      transform: 'translateY(0%)',
+      opacity: 1,
     },
   },
   setNameWrapper: {
@@ -116,7 +133,7 @@ const styles = {
     color: 'white',
     textDecoration: 'none',
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    fontSize: '.8rem',
+    fontSize: 'var(--button-fontSize-primary)',
     fontWeight: '500',
     background: 'var(--button-primary)',
     width: '80px',

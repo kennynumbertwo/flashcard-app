@@ -1,17 +1,3 @@
-body {
-  margin: 0;
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 :root {
   /* BACKGROUND COLORS */
   --background-primary: rgb(242, 242, 242);
@@ -46,14 +32,38 @@ code {
 
   /* MUI Drawer Colors */
   --drawer-header: white;
+}
 
-  /* PROGRESS BAR COLORS */
-  --progress-bar-100: rgb(58, 213, 141);
-  --progress-bar-75: rgb(39, 157, 116);
-  --progress-bar-50: rgb(171, 199, 71);
-  --progress-bar-25: rgb(222, 146, 113);
-  --progress-bar-0: rgba(233, 81, 80, 1);
+/* Color Theme Swatches in RGBA */
+.color-theme_Screenshot_20211004_142740_com-1-rgba {
+  color: rgba(54, 31, 51, 1);
+}
+.color-theme_Screenshot_20211004_142740_com-2-rgba {
+  color: rgba(32, 28, 43, 1);
+}
+.color-theme_Screenshot_20211004_142740_com-3-rgba {
+  color: rgba(103, 15, 76, 1);
+}
+.color-theme_Screenshot_20211004_142740_com-4-rgba {
+  color: rgba(206, 34, 90, 1);
+}
+.color-theme_Screenshot_20211004_142740_com-5-rgba {
+  color: rgba(233, 81, 80, 1);
+}
 
-  /* FONT SIZES */
-  --button-fontSize-primary: 0.82rem;
+/* Color Theme Swatches in RGBA */
+.Green-Monsters-1-rgba {
+  color: rgba(0, 230, 165, 1);
+}
+.Green-Monsters-2-rgba {
+  color: rgba(51, 170, 137, 1);
+}
+.Green-Monsters-3-rgba {
+  color: rgba(0, 153, 110, 1);
+}
+.Green-Monsters-4-rgba {
+  color: rgba(69, 230, 184, 1);
+}
+.Green-Monsters-5-rgba {
+  color: rgba(0, 102, 73, 1);
 }

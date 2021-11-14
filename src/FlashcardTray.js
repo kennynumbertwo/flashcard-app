@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/styles';
 import { Redirect } from 'react-router-dom';
-import { doc, updateDoc } from 'firebase/firestore/lite';
+import { doc, updateDoc, setDoc } from 'firebase/firestore/lite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import styles from './styles/FlashcardTrayStyles';
@@ -12,7 +12,7 @@ import FlashcardActions from './FlashcardActions';
 import db from './firebase.config';
 import Modal from './Modal';
 
-function UserFlashcardTray(props) {
+function FlashcardTray(props) {
   const [flashcards, setFlashcards] = useState([]);
   const [shuffledDeck, setShuffledDeck] = useState([]);
   const [cardQuantity, setCardQuantity] = React.useState(0);
@@ -36,6 +36,7 @@ function UserFlashcardTray(props) {
     userCardSetDatabase,
     roundState,
     uid,
+    cardSetToSave,
     fetchUserCardSets,
     fetchStockCards,
     isShowingMastery,
@@ -249,7 +250,15 @@ function UserFlashcardTray(props) {
     );
   };
 
-  const handleModalYes = () => {
+  const handleModalYes = async () => {
+    let deckToSave = {};
+    userCardSetDatabase.forEach(cardSet => {
+      if (cardSet.id === currentCardSetName.toLowerCase().replace(/\s+/g, '-')) {
+        deckToSave = cardSet;
+      }
+    });
+    const userRef = doc(db, 'users', uid);
+    await setDoc(userRef, { [deckToSave.id]: deckToSave }, { merge: true });
     setIsShowingMastery(true);
   };
 
@@ -326,4 +335,4 @@ function UserFlashcardTray(props) {
   );
 }
 
-export default withStyles(styles)(UserFlashcardTray);
+export default withStyles(styles)(FlashcardTray);

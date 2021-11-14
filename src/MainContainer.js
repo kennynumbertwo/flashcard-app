@@ -32,7 +32,7 @@ function MainContainer(props) {
   // Function to fetch the Firebase DB and set it to cardSetDatabase
   const fetchStockCards = async () => {
     let cardArray = [];
-    const cardSet = collection(db, 'cardSets');
+    const cardSet = collection(db, 'stockDecks');
     const cardData = await getDocs(cardSet);
     cardData.docs.map(card => cardArray.push(card.data()));
     return setCardSetDatabase(cardArray);

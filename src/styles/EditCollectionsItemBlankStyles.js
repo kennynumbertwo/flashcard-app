@@ -14,8 +14,25 @@ export default {
     transition: 'all .2s',
     textDecoration: 'none',
     border: '1px solid rgba(0, 0, 0, 0.1)',
+    animationName: '$new-deck-slide',
+    animationDuration: '400ms',
+    animationIterationCount: 1,
+    animationTimingFunction: 'ease-in-out',
     '&:hover': {
       boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, 0.1)',
+    },
+  },
+  '@keyframes new-deck-slide': {
+    '0%': {
+      transform: 'translateY(15%)',
+      opacity: 0,
+    },
+    '50%': {
+      opacity: 0.5,
+    },
+    '100%': {
+      transform: 'translateY(0%)',
+      opacity: 1,
     },
   },
   setNameWrapper: {
@@ -136,7 +153,7 @@ export default {
     color: 'white',
     textDecoration: 'none',
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    fontSize: '.8rem',
+    fontSize: 'var(--button-fontSize-primary)',
     fontWeight: '500',
     background: 'var(--button-primary)',
     width: '80px',
@@ -157,7 +174,7 @@ export default {
     color: 'white',
     textDecoration: 'none',
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    fontSize: '.8rem',
+    fontSize: 'var(--button-fontSize-primary)',
     fontWeight: '500',
     background: 'var(--button-deny-dark)',
     width: '80px',
@@ -178,7 +195,7 @@ export default {
     color: 'white',
     textDecoration: 'none',
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    fontSize: '.8rem',
+    fontSize: 'var(--button-fontSize-primary)',
     fontWeight: '500',
     background: 'var(--button-accept-dark)',
     width: '80px',

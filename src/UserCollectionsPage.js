@@ -236,6 +236,8 @@ function UserCollectionsPage(props) {
     setValue(newValue);
   };
 
+  const [isAnimatingCardDetails, setIsAnimatingCardDetails] = useState(true);
+
   const {
     classes,
     cardSetDatabase,
@@ -547,7 +549,7 @@ function UserCollectionsPage(props) {
           {myDecksTab && (
           <>
             { !filterState.isFiltered && sortState.sortedDatabase.length > 0
-              ? sortState.sortedDatabase.map(userCardSet => (
+              ? sortState.sortedDatabase.map((userCardSet, index) => (
                 <UserCollectionCardDetails
                   key={userCardSet.setName}
                   category={userCardSet.category}
@@ -562,9 +564,12 @@ function UserCollectionsPage(props) {
                   fetchUserCardSets={fetchUserCardSets}
                   resetUserCollectionsState={resetUserCollectionsState}
                   handleDrawerClose={handleDrawerClose}
+                  cardNumber={index}
+                  isAnimatingCardDetails={isAnimatingCardDetails}
+                  setIsAnimatingCardDetails={setIsAnimatingCardDetails}
                 />
               ))
-              : filterState.filtered.map(userCardSet => (
+              : filterState.filtered.map((userCardSet, index) => (
                 <UserCollectionCardDetails
                   key={userCardSet.setName}
                   category={userCardSet.category}
@@ -579,6 +584,9 @@ function UserCollectionsPage(props) {
                   fetchUserCardSets={fetchUserCardSets}
                   resetUserCollectionsState={resetUserCollectionsState}
                   handleDrawerClose={handleDrawerClose}
+                  cardNumber={index}
+                  isAnimatingCardDetails={isAnimatingCardDetails}
+                  setIsAnimatingCardDetails={setIsAnimatingCardDetails}
                 />
               ))}
           </>
@@ -586,9 +594,10 @@ function UserCollectionsPage(props) {
           {stockDecksTab && (
           <>
             { !filterState.isFiltered && stockSortState.sortedStockDatabase.length > 0
-              ? stockSortState.sortedStockDatabase.map(cardSet => (
+              ? stockSortState.sortedStockDatabase.map((cardSet, index) => (
                 <UserCollectionCardDetails
                   key={cardSet.setName}
+                  cardSetToSave={cardSet}
                   category={cardSet.category}
                   iconClass={cardSet.iconClass}
                   mastery={cardSet.mastery}
@@ -601,11 +610,15 @@ function UserCollectionsPage(props) {
                   fetchUserCardSets={fetchUserCardSets}
                   resetUserCollectionsState={resetUserCollectionsState}
                   handleDrawerClose={handleDrawerClose}
+                  cardNumber={index}
+                  isAnimatingCardDetails={isAnimatingCardDetails}
+                  setIsAnimatingCardDetails={setIsAnimatingCardDetails}
                 />
               ))
-              : filterState.filtered.map(cardSet => (
+              : filterState.filtered.map((cardSet, index) => (
                 <UserCollectionCardDetails
                   key={cardSet.setName}
+                  cardSetToSave={cardSet}
                   category={cardSet.category}
                   iconClass={cardSet.iconClass}
                   mastery={cardSet.mastery}
@@ -618,6 +631,9 @@ function UserCollectionsPage(props) {
                   fetchUserCardSets={fetchUserCardSets}
                   resetUserCollectionsState={resetUserCollectionsState}
                   handleDrawerClose={handleDrawerClose}
+                  cardNumber={index}
+                  isAnimatingCardDetails={isAnimatingCardDetails}
+                  setIsAnimatingCardDetails={setIsAnimatingCardDetails}
                 />
               ))}
           </>

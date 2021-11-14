@@ -256,10 +256,10 @@ function EditCollectionsItem(props) {
           <p className={classes.info}>{totalCards}</p>
         </div>
         <div className={classes.buttonWrapper}>
-          <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>
+          <button className={classes.deleteButton} type="button" onClick={handleDeleteClick}>Delete</button>
         </div>
         <div className={classes.buttonWrapper}>
-          <button className={classes.deleteButton} type="button" onClick={handleDeleteClick}>Delete</button>
+          <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>
         </div>
         <Modal
           isShowing={isShowingModal}

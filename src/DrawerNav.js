@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
     }),
     backgroundColor: 'var(--drawer-header)',
     color: 'var(--text-primary-dark)',
+    boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.15)',
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -128,6 +129,9 @@ export default function DrawerNav(props) {
   // Checks if user is logged in, if not, login page is shown
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // Animation State
+  const [isAnimatingCardItem, setIsAnimatingCardItem] = useState(false);
+
   const {
     cardSetDatabase,
     updateCardSetName,
@@ -139,11 +143,13 @@ export default function DrawerNav(props) {
 
   // Opens Material UI Drawer
   const handleDrawerOpen = () => {
+    setIsAnimatingCardItem(false);
     setOpen(true);
   };
 
   // Closes Material UI Drawer
   const handleDrawerClose = () => {
+    setIsAnimatingCardItem(false);
     setOpen(false);
   };
 
@@ -372,6 +378,8 @@ export default function DrawerNav(props) {
                 // setEditDeckState={setEditDeckState}
                 deleteUserDatabaseSet={deleteUserDatabaseSet}
                 fetchUserCardSets={fetchUserCardSets}
+                isAnimatingCardItem={isAnimatingCardItem}
+                setIsAnimatingCardItem={setIsAnimatingCardItem}
               />
             )}
           />

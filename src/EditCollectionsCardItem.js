@@ -9,7 +9,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     width: '1005px',
-    height: '50px',
+    height: '55px',
     color: 'var(--text-primary)',
     fontSize: '.88rem',
   },
@@ -19,7 +19,7 @@ const styles = {
     alignItems: 'center',
     width: '1005px',
     backgroundColor: 'var(--background-white)',
-    height: '45px',
+    height: '50px',
     // borderRadius: '3px',
     border: '1px solid rgba(0, 0, 0, 0.1)',
     animationName: '$card-item-slide',
@@ -33,7 +33,7 @@ const styles = {
 
   '@keyframes card-item-slide': {
     '0%': {
-      transform: 'translateY(50%)',
+      transform: 'translateY(35%)',
       opacity: 0,
     },
     '50%': {
@@ -66,8 +66,16 @@ const styles = {
   },
   CardItemQuestion: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    height: '40px',
+    width: '100%',
+    textAlign: 'left',
+    padding: '0px 20px 0px 0px',
+    // border: '1px solid black',
+    whiteSpace: 'no-wrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   CardItemNum: {
     display: 'flex',
@@ -92,7 +100,7 @@ const styles = {
     color: 'var(--text-light)',
     textDecoration: 'none',
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    fontSize: '.8rem',
+    fontSize: 'var(--button-fontSize-primary)',
     fontWeight: '500',
     background: 'var(--button-primary)',
     width: '80px',
@@ -149,7 +157,7 @@ function CardItem(props) {
             <p className={classes.CardItemNum}>{cardNumber}</p>
           </div>
           <div className={classes.CardItemQuestionWrapper}>
-            <p className={classes.CardItemQuestion}><span className={classes.label}>Question:</span>{question}</p>
+            <span className={classes.label}>Question:</span><p className={classes.CardItemQuestion}>{question}</p>
           </div>
           <div className={classes.CardItemAnswerWrapper}>
             <p className={classes.CardItemAnswer}><span className={classes.label}>Answer:</span> {answer}</p>
