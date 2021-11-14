@@ -83,19 +83,34 @@ export default {
       transform: 'translateY(0%)',
     },
   },
+  '@keyframes fadeOut': {
+    '0%': {
+      opacity: 1,
+      transform: 'translateY(0%)',
+    },
+    '100%': {
+      opacity: 0,
+      transform: 'translateY(25%)',
+    },
+  },
 
-  noMatchWrapper: {
+  errorTextWrapper: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     height: '1px',
     width: '100%',
     transform: 'translateY(20px)',
-    '& p': {
-      fontSize: '14px',
-      color: 'var(--text-warning)',
-      paddingTop: '10px',
+  },
+  errorText: {
+    fontSize: '0.85rem',
+    color: 'var(--text-warning)',
+    paddingTop: '10px',
+    '&.errorIn': {
       animation: '$fadeIn .5s',
+    },
+    '&.errorOut': {
+      animation: '$fadeOut .5s',
     },
   },
   backToLoginWrapper: {

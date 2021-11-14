@@ -15,7 +15,7 @@ import styles from './styles/CreateEmailFormStyles';
 function CreateEmailForm(props) {
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
   const [email, setEmail] = useState('');
-  const [noPasswordMatch, setNoPasswordMatch] = useState(false);
+  const [errorAnimation, setErrorAnimation] = useState('');
   const [values, setValues] = React.useState({
     password: '',
     confirmPassword: '',
@@ -33,6 +33,8 @@ function CreateEmailForm(props) {
     setUser,
     setIsLoggedIn,
     setCreatingEmailLogin,
+    setErrorState,
+    errorState,
   } = props;
 
   useEffect(() => {
@@ -52,19 +54,61 @@ function CreateEmailForm(props) {
     }
   }, [userToLogIn]);
 
+  useEffect(() => {
+    if (errorState.errorMessage) {
+      setErrorAnimation('errorIn');
+      setTimeout(() => {
+        setErrorAnimation('errorOut');
+      }, 3500);
+    }
+    if (errorState.errorMessage === '') {
+      setErrorAnimation('');
+    }
+  }, [errorState.errorMessage]);
+
   const handleSubmitCreateEmail = (e) => {
     e.preventDefault();
-    if (values.password === values.confirmPassword) {
+    if (values.password === values.confirmPassword && values.password.length > 5) {
       createEmailAccount(email, values.password);
     } else {
-      setNoPasswordMatch(true);
+      if (values.password !== values.confirmPassword) {
+        setErrorState({
+          errorMessage: 'password do not match',
+          errorCode: 'invalid password',
+          errorText: 'The passwords you provided do not match',
+          isEmailError: false,
+          isPasswordError: true,
+        });
+      }
+      if (values.password.length <= 5) {
+        setErrorState({
+          errorMessage: 'password not long enough',
+          errorCode: 'invalid password',
+          errorText: 'Password not long enough',
+          isEmailError: false,
+          isPasswordError: true,
+        });
+      }
       setTimeout(() => {
-        setNoPasswordMatch(false);
-      }, 1000);
+        setErrorState({
+          errorMessage: '',
+          errorCode: '',
+          errorText: '',
+          isEmailError: false,
+          isPasswordError: true,
+        });
+      }, 4000);
     }
   };
 
   const handleBackToLogin = () => {
+    setErrorState({
+      errorMessage: '',
+      errorCode: '',
+      errorText: '',
+      isEmailError: false,
+      isPasswordError: false,
+    });
     setCreatingEmailLogin(false);
   };
 
@@ -116,10 +160,11 @@ function CreateEmailForm(props) {
             type="email"
             autoComplete="current-email"
             variant="standard"
+            error={errorState.isEmailError}
             onChange={handleEmailChange}
           />
           <FormControl variant="standard">
-            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+            <InputLabel htmlFor="standard-adornment-password" error={errorState.isPasswordError}>Password</InputLabel>
             <Input
               sx={{ width: '275px' }}
               id="standard-adornment-password"
@@ -127,6 +172,7 @@ function CreateEmailForm(props) {
               value={values.password}
               onChange={handleChange('password')}
               variant="standard"
+              error={errorState.isPasswordError}
               endAdornment={(
                 <InputAdornment position="end">
                   <IconButton
@@ -142,7 +188,7 @@ function CreateEmailForm(props) {
           </FormControl>
           <div className={classes.confirmInput}>
             <FormControl variant="standard">
-              <InputLabel htmlFor="standard-adornment-password">Confirm Password</InputLabel>
+              <InputLabel htmlFor="standard-adornment-password" error={errorState.isPasswordError}>Confirm Password</InputLabel>
               <Input
                 sx={{ width: '275px' }}
                 id="standard-adornment-confirm-password"
@@ -150,6 +196,7 @@ function CreateEmailForm(props) {
                 value={values.confirmPassword}
                 onChange={handleChange('confirmPassword')}
                 variant="standard"
+                error={errorState.isPasswordError}
                 endAdornment={(
                   <InputAdornment position="end">
                     <IconButton
@@ -163,8 +210,8 @@ function CreateEmailForm(props) {
               )}
               />
             </FormControl>
-            <div className={classes.noMatchWrapper}>
-              {noPasswordMatch && <p className={classes.noMatchText}>Passwords do not match</p>}
+            <div className={classes.errorTextWrapper}>
+              {errorState.errorText && <p className={`${classes.errorText} ${errorAnimation}`}>{errorState.errorText}</p>}
             </div>
           </div>
         </div>

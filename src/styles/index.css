@@ -28,7 +28,7 @@ code {
   --text-primary-invis: rgba(0, 0, 0, 0);
   --text-light: white;
   --text-accept: rgba(51, 170, 137, 1);
-  --text-warning: rgba(206, 34, 90, 1);
+  --text-warning: #d32f2f;
 
   /* BUTTONS COLORS */
   --button-primary: rgba(0, 0, 0, 0.6);

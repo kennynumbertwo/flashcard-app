@@ -21,6 +21,13 @@ function Login(props) {
   const [userToLogIn, setUserToLogIn] = useState({});
   const [userIsLoaded, setUserIsLoaded] = useState(false);
   const [firstSignIn, setFirstSignIn] = useState(false);
+  const [errorState, setErrorState] = useState({
+    errorMessage: '',
+    errorCode: '',
+    errorDisplay: '',
+    isEmailError: false,
+    isPasswordError: false,
+  });
   const [incorrectPassword, setIncorrectPassword] = useState(false);
 
   // Destructured props
@@ -150,6 +157,29 @@ function Login(props) {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        let errorText = '';
+        if (errorCode === 'auth/invalid-email') {
+          errorText = 'Please enter a valid email address';
+        }
+        if (errorCode === 'auth/email-already-in-use') {
+          errorText = 'Account already exists with that email';
+        }
+        setErrorState({
+          errorMessage,
+          errorCode,
+          errorText,
+          isEmailError: true,
+          isPasswordError: false,
+        });
+        setTimeout(() => {
+          setErrorState({
+            errorMessage: '',
+            errorCode: '',
+            errorText: '',
+            isEmailError: true,
+            isPasswordError: false,
+          });
+        }, 4000);
         // The email of the user's accound used
         console.log(
           `Error Code: ${errorCode}`,
@@ -163,6 +193,7 @@ function Login(props) {
     signInWithEmailAndPassword(auth, email, password)
       .then(authHandler)
       .catch((error) => {
+        setErrorState(error);
         const errorCode = error.code;
         const errorMessage = error.message;
         // The email of the user's accound used
@@ -193,6 +224,8 @@ function Login(props) {
         setUser={props.setUser}
         firstSignIn={firstSignIn}
         setIsLoggedIn={props.setIsLoggedIn}
+        errorState={errorState}
+        setErrorState={setErrorState}
       />
     );
   }
@@ -215,6 +248,8 @@ function Login(props) {
         userToLogIn={userToLogIn}
         firstSignIn={firstSignIn}
         incorrectPassword={incorrectPassword}
+        errorState={errorState}
+        setErrorState={setErrorState}
       />
     );
   }
