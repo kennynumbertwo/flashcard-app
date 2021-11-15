@@ -307,7 +307,15 @@ export default function DrawerNav(props) {
             )}
           />
           {/* ABOUT PAGE */}
-          <Route exact path="/about" render={() => <About />} />
+          <Route
+            exact
+            path=""
+            render={() => (
+              <About
+                isLoggedIn={isLoggedIn}
+              />
+            )}
+          />
         </Switch>
       </main>
     </div>

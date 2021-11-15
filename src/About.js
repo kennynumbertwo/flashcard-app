@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
 
 const styles = {
   root: {
@@ -13,14 +14,19 @@ const styles = {
 };
 
 function About(props) {
-  const { classes } = props;
+  const { classes, isLoggedIn } = props;
+
+  if (!isLoggedIn) {
+    return <Redirect to="/login" />;
+  }
+
   return (
     <div className={classes.root}>
-      <h2>About Page</h2>
-      <p>This application was built by Kenny Tye (me).
+      <h2>About Page Coming Soon</h2>
+      {/* <p>This application was built by Kenny Tye (me).
         I started building this as a way to learn how to build more elaborate React applications.
         I hope you enjoy.
-      </p>
+      </p> */}
     </div>
 
   );

@@ -504,12 +504,7 @@ function EditCollections(props) {
         <div className={classes.dividerEnd} />
         {/* Footer controls when viewing cards */}
         {isViewingCardsState.isViewing ? (
-          <div className={classes.viewingButtonWrapper}>
-            <div className={classes.addIconWrapper} onClick={handleAddCardClick}>
-              <i className="far fa-plus-square" />
-              <p className={classes.addDeckLabel}>ADD CARD</p>
-            </div>
-          </div>
+          <div className={classes.viewingButtonWrapperEmpty} />
         )
           : (
             <div className={classes.viewingButtonWrapper}>
