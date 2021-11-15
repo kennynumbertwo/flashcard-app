@@ -36,7 +36,6 @@ function FlashcardTray(props) {
     userCardSetDatabase,
     roundState,
     uid,
-    cardSetToSave,
     fetchUserCardSets,
     fetchStockCards,
     isShowingMastery,

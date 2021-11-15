@@ -28,6 +28,7 @@ function LoginEmailForm(props) {
     showPassword: false,
     showConfirmPassword: false,
   });
+  const [errorAnimation, setErrorAnimation] = useState('');
   const {
     classes,
     setCreatingEmailLogin,
@@ -36,7 +37,9 @@ function LoginEmailForm(props) {
     authenticateGoogle,
     isShowingModal,
     toggleModal,
-    incorrectPassword,
+    signInWithEmail,
+    setErrorState,
+    errorState,
   } = props;
 
   // Checks if there is a user to login AND if there is an authenticated user already signed in
@@ -57,7 +60,26 @@ function LoginEmailForm(props) {
     }
   }, [props.userToLogIn]);
 
+  useEffect(() => {
+    if (errorState.errorMessage) {
+      setErrorAnimation('errorIn');
+      setTimeout(() => {
+        setErrorAnimation('errorOut');
+      }, 3500);
+    }
+    if (errorState.errorMessage === '') {
+      setErrorAnimation('');
+    }
+  }, [errorState.errorMessage]);
+
   const handleCreateEmailLogin = () => {
+    setErrorState({
+      errorMessage: '',
+      errorCode: '',
+      errorText: '',
+      isEmailError: false,
+      isPasswordError: false,
+    });
     setIsAnimatingOut(true);
     let timer = setTimeout(() => {
       setIsAnimatingOut(false);
@@ -77,7 +99,7 @@ function LoginEmailForm(props) {
   };
 
   const handleSignIn = () => {
-    props.signInWithEmail(email, values.password);
+    signInWithEmail(email, values.password);
   };
 
   const handleClickShowPassword = () => {
@@ -132,8 +154,8 @@ function LoginEmailForm(props) {
             />
           </FormControl>
         </div>
-        <div className={classes.incorrectPasswordWrapper}>
-          {incorrectPassword && <p className={classes.incorrectPasswordText}>Incorrect password</p>}
+        <div className={classes.errorTextWrapper}>
+          {errorState.errorText && <p className={`${classes.errorText} ${errorAnimation}`}>{errorState.errorText}</p>}
         </div>
         <div className={classes.buttonWrapper}>
           <button

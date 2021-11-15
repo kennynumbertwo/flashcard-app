@@ -98,7 +98,7 @@ function AccountMenu(props) {
                         <div className={classes.dividerWrapper}>
                           <Divider />
                         </div>
-                        <MenuItem onClick={handleClose}>My account</MenuItem>
+                        {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
                         <MenuItem onClick={handleClose}>Logout</MenuItem>
                       </div>
                     )}

@@ -56,6 +56,9 @@ export default {
     width: '25%',
     height: '50px',
     padding: '0px 0px 0px 0px',
+    '& .MuiInputBase-root.MuiOutlinedInput-root': {
+      borderRadius: '2px',
+    },
   },
   categoryWrapper: {
     display: 'flex',
@@ -77,6 +80,12 @@ export default {
     width: '25%',
     height: '50px',
     padding: '0px 0px 0px 0px',
+    '& .MuiInputBase-root.MuiOutlinedInput-root': {
+      borderRadius: '2px',
+      '&: focus': {
+        border: '5px solid red',
+      },
+    },
   },
   label: {
     margin: '0px 10px 0px 0px',
@@ -135,7 +144,7 @@ export default {
     justifyContent: 'center',
     fontSize: '1.5rem',
     border: '1px solid rgba(0, 0, 0, 0.3)',
-    borderRadius: '5px',
+    borderRadius: '2px',
     '&:hover': {
       border: '1px solid rgba(0, 0, 0, 0.7)',
     },
@@ -243,4 +252,5 @@ export default {
   buttonLink: {
     textDecoration: 'none',
   },
+
 };

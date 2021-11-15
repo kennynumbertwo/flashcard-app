@@ -57,6 +57,9 @@ const styles = {
     '& .MuiFormControl-root.MuiTextField-root.MuiFormControl-root.MuiTextField-root': {
       width: '100%',
     },
+    '& .MuiInputBase-root.MuiOutlinedInput-root': {
+      borderRadius: '2px',
+    },
   },
   cardItemAnswerWrapper: {
     display: 'flex',
@@ -65,6 +68,9 @@ const styles = {
     width: '30%',
     '& .MuiFormControl-root.MuiTextField-root.MuiFormControl-root.MuiTextField-root': {
       width: '100%',
+    },
+    '& .MuiInputBase-root.MuiOutlinedInput-root': {
+      borderRadius: '2px',
     },
   },
   cardItemNum: {

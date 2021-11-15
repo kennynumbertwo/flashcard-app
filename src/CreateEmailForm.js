@@ -35,6 +35,7 @@ function CreateEmailForm(props) {
     setCreatingEmailLogin,
     setErrorState,
     errorState,
+    setPasswordErrorState,
   } = props;
 
   useEffect(() => {
@@ -72,32 +73,17 @@ function CreateEmailForm(props) {
       createEmailAccount(email, values.password);
     } else {
       if (values.password !== values.confirmPassword) {
-        setErrorState({
-          errorMessage: 'password do not match',
-          errorCode: 'invalid password',
-          errorText: 'The passwords you provided do not match',
-          isEmailError: false,
-          isPasswordError: true,
-        });
+        const errorCode = 'invalid password';
+        const errorMessage = 'passwords do not match';
+        const errorText = 'The passwords you provided do not match';
+        setPasswordErrorState(errorCode, errorMessage, errorText);
       }
       if (values.password.length <= 5) {
-        setErrorState({
-          errorMessage: 'password not long enough',
-          errorCode: 'invalid password',
-          errorText: 'Password not long enough',
-          isEmailError: false,
-          isPasswordError: true,
-        });
+        const errorCode = 'invalid password';
+        const errorMessage = 'password not long enough';
+        const errorText = 'Password not long enough';
+        setPasswordErrorState(errorCode, errorMessage, errorText);
       }
-      setTimeout(() => {
-        setErrorState({
-          errorMessage: '',
-          errorCode: '',
-          errorText: '',
-          isEmailError: false,
-          isPasswordError: true,
-        });
-      }, 4000);
     }
   };
 

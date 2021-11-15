@@ -28,7 +28,6 @@ function Login(props) {
     isEmailError: false,
     isPasswordError: false,
   });
-  const [incorrectPassword, setIncorrectPassword] = useState(false);
 
   // Destructured props
   const { isLoggedIn } = props;
@@ -149,6 +148,44 @@ function Login(props) {
       });
   };
 
+  const setEmailErrorState = (errorCode, errorMessage, errorText) => {
+    setErrorState({
+      errorMessage,
+      errorCode,
+      errorText,
+      isEmailError: true,
+      isPasswordError: false,
+    });
+    setTimeout(() => {
+      setErrorState({
+        errorMessage: '',
+        errorCode: '',
+        errorText: '',
+        isEmailError: true,
+        isPasswordError: false,
+      });
+    }, 4000);
+  };
+
+  const setPasswordErrorState = (errorCode, errorMessage, errorText) => {
+    setErrorState({
+      errorMessage,
+      errorCode,
+      errorText,
+      isEmailError: false,
+      isPasswordError: true,
+    });
+    setTimeout(() => {
+      setErrorState({
+        errorMessage: '',
+        errorCode: '',
+        errorText: '',
+        isEmailError: false,
+        isPasswordError: true,
+      });
+    }, 4000);
+  };
+
   const createEmailAccount = (email, password) => {
     const auth = getAuth();
     console.log(auth);
@@ -160,31 +197,17 @@ function Login(props) {
         let errorText = '';
         if (errorCode === 'auth/invalid-email') {
           errorText = 'Please enter a valid email address';
+          setEmailErrorState(errorCode, errorMessage, errorText);
         }
         if (errorCode === 'auth/email-already-in-use') {
           errorText = 'Account already exists with that email';
+          setEmailErrorState(errorCode, errorMessage, errorText);
+        } else {
+          console.log(
+            `Error Code: ${errorCode}`,
+            `Error Message: ${errorMessage}`,
+          );
         }
-        setErrorState({
-          errorMessage,
-          errorCode,
-          errorText,
-          isEmailError: true,
-          isPasswordError: false,
-        });
-        setTimeout(() => {
-          setErrorState({
-            errorMessage: '',
-            errorCode: '',
-            errorText: '',
-            isEmailError: true,
-            isPasswordError: false,
-          });
-        }, 4000);
-        // The email of the user's accound used
-        console.log(
-          `Error Code: ${errorCode}`,
-          `Error Message: ${errorMessage}`,
-        );
       });
   };
 
@@ -193,12 +216,22 @@ function Login(props) {
     signInWithEmailAndPassword(auth, email, password)
       .then(authHandler)
       .catch((error) => {
-        setErrorState(error);
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log(
+          `Error Code: ${errorCode}`,
+          `Error Message: ${errorMessage}`,
+        );
+        let errorText = '';
         // The email of the user's accound used
         if (errorCode === 'auth/wrong-password') {
-          setIncorrectPassword(true);
+          errorText = 'Incorrect password';
+          setPasswordErrorState(errorCode, errorMessage, errorText);
+        // Handle linking here if your app allows it.
+        }
+        if (errorCode === 'auth/invalid-email') {
+          errorText = 'Account does not exist';
+          setEmailErrorState(errorCode, errorMessage, errorText);
         // Handle linking here if your app allows it.
         } else {
           console.log(
@@ -226,6 +259,7 @@ function Login(props) {
         setIsLoggedIn={props.setIsLoggedIn}
         errorState={errorState}
         setErrorState={setErrorState}
+        setPasswordErrorState={setPasswordErrorState}
       />
     );
   }
