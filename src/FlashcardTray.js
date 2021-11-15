@@ -167,6 +167,7 @@ function FlashcardTray(props) {
         setIsLoading(true);
         fetchUserCardSets();
         setCardAnimation('animateInFirst');
+        toggleShowAnswer(false);
       }, 100);
     }
     if (stockCardSet) {
@@ -175,6 +176,7 @@ function FlashcardTray(props) {
         setIsLoading(true);
         fetchStockCards();
         setCardAnimation('animateInFirst');
+        toggleShowAnswer(false);
       }, 100);
     }
   };

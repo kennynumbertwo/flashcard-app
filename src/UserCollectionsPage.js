@@ -272,7 +272,7 @@ function UserCollectionsPage(props) {
               PaperProps={{
                 style: {
                   maxHeight: ITEM_HEIGHT * 5.5,
-                  width: '20ch',
+                  width: '25ch',
                 },
               }}
             >

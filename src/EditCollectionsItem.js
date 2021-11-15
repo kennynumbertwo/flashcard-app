@@ -38,6 +38,8 @@ function EditCollectionsItem(props) {
     setSnackbarMessage,
     setIsAnimatingCardItem,
     deleteDeckFilter,
+    handleAddCardClick,
+    setIsAddingCard,
   } = props;
   const { setName, category, iconClass, mastery } = userCardSet;
 
@@ -133,6 +135,7 @@ function EditCollectionsItem(props) {
       setIsAnimatingCardItem(true);
       setIsViewingCardsState({ isViewing: true, cardSet: { ...userCardSet }, setName });
     } else {
+      setIsAddingCard(false);
       setIsViewingCardsState({ isViewing: false, cardSet: {}, setName: '' });
       setIsAnimatingCardItem(true);
     }
@@ -224,9 +227,24 @@ function EditCollectionsItem(props) {
         <div className={classes.totalCardsWrapper}>
           <p className={classes.info}>{totalCards}</p>
         </div>
-        <div className={classes.buttonWrapperSingle}>
-          <button className={classes.button} type="button" onClick={handleViewCardsClick}>{isViewingCardsState.isViewing ? 'Hide Cards' : 'View Cards'}</button>
-        </div>
+        {isViewingCardsState.isViewing
+          ? (
+            <>
+              <div className={classes.buttonWrapper}>
+                <button className={classes.button} type="button" onClick={handleViewCardsClick}>Hide Cards</button>
+              </div>
+              <div className={classes.buttonWrapper}>
+                <button className={classes.button} type="button" onClick={handleAddCardClick}>Add Card</button>
+              </div>
+            </>
+          )
+          : (
+            <div className={classes.buttonWrapperSingle}>
+              <button className={classes.button} type="button" onClick={handleViewCardsClick}>Edit Cards</button>
+            </div>
+
+          )}
+
       </div>
     );
   }

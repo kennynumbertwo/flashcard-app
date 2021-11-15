@@ -190,6 +190,7 @@ function EditCollections(props) {
   // Click handler for the Edit Decks button
   const handleEditDecksClick = () => {
     if (!isEditingDecksTab) {
+      setIsAddingCard(false);
       setIsEditingDecksTab(true);
       setIsEditingCardsTab(false);
       setIsViewingCardsState({ isViewing: false, cardSet: {} });
@@ -393,6 +394,8 @@ function EditCollections(props) {
                   setIsViewingCardsState={setIsViewingCardsState}
                   isAnimatingCardItem={isAnimatingCardItem}
                   setIsAnimatingCardItem={setIsAnimatingCardItem}
+                  handleAddCardClick={handleAddCardClick}
+                  setIsAddingCard={setIsAddingCard}
                 />
                 {isAddingCard && (
                 <EditCollectionsNewCard
@@ -408,6 +411,7 @@ function EditCollections(props) {
                   setSnackbarMessage={setSnackbarMessage}
                   isAnimatingCardItem={isAnimatingCardItem}
                   setIsAnimatingCardItem={setIsAnimatingCardItem}
+                  handleAddCardClick={handleAddCardClick}
                 />
                 )}
                 {isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards
