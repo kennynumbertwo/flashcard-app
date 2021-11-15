@@ -281,7 +281,6 @@ function Login(props) {
         setIsLoggedIn={props.setIsLoggedIn}
         userToLogIn={userToLogIn}
         firstSignIn={firstSignIn}
-        incorrectPassword={incorrectPassword}
         errorState={errorState}
         setErrorState={setErrorState}
       />
