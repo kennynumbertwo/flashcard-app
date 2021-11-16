@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
@@ -16,6 +16,7 @@ import EditCollectionsItem from './EditCollectionsItem';
 import EditCollectionsItemBlank from './EditCollectionsItemBlank';
 import EditCollectionsCardItem from './EditCollectionsCardItem';
 import EditCollectionsNewCard from './EditCollectionsNewCard';
+import AccountMenu from './AccountMenu';
 
 const ITEM_HEIGHT = 48;
 
@@ -82,6 +83,8 @@ function EditCollections(props) {
     fetchUserCardSets,
     isAnimatingCardItem,
     setIsAnimatingCardItem,
+    logoutUser,
+    user,
   } = props;
 
   // Fetches latest database from Firestore
@@ -265,6 +268,11 @@ function EditCollections(props) {
       <div className={classes.mainCard}>
         <div className={classes.menuBar}>
           <div className={classes.headerWrapper}>
+            <Link className={classes.headerLink} to="/my-collections/">
+              <h2 className={classes.headerText}>Run Decks</h2>
+            </Link>
+          </div>
+          <div className={classes.headerWrapperActive}>
             <h2 className={classes.headerText}>Edit Collections</h2>
           </div>
           <div className={classes.navWrapperOuter}>
@@ -285,11 +293,10 @@ function EditCollections(props) {
             <Button
               sx={{
                 backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                color: 'rgba(0, 0, 0, 0.6)',
+                color: anchorEl !== null ? 'var(--text-accept)' : 'var(--text-primary)',
                 height: '35px',
                 '&:hover': {
                   backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                  color: 'rgba(0, 0, 0, 0.8)',
                 },
               }}
               id="demo-customized-button"
@@ -319,12 +326,21 @@ function EditCollections(props) {
               }}
             >
               {filterState.showClearFilter && (
-              <MenuItem key="clear-filter" onClick={handleClose}>
+              <MenuItem
+                key="clear-filter"
+                onClick={handleClose}
+                sx={{ '&:hover': { backgroundColor: 'var(--button-accept-primary-opaque)' } }}
+              >
                 Clear Filter
               </MenuItem>
               )}
               {filterOptions.map((option) => (
-                <MenuItem key={option} selected={option === selectedFilter} onClick={handleClose}>
+                <MenuItem
+                  key={option}
+                  selected={option === selectedFilter}
+                  onClick={handleClose}
+                  sx={{ '&:hover': { backgroundColor: 'var(--button-accept-primary-opaque)' } }}
+                >
                   {option}
                 </MenuItem>
               ))}
@@ -512,6 +528,7 @@ function EditCollections(props) {
                 <i className="far fa-plus-square" />
                 <p className={classes.addDeckLabel}>ADD DECK</p>
               </div>
+              <AccountMenu logoutUser={logoutUser} isLoggedIn={isLoggedIn} user={user} />
             </div>
           )}
         <Snackbar

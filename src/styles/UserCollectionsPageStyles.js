@@ -35,13 +35,31 @@ export default {
     alignItems: 'center',
     fontWeight: 'bold',
   },
+  headerWrapperActive: {
+    height: '50px',
+    width: '15%',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingLeft: '10px',
+    // border: '1px solid black',
+  },
   headerWrapper: {
     height: '50px',
     width: '20%',
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingLeft: '10px',
+    padding: '0px 0px 0px 0px',
+    fontSize: '1rem',
+  },
+  headerLink: {
+    color: 'var(--text-primary-light)',
+    textDecoration: 'none',
+    transition: 'all 300ms ease-in-out',
+    '&:hover': {
+      color: 'var(--text-accept-light)',
+    },
   },
   headerText: {
     animationName: '$run-decks-slide-in',

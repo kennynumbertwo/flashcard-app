@@ -18,13 +18,37 @@ export default {
     alignItems: 'center',
     fontWeight: 'bold',
   },
-  headerWrapper: {
+  headerWrapperActive: {
     height: '50px',
     width: '20%',
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingLeft: '10px',
+    // border: '1px solid black',
+  },
+  headerWrapper: {
+    height: '50px',
+    width: '15%',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    padding: '0px 0px 0px 0px',
+    fontSize: '1rem',
+  },
+  headerLink: {
+    color: 'var(--text-primary-light)',
+    textDecoration: 'none',
+    transition: 'all 300ms ease-in-out',
+    '&:hover': {
+      color: 'var(--text-accept-light)',
+    },
+  },
+  headerTextActive: {
+    animationName: '$edit-decks-slide-in',
+    animationDuration: '500ms',
+    animationIterationCount: 1,
+    animationTimingFunction: 'ease-in-out',
   },
   headerText: {
     animationName: '$edit-decks-slide-in',
@@ -43,14 +67,16 @@ export default {
   },
   navWrapperOuter: {
     height: '50px',
-    width: '60%',
+    width: '50%',
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    // border: '1px solid black',
   },
   navWrapperInner: {
+    // border: '1px solid black',
     height: '50px',
-    width: '60%',
+    width: '70%',
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
@@ -69,6 +95,8 @@ export default {
     alignItems: 'center',
     paddingRight: '10px',
     marginLeft: 'auto',
+    // border: '1px solid black',
+
   },
   divider: {
     height: '1px',

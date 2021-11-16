@@ -36,6 +36,7 @@ code {
   --button-primary-disabled: rgba(0, 0, 0, 0.3);
   --button-accept-dark: rgb(50, 140, 114);
   --button-accept-primary: rgba(51, 170, 137, 1);
+  --button-accept-primary-opaque: rgba(51, 170, 137, 0.08);
   --button-accept-light: rgb(57, 198, 132);
   --button-deny-dark: rgb(154, 29, 70);
   --button-deny-primary: rgba(206, 34, 90, 1);

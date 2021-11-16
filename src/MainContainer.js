@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { withStyles } from '@material-ui/core';
-import DrawerNav from './DrawerNav';
+import Routes from './Routes';
 import db from './firebase.config';
 
 const styles = {
@@ -67,7 +67,7 @@ function MainContainer(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <DrawerNav
+      <Routes
         fetchStockCards={fetchStockCards}
         cardSetDatabase={cardSetDatabase}
         cardCollections={cardCollections}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tabs from '@mui/material/Tabs';
@@ -223,8 +223,13 @@ function UserCollectionsPage(props) {
       <div className={classes.mainCard}>
 
         <div className={classes.menuBar}>
-          <div className={classes.headerWrapper}>
+          <div className={classes.headerWrapperActive}>
             <h2 className={classes.headerText}>Run Decks</h2>
+          </div>
+          <div className={classes.headerWrapper}>
+            <Link className={classes.headerLink} to="/edit-deck/">
+              <h2 className={classes.headerText}>Edit Collections</h2>
+            </Link>
           </div>
           <div className={classes.navWrapperOuter}>
             <div className={classes.navWrapperInner}>
