@@ -285,11 +285,10 @@ function EditCollections(props) {
             <Button
               sx={{
                 backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                color: 'rgba(0, 0, 0, 0.6)',
+                color: anchorEl !== null ? 'var(--text-accept)' : 'var(--text-primary)',
                 height: '35px',
                 '&:hover': {
                   backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                  color: 'rgba(0, 0, 0, 0.8)',
                 },
               }}
               id="demo-customized-button"
