@@ -37,6 +37,7 @@ export default {
     },
   },
   setNameWrapper: {
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -61,6 +62,7 @@ export default {
     },
   },
   categoryWrapper: {
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -91,6 +93,7 @@ export default {
     margin: '0px 10px 0px 0px',
   },
   masteryWrapper: {
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -113,8 +116,10 @@ export default {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
+
   },
   iconWrapper: {
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -150,6 +155,7 @@ export default {
     },
   },
   buttonWrapper: {
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

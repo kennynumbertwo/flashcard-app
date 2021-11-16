@@ -1,4 +1,5 @@
 const ITEM_WIDTH = 1050;
+const MAIN_CARD_WIDTH = 1125;
 
 export default {
   EditCollections: {
@@ -8,48 +9,58 @@ export default {
     flexDirection: 'column',
     width: '100%',
     maxHeight: '100vh',
-    margin: '64px 0px 0px 0px',
+    margin: '0px 0px 0px 0px',
   },
   menuBar: {
     height: '50px',
     width: ITEM_WIDTH,
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
     fontWeight: 'bold',
+    // border: '1px solid black',
   },
-  headerWrapperActive: {
-    height: '50px',
-    width: '20%',
+  pageWrapper: {
+    height: '75px',
     display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    paddingLeft: '10px',
+    justifyContent: 'center',
+    alignItem: 'center',
+    width: MAIN_CARD_WIDTH,
   },
-  headerWrapper: {
-    height: '50px',
-    width: '15%',
+  runDecksWrapper: {
+    height: '100%',
+    width: '180px',
     display: 'flex',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
     padding: '0px 0px 0px 0px',
     fontSize: '1rem',
+    borderRadius: '10px 10px 0px 0px',
   },
-  headerLink: {
+  editCollectionsWrapper: {
+    height: '100%',
+    width: '220px',
+    borderRadius: '5px 5px 0px 0px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: '1',
+  },
+  runDecksLink: {
     color: 'var(--text-primary-light)',
     textDecoration: 'none',
     transition: 'all 300ms ease-in-out',
     '&:hover': {
-      color: 'var(--text-accept-light)',
+      color: 'var(--text-accept)',
     },
   },
-  headerTextActive: {
+  runDecksText: {
     animationName: '$edit-decks-slide-in',
     animationDuration: '500ms',
     animationIterationCount: 1,
     animationTimingFunction: 'ease-in-out',
   },
-  headerText: {
+  editCollectionsText: {
     animationName: '$edit-decks-slide-in',
     animationDuration: '500ms',
     animationIterationCount: 1,
@@ -66,16 +77,19 @@ export default {
   },
   navWrapperOuter: {
     height: '50px',
-    width: '50%',
+    width: '100%',
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    // border: '1px solid black',
   },
   navWrapperInner: {
+    // border: '1px solid black',
+    marginLeft: '220px',
     height: '50px',
-    width: '70%',
+    width: '50%',
     display: 'flex',
-    justifyContent: 'space-evenly',
+    justifyContent: 'center',
     alignItems: 'center',
     '& .MuiTab-root.MuiTab-textColorPrimary.Mui-selected': {
       color: 'var(--tab-primary)',
@@ -86,13 +100,12 @@ export default {
   },
   filterWrapper: {
     height: '50px',
-    width: '20%',
+    width: '220px',
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
     paddingRight: '10px',
     marginLeft: 'auto',
-
   },
   divider: {
     height: '1px',
@@ -114,7 +127,7 @@ export default {
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexDirection: 'column',
-    width: '1125px',
+    width: MAIN_CARD_WIDTH,
     height: '85vh',
     overflow: 'none',
     padding: '15px 0px 0px 0px',
@@ -128,6 +141,9 @@ export default {
   itemsWrapperOuter: {
     height: '100%',
     overflow: 'scroll',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   itemsWrapper: {
     backgroundColor: 'var(--background-collection-container)',
@@ -137,6 +153,8 @@ export default {
     justifyContent: 'center',
     border: '2px solid rgba(0, 0, 0, 0.04)',
     width: '1020px',
+    // border: '1px solid black',
+
   },
   headerCardWrapper: {
     display: 'flex',
@@ -166,7 +184,7 @@ export default {
     justifyContent: 'flex-start',
     width: '25%',
     height: '50px',
-    padding: '0px 0px 0px 15px',
+    padding: '0px 5px 0px 15px',
     '& p': {
       whiteSpace: 'no-wrap',
       overflow: 'hidden',
@@ -179,9 +197,10 @@ export default {
     justifyContent: 'flex-start',
     width: '25%',
     height: '50px',
-    padding: '0px 0px 0px 15px',
+    padding: '0px 7px 0px 15px',
   },
   masteryWrapper: {
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -189,6 +208,7 @@ export default {
     height: '50px',
   },
   totalCardsWrapper: {
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -196,6 +216,7 @@ export default {
     height: '50px',
   },
   iconWrapper: {
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -203,7 +224,9 @@ export default {
     height: '50px',
   },
   actionsWrapper: {
+
     height: '50px',
+
     width: '20%',
     display: 'flex',
     justifyContent: 'center',
@@ -241,7 +264,7 @@ export default {
     },
   },
   loadingSpinnerWrapper: {
-    height: '610px',
+    height: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -274,7 +297,7 @@ export default {
     alignItems: 'center',
     width: '300px',
     height: '75px',
-    // border: '1px solid black',
+
   },
   viewingButtonWrapperEmpty: {
     display: 'flex',
@@ -282,7 +305,7 @@ export default {
     alignItems: 'center',
     width: '300px',
     height: '75px',
-    // border: '1px solid black',
+
   },
 
 };

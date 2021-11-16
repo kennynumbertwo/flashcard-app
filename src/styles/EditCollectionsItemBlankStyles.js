@@ -41,7 +41,7 @@ export default {
     justifyContent: 'flex-start',
     width: '25%',
     height: '50px',
-    padding: '0px 0px 0px 22px',
+    padding: '0px 0px 0px 0px',
   },
   setNameWrapperInput: {
     display: 'flex',

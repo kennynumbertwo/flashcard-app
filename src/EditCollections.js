@@ -50,7 +50,7 @@ function EditCollections(props) {
   const open = Boolean(anchorEl);
 
   // State for Material UI Tabs
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(1);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -192,8 +192,10 @@ function EditCollections(props) {
 
   // Click handler for the Edit Decks button
   const handleEditDecksClick = () => {
+    setIsAddingDeck(false);
     if (!isEditingDecksTab) {
       setIsAddingCard(false);
+      setIsAddingDeck(false);
       setIsEditingDecksTab(true);
       setIsEditingCardsTab(false);
       setIsViewingCardsState({ isViewing: false, cardSet: {} });
@@ -202,6 +204,7 @@ function EditCollections(props) {
 
   // Click handler for the Edit Cards button
   const handleEditCardsClick = () => {
+    setIsAddingDeck(false);
     if (!isEditingCardsTab) {
       setIsEditingCardsTab(true);
       setIsEditingDecksTab(false);
@@ -265,16 +268,18 @@ function EditCollections(props) {
 
   return (
     <div className={classes.EditCollections}>
+      <div className={classes.pageWrapper}>
+        <div className={classes.runDecksWrapper}>
+          <Link className={classes.runDecksLink} to="/my-collections/">
+            <h2 className={classes.runDecksText}>Run Decks</h2>
+          </Link>
+        </div>
+        <div className={classes.editCollectionsWrapper}>
+          <h2 className={classes.editCollectionsText}>Edit Collections</h2>
+        </div>
+      </div>
       <div className={classes.mainCard}>
         <div className={classes.menuBar}>
-          <div className={classes.headerWrapper}>
-            <Link className={classes.headerLink} to="/my-collections/">
-              <h2 className={classes.headerText}>Run Decks</h2>
-            </Link>
-          </div>
-          <div className={classes.headerWrapperActive}>
-            <h2 className={classes.headerText}>Edit Collections</h2>
-          </div>
           <div className={classes.navWrapperOuter}>
             <div className={classes.navWrapperInner}>
               <Tabs
@@ -283,8 +288,9 @@ function EditCollections(props) {
                 sx={{ width: '80%' }}
                 centered
               >
-                <Tab label="Edit Decks" sx={{ width: '40%' }} onClick={handleEditDecksClick} />
-                <Tab label="Edit Cards" sx={{ width: '40%', marginLeft: 'auto' }} onClick={handleEditCardsClick} />
+                <Tab label="Add Deck" sx={{ width: '33.3%' }} onClick={handleAddDeckClick} />
+                <Tab label="Edit Decks" sx={{ width: '33.3%' }} onClick={handleEditDecksClick} />
+                <Tab label="Edit Cards" sx={{ width: '33.3%', marginLeft: 'auto' }} onClick={handleEditCardsClick} />
               </Tabs>
             </div>
           </div>
