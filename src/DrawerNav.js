@@ -93,6 +93,9 @@ export default function DrawerNav(props) {
         }
         setUserDeckState({ isLoading: false, errorMessage: '', userCardSetDatabase: userCardSetArray });
       }
+      if (!docSnapshot.exists()) {
+        setUserDeckState({ isLoading: false, errorMessage: '', userCardSetDatabase: [] });
+      }
     } catch (err) {
       setUserDeckState({ isLoading: false, errorMessage: 'Could not connect', userCardSetDatabase: null });
       console.log(err);

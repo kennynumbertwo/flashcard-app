@@ -209,6 +209,7 @@ function Login(props) {
           );
         }
       });
+    const userRef = doc(db, 'users', uid);
   };
 
   const signInWithEmail = (email, password) => {
@@ -229,8 +230,13 @@ function Login(props) {
           setPasswordErrorState(errorCode, errorMessage, errorText);
         // Handle linking here if your app allows it.
         }
+        if (errorCode === 'auth/user-not-found') {
+          errorText = 'Account not found';
+          setPasswordErrorState(errorCode, errorMessage, errorText);
+        // Handle linking here if your app allows it.
+        }
         if (errorCode === 'auth/invalid-email') {
-          errorText = 'Account does not exist';
+          errorText = 'Account not found';
           setEmailErrorState(errorCode, errorMessage, errorText);
         // Handle linking here if your app allows it.
         } else {
