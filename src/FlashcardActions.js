@@ -13,18 +13,47 @@ function FlashcardActions(props) {
     handlePreviousCard,
     handleNextCard,
     isShowingMastery,
+    setHighlightText,
+    cardCount,
+    cardQuantity,
   } = props;
+
+  const handleHover = (e) => {
+    if (e._reactName === 'onMouseEnter') {
+      if (e.currentTarget.id === 'previous' && cardCount > 0) {
+        setHighlightText('Previous Card');
+      }
+      if (e.currentTarget.id === 'next' && (cardCount + 1) !== cardQuantity) {
+        setHighlightText('Next Card');
+      }
+    }
+    if (e._reactName === 'onMouseLeave') { setHighlightText(''); }
+  };
 
   return (
     <div className={classes.FlashcardActionsWrapper}>
       <div className={classes.FlashcardActionsWrapperInner}>
-        <button className={classes.prevCardButton} type="button" onClick={handlePreviousCard}>
+        <button
+          className={classes.prevCardButton}
+          type="button"
+          onClick={handlePreviousCard}
+          id="previous"
+          onMouseEnter={handleHover}
+          onMouseLeave={handleHover}
+        >
           <ChevronLeftIcon fontSize="large" />
         </button>
         {isShowingMastery
-          ? (<FlashcardMastery starState={starState} handleStarClick={handleStarClick} />)
+          ? (<FlashcardMastery starState={starState} handleStarClick={handleStarClick} setHighlightText={setHighlightText} />)
           : (<FlashcardMastery starState={starState} disabled />)}
-        <button className={classes.nextCardButton} type="button" onClick={handleNextCard}>
+        <button
+          className={classes.nextCardButton}
+          type="button"
+          onClick={handleNextCard}
+          id="next"
+          onMouseEnter={handleHover}
+          onMouseLeave={handleHover}
+        >
           <ChevronRightIcon fontSize="large" />
         </button>
       </div>

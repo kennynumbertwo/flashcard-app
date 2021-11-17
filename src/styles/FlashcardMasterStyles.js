@@ -14,15 +14,23 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     '& svg': {
-      color: props => (props.disabled ? 'rgba(0, 0, 0, 0.2)' : 'rgba(0, 0, 0, 0.8)'),
+      fontSize: '2rem',
+      color: props => (props.disabled ? 'rgba(0, 0, 0, 0.2)' : null),
     },
   },
   starOneWrapper: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    cursor: props => (props.disabled ? null : 'pointer'),
-    width: '30px',
+    '& svg': {
+      cursor: props => (props.disabled ? null : 'pointer'),
+      transition: 'all 200ms ease-in-out',
+      '&:hover': {
+        color: 'var(--icon-star-filled-hover)',
+        transform: 'translateY(-2px)',
+      },
+    },
+    width: '40px',
     animationName: '$starSlideUp',
     animationIterationCount: '1',
     animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
@@ -38,12 +46,25 @@ export default {
       opacity: '0',
     },
   },
+  starFilled: {
+    color: 'var(--icon-star-filled)',
+  },
+  starNotFilled: {
+    color: 'var(--icon-star-notFilled)',
+  },
   starTwoWrapper: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    cursor: props => (props.disabled ? null : 'pointer'),
-    width: '30px',
+    width: '40px',
+    '& svg': {
+      cursor: props => (props.disabled ? null : 'pointer'),
+      transition: 'all 200ms ease-in-out',
+      '&:hover': {
+        color: 'var(--icon-star-filled-hover)',
+        transform: 'translateY(-2px)',
+      },
+    },
     animationName: '$starSlideUp',
     animationIterationCount: '1',
     animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
@@ -53,8 +74,15 @@ export default {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    cursor: props => (props.disabled ? null : 'pointer'),
-    width: '30px',
+    '& svg': {
+      cursor: props => (props.disabled ? null : 'pointer'),
+      transition: 'all 200ms ease-in-out',
+      '&:hover': {
+        color: 'var(--icon-star-filled-hover)',
+        transform: 'translateY(-2px)',
+      },
+    },
+    width: '40px',
     animationName: '$starSlideUp',
     animationIterationCount: '1',
     animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',

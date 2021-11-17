@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/styles';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { doc, updateDoc, setDoc } from 'firebase/firestore/lite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styles from './styles/FlashcardTrayStyles';
 import useToggle from './hooks/useToggle';
 import Flashcard from './Flashcard';
@@ -19,9 +20,11 @@ function FlashcardTray(props) {
   const [cardCount, setCardCount] = useState(0);
   const [cardAnimation, setCardAnimation] = useState('animateInFirst');
   const [answerAnimation, setAnswerAnimation] = useState('answerIn');
+  const [highlightText, setHighlightText] = useState('');
   const [showAnswer, toggleShowAnswer] = useToggle(false);
   const [currentMasteryRating, setCurrentMasteryRating] = useState(0);
   const [currentMasteryPercentage, setCurrentMasteryPercentage] = useState(0);
+  let history = useHistory();
   const [starState, setstarState] = useState({
     starOne: true,
     starTwo: false,
@@ -119,6 +122,7 @@ function FlashcardTray(props) {
 
   // Function to see the next card in shuffledDeck
   const handleNextCard = () => {
+    if ((cardCount + 2) === cardQuantity) { setHighlightText(''); }
     if ((cardCount + 1) !== cardQuantity) {
       setCardCount(cardCount + 1);
       setCardAnimation('animateOut');
@@ -133,6 +137,7 @@ function FlashcardTray(props) {
 
   // Function to see the next card in shuffledDeck
   const handlePreviousCard = () => {
+    if ((cardCount - 1) === 0) { setHighlightText(''); }
     if (cardCount > 0) {
       setCardCount(cardCount - 1);
       setCardAnimation('animatePrevOut');
@@ -167,7 +172,7 @@ function FlashcardTray(props) {
         setIsLoading(true);
         fetchUserCardSets();
         setCardAnimation('animateInFirst');
-        toggleShowAnswer(false);
+        if (showAnswer) toggleShowAnswer();
       }, 100);
     }
     if (stockCardSet) {
@@ -179,6 +184,26 @@ function FlashcardTray(props) {
         toggleShowAnswer(false);
       }, 100);
     }
+  };
+
+  const handleHover = (e) => {
+    if (e._reactName === 'onMouseEnter') {
+      if (e.currentTarget.id === 'show') {
+        setHighlightText('Show Answer');
+      }
+      if (e.currentTarget.id === 'return') {
+        setHighlightText('Return to decks');
+      }
+      if (e.currentTarget.id === 'restart') {
+        setHighlightText('Restart');
+      }
+    } else {
+      setHighlightText('');
+    }
+  };
+
+  const handleBackButton = () => {
+    history.push('/my-collections');
   };
 
   const handleStarClick = (e) => {
@@ -315,14 +340,39 @@ function FlashcardTray(props) {
           starState={starState}
           height={100}
           isShowingMastery={isShowingMastery}
+          setHighlightText={setHighlightText}
         />
       </div>
-      <button className={classes.showAnswerButton} type="button">
-        <VisibilityIcon fontSize="large" onClick={handleShowAnswer} />
-      </button>
-      <button className={classes.restartButton} type="button">
-        <RestartAltIcon fontSize="medium" onClick={handleStartOver} />
-      </button>
+      <div className={classes.bottomActionWrapper}>
+        <button
+          className={classes.restartButton}
+          type="button"
+          id="return"
+          onMouseEnter={handleHover}
+          onMouseLeave={handleHover}
+        >
+          <ArrowBackIcon fontSize="medium" onClick={handleBackButton} />
+        </button>
+        <button
+          className={classes.showAnswerButton}
+          type="button"
+          id="show"
+          onMouseEnter={handleHover}
+          onMouseLeave={handleHover}
+        >
+          <VisibilityIcon fontSize="large" onClick={handleShowAnswer} />
+        </button>
+        <button
+          className={classes.restartButton}
+          type="button"
+          id="restart"
+          onMouseEnter={handleHover}
+          onMouseLeave={handleHover}
+        >
+          <RestartAltIcon fontSize="medium" onClick={handleStartOver} />
+        </button>
+      </div>
+      <p>{highlightText}</p>
       <Modal
         isShowing={isShowingModal}
         buttonText={<i className="fas fa-thumbs-up" style={{ fontSize: '1.2rem' }} />}

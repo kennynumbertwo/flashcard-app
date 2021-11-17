@@ -164,15 +164,18 @@ export default {
     border: 'none',
     backgroundColor: 'white',
     borderRadius: '50px',
-    marginTop: '30px',
     boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 1px 2px 0px rgba(0, 0, 0, 0.6)' : null),
+    transition: 'all .2s ease-in-out',
     '& svg': {
-      transition: 'all .5s ease-in-out',
+      transition: 'all .3s ease-in-out',
       color: props => ((props.cardCount + 1) !== props.cardQuantity ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.2)'),
     },
     '&:hover': {
       cursor: props => ((props.cardCount + 1) !== props.cardQuantity ? 'pointer' : null),
       boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 2px 3px 0px rgba(0, 0, 0, 0.6)' : null),
+      '& svg': {
+        color: props => ((props.cardCount + 1) !== props.cardQuantity ? 'var(--button-accept-primary)' : null),
+      },
     },
     animationName: '$answerButtonFadeIn',
     animationIterationCount: '1',
@@ -188,19 +191,21 @@ export default {
     },
   },
   restartButton: {
-    marginBottom: '10px',
     border: 'none',
     backgroundColor: 'var(--background-white)',
     borderRadius: '50px',
-    marginTop: '30px',
     boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 1px 2px 0px rgba(0, 0, 0, 0.6)' : null),
+    transition: 'all .3s ease-in-out',
     '& svg': {
-      transition: 'all .5s ease-in-out',
+      transition: 'all .3s ease-in-out',
       color: props => ((props.cardCount + 1) !== props.cardQuantity ? 'rgba(0, 0, 0, 0.6)' : 'rgba(0, 0, 0, 0.2)'),
     },
     '&:hover': {
       cursor: props => ((props.cardCount + 1) !== props.cardQuantity ? 'pointer' : null),
       boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 2px 3px 0px rgba(0, 0, 0, 0.6)' : null),
+      '& svg': {
+        color: props => ((props.cardCount + 1) !== props.cardQuantity ? 'var(--button-accept-primary)' : null),
+      },
     },
     animationName: '$answerButtonFadeIn',
     animationIterationCount: '1',
@@ -214,5 +219,13 @@ export default {
     '50%': {
       opacity: '0',
     },
+  },
+  bottomActionWrapper: {
+    display: 'flex',
+    // border: '1px solid black',
+    height: '120px',
+    width: '300px',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
   },
 };

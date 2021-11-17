@@ -25,6 +25,9 @@ export default {
     '&:hover': {
       cursor: props => (props.cardCount > 0 ? 'pointer' : null),
       boxShadow: props => (props.cardCount > 0 ? '1px 2px 3px 0px rgba(0, 0, 0, 0.6)' : null),
+      '& svg': {
+        color: props => (props.cardCount > 0 ? 'var(--button-accept-primary)' : null),
+      },
     },
     animationName: '$buttonFadeIn',
     animationIterationCount: '1',
@@ -51,6 +54,9 @@ export default {
     '&:hover': {
       cursor: props => ((props.cardCount + 1) !== props.cardQuantity ? 'pointer' : null),
       boxShadow: props => ((props.cardCount + 1) !== props.cardQuantity ? '1px 2px 3px 0px rgba(0, 0, 0, 0.6)' : null),
+      '& svg': {
+        color: props => ((props.cardCount + 1) !== props.cardQuantity ? 'var(--button-accept-primary)' : null),
+      },
     },
     animationName: '$buttonFadeIn',
     animationIterationCount: '1',
