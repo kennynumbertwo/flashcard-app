@@ -344,35 +344,44 @@ function FlashcardTray(props) {
         />
       </div>
       <div className={classes.bottomActionWrapper}>
-        <button
-          className={classes.restartButton}
-          type="button"
-          id="return"
-          onMouseEnter={handleHover}
-          onMouseLeave={handleHover}
-        >
-          <ArrowBackIcon fontSize="medium" onClick={handleBackButton} />
-        </button>
-        <button
-          className={classes.showAnswerButton}
-          type="button"
-          id="show"
-          onMouseEnter={handleHover}
-          onMouseLeave={handleHover}
-        >
-          <VisibilityIcon fontSize="large" onClick={handleShowAnswer} />
-        </button>
-        <button
-          className={classes.restartButton}
-          type="button"
-          id="restart"
-          onMouseEnter={handleHover}
-          onMouseLeave={handleHover}
-        >
-          <RestartAltIcon fontSize="medium" onClick={handleStartOver} />
-        </button>
+        <div className={classes.bottomActionWrapperInner}>
+          <button
+            className={classes.restartButton}
+            type="button"
+            id="return"
+            onMouseEnter={handleHover}
+            onMouseLeave={handleHover}
+          >
+            <ArrowBackIcon fontSize="medium" onClick={handleBackButton} />
+          </button>
+          <button
+            className={classes.showAnswerButton}
+            type="button"
+            id="show"
+            onMouseEnter={handleHover}
+            onMouseLeave={handleHover}
+          >
+            <VisibilityIcon fontSize="large" onClick={handleShowAnswer} />
+          </button>
+          <button
+            className={classes.restartButton}
+            type="button"
+            id="restart"
+            onMouseEnter={handleHover}
+            onMouseLeave={handleHover}
+          >
+            <RestartAltIcon fontSize="medium" onClick={handleStartOver} />
+          </button>
+        </div>
       </div>
-      <p>{highlightText}</p>
+      {highlightText && (
+        <div>
+          <p className={classes.highlightText}>{highlightText}</p>
+          {/* <div className={classes.highlightUnderlineWrapper}>
+            <div className={classes.highlightUnderline} />
+          </div> */}
+        </div>
+      )}
       <Modal
         isShowing={isShowingModal}
         buttonText={<i className="fas fa-thumbs-up" style={{ fontSize: '1.2rem' }} />}

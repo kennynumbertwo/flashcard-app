@@ -5,23 +5,41 @@ import styles from './styles/FlashcardMasterStyles';
 
 function Mastery(props) {
   const [starTwoClass, setStarTwoClass] = useState('starNotFilled');
-  const { classes, starState, handleStarClick, setHighlightText } = props;
+  const [starOneAnimation, setStarOneAnimation] = useState('');
+  const [starTwoAnimation, setStarTwoAnimation] = useState('');
+  const [starThreeAnimation, setStarThreeAnimation] = useState('');
+  const { classes, starState, handleStarClick, setHighlightText, disabled } = props;
   const { starOne, starTwo, starThree } = starState;
 
   const handleStarHover = (e) => {
-    if (e._reactName === 'onMouseEnter') {
-      if (e.currentTarget.id === 'starThree') {
-        setStarTwoClass('starFilled');
-        setHighlightText('Got it!');
+    if (!disabled) {
+      if (e._reactName === 'onMouseEnter') {
+        if (e.currentTarget.id === 'starThree') {
+          setStarTwoClass('starFilled');
+          // setHighlightText('Mastery Rating');
+        }
       }
-      if (e.currentTarget.id === 'starTwo') {
-        setHighlightText('Hmmmm... I think I have it?');
-      }
-      if (e.currentTarget.id === 'starOne') {
-        setHighlightText('I have no clue!');
-      }
+      if (e._reactName === 'onMouseLeave') { setStarTwoClass('starNotFilled'); setHighlightText(''); }
     }
-    if (e._reactName === 'onMouseLeave') { setStarTwoClass('starNotFilled'); setHighlightText(''); }
+  };
+
+  const handleStarClickAnimation = (e) => {
+    handleStarClick(e);
+    if (e.currentTarget.id === 'starOne') { setStarOneAnimation('starClickedMain'); }
+    if (e.currentTarget.id === 'starTwo') {
+      setStarOneAnimation('starClicked');
+      setStarTwoAnimation('starClickedMain');
+    }
+    if (e.currentTarget.id === 'starThree') {
+      setStarOneAnimation('starClicked');
+      setStarTwoAnimation('starClicked');
+      setStarThreeAnimation('starClickedMain');
+    }
+    setTimeout(() => {
+      setStarOneAnimation('');
+      setStarTwoAnimation('');
+      setStarThreeAnimation('');
+    }, 200);
   };
 
   return (
@@ -31,18 +49,18 @@ function Mastery(props) {
           {starOne
             ? (
               <StarIcon
-                onClick={handleStarClick}
+                onClick={handleStarClickAnimation}
                 id="starOne"
-                className={classes.starFilled}
+                className={`${classes.starFilled} ${starOneAnimation}`}
                 onMouseEnter={handleStarHover}
                 onMouseLeave={handleStarHover}
               />
             )
             : (
               <StarIcon
-                onClick={handleStarClick}
+                onClick={handleStarClickAnimation}
                 id="starOne"
-                className={classes.starNotFilled}
+                className={`${classes.starNotFilled} ${starOneAnimation}`}
                 onMouseEnter={handleStarHover}
                 onMouseLeave={handleStarHover}
               />
@@ -52,18 +70,18 @@ function Mastery(props) {
           {starTwo
             ? (
               <StarIcon
-                onClick={handleStarClick}
+                onClick={handleStarClickAnimation}
                 id="starTwo"
-                className={classes.starFilled}
+                className={`${classes.starFilled} ${starTwoAnimation}`}
                 onMouseEnter={handleStarHover}
                 onMouseLeave={handleStarHover}
               />
             )
             : (
               <StarIcon
-                onClick={handleStarClick}
+                onClick={handleStarClickAnimation}
                 id="starTwo"
-                className={classes[starTwoClass]}
+                className={`${classes[starTwoClass]} ${starTwoAnimation}`}
                 onMouseEnter={handleStarHover}
                 onMouseLeave={handleStarHover}
               />
@@ -73,17 +91,17 @@ function Mastery(props) {
           {starThree
             ? (
               <StarIcon
-                onClick={handleStarClick}
+                onClick={handleStarClickAnimation}
                 id="starThree"
-                className={classes.starFilled}
+                className={`${classes.starFilled} ${starThreeAnimation}`}
                 onMouseEnter={handleStarHover}
                 onMouseLeave={handleStarHover}
               />
             )
             : (
               <StarIcon
-                onClick={handleStarClick}
-                className={classes.starNotFilled}
+                onClick={handleStarClickAnimation}
+                className={`${classes.starNotFilled} ${starThreeAnimation}`}
                 id="starThree"
                 onMouseEnter={handleStarHover}
                 onMouseLeave={handleStarHover}

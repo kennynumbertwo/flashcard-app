@@ -44,6 +44,7 @@ code {
   /* ICON COLORS */
   --icon-star-filled: rgb(223, 138, 85);
   --icon-star-filled-hover: rgb(249, 160, 105);
+  --icon-star-filled-clicked: rgb(255, 205, 131);
   --icon-star-notFilled: rgb(182, 182, 182);
 
   /* MUI Tab Colors */
