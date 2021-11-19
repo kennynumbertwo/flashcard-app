@@ -27,13 +27,16 @@ code {
   --text-primary-dark: rgba(0, 0, 0, 0.9);
   --text-primary-invis: rgba(0, 0, 0, 0);
   --text-light: white;
+  --text-button-light: white;
   --text-accept: rgba(51, 170, 137, 1);
   --text-warning: #d32f2f;
 
   /* BUTTONS COLORS */
   --button-primary: rgba(0, 0, 0, 0.6);
+  --button-primary-light: rgb(147, 147, 147);
   --button-primary-dark: rgba(0, 0, 0, 0.7);
   --button-primary-disabled: rgba(0, 0, 0, 0.3);
+  --button-bottom-primary: rgb(245, 245, 245);
   --button-accept-dark: rgb(50, 140, 114);
   --button-accept-primary: rgba(51, 170, 137, 1);
   --button-accept-light: rgb(57, 198, 132);

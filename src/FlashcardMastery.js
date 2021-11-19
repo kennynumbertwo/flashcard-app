@@ -24,22 +24,21 @@ function Mastery(props) {
   };
 
   const handleStarClickAnimation = (e) => {
-    handleStarClick(e);
-    if (e.currentTarget.id === 'starOne') { setStarOneAnimation('starClickedMain'); }
-    if (e.currentTarget.id === 'starTwo') {
-      setStarOneAnimation('starClicked');
-      setStarTwoAnimation('starClickedMain');
+    if (!disabled) {
+      handleStarClick(e);
+      if (e.currentTarget.id === 'starOne') { setStarOneAnimation('starClickedMain'); }
+      if (e.currentTarget.id === 'starTwo') {
+        setStarTwoAnimation('starClickedMain');
+      }
+      if (e.currentTarget.id === 'starThree') {
+        setStarThreeAnimation('starClickedMain');
+      }
+      setTimeout(() => {
+        setStarOneAnimation('');
+        setStarTwoAnimation('');
+        setStarThreeAnimation('');
+      }, 200);
     }
-    if (e.currentTarget.id === 'starThree') {
-      setStarOneAnimation('starClicked');
-      setStarTwoAnimation('starClicked');
-      setStarThreeAnimation('starClickedMain');
-    }
-    setTimeout(() => {
-      setStarOneAnimation('');
-      setStarTwoAnimation('');
-      setStarThreeAnimation('');
-    }, 200);
   };
 
   return (

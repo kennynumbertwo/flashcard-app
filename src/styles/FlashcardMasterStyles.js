@@ -25,9 +25,6 @@ export default {
     '& svg': {
       cursor: props => (props.disabled ? null : 'pointer'),
       transition: 'all 200ms ease-in-out',
-      '&.starClicked': {
-        color: 'var(--icon-star-filled-clicked)',
-      },
       '&.starClickedMain': {
         color: 'var(--icon-star-filled-clicked)',
         transform: 'translateY(-4px)',
@@ -35,9 +32,6 @@ export default {
       '&:hover': {
         color: props => (props.disabled ? null : 'var(--icon-star-filled-hover)'),
         transform: 'translateY(-2px)',
-        '&.starClicked': {
-          color: 'var(--icon-star-filled-clicked)',
-        },
         '&.starClickedMain': {
           color: 'var(--icon-star-filled-clicked)',
           transform: 'translateY(-4px)',
@@ -74,9 +68,6 @@ export default {
     '& svg': {
       cursor: props => (props.disabled ? null : 'pointer'),
       transition: 'all 200ms ease-in-out',
-      '&.starClicked': {
-        color: 'var(--icon-star-filled-clicked)',
-      },
       '&.starClickedMain': {
         color: 'var(--icon-star-filled-clicked)',
         transform: 'translateY(-4px)',
@@ -84,9 +75,6 @@ export default {
       '&:hover': {
         color: props => (props.disabled ? null : 'var(--icon-star-filled-hover)'),
         transform: 'translateY(-2px)',
-        '&.starClicked': {
-          color: 'var(--icon-star-filled-clicked)',
-        },
         '&.starClickedMain': {
           color: 'var(--icon-star-filled-clicked)',
           transform: 'translateY(-4px)',
@@ -105,9 +93,6 @@ export default {
     '& svg': {
       cursor: props => (props.disabled ? null : 'pointer'),
       transition: 'all 200ms ease-in-out',
-      '&.starClicked': {
-        color: 'var(--icon-star-filled-clicked)',
-      },
       '&.starClickedMain': {
         color: 'var(--icon-star-filled-clicked)',
         transform: 'translateY(-4px)',
@@ -115,9 +100,6 @@ export default {
       '&:hover': {
         color: props => (props.disabled ? null : 'var(--icon-star-filled-hover)'),
         transform: 'translateY(-2px)',
-        '&.starClicked': {
-          color: 'var(--icon-star-filled-clicked)',
-        },
         '&.starClickedMain': {
           color: 'var(--icon-star-filled-clicked)',
           transform: 'translateY(-4px)',

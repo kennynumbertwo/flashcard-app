@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tabs from '@mui/material/Tabs';
@@ -50,6 +50,8 @@ function UserCollectionsPage(props) {
   };
 
   const [isAnimatingCardDetails, setIsAnimatingCardDetails] = useState(true);
+
+  let history = useHistory();
 
   const {
     classes,
@@ -169,26 +171,8 @@ function UserCollectionsPage(props) {
     }
   };
 
-  //  <---------------  Utility Functions for EditDeckList   --------------->
-
-  const sortCollections = (id) => {
-    const dbCopy = [...userCardSetDatabase];
-    if (sortState.sortAsc) {
-      const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? 1 : -1));
-      return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
-    }
-    const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? -1 : 1));
-    return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
-  };
-
-  const sortStockCollections = (id) => {
-    const dbCopy = [...cardSetDatabase];
-    if (stockSortState.sortAsc) {
-      const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? 1 : -1));
-      return setStockSortState({ ...stockSortState, isSorted: true, sortedStockDatabase: sorted });
-    }
-    const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? -1 : 1));
-    return setStockSortState({ ...stockSortState, isSorted: true, sortedStockDatabase: sorted });
+  const handleEditDecksClick = () => {
+    history.push('/edit-deck');
   };
 
   const handleMyDecksClick = () => {
@@ -212,6 +196,28 @@ function UserCollectionsPage(props) {
         filtered: [],
       });
     }
+  };
+
+  //  <---------------  Utility Functions for EditDeckList   --------------->
+
+  const sortCollections = (id) => {
+    const dbCopy = [...userCardSetDatabase];
+    if (sortState.sortAsc) {
+      const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? 1 : -1));
+      return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
+    }
+    const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? -1 : 1));
+    return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
+  };
+
+  const sortStockCollections = (id) => {
+    const dbCopy = [...cardSetDatabase];
+    if (stockSortState.sortAsc) {
+      const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? 1 : -1));
+      return setStockSortState({ ...stockSortState, isSorted: true, sortedStockDatabase: sorted });
+    }
+    const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? -1 : 1));
+    return setStockSortState({ ...stockSortState, isSorted: true, sortedStockDatabase: sorted });
   };
 
   if (!isLoggedIn) {
@@ -358,101 +364,108 @@ function UserCollectionsPage(props) {
             <p className={classes.label}>Actions</p>
           </div>
         </div>
-        <div className={classes.itemsWrapper}>
-          {myDecksTab && (
-          <>
-            { !filterState.isFiltered && sortState.sortedDatabase.length > 0
-              ? sortState.sortedDatabase.map((userCardSet, index) => (
-                <UserCollectionCardDetails
-                  key={userCardSet.setName}
-                  category={userCardSet.category}
-                  iconClass={userCardSet.iconClass}
-                  mastery={userCardSet.mastery}
-                  setName={userCardSet.setName}
-                  totalCards={userCardSet.cards.length}
-                  roundState={roundState}
-                  setRoundState={setRoundState}
-                  setCurrentCardSetName={setCurrentCardSetName}
-                  url={`/my-collections/${userCardSet.id}`}
-                  fetchUserCardSets={fetchUserCardSets}
-                  resetUserCollectionsState={resetUserCollectionsState}
-                  handleDrawerClose={handleDrawerClose}
-                  cardNumber={index}
-                  isAnimatingCardDetails={isAnimatingCardDetails}
-                  setIsAnimatingCardDetails={setIsAnimatingCardDetails}
-                />
-              ))
-              : filterState.filtered.map((userCardSet, index) => (
-                <UserCollectionCardDetails
-                  key={userCardSet.setName}
-                  category={userCardSet.category}
-                  iconClass={userCardSet.iconClass}
-                  mastery={userCardSet.mastery}
-                  setName={userCardSet.setName}
-                  totalCards={userCardSet.cards.length}
-                  roundState={roundState}
-                  setRoundState={setRoundState}
-                  setCurrentCardSetName={setCurrentCardSetName}
-                  url={`/my-collections/${userCardSet.id}`}
-                  fetchUserCardSets={fetchUserCardSets}
-                  resetUserCollectionsState={resetUserCollectionsState}
-                  handleDrawerClose={handleDrawerClose}
-                  cardNumber={index}
-                  isAnimatingCardDetails={isAnimatingCardDetails}
-                  setIsAnimatingCardDetails={setIsAnimatingCardDetails}
-                />
-              ))}
-          </>
-          )}
-          {stockDecksTab && (
-          <>
-            { !filterState.isFiltered && stockSortState.sortedStockDatabase.length > 0
-              ? stockSortState.sortedStockDatabase.map((cardSet, index) => (
-                <UserCollectionCardDetails
-                  key={cardSet.setName}
-                  cardSetToSave={cardSet}
-                  category={cardSet.category}
-                  iconClass={cardSet.iconClass}
-                  mastery={cardSet.mastery}
-                  setName={cardSet.setName}
-                  totalCards={cardSet.cards.length}
-                  roundState={roundState}
-                  setRoundState={setRoundState}
-                  setCurrentCardSetName={setCurrentCardSetName}
-                  url={`/collections/${cardSet.id}`}
-                  fetchUserCardSets={fetchUserCardSets}
-                  resetUserCollectionsState={resetUserCollectionsState}
-                  handleDrawerClose={handleDrawerClose}
-                  cardNumber={index}
-                  isAnimatingCardDetails={isAnimatingCardDetails}
-                  setIsAnimatingCardDetails={setIsAnimatingCardDetails}
-                />
-              ))
-              : filterState.filtered.map((cardSet, index) => (
-                <UserCollectionCardDetails
-                  key={cardSet.setName}
-                  cardSetToSave={cardSet}
-                  category={cardSet.category}
-                  iconClass={cardSet.iconClass}
-                  mastery={cardSet.mastery}
-                  setName={cardSet.setName}
-                  totalCards={cardSet.cards.length}
-                  roundState={roundState}
-                  setRoundState={setRoundState}
-                  setCurrentCardSetName={setCurrentCardSetName}
-                  url={`/collections/${cardSet.id}`}
-                  fetchUserCardSets={fetchUserCardSets}
-                  resetUserCollectionsState={resetUserCollectionsState}
-                  handleDrawerClose={handleDrawerClose}
-                  cardNumber={index}
-                  isAnimatingCardDetails={isAnimatingCardDetails}
-                  setIsAnimatingCardDetails={setIsAnimatingCardDetails}
-                />
-              ))}
-          </>
-          )}
+        <div className={classes.itemsWrapperOuter}>
+          <div className={classes.itemsWrapper}>
+            {myDecksTab && (
+            <>
+              { !filterState.isFiltered && sortState.sortedDatabase.length > 0
+                ? sortState.sortedDatabase.map((userCardSet, index) => (
+                  <UserCollectionCardDetails
+                    key={userCardSet.setName}
+                    category={userCardSet.category}
+                    iconClass={userCardSet.iconClass}
+                    mastery={userCardSet.mastery}
+                    setName={userCardSet.setName}
+                    totalCards={userCardSet.cards.length}
+                    roundState={roundState}
+                    setRoundState={setRoundState}
+                    setCurrentCardSetName={setCurrentCardSetName}
+                    url={`/my-collections/${userCardSet.id}`}
+                    fetchUserCardSets={fetchUserCardSets}
+                    resetUserCollectionsState={resetUserCollectionsState}
+                    handleDrawerClose={handleDrawerClose}
+                    cardNumber={index}
+                    isAnimatingCardDetails={isAnimatingCardDetails}
+                    setIsAnimatingCardDetails={setIsAnimatingCardDetails}
+                  />
+                ))
+                : filterState.filtered.map((userCardSet, index) => (
+                  <UserCollectionCardDetails
+                    key={userCardSet.setName}
+                    category={userCardSet.category}
+                    iconClass={userCardSet.iconClass}
+                    mastery={userCardSet.mastery}
+                    setName={userCardSet.setName}
+                    totalCards={userCardSet.cards.length}
+                    roundState={roundState}
+                    setRoundState={setRoundState}
+                    setCurrentCardSetName={setCurrentCardSetName}
+                    url={`/my-collections/${userCardSet.id}`}
+                    fetchUserCardSets={fetchUserCardSets}
+                    resetUserCollectionsState={resetUserCollectionsState}
+                    handleDrawerClose={handleDrawerClose}
+                    cardNumber={index}
+                    isAnimatingCardDetails={isAnimatingCardDetails}
+                    setIsAnimatingCardDetails={setIsAnimatingCardDetails}
+                  />
+                ))}
+            </>
+            )}
+            {stockDecksTab && (
+            <>
+              { !filterState.isFiltered && stockSortState.sortedStockDatabase.length > 0
+                ? stockSortState.sortedStockDatabase.map((cardSet, index) => (
+                  <UserCollectionCardDetails
+                    key={cardSet.setName}
+                    cardSetToSave={cardSet}
+                    category={cardSet.category}
+                    iconClass={cardSet.iconClass}
+                    mastery={cardSet.mastery}
+                    setName={cardSet.setName}
+                    totalCards={cardSet.cards.length}
+                    roundState={roundState}
+                    setRoundState={setRoundState}
+                    setCurrentCardSetName={setCurrentCardSetName}
+                    url={`/collections/${cardSet.id}`}
+                    fetchUserCardSets={fetchUserCardSets}
+                    resetUserCollectionsState={resetUserCollectionsState}
+                    handleDrawerClose={handleDrawerClose}
+                    cardNumber={index}
+                    isAnimatingCardDetails={isAnimatingCardDetails}
+                    setIsAnimatingCardDetails={setIsAnimatingCardDetails}
+                  />
+                ))
+                : filterState.filtered.map((cardSet, index) => (
+                  <UserCollectionCardDetails
+                    key={cardSet.setName}
+                    cardSetToSave={cardSet}
+                    category={cardSet.category}
+                    iconClass={cardSet.iconClass}
+                    mastery={cardSet.mastery}
+                    setName={cardSet.setName}
+                    totalCards={cardSet.cards.length}
+                    roundState={roundState}
+                    setRoundState={setRoundState}
+                    setCurrentCardSetName={setCurrentCardSetName}
+                    url={`/collections/${cardSet.id}`}
+                    fetchUserCardSets={fetchUserCardSets}
+                    resetUserCollectionsState={resetUserCollectionsState}
+                    handleDrawerClose={handleDrawerClose}
+                    cardNumber={index}
+                    isAnimatingCardDetails={isAnimatingCardDetails}
+                    setIsAnimatingCardDetails={setIsAnimatingCardDetails}
+                  />
+                ))}
+            </>
+            )}
+          </div>
         </div>
         <div className={classes.dividerEnd} />
+        <div className={classes.viewingButtonWrapper}>
+          <button className={classes.navButtonWrapper} type="button" onClick={handleEditDecksClick}>
+            <p className={classes.navButtonLabel}>Edit Decks</p>
+          </button>
+        </div>
       </div>
     </div>
   );

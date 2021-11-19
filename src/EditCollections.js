@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
@@ -57,6 +57,8 @@ function EditCollections(props) {
   // State for Material UI Snackbar
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+
+  let history = useHistory();
 
   const handleCloseSnackbar = (event, reason) => {
     if (reason === 'clickaway') {
@@ -214,6 +216,10 @@ function EditCollections(props) {
   // Click handler for the Add Card
   const handleAddCardClick = () => {
     setIsAddingCard(true);
+  };
+
+  const handleRunDecksClick = () => {
+    history.push('/my-collections');
   };
 
   //  <---------------  Utility Functions for EditCollections   --------------->
@@ -497,8 +503,12 @@ function EditCollections(props) {
           </div>
         )
           : (
-            <div className={classes.loadingSpinnerWrapper}>
-              <PuffLoader color="rgba(0, 0, 0, 0.7)" size="3rem" loading />
+            <div className={classes.itemsWrapperOuter}>
+              <div className={classes.itemsWrapper}>
+                <div className={classes.loadingSpinnerWrapper}>
+                  <PuffLoader color="rgba(0, 0, 0, 0.7)" size="3rem" loading />
+                </div>
+              </div>
             </div>
           )}
 
@@ -509,20 +519,22 @@ function EditCollections(props) {
         )
           : (
             <div className={classes.viewingButtonWrapper}>
-              <div className={classes.addIconWrapper} onClick={handleAddDeckClick}>
-                <i className="far fa-plus-square" />
-                <p className={classes.addDeckLabel}>ADD DECK</p>
-              </div>
+              {/* <button className={classes.navButtonWrapper} onClick={handleAddDeckClick} type="button">
+                <p className={classes.addDeckLabel}>Add Deck</p>
+              </button> */}
+              <button className={classes.navButtonWrapper} onClick={handleRunDecksClick} type="button">
+                <p className={classes.navButtonLabel}>Run Decks</p>
+              </button>
             </div>
           )}
-        <Snackbar
-          open={openSnackbar}
-          autoHideDuration={2000}
-          onClose={handleCloseSnackbar}
-          message={snackbarMessage}
-          action={action}
-        />
       </div>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+        message={snackbarMessage}
+        action={action}
+      />
     </div>
   );
 }
