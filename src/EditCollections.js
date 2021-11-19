@@ -280,6 +280,7 @@ function EditCollections(props) {
                 onChange={handleChange}
                 sx={{ width: '80%' }}
                 centered
+                className={classes.tabWrapper}
               >
                 <Tab label="Edit Decks" sx={{ width: '40%' }} onClick={handleEditDecksClick} />
                 <Tab label="Edit Cards" sx={{ width: '40%', marginLeft: 'auto' }} onClick={handleEditCardsClick} />

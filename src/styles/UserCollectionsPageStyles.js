@@ -244,4 +244,28 @@ export default {
     marginBottom: '5px',
     // border: '1px solid black',
   },
+  loadingSpinnerWrapper: {
+    height: '610px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tabWrapper: {
+    '& button': {
+      animationName: '$tabs-fade-in',
+      animationDuration: '500ms',
+      animationIterationCount: 1,
+      animationTimingFunction: 'ease-in-out',
+
+    },
+  },
+  '@keyframes tabs-fade-in': {
+    '0%': {
+      opacity: 0,
+      transform: 'translateY(20%)',
+    },
+    '50%': {
+      opacity: 0.4,
+    },
+  },
 };

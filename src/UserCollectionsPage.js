@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core';
 import { Redirect, useHistory } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import PuffLoader from 'react-spinners/PuffLoader';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Button from '@mui/material/Button';
@@ -239,6 +240,7 @@ function UserCollectionsPage(props) {
                 onChange={handleChange}
                 sx={{ width: '80%' }}
                 centered
+                className={classes.tabWrapper}
               >
                 <Tab label="My Decks" sx={{ width: '40%' }} onClick={handleMyDecksClick} />
                 <Tab label="Stock Decks" sx={{ width: '45%', marginLeft: 'auto' }} onClick={handleStockDecksClick} />
@@ -364,102 +366,114 @@ function UserCollectionsPage(props) {
             <p className={classes.label}>Actions</p>
           </div>
         </div>
-        <div className={classes.itemsWrapperOuter}>
-          <div className={classes.itemsWrapper}>
-            {myDecksTab && (
-            <>
-              { !filterState.isFiltered && sortState.sortedDatabase.length > 0
-                ? sortState.sortedDatabase.map((userCardSet, index) => (
-                  <UserCollectionCardDetails
-                    key={userCardSet.setName}
-                    category={userCardSet.category}
-                    iconClass={userCardSet.iconClass}
-                    mastery={userCardSet.mastery}
-                    setName={userCardSet.setName}
-                    totalCards={userCardSet.cards.length}
-                    roundState={roundState}
-                    setRoundState={setRoundState}
-                    setCurrentCardSetName={setCurrentCardSetName}
-                    url={`/my-collections/${userCardSet.id}`}
-                    fetchUserCardSets={fetchUserCardSets}
-                    resetUserCollectionsState={resetUserCollectionsState}
-                    handleDrawerClose={handleDrawerClose}
-                    cardNumber={index}
-                    isAnimatingCardDetails={isAnimatingCardDetails}
-                    setIsAnimatingCardDetails={setIsAnimatingCardDetails}
-                  />
-                ))
-                : filterState.filtered.map((userCardSet, index) => (
-                  <UserCollectionCardDetails
-                    key={userCardSet.setName}
-                    category={userCardSet.category}
-                    iconClass={userCardSet.iconClass}
-                    mastery={userCardSet.mastery}
-                    setName={userCardSet.setName}
-                    totalCards={userCardSet.cards.length}
-                    roundState={roundState}
-                    setRoundState={setRoundState}
-                    setCurrentCardSetName={setCurrentCardSetName}
-                    url={`/my-collections/${userCardSet.id}`}
-                    fetchUserCardSets={fetchUserCardSets}
-                    resetUserCollectionsState={resetUserCollectionsState}
-                    handleDrawerClose={handleDrawerClose}
-                    cardNumber={index}
-                    isAnimatingCardDetails={isAnimatingCardDetails}
-                    setIsAnimatingCardDetails={setIsAnimatingCardDetails}
-                  />
-                ))}
-            </>
-            )}
-            {stockDecksTab && (
-            <>
-              { !filterState.isFiltered && stockSortState.sortedStockDatabase.length > 0
-                ? stockSortState.sortedStockDatabase.map((cardSet, index) => (
-                  <UserCollectionCardDetails
-                    key={cardSet.setName}
-                    cardSetToSave={cardSet}
-                    category={cardSet.category}
-                    iconClass={cardSet.iconClass}
-                    mastery={cardSet.mastery}
-                    setName={cardSet.setName}
-                    totalCards={cardSet.cards.length}
-                    roundState={roundState}
-                    setRoundState={setRoundState}
-                    setCurrentCardSetName={setCurrentCardSetName}
-                    url={`/collections/${cardSet.id}`}
-                    fetchUserCardSets={fetchUserCardSets}
-                    resetUserCollectionsState={resetUserCollectionsState}
-                    handleDrawerClose={handleDrawerClose}
-                    cardNumber={index}
-                    isAnimatingCardDetails={isAnimatingCardDetails}
-                    setIsAnimatingCardDetails={setIsAnimatingCardDetails}
-                  />
-                ))
-                : filterState.filtered.map((cardSet, index) => (
-                  <UserCollectionCardDetails
-                    key={cardSet.setName}
-                    cardSetToSave={cardSet}
-                    category={cardSet.category}
-                    iconClass={cardSet.iconClass}
-                    mastery={cardSet.mastery}
-                    setName={cardSet.setName}
-                    totalCards={cardSet.cards.length}
-                    roundState={roundState}
-                    setRoundState={setRoundState}
-                    setCurrentCardSetName={setCurrentCardSetName}
-                    url={`/collections/${cardSet.id}`}
-                    fetchUserCardSets={fetchUserCardSets}
-                    resetUserCollectionsState={resetUserCollectionsState}
-                    handleDrawerClose={handleDrawerClose}
-                    cardNumber={index}
-                    isAnimatingCardDetails={isAnimatingCardDetails}
-                    setIsAnimatingCardDetails={setIsAnimatingCardDetails}
-                  />
-                ))}
-            </>
-            )}
-          </div>
-        </div>
+        {userCardSetDatabase
+          ? (
+
+            <div className={classes.itemsWrapperOuter}>
+              <div className={classes.itemsWrapper}>
+                {myDecksTab && (
+                <>
+                  { !filterState.isFiltered && sortState.sortedDatabase.length > 0
+                    ? sortState.sortedDatabase.map((userCardSet, index) => (
+                      <UserCollectionCardDetails
+                        key={userCardSet.setName}
+                        category={userCardSet.category}
+                        iconClass={userCardSet.iconClass}
+                        mastery={userCardSet.mastery}
+                        setName={userCardSet.setName}
+                        totalCards={userCardSet.cards.length}
+                        roundState={roundState}
+                        setRoundState={setRoundState}
+                        setCurrentCardSetName={setCurrentCardSetName}
+                        url={`/my-collections/${userCardSet.id}`}
+                        fetchUserCardSets={fetchUserCardSets}
+                        resetUserCollectionsState={resetUserCollectionsState}
+                        handleDrawerClose={handleDrawerClose}
+                        cardNumber={index}
+                        isAnimatingCardDetails={isAnimatingCardDetails}
+                        setIsAnimatingCardDetails={setIsAnimatingCardDetails}
+                      />
+                    ))
+                    : filterState.filtered.map((userCardSet, index) => (
+                      <UserCollectionCardDetails
+                        key={userCardSet.setName}
+                        category={userCardSet.category}
+                        iconClass={userCardSet.iconClass}
+                        mastery={userCardSet.mastery}
+                        setName={userCardSet.setName}
+                        totalCards={userCardSet.cards.length}
+                        roundState={roundState}
+                        setRoundState={setRoundState}
+                        setCurrentCardSetName={setCurrentCardSetName}
+                        url={`/my-collections/${userCardSet.id}`}
+                        fetchUserCardSets={fetchUserCardSets}
+                        resetUserCollectionsState={resetUserCollectionsState}
+                        handleDrawerClose={handleDrawerClose}
+                        cardNumber={index}
+                        isAnimatingCardDetails={isAnimatingCardDetails}
+                        setIsAnimatingCardDetails={setIsAnimatingCardDetails}
+                      />
+                    ))}
+                </>
+                )}
+                {stockDecksTab && (
+                <>
+                  { !filterState.isFiltered && stockSortState.sortedStockDatabase.length > 0
+                    ? stockSortState.sortedStockDatabase.map((cardSet, index) => (
+                      <UserCollectionCardDetails
+                        key={cardSet.setName}
+                        cardSetToSave={cardSet}
+                        category={cardSet.category}
+                        iconClass={cardSet.iconClass}
+                        mastery={cardSet.mastery}
+                        setName={cardSet.setName}
+                        totalCards={cardSet.cards.length}
+                        roundState={roundState}
+                        setRoundState={setRoundState}
+                        setCurrentCardSetName={setCurrentCardSetName}
+                        url={`/collections/${cardSet.id}`}
+                        fetchUserCardSets={fetchUserCardSets}
+                        resetUserCollectionsState={resetUserCollectionsState}
+                        handleDrawerClose={handleDrawerClose}
+                        cardNumber={index}
+                        isAnimatingCardDetails={isAnimatingCardDetails}
+                        setIsAnimatingCardDetails={setIsAnimatingCardDetails}
+                      />
+                    ))
+                    : filterState.filtered.map((cardSet, index) => (
+                      <UserCollectionCardDetails
+                        key={cardSet.setName}
+                        cardSetToSave={cardSet}
+                        category={cardSet.category}
+                        iconClass={cardSet.iconClass}
+                        mastery={cardSet.mastery}
+                        setName={cardSet.setName}
+                        totalCards={cardSet.cards.length}
+                        roundState={roundState}
+                        setRoundState={setRoundState}
+                        setCurrentCardSetName={setCurrentCardSetName}
+                        url={`/collections/${cardSet.id}`}
+                        fetchUserCardSets={fetchUserCardSets}
+                        resetUserCollectionsState={resetUserCollectionsState}
+                        handleDrawerClose={handleDrawerClose}
+                        cardNumber={index}
+                        isAnimatingCardDetails={isAnimatingCardDetails}
+                        setIsAnimatingCardDetails={setIsAnimatingCardDetails}
+                      />
+                    ))}
+                </>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className={classes.itemsWrapperOuter}>
+              <div className={classes.itemsWrapper}>
+                <div className={classes.loadingSpinnerWrapper}>
+                  <PuffLoader color="rgba(0, 0, 0, 0.7)" size="3rem" loading />
+                </div>
+              </div>
+            </div>
+          )}
         <div className={classes.dividerEnd} />
         <div className={classes.viewingButtonWrapper}>
           <button className={classes.navButtonWrapper} type="button" onClick={handleEditDecksClick}>
