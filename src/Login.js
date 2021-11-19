@@ -209,7 +209,6 @@ function Login(props) {
           );
         }
       });
-    const userRef = doc(db, 'users', uid);
   };
 
   const signInWithEmail = (email, password) => {

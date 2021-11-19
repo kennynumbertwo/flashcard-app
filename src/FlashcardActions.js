@@ -14,8 +14,6 @@ function FlashcardActions(props) {
     handleNextCard,
     isShowingMastery,
     setHighlightText,
-    cardCount,
-    cardQuantity,
   } = props;
 
   // const handleHover = (e) => {

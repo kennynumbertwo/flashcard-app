@@ -209,9 +209,9 @@ function EditCollections(props) {
   };
 
   // Click handler for the Add Deck
-  const handleAddDeckClick = () => {
-    setIsAddingDeck(true);
-  };
+  // const handleAddDeckClick = () => {
+  //   setIsAddingDeck(true);
+  // };
 
   // Click handler for the Add Card
   const handleAddCardClick = () => {
