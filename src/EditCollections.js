@@ -209,9 +209,9 @@ function EditCollections(props) {
   };
 
   // Click handler for the Add Deck
-  // const handleAddDeckClick = () => {
-  //   setIsAddingDeck(true);
-  // };
+  const handleAddDeckClick = () => {
+    setIsAddingDeck(true);
+  };
 
   // Click handler for the Add Card
   const handleAddCardClick = () => {
@@ -520,9 +520,9 @@ function EditCollections(props) {
         )
           : (
             <div className={classes.viewingButtonWrapper}>
-              {/* <button className={classes.navButtonWrapper} onClick={handleAddDeckClick} type="button">
+              <button className={classes.navButtonWrapper} onClick={handleAddDeckClick} type="button">
                 <p className={classes.addDeckLabel}>Add Deck</p>
-              </button> */}
+              </button>
               <button className={classes.navButtonWrapper} onClick={handleRunDecksClick} type="button">
                 <p className={classes.navButtonLabel}>Run Decks</p>
               </button>
