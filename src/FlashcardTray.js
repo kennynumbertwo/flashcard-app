@@ -5,6 +5,8 @@ import { doc, updateDoc, setDoc } from 'firebase/firestore/lite';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Tooltip from '@mui/material/Tooltip';
+import Zoom from '@mui/material/Zoom';
 import styles from './styles/FlashcardTrayStyles';
 import useToggle from './hooks/useToggle';
 import Flashcard from './Flashcard';
@@ -186,21 +188,21 @@ function FlashcardTray(props) {
     }
   };
 
-  const handleHover = (e) => {
-    if (e._reactName === 'onMouseEnter') {
-      if (e.currentTarget.id === 'show') {
-        setHighlightText('Show Answer');
-      }
-      if (e.currentTarget.id === 'return') {
-        setHighlightText('Return to decks');
-      }
-      if (e.currentTarget.id === 'restart') {
-        setHighlightText('Restart');
-      }
-    } else {
-      setHighlightText('');
-    }
-  };
+  // const handleHover = (e) => {
+  //   if (e._reactName === 'onMouseEnter') {
+  //     if (e.currentTarget.id === 'show') {
+  //       setHighlightText('Show Answer');
+  //     }
+  //     if (e.currentTarget.id === 'return') {
+  //       setHighlightText('Return to decks');
+  //     }
+  //     if (e.currentTarget.id === 'restart') {
+  //       setHighlightText('Restart');
+  //     }
+  //   } else {
+  //     setHighlightText('');
+  //   }
+  // };
 
   const handleBackButton = () => {
     history.push('/my-collections');
@@ -345,43 +347,49 @@ function FlashcardTray(props) {
       </div>
       <div className={classes.bottomActionWrapper}>
         <div className={classes.bottomActionWrapperInner}>
-          <button
-            className={classes.restartButton}
-            type="button"
-            id="return"
-            onMouseEnter={handleHover}
-            onMouseLeave={handleHover}
+          <Tooltip
+            TransitionComponent={Zoom}
+            title={<p style={{ fontSize: '.9rem', margin: '2px 0px 0px 0px', padding: '0px 0px 0px 0px' }}>Return to Decks</p>}
           >
-            <ArrowBackIcon fontSize="medium" onClick={handleBackButton} />
-          </button>
-          <button
-            className={classes.showAnswerButton}
-            type="button"
-            id="show"
-            onMouseEnter={handleHover}
-            onMouseLeave={handleHover}
+            <button
+              className={classes.restartButton}
+              type="button"
+              id="return"
+            >
+              <ArrowBackIcon fontSize="medium" onClick={handleBackButton} />
+            </button>
+          </Tooltip>
+          <Tooltip
+            TransitionComponent={Zoom}
+            title={<p style={{ fontSize: '.9rem', margin: '2px 0px 0px 0px', padding: '0px 0px 0px 0px' }}>Show Answer</p>}
           >
-            <VisibilityIcon fontSize="large" onClick={handleShowAnswer} />
-          </button>
-          <button
-            className={classes.restartButton}
-            type="button"
-            id="restart"
-            onMouseEnter={handleHover}
-            onMouseLeave={handleHover}
+            <button
+              className={classes.showAnswerButton}
+              type="button"
+              id="show"
+            >
+              <VisibilityIcon fontSize="large" onClick={handleShowAnswer} />
+            </button>
+          </Tooltip>
+          <Tooltip
+            TransitionComponent={Zoom}
+            title={<p style={{ fontSize: '.9rem', margin: '2px 0px 0px 0px', padding: '0px 0px 0px 0px' }}>Restart</p>}
           >
-            <RestartAltIcon fontSize="medium" onClick={handleStartOver} />
-          </button>
+            <button
+              className={classes.restartButton}
+              type="button"
+              id="restart"
+            >
+              <RestartAltIcon fontSize="medium" onClick={handleStartOver} />
+            </button>
+          </Tooltip>
         </div>
       </div>
-      {highlightText && (
+      {/* {highlightText && (
         <div>
           <p className={classes.highlightText}>{highlightText}</p>
-          {/* <div className={classes.highlightUnderlineWrapper}>
-            <div className={classes.highlightUnderline} />
-          </div> */}
         </div>
-      )}
+      )} */}
       <Modal
         isShowing={isShowingModal}
         buttonText={<i className="fas fa-thumbs-up" style={{ fontSize: '1.2rem' }} />}
