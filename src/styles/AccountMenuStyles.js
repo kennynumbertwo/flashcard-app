@@ -1,6 +1,6 @@
 export default {
   accountMenuWrapper: {
-    width: '100%',
+    width: '50px',
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
@@ -24,7 +24,7 @@ export default {
   signedInAsEmail: {
     margin: '0px 0px 0px 0px',
     padding: '0px 0px 20px 0px',
-    fontWeight: '500',
+    fontWeight: '400',
   },
   dividerWrapper: {
     paddingBottom: '10px',

@@ -3,12 +3,14 @@ const ITEM_WIDTH = 1050;
 export default {
   EditCollections: {
     display: 'flex',
-    justifyContent: 'flext-start',
+    justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
     width: '100%',
     maxHeight: '100vh',
-    margin: '64px 0px 0px 0px',
+    height: '100vh',
+    border: '1px solid black',
+    margin: '0px 0px 0px 0px',
   },
   mainCard: {
     display: 'flex',
@@ -77,13 +79,14 @@ export default {
     },
   },
   filterWrapper: {
-    height: '50px',
+    height: '30px',
     width: '20%',
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingRight: '10px',
+    paddingRight: '5px',
     marginLeft: 'auto',
+    // border: '1px solid black',
   },
   divider: {
     height: '1px',

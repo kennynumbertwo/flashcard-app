@@ -6,7 +6,7 @@ export default {
     flexDirection: 'column',
     maxWidth: '100%',
     maxHeight: '100%',
-    margin: '40px 0px 0px 0px',
+    margin: '0px 0px 0px 0px',
     overflow: 'hidden',
     '& button': {
       display: 'flex',

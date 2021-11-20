@@ -42,12 +42,6 @@ export default function Routes(props) {
     fetchStockCards,
   } = props;
 
-  // Closes Material UI Drawer
-  const handleDrawerClose = () => {
-    setIsAnimatingCardItem(false);
-    setOpen(false);
-  };
-
   useEffect(() => {
     fetchUserCardSets();
   }, [user]);
@@ -92,7 +86,6 @@ export default function Routes(props) {
     setUser({});
     setUserCardCollections([]);
     setUserDeckState({ isLoading: true, errorMessage: '', userCardSetDatabase: null });
-    setOpen(false);
     await auth.signOut();
     setIsLoggedIn(false);
   };
@@ -129,7 +122,8 @@ export default function Routes(props) {
               roundState={roundState}
               setRoundState={setRoundState}
               fetchUserCardSets={fetchUserCardSets}
-              handleDrawerClose={handleDrawerClose}
+              logoutUser={logoutUser}
+              user={user}
             />
           )}
         />
@@ -184,11 +178,12 @@ export default function Routes(props) {
               userCardSetDatabase={userDeckState.userCardSetDatabase}
               userCardCollections={userCardCollections}
               updateCardSetName={updateCardSetName}
-                // setEditDeckState={setEditDeckState}
               deleteUserDatabaseSet={deleteUserDatabaseSet}
               fetchUserCardSets={fetchUserCardSets}
               isAnimatingCardItem={isAnimatingCardItem}
               setIsAnimatingCardItem={setIsAnimatingCardItem}
+              logoutUser={logoutUser}
+              user={user}
             />
           )}
         />

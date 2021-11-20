@@ -297,7 +297,7 @@ function FlashcardTray(props) {
   }
   if (isLoading) {
     return (
-      <div>Loading</div>
+      <div />
     );
   }
   return (

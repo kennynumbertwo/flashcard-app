@@ -4,18 +4,22 @@ import { Redirect, useHistory } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PuffLoader from 'react-spinners/PuffLoader';
 import { v4 as uuidv4 } from 'uuid';
 import Snackbar from '@mui/material/Snackbar';
 import CheckIcon from '@mui/icons-material/Check';
+import Tooltip from '@mui/material/Tooltip';
+import Zoom from '@mui/material/Zoom';
+import AddIcon from '@mui/icons-material/Add';
+import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import styles from './styles/EditCollectionsStyles';
 import EditCollectionsItem from './EditCollectionsItem';
 import EditCollectionsItemBlank from './EditCollectionsItemBlank';
 import EditCollectionsCardItem from './EditCollectionsCardItem';
 import EditCollectionsNewCard from './EditCollectionsNewCard';
+import AccountMenu from './AccountMenu';
 
 const ITEM_HEIGHT = 48;
 
@@ -84,6 +88,8 @@ function EditCollections(props) {
     fetchUserCardSets,
     isAnimatingCardItem,
     setIsAnimatingCardItem,
+    logoutUser,
+    user,
   } = props;
 
   // Fetches latest database from Firestore
@@ -287,28 +293,35 @@ function EditCollections(props) {
               </Tabs>
             </div>
           </div>
-          {!isViewingCardsState.isViewing && (
+
           <div className={classes.filterWrapper}>
-            <Button
-              sx={{
-                backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                color: anchorEl !== null ? 'var(--text-accept)' : 'var(--text-primary)',
-                height: '35px',
-                '&:hover': {
+            <Tooltip TransitionComponent={Zoom} title="Filter by Category">
+              <Button
+                sx={{
                   backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                },
-              }}
-              id="demo-customized-button"
-              aria-controls="demo-customized-menu"
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              variant="contained"
-              disableElevation
-              onClick={handleClick}
-              endIcon={<KeyboardArrowDownIcon />}
-            >
-              Category Filter
-            </Button>
+                  color: anchorEl !== null ? 'var(--text-accept)' : 'var(--text-primary)',
+                  height: '35px',
+                  width: '30px',
+                  '& span': {
+                    width: '40px',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                  },
+                  '&:hover': {
+                    backgroundColor: 'rgba(250, 250, 250, 0.0)',
+                  },
+                }}
+                id="demo-customized-button"
+                aria-controls="demo-customized-menu"
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                variant="contained"
+                disableElevation
+                onClick={handleClick}
+              >
+                <i className="fas fa-filter" sx={{ fontSize: '0.8rem' }} />
+              </Button>
+            </Tooltip>
             <Menu
               id="long-menu"
               MenuListProps={{
@@ -325,9 +338,9 @@ function EditCollections(props) {
               }}
             >
               {filterState.showClearFilter && (
-              <MenuItem key="clear-filter" onClick={handleClose}>
-                Clear Filter
-              </MenuItem>
+                <MenuItem key="clear-filter" onClick={handleClose}>
+                  Clear Filter
+                </MenuItem>
               )}
               {filterOptions.map((option) => (
                 <MenuItem key={option} selected={option === selectedFilter} onClick={handleClose}>
@@ -335,8 +348,9 @@ function EditCollections(props) {
                 </MenuItem>
               ))}
             </Menu>
+
+            <AccountMenu logoutUser={logoutUser} isLoggedIn={isLoggedIn} user={user} />
           </div>
-          )}
         </div>
         <div className={classes.divider} />
         <div className={classes.headerCard}>
@@ -366,6 +380,7 @@ function EditCollections(props) {
                   : null}
                 {sortState.sortId !== 'category' && <i className="fas fa-sort" />}
               </div>
+
             </div>
           </div>
           <div className={classes.iconWrapper}>
@@ -520,12 +535,19 @@ function EditCollections(props) {
         )
           : (
             <div className={classes.viewingButtonWrapper}>
-              <button className={classes.navButtonWrapper} onClick={handleAddDeckClick} type="button">
-                <p className={classes.addDeckLabel}>Add Deck</p>
-              </button>
-              <button className={classes.navButtonWrapper} onClick={handleRunDecksClick} type="button">
-                <p className={classes.navButtonLabel}>Run Decks</p>
-              </button>
+              <Tooltip TransitionComponent={Zoom} title="Add A New Deck">
+                <button className={classes.navButtonWrapper} onClick={handleAddDeckClick} type="button">
+                  {/* <p className={classes.addDeckLabel}>Add Deck</p> */}
+                  <AddIcon />
+                </button>
+              </Tooltip>
+              <Tooltip TransitionComponent={Zoom} title="To Run Decks Page!">
+                <button className={classes.navButtonWrapper} onClick={handleRunDecksClick} type="button">
+                  {/* <p className={classes.navButtonLabel}>Run Decks</p> */}
+                  {/* <i className="fas fa-running" /> */}
+                  <DirectionsRunIcon />
+                </button>
+              </Tooltip>
             </div>
           )}
       </div>
