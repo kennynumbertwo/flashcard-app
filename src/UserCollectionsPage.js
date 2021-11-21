@@ -13,6 +13,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import UserCollectionCardDetails from './UserCollectionCardDetails';
 import styles from './styles/UserCollectionsPageStyles';
 import AccountMenu from './AccountMenu';
+import ButtonBottom from './ButtonBottom';
 
 const ITEM_HEIGHT = 48;
 
@@ -381,52 +382,68 @@ function UserCollectionsPage(props) {
         </div>
         {userCardSetDatabase
           ? (
-
             <div className={classes.itemsWrapperOuter}>
               <div className={classes.itemsWrapper}>
-                {myDecksTab && (
-                <>
-                  { !filterState.isFiltered && sortState.sortedDatabase.length > 0
-                    ? sortState.sortedDatabase.map((userCardSet, index) => (
-                      <UserCollectionCardDetails
-                        key={userCardSet.setName}
-                        category={userCardSet.category}
-                        iconClass={userCardSet.iconClass}
-                        mastery={userCardSet.mastery}
-                        setName={userCardSet.setName}
-                        totalCards={userCardSet.cards.length}
-                        roundState={roundState}
-                        setRoundState={setRoundState}
-                        setCurrentCardSetName={setCurrentCardSetName}
-                        url={`/my-collections/${userCardSet.id}`}
-                        fetchUserCardSets={fetchUserCardSets}
-                        resetUserCollectionsState={resetUserCollectionsState}
-                        cardNumber={index}
-                        isAnimatingCardDetails={isAnimatingCardDetails}
-                        setIsAnimatingCardDetails={setIsAnimatingCardDetails}
-                      />
-                    ))
-                    : filterState.filtered.map((userCardSet, index) => (
-                      <UserCollectionCardDetails
-                        key={userCardSet.setName}
-                        category={userCardSet.category}
-                        iconClass={userCardSet.iconClass}
-                        mastery={userCardSet.mastery}
-                        setName={userCardSet.setName}
-                        totalCards={userCardSet.cards.length}
-                        roundState={roundState}
-                        setRoundState={setRoundState}
-                        setCurrentCardSetName={setCurrentCardSetName}
-                        url={`/my-collections/${userCardSet.id}`}
-                        fetchUserCardSets={fetchUserCardSets}
-                        resetUserCollectionsState={resetUserCollectionsState}
-                        cardNumber={index}
-                        isAnimatingCardDetails={isAnimatingCardDetails}
-                        setIsAnimatingCardDetails={setIsAnimatingCardDetails}
-                      />
-                    ))}
-                </>
-                )}
+                {myDecksTab && sortState.sortedDatabase.length !== 0 ? (
+                  <>
+                    { !filterState.isFiltered && sortState.sortedDatabase.length > 0
+                      ? sortState.sortedDatabase.map((userCardSet, index) => (
+                        <UserCollectionCardDetails
+                          key={userCardSet.setName}
+                          category={userCardSet.category}
+                          iconClass={userCardSet.iconClass}
+                          mastery={userCardSet.mastery}
+                          setName={userCardSet.setName}
+                          totalCards={userCardSet.cards.length}
+                          roundState={roundState}
+                          setRoundState={setRoundState}
+                          setCurrentCardSetName={setCurrentCardSetName}
+                          url={`/my-collections/${userCardSet.id}`}
+                          fetchUserCardSets={fetchUserCardSets}
+                          resetUserCollectionsState={resetUserCollectionsState}
+                          cardNumber={index}
+                          isAnimatingCardDetails={isAnimatingCardDetails}
+                          setIsAnimatingCardDetails={setIsAnimatingCardDetails}
+                        />
+                      ))
+                      : filterState.filtered.map((userCardSet, index) => (
+                        <UserCollectionCardDetails
+                          key={userCardSet.setName}
+                          category={userCardSet.category}
+                          iconClass={userCardSet.iconClass}
+                          mastery={userCardSet.mastery}
+                          setName={userCardSet.setName}
+                          totalCards={userCardSet.cards.length}
+                          roundState={roundState}
+                          setRoundState={setRoundState}
+                          setCurrentCardSetName={setCurrentCardSetName}
+                          url={`/my-collections/${userCardSet.id}`}
+                          fetchUserCardSets={fetchUserCardSets}
+                          resetUserCollectionsState={resetUserCollectionsState}
+                          cardNumber={index}
+                          isAnimatingCardDetails={isAnimatingCardDetails}
+                          setIsAnimatingCardDetails={setIsAnimatingCardDetails}
+                        />
+                      ))}
+                  </>
+                )
+                  : (
+                    <>
+                      {!stockDecksTab && (
+                      <div className={classes.noDecksWrapper}>
+                        <div className={classes.noDecksTop}>
+                          <h4>There are no decks in your collection.</h4>
+                        </div>
+                        <div className={classes.noDecksBottom}>
+                          <div className={classes.arrowDownWrapper}>
+                            <h4>Add your first deck!</h4>
+                            <i className="fas fa-long-arrow-alt-down" />
+                          </div>
+                        </div>
+                      </div>
+                      )}
+                    </>
+                  )}
                 {stockDecksTab && (
                 <>
                   { !filterState.isFiltered && stockSortState.sortedStockDatabase.length > 0
@@ -485,12 +502,12 @@ function UserCollectionsPage(props) {
           )}
         <div className={classes.dividerEnd} />
         <div className={classes.viewingButtonWrapper}>
-          <Tooltip TransitionComponent={Zoom} title="Edit Your Collections">
-            <button className={classes.navButtonWrapper} type="button" onClick={handleEditDecksClick}>
-              {/* <p className={classes.navButtonLabel}>Edit Decks</p> */}
-              <EditIcon />
-            </button>
-          </Tooltip>
+          <ButtonBottom
+            icon={<EditIcon />}
+            handleButtonClick={handleEditDecksClick}
+            tooltipText="Edit Your Collections"
+            isHighlighted={sortState.sortedDatabase.length === 0}
+          />
         </div>
       </div>
     </div>

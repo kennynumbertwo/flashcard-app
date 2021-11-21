@@ -38,7 +38,9 @@ code {
   --button-primary-disabled: rgba(0, 0, 0, 0.3);
   --button-bottom-primary: rgb(245, 245, 245);
   --button-accept-dark: rgb(50, 140, 114);
+  --button-accept-dark-mid: rgb(56, 162, 132);
   --button-accept-primary: rgba(51, 170, 137, 1);
+  --button-accept-light-mid: rgb(53, 177, 119);
   --button-accept-light: rgb(57, 198, 132);
   --button-deny-dark: rgb(154, 29, 70);
   --button-deny-primary: rgba(206, 34, 90, 1);

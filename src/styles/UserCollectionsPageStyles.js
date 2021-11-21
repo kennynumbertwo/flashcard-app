@@ -212,31 +212,6 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
   },
-
-  navButtonWrapper: {
-    backgroundColor: 'var(--button-primary)',
-    fontFamily: 'inherit',
-    fontWeight: '500',
-    height: '40px',
-    width: '120px',
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    fontSize: '1.8rem',
-    borderRadius: '4px',
-    border: 'none',
-    color: 'var(--text-button-light)',
-    transition: 'all 0.4s ease 0s',
-    '& p': {
-      fontSize: '.9rem',
-      margin: '0px 0px 0px 0px',
-    },
-    '&:hover': {
-      backgroundColor: 'var(--button-accept-primary)',
-      transition: 'all 0.4s ease 0s',
-      cursor: 'pointer',
-    },
-  },
   viewingButtonWrapper: {
     display: 'flex',
     justifyContent: 'space-evenly',
@@ -268,6 +243,61 @@ export default {
     },
     '50%': {
       opacity: 0.4,
+    },
+  },
+  noDecksWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    width: '100%',
+    flexDirection: 'column',
+  },
+  noDecksTop: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    flexDirection: 'column',
+    color: 'var(--text-primary-light)',
+    fontStyle: 'italic',
+    letterSpacing: '.5px',
+    // border: '1px solid black',
+    height: '50%',
+  },
+  noDecksBottom: {
+    color: 'var(--text-primary-light)',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    flexDirection: 'column',
+    // border: '1px solid black',
+    height: '50%',
+    paddingBottom: '20px',
+    '& h4': {
+      fontStyle: 'italic',
+      letterSpacing: '.5px',
+      margin: '0px 0px 10px 0px',
+      padding: '0px 0px 0px 0px',
+    },
+  },
+  arrowDownWrapper: {
+    '& i': {
+      animationIterationCount: 'infinite',
+      animationName: '$arrowBounce',
+      animationDuration: '2000ms',
+      animationTimingFunction: 'ease-in-out',
+    },
+  },
+
+  '@keyframes arrowBounce': {
+    '0%': {
+      transform: 'translateY(0%)',
+    },
+    '50%': {
+      transform: 'translateY(40%)',
+    },
+    '100%': {
+      transform: 'translateY(0%)',
     },
   },
 };

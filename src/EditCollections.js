@@ -20,6 +20,7 @@ import EditCollectionsItemBlank from './EditCollectionsItemBlank';
 import EditCollectionsCardItem from './EditCollectionsCardItem';
 import EditCollectionsNewCard from './EditCollectionsNewCard';
 import AccountMenu from './AccountMenu';
+import ButtonBottom from './ButtonBottom';
 
 const ITEM_HEIGHT = 48;
 
@@ -535,19 +536,18 @@ function EditCollections(props) {
         )
           : (
             <div className={classes.viewingButtonWrapper}>
-              <Tooltip TransitionComponent={Zoom} title="Add A New Deck">
-                <button className={classes.navButtonWrapper} onClick={handleAddDeckClick} type="button">
-                  {/* <p className={classes.addDeckLabel}>Add Deck</p> */}
-                  <AddIcon />
-                </button>
-              </Tooltip>
-              <Tooltip TransitionComponent={Zoom} title="To Run Decks Page!">
-                <button className={classes.navButtonWrapper} onClick={handleRunDecksClick} type="button">
-                  {/* <p className={classes.navButtonLabel}>Run Decks</p> */}
-                  {/* <i className="fas fa-running" /> */}
-                  <DirectionsRunIcon />
-                </button>
-              </Tooltip>
+              <ButtonBottom
+                icon={<AddIcon />}
+                handleButtonClick={handleAddDeckClick}
+                tooltipText="Add A New Deck"
+                isHighlighted={sortState.sortedDatabase.length === 0}
+              />
+              <ButtonBottom
+                icon={<DirectionsRunIcon />}
+                handleButtonClick={handleRunDecksClick}
+                tooltipText="To Run Decks Page!"
+                isHighlighted={false}
+              />
             </div>
           )}
       </div>
