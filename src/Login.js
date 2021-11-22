@@ -12,7 +12,6 @@ import { doc } from 'firebase/firestore/lite';
 import CreateEmailLogin from './CreateEmailForm';
 import LoginEmailForm from './LoginEmailForm';
 import db from './firebase.config';
-import './styles/LoginStyles.css';
 
 function Login(props) {
   // State

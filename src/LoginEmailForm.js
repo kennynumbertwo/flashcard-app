@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
 import TextField from '@mui/material/TextField';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-import './styles/LoginEmailFormStyles.css';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
@@ -115,7 +114,7 @@ function LoginEmailForm(props) {
 
   return (
     <nav className={classes.Login}>
-      <div className={isAnimatingOut ? `LoginEmailFormCard animateOut${animateClass}` : 'LoginEmailFormCard'}>
+      <div className={isAnimatingOut ? `${classes.LoginEmailFormCard} animateOut${animateClass}` : `${classes.LoginEmailFormCard}`}>
         <div className={classes.LoginCardTop}>
           <div className={classes.LoginCardTopTextWrapper}>
             <h2 className={classes.signInText}>Sign In</h2>

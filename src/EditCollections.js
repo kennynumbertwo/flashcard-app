@@ -7,7 +7,6 @@ import PuffLoader from 'react-spinners/PuffLoader';
 import Snackbar from '@mui/material/Snackbar';
 import CheckIcon from '@mui/icons-material/Check';
 import AddIcon from '@mui/icons-material/Add';
-import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import styles from './styles/EditCollectionsStyles';
 import EditCollectionsEditDecks from './EditCollectionsEditDecks';

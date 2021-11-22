@@ -5,6 +5,64 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  LoginCard: {
+    height: '600px',
+    width: '375px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    backgroundColor: 'var(--background-white)',
+    borderRadius: '5px',
+    boxShadow: '0px 5px 10px 3px rgba(0, 0, 0, 0.3)',
+    animationName: '$LoginCardEmailFormAnimateIn',
+    animationIterationCount: 1,
+    animationTimingFunction: 'ease-in-out',
+    animationDuration: '0.5s',
+    '& .animateOut': {
+      animationName: '$LoginEmailFormCardAnimateOut',
+      animationIterationCount: 1,
+      animationTimingFunction: 'ease-out',
+      animationDuration: '0.2s',
+    },
+  },
+  '@keyframes LoginCardEmailFormAnimateIn': {
+    '0%': {
+      opacity: 0,
+      transform: 'translateY(25%)',
+    },
+    '20%': {
+      opacity: 0.03,
+    },
+    '40%': {
+      opacity: 0.1,
+    },
+    '60%': {
+      opacity: 0.3,
+    },
+    '80%': {
+      opacity: 0.6,
+    },
+    '100%': {
+      opacity: 1,
+      transform: 'translateY(0%)',
+    },
+  },
+
+  '@keyframes LoginEmailFormCardAnimateOut': {
+    '0%': {
+      opacity: 1,
+      transform: 'translateX(0%)',
+    },
+    '30%': {
+      opacity: 0.7,
+    },
+    '100%': {
+      opacity: 0,
+      transform: 'translateX(-50%)',
+    },
+  },
+
   buttonWrapper: {
     display: 'flex',
     alignItems: 'center',

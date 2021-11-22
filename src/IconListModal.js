@@ -9,7 +9,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import IconCard from './IconCard';
 import icons from './icons';
-import './styles/IconListModalAnimation.css';
 import styles from './styles/IconListModalStyles';
 
 const ITEM_HEIGHT = 48;
@@ -55,6 +54,7 @@ function IconList(props) {
     setSelectedIcon,
     setSelectedIconClass,
     handleHideIcons,
+    isAnimatingModal,
   } = props;
 
   const handleClick = (event) => {
@@ -100,7 +100,7 @@ function IconList(props) {
   };
 
   return (
-    <div className={classes.IconListModal}>
+    <div className={`${classes.IconListModal} ${isAnimatingModal ? 'IconModalFadeIn' : 'IconModalFadeOut'}`}>
       <div className={classes.IconListCard}>
         <div className={classes.filterWrapper}>
           <CloseIcon onClick={handleHideIcons} />

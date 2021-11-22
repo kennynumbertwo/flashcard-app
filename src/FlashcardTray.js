@@ -22,7 +22,6 @@ function FlashcardTray(props) {
   const [cardCount, setCardCount] = useState(0);
   const [cardAnimation, setCardAnimation] = useState('animateInFirst');
   const [answerAnimation, setAnswerAnimation] = useState('answerIn');
-  const [highlightText, setHighlightText] = useState('');
   const [showAnswer, toggleShowAnswer] = useToggle(false);
   const [currentMasteryRating, setCurrentMasteryRating] = useState(0);
   const [currentMasteryPercentage, setCurrentMasteryPercentage] = useState(0);
@@ -187,22 +186,6 @@ function FlashcardTray(props) {
       }, 100);
     }
   };
-
-  // const handleHover = (e) => {
-  //   if (e._reactName === 'onMouseEnter') {
-  //     if (e.currentTarget.id === 'show') {
-  //       setHighlightText('Show Answer');
-  //     }
-  //     if (e.currentTarget.id === 'return') {
-  //       setHighlightText('Return to decks');
-  //     }
-  //     if (e.currentTarget.id === 'restart') {
-  //       setHighlightText('Restart');
-  //     }
-  //   } else {
-  //     setHighlightText('');
-  //   }
-  // };
 
   const handleBackButton = () => {
     history.push('/my-collections');

@@ -99,10 +99,6 @@ function UserCollectionsPage(props) {
     });
   };
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   // Close handler for the Material UI sort dropdown
   const handleClose = (e) => {
     let filtered = [];

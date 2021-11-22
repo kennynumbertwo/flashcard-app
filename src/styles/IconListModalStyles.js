@@ -11,10 +11,36 @@ export default {
     height: '100vh',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     opacity: '1',
-    animationName: props => (props.isAnimatingModal ? 'IconModalFadeIn' : 'IconModalFadeOut'),
-    animationIterationCount: '1',
-    animationTimingFunction: 'ease-in',
-    animationDuration: '0.15s',
+    // animationName: props => (props.isAnimatingModal ? 'IconModalFadeIn' : 'IconModalFadeOut'),
+    '&.IconModalFadeIn': {
+      animationName: '$IconModalFadeIn',
+      animationIterationCount: '1',
+      animationTimingFunction: 'ease-in',
+      animationDuration: '0.15s',
+    },
+    '&.IconModalFadeOut': {
+      animationName: '$IconModalFadeOut',
+      animationIterationCount: '1',
+      animationTimingFunction: 'ease-in',
+      animationDuration: '0.15s',
+    },
+  },
+  '@keyframes IconModalFadeIn': {
+    '0%': {
+      opacity: 0,
+    },
+    '100%': {
+      opacity: 1,
+    },
+  },
+
+  '@keyframes IconModalFadeOut': {
+    '0%': {
+      opacity: 1,
+    },
+    '100%': {
+      opacity: 0,
+    },
   },
   IconListWrapper: {
     display: 'flex',
