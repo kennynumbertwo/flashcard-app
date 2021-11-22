@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
 import { Redirect, useHistory } from 'react-router-dom';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import PuffLoader from 'react-spinners/PuffLoader';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import Zoom from '@mui/material/Zoom';
 import EditIcon from '@mui/icons-material/Edit';
 import UserCollectionCardDetails from './UserCollectionCardDetails';
 import styles from './styles/UserCollectionsPageStyles';
 import AccountMenu from './AccountMenu';
 import ButtonBottom from './ButtonBottom';
-
-const ITEM_HEIGHT = 48;
+import EmptyDecksBlock from './EmptyDecksBlock';
+import CategoryFilter from './CategoryFilter';
 
 function UserCollectionsPage(props) {
   // State for UserCollectionsPage
@@ -67,7 +62,6 @@ function UserCollectionsPage(props) {
     setRoundState,
     setCurrentCardSetName,
     fetchUserCardSets,
-    handleDrawerOpen,
     logoutUser,
     user,
   } = props;
@@ -237,7 +231,7 @@ function UserCollectionsPage(props) {
 
         <div className={classes.menuBar}>
           <div className={classes.headerWrapper}>
-            <h2 className={classes.headerText}>Run Decks</h2>
+            <h2 className={classes.headerText}>My Collections</h2>
           </div>
           <div className={classes.navWrapperOuter}>
             <div className={classes.navWrapperInner}>
@@ -254,59 +248,15 @@ function UserCollectionsPage(props) {
             </div>
           </div>
           <div className={classes.filterWrapper}>
-            <Tooltip TransitionComponent={Zoom} title="Filter by Category">
-              <Button
-                sx={{
-                  backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                  color: anchorEl !== null ? 'var(--text-accept)' : 'var(--text-primary)',
-                  height: '35px',
-                  width: '30px',
-                  '& span': {
-                    width: '40px',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                  },
-                  '&:hover': {
-                    backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                  },
-                }}
-                id="demo-customized-button"
-                aria-controls="demo-customized-menu"
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                variant="contained"
-                disableElevation
-                onClick={handleClick}
-              >
-                <i className="fas fa-filter" sx={{ fontSize: '0.8rem' }} />
-              </Button>
-            </Tooltip>
-            <Menu
-              id="long-menu"
-              MenuListProps={{
-                'aria-labelledby': 'long-button',
-              }}
-              anchorEl={anchorEl}
+            <CategoryFilter
               open={open}
-              onClose={handleClose}
-              PaperProps={{
-                style: {
-                  maxHeight: ITEM_HEIGHT * 5.5,
-                  width: '20ch',
-                },
-              }}
-            >
-              {filterState.showClearFilter && (
-                <MenuItem key="clear-filter" onClick={handleClose}>
-                  Clear Filter
-                </MenuItem>
-              )}
-              {filterOptions.map((option) => (
-                <MenuItem key={option} selected={option === selectedFilter} onClick={handleClose}>
-                  {option}
-                </MenuItem>
-              ))}
-            </Menu>
+              handleClose={handleClose}
+              filterOptions={filterOptions}
+              filterState={filterState}
+              anchorEl={anchorEl}
+              setAnchorEl={setAnchorEl}
+              selectedFilter={selectedFilter}
+            />
 
             <AccountMenu logoutUser={logoutUser} isLoggedIn={isLoggedIn} user={user} />
           </div>
@@ -315,7 +265,7 @@ function UserCollectionsPage(props) {
         <div className={classes.headerCard}>
           <div className={classes.setNameWrapper}>
             <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
-              <p className={classes.label}>Set Name</p>
+              <p className={classes.label}>Deck Name</p>
               {myDecksTab && (
               <div className={classes.sortIconWrapper}>
                 {sortState.sortId === 'setName' && sortState.sortAsc
@@ -430,17 +380,7 @@ function UserCollectionsPage(props) {
                   : (
                     <>
                       {!stockDecksTab && (
-                      <div className={classes.noDecksWrapper}>
-                        <div className={classes.noDecksTop}>
-                          <h4>There are no decks in your collection.</h4>
-                        </div>
-                        <div className={classes.noDecksBottom}>
-                          <div className={classes.arrowDownWrapper}>
-                            <h4>Add your first deck!</h4>
-                            <i className="fas fa-long-arrow-alt-down" />
-                          </div>
-                        </div>
-                      </div>
+                      <EmptyDecksBlock />
                       )}
                     </>
                   )}

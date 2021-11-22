@@ -1,28 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
 import { Redirect, useHistory } from 'react-router-dom';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PuffLoader from 'react-spinners/PuffLoader';
-import { v4 as uuidv4 } from 'uuid';
 import Snackbar from '@mui/material/Snackbar';
 import CheckIcon from '@mui/icons-material/Check';
-import Tooltip from '@mui/material/Tooltip';
-import Zoom from '@mui/material/Zoom';
 import AddIcon from '@mui/icons-material/Add';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import styles from './styles/EditCollectionsStyles';
-import EditCollectionsItem from './EditCollectionsItem';
-import EditCollectionsItemBlank from './EditCollectionsItemBlank';
-import EditCollectionsCardItem from './EditCollectionsCardItem';
-import EditCollectionsNewCard from './EditCollectionsNewCard';
+import EditCollectionsEditDecks from './EditCollectionsEditDecks';
 import AccountMenu from './AccountMenu';
 import ButtonBottom from './ButtonBottom';
-
-const ITEM_HEIGHT = 48;
+import CardsView from './CardsView';
+import EmptyDecksBlock from './EmptyDecksBlock';
+import CategoryFilter from './CategoryFilter';
 
 function EditCollections(props) {
   // State for EditCollections
@@ -135,11 +128,6 @@ function EditCollections(props) {
   };
 
   //  <---------------  Filter functions for Material UI Dropdown   --------------->
-
-  // Click handler for the Material UI sort dropdown
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   // Close handler for the Material UI sort dropdown
   const handleClose = (e) => {
@@ -296,60 +284,15 @@ function EditCollections(props) {
           </div>
 
           <div className={classes.filterWrapper}>
-            <Tooltip TransitionComponent={Zoom} title="Filter by Category">
-              <Button
-                sx={{
-                  backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                  color: anchorEl !== null ? 'var(--text-accept)' : 'var(--text-primary)',
-                  height: '35px',
-                  width: '30px',
-                  '& span': {
-                    width: '40px',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                  },
-                  '&:hover': {
-                    backgroundColor: 'rgba(250, 250, 250, 0.0)',
-                  },
-                }}
-                id="demo-customized-button"
-                aria-controls="demo-customized-menu"
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                variant="contained"
-                disableElevation
-                onClick={handleClick}
-              >
-                <i className="fas fa-filter" sx={{ fontSize: '0.8rem' }} />
-              </Button>
-            </Tooltip>
-            <Menu
-              id="long-menu"
-              MenuListProps={{
-                'aria-labelledby': 'long-button',
-              }}
-              anchorEl={anchorEl}
+            <CategoryFilter
               open={open}
-              onClose={handleClose}
-              PaperProps={{
-                style: {
-                  maxHeight: ITEM_HEIGHT * 5.5,
-                  width: '20ch',
-                },
-              }}
-            >
-              {filterState.showClearFilter && (
-                <MenuItem key="clear-filter" onClick={handleClose}>
-                  Clear Filter
-                </MenuItem>
-              )}
-              {filterOptions.map((option) => (
-                <MenuItem key={option} selected={option === selectedFilter} onClick={handleClose}>
-                  {option}
-                </MenuItem>
-              ))}
-            </Menu>
-
+              handleClose={handleClose}
+              filterOptions={filterOptions}
+              filterState={filterState}
+              anchorEl={anchorEl}
+              setAnchorEl={setAnchorEl}
+              selectedFilter={selectedFilter}
+            />
             <AccountMenu logoutUser={logoutUser} isLoggedIn={isLoggedIn} user={user} />
           </div>
         </div>
@@ -357,7 +300,7 @@ function EditCollections(props) {
         <div className={classes.headerCard}>
           <div className={classes.setNameWrapper}>
             <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
-              <p className={classes.label}>Set Name</p>
+              <p className={classes.label}>Deck Name</p>
               <div className={classes.sortIconWrapper}>
                 {sortState.sortId === 'setName' && sortState.sortAsc
                   ? <i className="fas fa-sort-up" />
@@ -401,121 +344,53 @@ function EditCollections(props) {
         {userCardSetDatabase ? (
           <div className={classes.itemsWrapperOuter}>
             <div className={classes.itemsWrapper}>
-              {isViewingCardsState.isViewing ? (
-                <div>
-                  <EditCollectionsItem
-                    key={isViewingCardsState.cardSet.id}
-                    userCardSet={isViewingCardsState.cardSet}
-                    totalCards={isViewingCardsState.cardSet.cards.length}
-                    uid={uid}
-                    deleteUserDatabaseSet={deleteUserDatabaseSet}
-                    fetchUserCardSets={fetchUserCardSets}
-                    isAddingDeck={isAddingDeck}
-                    isEditingDecksTab={isEditingDecksTab}
-                    isEditingCardsTab={isEditingCardsTab}
-                    isViewingCardsState={isViewingCardsState}
-                    setIsViewingCardsState={setIsViewingCardsState}
-                    isAnimatingCardItem={isAnimatingCardItem}
-                    setIsAnimatingCardItem={setIsAnimatingCardItem}
-                    handleAddCardClick={handleAddCardClick}
-                    setIsAddingCard={setIsAddingCard}
-                  />
-                  {isAddingCard && (
-                  <EditCollectionsNewCard
-                    uid={uid}
-                    userCardSetDatabase={userCardSetDatabase}
-                    cardSet={isViewingCardsState.cardSet}
-                    fetchUserCardSets={fetchUserCardSets}
-                    setIsViewingCardsState={setIsViewingCardsState}
-                    setIsAddingCard={setIsAddingCard}
-                    isViewingCardsState={isViewingCardsState}
-                    getTotalMasteryRating={getTotalMasteryRating}
-                    setOpenSnackbar={setOpenSnackbar}
-                    setSnackbarMessage={setSnackbarMessage}
-                    isAnimatingCardItem={isAnimatingCardItem}
-                    setIsAnimatingCardItem={setIsAnimatingCardItem}
-                    handleAddCardClick={handleAddCardClick}
-                  />
-                  )}
-                  {isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards
-                    .map(card => (
-                      <EditCollectionsCardItem
-                        key={uuidv4()}
-                        uid={uid}
-                        userCardSetDatabase={userCardSetDatabase}
-                        cardSet={isViewingCardsState.cardSet}
-                        card={card}
-                        fetchUserCardSets={fetchUserCardSets}
-                        setIsViewingCardsState={setIsViewingCardsState}
-                        getDeletedCardArray={getDeletedCardArray}
-                        getTotalMasteryRating={getTotalMasteryRating}
-                        setOpenSnackbar={setOpenSnackbar}
-                        setSnackbarMessage={setSnackbarMessage}
-                        isAnimatingCardItem={isAnimatingCardItem}
-                        setIsAnimatingCardItem={setIsAnimatingCardItem}
-                      />
-                    ))}
-                </div>
-              )
-                : (
-                  <div>
-                    {isAddingDeck && (
-                    <EditCollectionsItemBlank
-                      key="new-deck"
+              {userCardSetDatabase.length === 0 && !isAddingDeck ? (
+                <EmptyDecksBlock isEditCollections />
+              ) : (
+                <>
+                  {isViewingCardsState.isViewing ? (
+                    <CardsView
                       uid={uid}
+                      userCardSetDatabase={userCardSetDatabase}
+                      isViewingCardsState={isViewingCardsState}
                       deleteUserDatabaseSet={deleteUserDatabaseSet}
                       fetchUserCardSets={fetchUserCardSets}
                       isAddingDeck={isAddingDeck}
-                      setIsAddingDeck={setIsAddingDeck}
+                      isAddingCard={isAddingCard}
+                      isEditingDecksTab={isEditingDecksTab}
+                      isEditingCardsTab={isEditingCardsTab}
+                      setIsViewingCardsState={setIsViewingCardsState}
+                      isAnimatingCardItem={isAnimatingCardItem}
+                      setIsAnimatingCardItem={setIsAnimatingCardItem}
+                      handleAddCardClick={handleAddCardClick}
+                      setIsAddingCard={setIsAddingCard}
                       setOpenSnackbar={setOpenSnackbar}
                       setSnackbarMessage={setSnackbarMessage}
+                      getTotalMasteryRating={getTotalMasteryRating}
+                      getDeletedCardArray={getDeletedCardArray}
                     />
+                  )
+                    : (
+                      <EditCollectionsEditDecks
+                        isAddingDeck={isAddingDeck}
+                        filterState={filterState}
+                        sortState={sortState}
+                        uid={uid}
+                        deleteUserDatabaseSet={deleteUserDatabaseSet}
+                        fetchUserCardSets={fetchUserCardSets}
+                        isEditingDecksTab={isEditingDecksTab}
+                        isEditingCardsTab={isEditingCardsTab}
+                        isViewingCardsState={isViewingCardsState}
+                        setIsViewingCardsState={setIsViewingCardsState}
+                        setIsAddingDeck={setIsAddingDeck}
+                        setOpenSnackbar={setOpenSnackbar}
+                        setSnackbarMessage={setSnackbarMessage}
+                        setIsAnimatingCardItem={setIsAnimatingCardItem}
+                        deleteDeckFilter={deleteDeckFilter}
+                      />
                     )}
-                    {/* Renders the sorted database */}
-                    { !filterState.isFiltered && sortState.sortedDatabase.length > 0
-                      ? sortState.sortedDatabase.map((userCardSet, index) => (
-                        <EditCollectionsItem
-                          key={userCardSet.id}
-                          userCardSet={userCardSet}
-                          totalCards={userCardSet.cards.length}
-                          uid={uid}
-                          deleteUserDatabaseSet={deleteUserDatabaseSet}
-                          fetchUserCardSets={fetchUserCardSets}
-                          isAddingDeck={isAddingDeck}
-                          isEditingDecksTab={isEditingDecksTab}
-                          isEditingCardsTab={isEditingCardsTab}
-                          isViewingCardsState={isViewingCardsState}
-                          setIsViewingCardsState={setIsViewingCardsState}
-                          setOpenSnackbar={setOpenSnackbar}
-                          setSnackbarMessage={setSnackbarMessage}
-                          index={index}
-                          setIsAnimatingCardItem={setIsAnimatingCardItem}
-                          deleteDeckFilter={deleteDeckFilter}
-                        />
-                      ))
-                    // Renders the filtered database if isFiltered is true
-                      : filterState.filtered.map((userCardSet, index) => (
-                        <EditCollectionsItem
-                          key={userCardSet.id}
-                          userCardSet={userCardSet}
-                          totalCards={userCardSet.cards.length}
-                          uid={uid}
-                          deleteUserDatabaseSet={deleteUserDatabaseSet}
-                          fetchUserCardSets={fetchUserCardSets}
-                          isAddingDeck={isAddingDeck}
-                          isEditingDecksTab={isEditingDecksTab}
-                          isEditingCardsTab={isEditingCardsTab}
-                          isViewingCardsState={isViewingCardsState}
-                          setIsViewingCardsState={setIsViewingCardsState}
-                          setOpenSnackbar={setOpenSnackbar}
-                          setSnackbarMessage={setSnackbarMessage}
-                          index={index}
-                          setIsAnimatingCardItem={setIsAnimatingCardItem}
-                          deleteDeckFilter={deleteDeckFilter}
-                        />
-                      ))}
-                  </div>
-                )}
+                </>
+              )}
             </div>
           </div>
         )
@@ -543,9 +418,9 @@ function EditCollections(props) {
                 isHighlighted={sortState.sortedDatabase.length === 0}
               />
               <ButtonBottom
-                icon={<DirectionsRunIcon />}
+                icon={<LibraryBooksIcon />}
                 handleButtonClick={handleRunDecksClick}
-                tooltipText="To Run Decks Page!"
+                tooltipText="To My Collections"
                 isHighlighted={false}
               />
             </div>
