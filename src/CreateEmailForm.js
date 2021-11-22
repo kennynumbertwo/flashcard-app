@@ -132,7 +132,7 @@ function CreateEmailForm(props) {
 
   return (
     <nav className={classes.Login}>
-      <div className={isAnimatingOut ? 'CreateEmailFormCard animateOut' : 'CreateEmailFormCard'}>
+      <div className={isAnimatingOut ? `${classes.CreateEmailFormCard} animateOut` : `${classes.CreateEmailFormCard}`}>
         <div className={classes.LoginCardTop}>
           <div className={classes.LoginCardTopTextWrapper}>
             <h2 className={classes.signInText}>Create Account</h2>

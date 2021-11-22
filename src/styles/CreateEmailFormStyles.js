@@ -5,6 +5,56 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  CreateEmailFormCard: {
+    height: '600px',
+    width: '375px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    backgroundColor: 'var(--background-white)',
+    borderRadius: '5px',
+    boxShadow: '0px 5px 10px 3px rgba(0, 0, 0, 0.3)',
+    animationName: '$CreateEmailFormCardAnimateIn',
+    animationIterationCount: '1',
+    animationTimingFunction: 'ease-in',
+    animationDuration: '0.2s',
+    '& h2': {
+      fontSize: '2rem',
+      margin: '0px 0px 0px 0px',
+    },
+    '&.animateOut': {
+      animationName: '$CreateEmailFormCardAnimateOut',
+      animationIterationCount: '1',
+      animationTimingFunction: 'ease-in',
+      animationDuration: '0.2s',
+    },
+  },
+
+  '@keyframes CreateEmailFormCardAnimateIn': {
+    '0%': {
+      opacity: 0,
+      transform: 'translateX(50%)',
+    },
+    '60%': {
+      opacity: 0.2,
+    },
+    '100%': {
+      opacity: 1,
+      transform: 'translateX(0%)',
+    },
+  },
+  '@keyframes CreateEmailFormCardAnimateOut': {
+    '0%': {
+      opacity: 1,
+    },
+    '30%': {
+      opacity: 0.7,
+    },
+    '100%': {
+      opacity: 0,
+    },
+  },
   LoginCardTop: {
     display: 'flex',
     justifyContent: 'center',
