@@ -40,6 +40,21 @@ function EditCollectionsItemBlank(props) {
     });
   }, [deckFields.setName, selectedIconClass]);
 
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeydown);
+    return () => window.removeEventListener('keydown', handleKeydown);
+  }, [deckFields]);
+
+  const handleKeydown = (e) => {
+    console.log(deckFields);
+    if (e.key === 'Enter') {
+      handleSaveDeck();
+    }
+    if (e.key === 'Escape') {
+      handleCancelClick();
+    }
+  };
+
   // Click handler for the Add Cards button
   const handleCancelClick = () => {
     setIsAddingDeck(false);

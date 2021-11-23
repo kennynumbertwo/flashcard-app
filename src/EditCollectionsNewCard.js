@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
 import { doc, updateDoc, arrayUnion } from 'firebase/firestore/lite';
 import TextField from '@mui/material/TextField';
@@ -27,6 +27,20 @@ function EditCollectionsNewCard(props) {
     iconClass: cardSet.iconClass,
     masteryRating: 0,
   });
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeydown);
+    return () => window.removeEventListener('keydown', handleKeydown);
+  }, [newCardFields]);
+
+  const handleKeydown = (e) => {
+    if (e.key === 'Enter') {
+      handleSaveCard();
+    }
+    if (e.key === 'Escape') {
+      handleCancel();
+    }
+  };
 
   const handleChange = (e) => {
     setNewCardFields({ ...newCardFields, [e.target.id]: e.target.value });
