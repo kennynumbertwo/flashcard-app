@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
 import TextField from '@mui/material/TextField';
-import './styles/CreateEmailFormStyles.css';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';

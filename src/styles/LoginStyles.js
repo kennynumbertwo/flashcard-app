@@ -99,4 +99,9 @@ export default {
   buttonText: {
     padding: '2px 10px 0px 0px',
   },
+  '@media (max-height: 650px)': {
+    loginCard: {
+      height: '500px',
+    },
+  },
 };

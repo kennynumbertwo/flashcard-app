@@ -123,7 +123,6 @@ function FlashcardTray(props) {
 
   // Function to see the next card in shuffledDeck
   const handleNextCard = () => {
-    if ((cardCount + 2) === cardQuantity) { setHighlightText(''); }
     if ((cardCount + 1) !== cardQuantity) {
       setCardCount(cardCount + 1);
       setCardAnimation('animateOut');
@@ -138,7 +137,6 @@ function FlashcardTray(props) {
 
   // Function to see the next card in shuffledDeck
   const handlePreviousCard = () => {
-    if ((cardCount - 1) === 0) { setHighlightText(''); }
     if (cardCount > 0) {
       setCardCount(cardCount - 1);
       setCardAnimation('animatePrevOut');
@@ -325,7 +323,6 @@ function FlashcardTray(props) {
           starState={starState}
           height={100}
           isShowingMastery={isShowingMastery}
-          setHighlightText={setHighlightText}
         />
       </div>
       <div className={classes.bottomActionWrapper}>

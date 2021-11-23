@@ -133,7 +133,7 @@ function LoginEmailForm(props) {
           <FormControl variant="standard">
             <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
             <Input
-              sx={{ width: '275px' }}
+              // sx={{ width: '275px' }}
               id="standard-adornment-password"
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}

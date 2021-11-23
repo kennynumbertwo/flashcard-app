@@ -8,7 +8,7 @@ function Mastery(props) {
   const [starOneAnimation, setStarOneAnimation] = useState('');
   const [starTwoAnimation, setStarTwoAnimation] = useState('');
   const [starThreeAnimation, setStarThreeAnimation] = useState('');
-  const { classes, starState, handleStarClick, setHighlightText, disabled } = props;
+  const { classes, starState, handleStarClick, disabled } = props;
   const { starOne, starTwo, starThree } = starState;
 
   const handleStarHover = (e) => {
@@ -19,7 +19,7 @@ function Mastery(props) {
           // setHighlightText('Mastery Rating');
         }
       }
-      if (e._reactName === 'onMouseLeave') { setStarTwoClass('starNotFilled'); setHighlightText(''); }
+      if (e._reactName === 'onMouseLeave') { setStarTwoClass('starNotFilled'); }
     }
   };
 

@@ -1,3 +1,5 @@
+import sizes from './sizes';
+
 export default {
   Login: {
     height: '100%',
@@ -34,6 +36,9 @@ export default {
       animationIterationCount: 1,
       animationTimingFunction: 'ease-out',
       animationDuration: '0.5s',
+    },
+    [sizes.down('xs')]: {
+      maxWidth: '85vw',
     },
   },
   '@keyframes LoginCardEmailFormAnimateIn': {
@@ -117,6 +122,9 @@ export default {
     width: '100%',
     height: '28.25%',
     paddingBottom: '0px',
+    '& .MuiFormControl-root': {
+      width: '75%',
+    },
   },
   buttonWrapper: {
     display: 'flex',
@@ -196,7 +204,6 @@ export default {
     fontSize: '14px',
   },
   iconsWrapper: {
-    // border: '1px solid black',
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
@@ -255,7 +262,6 @@ export default {
       transform: 'translateY(25%)',
     },
   },
-
   errorTextWrapper: {
     display: 'flex',
     justifyContent: 'center',
@@ -272,6 +278,26 @@ export default {
     },
     '&.errorOut': {
       animation: '$fadeOut .5s',
+    },
+  },
+
+  '@media (max-height: 650px)': {
+    LoginEmailFormCard: {
+      height: '500px',
+      width: '300px',
+    },
+    loginButton: {
+      height: '45px',
+      width: '110px',
+    },
+  },
+  '@media (max-height: 510px)': {
+    LoginEmailFormCard: {
+      height: '400px',
+    },
+    loginButton: {
+      height: '40px',
+      width: '100px',
     },
   },
 };
