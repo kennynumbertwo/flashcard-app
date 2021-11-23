@@ -1,10 +1,20 @@
 import React from 'react';
-// import { withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import EditCollectionsItemBlank from './EditCollectionsItemBlank';
 import EditCollectionsItem from './EditCollectionsItem';
 
+const styles = {
+  // EditDecksWrapper: {
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  //   alignItems: 'flex-start',
+  //   flexDirection: 'column',
+  //   width: '100%',
+  // },
+};
 function EditCollectionsEditDecks(props) {
   const {
+    classes,
     isAddingDeck,
     filterState,
     sortState,
@@ -22,7 +32,7 @@ function EditCollectionsEditDecks(props) {
     deleteDeckFilter,
   } = props;
   return (
-    <div>
+    <>
       {isAddingDeck && (
       <EditCollectionsItemBlank
         key="new-deck"
@@ -78,8 +88,8 @@ function EditCollectionsEditDecks(props) {
             deleteDeckFilter={deleteDeckFilter}
           />
         ))}
-    </div>
+    </>
   );
 }
 
-export default EditCollectionsEditDecks;
+export default withStyles(styles)(EditCollectionsEditDecks);

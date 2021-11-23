@@ -34,7 +34,7 @@ function CardItem(props) {
   };
 
   return (
-    <div>
+    <>
       <div className={classes.CardItemWrapperOuter}>
         <div className={classes.CardItemWrapperInner}>
           <div className={classes.CardItemNumWrapper}>
@@ -55,7 +55,7 @@ function CardItem(props) {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -1,4 +1,6 @@
-const ITEM_WIDTH = 1050;
+import sizes from './sizes';
+
+const ITEM_WIDTH = '93.33%';
 
 export default {
   EditCollections: {
@@ -26,6 +28,18 @@ export default {
     backgroundColor: 'var(--background-collection-main)',
     fontSize: '1rem',
     fontWeight: '400',
+    [sizes.down('lg')]: {
+      width: '900px',
+    },
+    [sizes.down('md')]: {
+      width: '650px',
+    },
+    [sizes.down('sm')]: {
+      width: '550px',
+    },
+    [sizes.down('xs')]: {
+      width: '450px',
+    },
   },
   menuBar: {
     height: '50px',
@@ -42,6 +56,12 @@ export default {
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingLeft: '10px',
+    [sizes.down('lg')]: {
+      width: '25%',
+    },
+    [sizes.down('md')]: {
+      width: '80%',
+    },
   },
   headerText: {
     animationName: '$edit-decks-slide-in',
@@ -64,6 +84,12 @@ export default {
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    [sizes.down('lg')]: {
+      width: '60%',
+    },
+    [sizes.down('md')]: {
+      width: '80%',
+    },
   },
   navWrapperInner: {
     height: '50px',
@@ -77,6 +103,12 @@ export default {
     '& .MuiTabs-indicator': {
       backgroundColor: 'var(--tab-primary)',
     },
+    [sizes.down('lg')]: {
+      width: '80%',
+    },
+    [sizes.down('md')]: {
+      width: '80%',
+    },
   },
   filterWrapper: {
     height: '30px',
@@ -86,6 +118,12 @@ export default {
     alignItems: 'center',
     paddingRight: '5px',
     marginLeft: 'auto',
+    [sizes.down('lg')]: {
+      width: '25%',
+    },
+    [sizes.down('md')]: {
+      width: '80%',
+    },
     // border: '1px solid black',
   },
   divider: {
@@ -98,7 +136,7 @@ export default {
   },
   dividerEnd: {
     // height: '1px',
-    width: '1020px',
+    width: '90.67%',
     borderBottom: '1px solid rgba(0, 0, 0, 0.2)',
     margin: '0px 0px 0x 0px',
     padding: '0px 0px 0px 0px',
@@ -106,8 +144,9 @@ export default {
   },
 
   itemsWrapperOuter: {
-    backgroundColor: 'var(--background-collection-container)',
+    backgroundColor: 'var(--background-collection-main)',
     height: '100%',
+    width: '100%',
     overflow: 'scroll',
     display: 'flex',
     justifyContent: 'center',
@@ -118,11 +157,11 @@ export default {
     height: '99%',
     overflow: 'scroll',
     display: 'flex',
+    justifyContent: 'flex-start',
     flexDirection: 'column',
-
+    width: '90.67%',
     alignItems: 'center',
     border: '2px solid rgba(0, 0, 0, 0.04)',
-    width: '1020px',
     // border: '1px solid black',
   },
   headerCardWrapper: {
@@ -139,7 +178,7 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    width: '1000px',
+    width: '88.89%',
     height: '55px',
     padding: '0px 0px 0px 0px',
     margin: '0px 0px 0px 0px',

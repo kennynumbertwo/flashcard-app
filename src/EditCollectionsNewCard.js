@@ -68,7 +68,7 @@ function EditCollectionsNewCard(props) {
   };
 
   return (
-    <div>
+    <>
       <div className={classes.cardItemWrapperOuter}>
         <div className={classes.cardItemWrapperInner}>
           <div className={classes.cardItemNumWrapper}>
@@ -98,7 +98,7 @@ function EditCollectionsNewCard(props) {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -27,7 +27,7 @@ function CardsView(props) {
 
   } = props;
   return (
-    <div>
+    <>
       <EditCollectionsItem
         key={isViewingCardsState.cardSet.id}
         userCardSet={isViewingCardsState.cardSet}
@@ -80,7 +80,7 @@ function CardsView(props) {
             setIsAnimatingCardItem={setIsAnimatingCardItem}
           />
         ))}
-    </div>
+    </>
   );
 }
 
