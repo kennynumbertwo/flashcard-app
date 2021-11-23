@@ -101,6 +101,12 @@ function LoginEmailForm(props) {
     signInWithEmail(email, values.password);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      signInWithEmail(email, values.password);
+    }
+  };
+
   const handleClickShowPassword = () => {
     setValues({
       ...values,
@@ -127,6 +133,7 @@ function LoginEmailForm(props) {
             type="email"
             autoComplete="current-email"
             variant="standard"
+            onKeyDown={handleKeyDown}
             value={email}
             onChange={handleEmailChange}
           />
@@ -139,6 +146,7 @@ function LoginEmailForm(props) {
               value={values.password}
               onChange={handleChange('password')}
               variant="standard"
+              onKeyDown={handleKeyDown}
               endAdornment={(
                 <InputAdornment position="end">
                   <IconButton

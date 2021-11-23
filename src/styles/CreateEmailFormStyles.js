@@ -119,7 +119,7 @@ export default {
     background: 'var(--button-primary-dark)',
     width: '125px',
     height: '50px',
-    border: '1.5px solid var(--button-primary-dark)',
+    border: 'none',
     transition: 'all 0.4s ease 0s',
     borderRadius: '5px',
     '& svg': {

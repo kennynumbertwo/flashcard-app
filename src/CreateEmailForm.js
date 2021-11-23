@@ -125,6 +125,28 @@ function CreateEmailForm(props) {
     });
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (values.password === values.confirmPassword && values.password.length > 5) {
+        createEmailAccount(email, values.password);
+      } else {
+        if (values.password !== values.confirmPassword) {
+          const errorCode = 'invalid password';
+          const errorMessage = 'passwords do not match';
+          const errorText = 'The passwords you provided do not match';
+          setPasswordErrorState(errorCode, errorMessage, errorText);
+        }
+        if (values.password.length <= 5) {
+          const errorCode = 'invalid password';
+          const errorMessage = 'password not long enough';
+          const errorText = 'Password not long enough';
+          setPasswordErrorState(errorCode, errorMessage, errorText);
+        }
+      }
+    }
+  };
+
   const handleMouseDownConfirmPassword = (event) => {
     event.preventDefault();
   };
@@ -143,6 +165,7 @@ function CreateEmailForm(props) {
             label="Email"
             value={email}
             type="email"
+            onKeyDown={handleKeyDown}
             autoComplete="current-email"
             variant="standard"
             error={errorState.isEmailError}
@@ -154,6 +177,7 @@ function CreateEmailForm(props) {
               id="standard-adornment-password"
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}
+              onKeyDown={handleKeyDown}
               onChange={handleChange('password')}
               variant="standard"
               error={errorState.isPasswordError}
@@ -178,6 +202,7 @@ function CreateEmailForm(props) {
                 type={values.showConfirmPassword ? 'text' : 'password'}
                 value={values.confirmPassword}
                 onChange={handleChange('confirmPassword')}
+                onKeyDown={handleKeyDown}
                 variant="standard"
                 error={errorState.isPasswordError}
                 endAdornment={(
