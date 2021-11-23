@@ -1,4 +1,6 @@
-const ITEM_WIDTH = 1050;
+import sizes from './sizes';
+
+const ITEM_WIDTH = '93.33%';
 
 export default {
   UserCardSetsPage: {
@@ -11,6 +13,7 @@ export default {
     height: '100vh',
     border: '1px solid black',
     margin: '0px 0px 0px 0px',
+
   },
 
   mainCard: {
@@ -27,6 +30,18 @@ export default {
     backgroundColor: 'var(--background-collection-main)',
     fontSize: '1rem',
     fontWeight: '400',
+    [sizes.down('lg')]: {
+      width: '900px',
+    },
+    [sizes.down('md')]: {
+      width: '650px',
+    },
+    [sizes.down('sm')]: {
+      width: '550px',
+    },
+    [sizes.down('xs')]: {
+      width: '450px',
+    },
   },
   menuBar: {
     height: '50px',
@@ -43,6 +58,13 @@ export default {
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingLeft: '10px',
+    // border: '1px solid black',
+    [sizes.down('lg')]: {
+      width: '25%',
+    },
+    [sizes.down('md')]: {
+      width: '80%',
+    },
   },
   headerText: {
     animationName: '$run-decks-slide-in',
@@ -65,6 +87,13 @@ export default {
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    // border: '1px solid black',
+    [sizes.down('lg')]: {
+      width: '60%',
+    },
+    [sizes.down('md')]: {
+      width: '80%',
+    },
   },
   navWrapperInner: {
     height: '50px',
@@ -78,6 +107,12 @@ export default {
     '& .MuiTabs-indicator': {
       backgroundColor: 'var(--tab-primary)',
     },
+    [sizes.down('lg')]: {
+      width: '80%',
+    },
+    [sizes.down('md')]: {
+      width: '80%',
+    },
   },
   filterWrapper: {
     height: '50px',
@@ -87,6 +122,13 @@ export default {
     alignItems: 'center',
     paddingRight: '5px',
     marginLeft: 'auto',
+    // border: '1px solid black',
+    [sizes.down('lg')]: {
+      width: '25%',
+    },
+    [sizes.down('md')]: {
+      width: '80%',
+    },
   },
   divider: {
     height: '1px',
@@ -98,19 +140,21 @@ export default {
   },
   dividerEnd: {
     // height: '1px',
-    width: '1020px',
+    width: '90.67%',
     borderTop: '1px solid rgba(0, 0, 0, 0.2)',
     margin: '0px 0px 0px 0px',
     padding: '0px 0px 0px 0px',
     // boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
   },
   itemsWrapperOuter: {
-    backgroundColor: 'var(--background-collection-container)',
+    backgroundColor: 'var(--background-collection-main)',
+    width: '100%',
     height: '100%',
     overflow: 'scroll',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    // border: '1px solid black',
   },
   itemsWrapper: {
     backgroundColor: 'var(--background-collection-container)',
@@ -119,9 +163,8 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-
     border: '2px solid rgba(0, 0, 0, 0.04)',
-    width: '1020px',
+    width: '90.67%',
     // borderRadius: '6px',
   },
   headerCardWrapper: {
@@ -137,7 +180,7 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    width: '1000px',
+    width: '88.89%',
     height: '55px',
     padding: '0px 0px 0px 0px',
     margin: '0px 0px 0px 0px',

@@ -3,7 +3,7 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    width: '1005px',
+    width: '98.53%',
     height: '50px',
     padding: '0px 0px 0px 0px',
     margin: '5px 0px 0px 0px',

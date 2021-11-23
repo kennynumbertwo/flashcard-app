@@ -67,11 +67,4 @@ code {
 
   /* FONT SIZES */
   --button-fontSize-primary: 0.82rem;
-
-  /* MEDIA QUERY BREAKPOINTS */
-  --media-width-lg: 1199.98px;
-  --media-width-md: 991.98px;
-  --media-width-sm: 797.98px;
-  --media-width-xs: 575.98px;
-  --media-width-xxs: 410.98px;
 }
