@@ -151,7 +151,6 @@ function CreateEmailForm(props) {
           <FormControl variant="standard">
             <InputLabel htmlFor="standard-adornment-password" error={errorState.isPasswordError}>Password</InputLabel>
             <Input
-              sx={{ width: '275px' }}
               id="standard-adornment-password"
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}
@@ -175,7 +174,6 @@ function CreateEmailForm(props) {
             <FormControl variant="standard">
               <InputLabel htmlFor="standard-adornment-password" error={errorState.isPasswordError}>Confirm Password</InputLabel>
               <Input
-                sx={{ width: '275px' }}
                 id="standard-adornment-confirm-password"
                 type={values.showConfirmPassword ? 'text' : 'password'}
                 value={values.confirmPassword}

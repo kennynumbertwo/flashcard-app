@@ -125,6 +125,9 @@ export default {
     '& .MuiFormControl-root': {
       width: '75%',
     },
+    '& .MuiFormControl-root.MuiTextField-root': {
+      width: '75%',
+    },
   },
   buttonWrapper: {
     display: 'flex',

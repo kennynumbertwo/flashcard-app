@@ -1,3 +1,5 @@
+import sizes from './sizes';
+
 export default {
   Login: {
     height: '100%',
@@ -22,6 +24,9 @@ export default {
     '& h2': {
       fontSize: '2rem',
       margin: '0px 0px 0px 0px',
+    },
+    [sizes.down('xs')]: {
+      maxWidth: '85vw',
     },
     '&.animateOut': {
       animationName: '$CreateEmailFormCardAnimateOut',
@@ -81,7 +86,15 @@ export default {
     height: '50%',
     marginBottom: '0px',
     paddingBottom: '25px',
-    // border: '1px solid black',
+    '& .MuiFormControl-root': {
+      width: '75%',
+    },
+    '& .MuiFormControl-root.MuiTextField-root': {
+      width: '75%',
+    },
+    // '&. MuiInput-root.MuiInput-underline.MuiInputBase-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd': {
+    //   width: '75%',
+    // },
   },
   buttonWrapper: {
     display: 'flex',
@@ -120,7 +133,11 @@ export default {
     },
   },
   confirmInput: {
+    width: '100%',
     marginTop: '11px',
+    '& .MuiFormControl-root': {
+      width: '75%',
+    },
   },
 
   '@keyframes fadeIn': {
@@ -193,6 +210,25 @@ export default {
     '&:hover .navArrow': {
       color: 'var(--text-primary)',
       transform: 'translateX(35%)',
+    },
+  },
+  '@media (max-height: 650px)': {
+    CreateEmailFormCard: {
+      height: '500px',
+      width: '300px',
+    },
+    loginButton: {
+      height: '45px',
+      width: '110px',
+    },
+  },
+  '@media (max-height: 510px)': {
+    CreateEmailFormCard: {
+      height: '400px',
+    },
+    loginButton: {
+      height: '40px',
+      width: '100px',
     },
   },
 };
