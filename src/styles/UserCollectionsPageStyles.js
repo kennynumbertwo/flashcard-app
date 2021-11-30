@@ -8,12 +8,15 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    width: '100%',
+    maxWidth: '100vw',
     maxHeight: '100vh',
     height: '100vh',
-    border: '1px solid black',
+    // border: '1px solid black',
     margin: '0px 0px 0px 0px',
-
+    [sizes.down('xs')]: {
+      width: '100vw',
+      maxHeight: '90vh',
+    },
   },
 
   mainCard: {
@@ -40,7 +43,9 @@ export default {
       width: '550px',
     },
     [sizes.down('xs')]: {
-      width: '450px',
+      width: '92vw',
+      height: '80vh',
+      overflow: 'hidden',
     },
   },
   menuBar: {
@@ -71,6 +76,9 @@ export default {
     animationDuration: '500ms',
     animationIterationCount: 1,
     animationTimingFunction: 'ease-in-out',
+    [sizes.down('xs')]: {
+      fontSize: '1.3rem',
+    },
   },
   '@keyframes run-decks-slide-in': {
     '0%': {
@@ -92,7 +100,13 @@ export default {
       width: '60%',
     },
     [sizes.down('md')]: {
-      width: '80%',
+      width: '100%',
+    },
+    [sizes.down('sm')]: {
+      width: '100%',
+    },
+    [sizes.down('xs')]: {
+      width: '100%',
     },
   },
   navWrapperInner: {
@@ -101,6 +115,7 @@ export default {
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    zIndex: 1,
     '& .MuiTab-root.MuiTab-textColorPrimary.Mui-selected': {
       color: 'var(--tab-primary)',
     },
@@ -111,7 +126,13 @@ export default {
       width: '80%',
     },
     [sizes.down('md')]: {
-      width: '80%',
+      width: '100%',
+    },
+    [sizes.down('sm')]: {
+      width: '100%',
+    },
+    [sizes.down('xs')]: {
+      width: '100%',
     },
   },
   filterWrapper: {

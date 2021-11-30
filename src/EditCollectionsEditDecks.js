@@ -14,7 +14,6 @@ const styles = {
 };
 function EditCollectionsEditDecks(props) {
   const {
-    classes,
     isAddingDeck,
     filterState,
     sortState,

@@ -49,6 +49,9 @@ function UserCollectionsPage(props) {
     setValue(newValue);
   };
 
+  // State for window size
+  const [isMobile, setIsMobile] = useState(false);
+
   const [isAnimatingCardDetails, setIsAnimatingCardDetails] = useState(true);
 
   let history = useHistory();
@@ -65,6 +68,24 @@ function UserCollectionsPage(props) {
     logoutUser,
     user,
   } = props;
+
+  // Listen for the window size
+  useEffect(() => {
+    if (window.innerWidth <= 950) {
+      setIsMobile(true);
+    }
+    function handleMobileResize() {
+      if (window.innerWidth <= 950) {
+        console.log('mobile size');
+        setIsMobile(true);
+      }
+      if (window.innerWidth > 950) {
+        console.log('desktop size');
+        setIsMobile(false);
+      }
+    }
+    window.addEventListener('resize', handleMobileResize);
+  }, [isMobile]);
 
   useEffect(() => {
     fetchUserCardSets();
@@ -224,11 +245,11 @@ function UserCollectionsPage(props) {
   return (
     <div className={classes.UserCardSetsPage}>
       <div className={classes.mainCard}>
-
         <div className={classes.menuBar}>
           <div className={classes.headerWrapper}>
             <h2 className={classes.headerText}>My Collections</h2>
           </div>
+          {!isMobile && (
           <div className={classes.navWrapperOuter}>
             <div className={classes.navWrapperInner}>
               <Tabs
@@ -243,6 +264,7 @@ function UserCollectionsPage(props) {
               </Tabs>
             </div>
           </div>
+          )}
           <div className={classes.filterWrapper}>
             <CategoryFilter
               open={open}
@@ -259,72 +281,92 @@ function UserCollectionsPage(props) {
         </div>
         <div className={classes.divider} />
         <div className={classes.headerCard}>
-          <div className={classes.setNameWrapper}>
-            <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
-              <p className={classes.label}>Deck Name</p>
-              {myDecksTab && (
-              <div className={classes.sortIconWrapper}>
-                {sortState.sortId === 'setName' && sortState.sortAsc
-                  ? <i className="fas fa-sort-up" />
-                  : null}
-                {sortState.sortId === 'setName' && !sortState.sortAsc
-                  ? <i className="fas fa-sort-down" />
-                  : null}
-                {sortState.sortId !== 'setName' && <i className="fas fa-sort" />}
-              </div>
-              )}
-              {stockDecksTab && (
-              <div className={classes.sortIconWrapper}>
-                {stockSortState.sortId === 'setName' && stockSortState.sortAsc
-                  ? <i className="fas fa-sort-up" />
-                  : null}
-                {stockSortState.sortId === 'setName' && !stockSortState.sortAsc
-                  ? <i className="fas fa-sort-down" />
-                  : null}
-                {stockSortState.sortId !== 'setName' && <i className="fas fa-sort" />}
-              </div>
-              )}
+          {isMobile && (
+          <div className={classes.navWrapperOuter}>
+            <div className={classes.navWrapperInner}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                sx={{ width: '100%' }}
+                centered
+                className={classes.tabWrapper}
+              >
+                <Tab label="My Decks" sx={{ width: '50%' }} onClick={handleMyDecksClick} />
+                <Tab label="Stock Decks" sx={{ width: '50%', marginLeft: 'auto' }} onClick={handleStockDecksClick} />
+              </Tabs>
             </div>
           </div>
-          <div className={classes.categoryWrapper}>
-            <div className={classes.sortClickWrapper} id="category" onClick={handleSortClick}>
-              <p className={classes.label}>Category</p>
-              {myDecksTab && (
-              <div className={classes.sortIconWrapper}>
-                {sortState.sortId === 'category' && sortState.sortAsc
-                  ? <i className="fas fa-sort-up" />
-                  : null}
-                {sortState.sortId === 'category' && !sortState.sortAsc
-                  ? <i className="fas fa-sort-down" />
-                  : null}
-                {sortState.sortId !== 'category' && <i className="fas fa-sort" />}
+          )}
+          {!isMobile && (
+          <>
+            <div className={classes.setNameWrapper}>
+              <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
+                <p className={classes.label}>Deck Name</p>
+                {myDecksTab && (
+                <div className={classes.sortIconWrapper}>
+                  {sortState.sortId === 'setName' && sortState.sortAsc
+                    ? <i className="fas fa-sort-up" />
+                    : null}
+                  {sortState.sortId === 'setName' && !sortState.sortAsc
+                    ? <i className="fas fa-sort-down" />
+                    : null}
+                  {sortState.sortId !== 'setName' && <i className="fas fa-sort" />}
+                </div>
+                )}
+                {stockDecksTab && (
+                <div className={classes.sortIconWrapper}>
+                  {stockSortState.sortId === 'setName' && stockSortState.sortAsc
+                    ? <i className="fas fa-sort-up" />
+                    : null}
+                  {stockSortState.sortId === 'setName' && !stockSortState.sortAsc
+                    ? <i className="fas fa-sort-down" />
+                    : null}
+                  {stockSortState.sortId !== 'setName' && <i className="fas fa-sort" />}
+                </div>
+                )}
               </div>
-              )}
-              {stockDecksTab && (
-              <div className={classes.sortIconWrapper}>
-                {stockSortState.sortId === 'category' && stockSortState.sortAsc
-                  ? <i className="fas fa-sort-up" />
-                  : null}
-                {stockSortState.sortId === 'category' && !stockSortState.sortAsc
-                  ? <i className="fas fa-sort-down" />
-                  : null}
-                {stockSortState.sortId !== 'category' && <i className="fas fa-sort" />}
-              </div>
-              )}
             </div>
-          </div>
-          <div className={classes.iconWrapper}>
-            <p className={classes.label}>Icon</p>
-          </div>
-          <div className={classes.masteryWrapper}>
-            <p className={classes.label}>Mastery</p>
-          </div>
-          <div className={classes.totalCardsWrapper}>
-            <p className={classes.label}>Cards</p>
-          </div>
-          <div className={classes.actionsWrapper}>
-            <p className={classes.label}>Actions</p>
-          </div>
+            <div className={classes.categoryWrapper}>
+              <div className={classes.sortClickWrapper} id="category" onClick={handleSortClick}>
+                <p className={classes.label}>Category</p>
+                {myDecksTab && (
+                <div className={classes.sortIconWrapper}>
+                  {sortState.sortId === 'category' && sortState.sortAsc
+                    ? <i className="fas fa-sort-up" />
+                    : null}
+                  {sortState.sortId === 'category' && !sortState.sortAsc
+                    ? <i className="fas fa-sort-down" />
+                    : null}
+                  {sortState.sortId !== 'category' && <i className="fas fa-sort" />}
+                </div>
+                )}
+                {stockDecksTab && (
+                <div className={classes.sortIconWrapper}>
+                  {stockSortState.sortId === 'category' && stockSortState.sortAsc
+                    ? <i className="fas fa-sort-up" />
+                    : null}
+                  {stockSortState.sortId === 'category' && !stockSortState.sortAsc
+                    ? <i className="fas fa-sort-down" />
+                    : null}
+                  {stockSortState.sortId !== 'category' && <i className="fas fa-sort" />}
+                </div>
+                )}
+              </div>
+            </div>
+            <div className={classes.iconWrapper}>
+              <p className={classes.label}>Icon</p>
+            </div>
+            <div className={classes.masteryWrapper}>
+              <p className={classes.label}>Mastery</p>
+            </div>
+            <div className={classes.totalCardsWrapper}>
+              <p className={classes.label}>Cards</p>
+            </div>
+            <div className={classes.actionsWrapper}>
+              <p className={classes.label}>Actions</p>
+            </div>
+          </>
+          )}
         </div>
         {userCardSetDatabase
           ? (
@@ -350,6 +392,7 @@ function UserCollectionsPage(props) {
                           cardNumber={index}
                           isAnimatingCardDetails={isAnimatingCardDetails}
                           setIsAnimatingCardDetails={setIsAnimatingCardDetails}
+                          isMobile={isMobile}
                         />
                       ))
                       : filterState.filtered.map((userCardSet, index) => (
@@ -369,6 +412,7 @@ function UserCollectionsPage(props) {
                           cardNumber={index}
                           isAnimatingCardDetails={isAnimatingCardDetails}
                           setIsAnimatingCardDetails={setIsAnimatingCardDetails}
+                          isMobile={isMobile}
                         />
                       ))}
                   </>
@@ -401,6 +445,7 @@ function UserCollectionsPage(props) {
                         cardNumber={index}
                         isAnimatingCardDetails={isAnimatingCardDetails}
                         setIsAnimatingCardDetails={setIsAnimatingCardDetails}
+                        isMobile={isMobile}
                       />
                     ))
                     : filterState.filtered.map((cardSet, index) => (
@@ -421,6 +466,7 @@ function UserCollectionsPage(props) {
                         cardNumber={index}
                         isAnimatingCardDetails={isAnimatingCardDetails}
                         setIsAnimatingCardDetails={setIsAnimatingCardDetails}
+                        isMobile={isMobile}
                       />
                     ))}
                 </>

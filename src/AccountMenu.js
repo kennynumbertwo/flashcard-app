@@ -61,7 +61,7 @@ function AccountMenu(props) {
           aria-expanded={open ? 'true' : undefined}
           aria-haspopup="true"
           onClick={handleToggle}
-          sx={{ width: '30px', height: '36px', minWidth: '36px', borderRadius: '50px' }}
+          sx={{ width: '30px', height: '36px', minWidth: '36px', borderRadius: '50px', zIndex: 1 }}
         >
           <AccountCircleIcon className={classes.accountIcon} sx={{ fontSize: '1.9rem' }} />
         </Button>
