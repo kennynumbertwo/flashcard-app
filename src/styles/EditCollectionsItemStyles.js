@@ -1,3 +1,5 @@
+import sizes from './sizes';
+
 export default {
   EditCollectionsItemCard: {
     display: 'flex',
@@ -165,6 +167,17 @@ export default {
     height: '50px',
     width: '20%',
   },
+  buttonWrapperSingleInner: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    height: '50px',
+    width: '50%',
+    [sizes.down('lg')]: {
+      width: '80%',
+    },
+  },
   button: {
     display: 'flex',
     justifyContent: 'center',
@@ -175,7 +188,7 @@ export default {
     fontSize: 'var(--button-fontSize-primary)',
     fontWeight: '500',
     background: 'var(--button-primary)',
-    width: '80px',
+    width: '80%',
     height: '30px',
     border: 'none',
     transition: 'all 0.4s ease 0s',
@@ -196,7 +209,7 @@ export default {
     fontSize: 'var(--button-fontSize-primary)',
     fontWeight: '500',
     background: 'var(--button-primary)',
-    width: '80px',
+    width: '80%',
     height: '30px',
     border: 'none',
     transition: 'all 0.4s ease 0s',
@@ -217,7 +230,7 @@ export default {
     fontSize: 'var(--button-fontSize-primary)',
     fontWeight: '500',
     background: 'var(--button-deny-primary)',
-    width: '80px',
+    width: '80%',
     height: '30px',
     border: 'none',
     transition: 'all 0.4s ease 0s',
@@ -238,7 +251,7 @@ export default {
     fontSize: 'var(--button-fontSize-primary)',
     fontWeight: '500',
     background: 'var(--button-accept-primary)',
-    width: '80px',
+    width: '80%',
     height: '30px',
     border: 'none',
     transition: 'all 0.4s ease 0s',

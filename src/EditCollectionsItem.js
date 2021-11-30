@@ -240,7 +240,9 @@ function EditCollectionsItem(props) {
           )
           : (
             <div className={classes.buttonWrapperSingle}>
-              <button className={classes.button} type="button" onClick={handleViewCardsClick}>Edit Cards</button>
+              <div className={classes.buttonWrapperSingleInner}>
+                <button className={classes.button} type="button" onClick={handleViewCardsClick}>Edit Cards</button>
+              </div>
             </div>
 
           )}
@@ -277,7 +279,7 @@ function EditCollectionsItem(props) {
           <button className={classes.deleteButton} type="button" onClick={handleDeleteClick}>Delete</button>
         </div>
         <div className={classes.buttonWrapper}>
-          <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>
+          <button className={classes.button} type="button" onClick={handleEditClick}>Edit</button>
         </div>
         <Modal
           isShowing={isShowingModal}
