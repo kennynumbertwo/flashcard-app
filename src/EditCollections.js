@@ -55,6 +55,9 @@ function EditCollections(props) {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
+  // State for window size
+  const [isMobile, setIsMobile] = useState(false);
+
   let history = useHistory();
 
   const handleCloseSnackbar = (event, reason) => {
@@ -84,6 +87,22 @@ function EditCollections(props) {
     logoutUser,
     user,
   } = props;
+
+  // Listen for the window size
+  useEffect(() => {
+    if (window.innerWidth <= 950) {
+      setIsMobile(true);
+    }
+    function handleMobileResize() {
+      if (window.innerWidth <= 950) {
+        setIsMobile(true);
+      }
+      if (window.innerWidth > 950) {
+        setIsMobile(false);
+      }
+    }
+    window.addEventListener('resize', handleMobileResize);
+  }, [isMobile]);
 
   // Fetches latest database from Firestore
   useEffect(() => {
@@ -267,6 +286,7 @@ function EditCollections(props) {
           <div className={classes.headerWrapper}>
             <h2 className={classes.headerText}>Edit Collections</h2>
           </div>
+          {!isMobile && (
           <div className={classes.navWrapperOuter}>
             <div className={classes.navWrapperInner}>
               <Tabs
@@ -281,7 +301,7 @@ function EditCollections(props) {
               </Tabs>
             </div>
           </div>
-
+          )}
           <div className={classes.filterWrapper}>
             <CategoryFilter
               open={open}
@@ -297,47 +317,67 @@ function EditCollections(props) {
         </div>
         <div className={classes.divider} />
         <div className={classes.headerCard}>
-          <div className={classes.setNameWrapper}>
-            <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
-              <p className={classes.label}>Deck Name</p>
-              <div className={classes.sortIconWrapper}>
-                {sortState.sortId === 'setName' && sortState.sortAsc
-                  ? <i className="fas fa-sort-up" />
-                  : null}
-                {sortState.sortId === 'setName' && !sortState.sortAsc
-                  ? <i className="fas fa-sort-down" />
-                  : null}
-                {sortState.sortId !== 'setName' && <i className="fas fa-sort" />}
-              </div>
+          {isMobile && (
+          <div className={classes.navWrapperOuter}>
+            <div className={classes.navWrapperInner}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                sx={{ width: '100%' }}
+                centered
+                className={classes.tabWrapper}
+              >
+                <Tab label="Edit Decks" sx={{ width: '50%' }} onClick={handleEditDecksClick} />
+                <Tab label="Edit Cards" sx={{ width: '50%', marginLeft: 'auto' }} onClick={handleEditCardsClick} />
+              </Tabs>
             </div>
           </div>
-          <div className={classes.categoryWrapper}>
-            <div className={classes.sortClickWrapper} id="category" onClick={handleSortClick}>
-              <p className={classes.label}>Category</p>
-              <div className={classes.sortIconWrapper}>
-                {sortState.sortId === 'category' && sortState.sortAsc
-                  ? <i className="fas fa-sort-up" />
-                  : null}
-                {sortState.sortId === 'category' && !sortState.sortAsc
-                  ? <i className="fas fa-sort-down" />
-                  : null}
-                {sortState.sortId !== 'category' && <i className="fas fa-sort" />}
+          )}
+          {!isMobile && (
+          <>
+            <div className={classes.setNameWrapper}>
+              <div className={classes.sortClickWrapper} id="setName" onClick={handleSortClick}>
+                <p className={classes.label}>Deck Name</p>
+                <div className={classes.sortIconWrapper}>
+                  {sortState.sortId === 'setName' && sortState.sortAsc
+                    ? <i className="fas fa-sort-up" />
+                    : null}
+                  {sortState.sortId === 'setName' && !sortState.sortAsc
+                    ? <i className="fas fa-sort-down" />
+                    : null}
+                  {sortState.sortId !== 'setName' && <i className="fas fa-sort" />}
+                </div>
               </div>
+            </div>
+            <div className={classes.categoryWrapper}>
+              <div className={classes.sortClickWrapper} id="category" onClick={handleSortClick}>
+                <p className={classes.label}>Category</p>
+                <div className={classes.sortIconWrapper}>
+                  {sortState.sortId === 'category' && sortState.sortAsc
+                    ? <i className="fas fa-sort-up" />
+                    : null}
+                  {sortState.sortId === 'category' && !sortState.sortAsc
+                    ? <i className="fas fa-sort-down" />
+                    : null}
+                  {sortState.sortId !== 'category' && <i className="fas fa-sort" />}
+                </div>
 
+              </div>
             </div>
-          </div>
-          <div className={classes.iconWrapper}>
-            <p className={classes.label}>Icon</p>
-          </div>
-          <div className={classes.masteryWrapper}>
-            <p className={classes.label}>Mastery</p>
-          </div>
-          <div className={classes.totalCardsWrapper}>
-            <p className={classes.label}>Cards</p>
-          </div>
-          <div className={classes.actionsWrapper}>
-            <p className={classes.label}>Actions</p>
-          </div>
+            <div className={classes.iconWrapper}>
+              <p className={classes.label}>Icon</p>
+            </div>
+            <div className={classes.masteryWrapper}>
+              <p className={classes.label}>Mastery</p>
+            </div>
+            <div className={classes.totalCardsWrapper}>
+              <p className={classes.label}>Cards</p>
+            </div>
+            <div className={classes.actionsWrapper}>
+              <p className={classes.label}>Actions</p>
+            </div>
+          </>
+          )}
         </div>
         {/* Blank EditCollectionsItem is shown when Add Deck is clicked */}
         {userCardSetDatabase ? (
@@ -386,6 +426,7 @@ function EditCollections(props) {
                         setSnackbarMessage={setSnackbarMessage}
                         setIsAnimatingCardItem={setIsAnimatingCardItem}
                         deleteDeckFilter={deleteDeckFilter}
+                        isMobile={isMobile}
                       />
                     )}
                 </>

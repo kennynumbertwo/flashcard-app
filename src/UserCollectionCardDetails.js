@@ -77,14 +77,14 @@ function UserCollectionCardDetails(props) {
             <p className={classes.mobileMasteryLabel}>Mastery:</p>
             <div className={classes.mobileMasteryDisplayWrapper}>
               {mastery && mastery.masteryPercentage ? (
-                <ProgressBarVert progressPercent={mastery.masteryPercentage} width={12} height={25} />)
-                : <ProgressBarVert progressPercent={0} width={12} height={25} />}
+                <ProgressBarVert progressPercent={mastery.masteryPercentage} width={10} height={20} margin="0px 0px 3px 0px" />)
+                : <ProgressBarVert progressPercent={0} width={10} height={20} margin="0px 0px 3px 0px" />}
               <p className={classes.mobileMasteryInfo}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
             </div>
           </div>
           <div className={classes.mobileCardsWrapper}>
             <p className={classes.mobileCardsLabel}>Cards:</p>
-            <FormControl variant="standard" sx={{ m: 2, minWidth: 75 }}>
+            <FormControl variant="standard" sx={{ m: 1.5, minWidth: 50 }}>
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"

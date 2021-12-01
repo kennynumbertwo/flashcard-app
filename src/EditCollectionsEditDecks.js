@@ -29,6 +29,7 @@ function EditCollectionsEditDecks(props) {
     setIsAnimatingCardItem,
     setIsAddingDeck,
     deleteDeckFilter,
+    isMobile,
   } = props;
   return (
     <>
@@ -64,6 +65,7 @@ function EditCollectionsEditDecks(props) {
             index={index}
             setIsAnimatingCardItem={setIsAnimatingCardItem}
             deleteDeckFilter={deleteDeckFilter}
+            isMobile={isMobile}
           />
         ))
       // Renders the filtered database if isFiltered is true
@@ -85,6 +87,7 @@ function EditCollectionsEditDecks(props) {
             index={index}
             setIsAnimatingCardItem={setIsAnimatingCardItem}
             deleteDeckFilter={deleteDeckFilter}
+            isMobile={isMobile}
           />
         ))}
     </>

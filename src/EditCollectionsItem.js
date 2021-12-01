@@ -8,7 +8,9 @@ import IconListModal from './IconListModal';
 import IconCard from './IconCard';
 import styles from './styles/EditCollectionsItemStyles';
 import ProgressBarVert from './ProgressBarVert';
-import Modal from './Modal';
+import EditingDecksTabItem from './EditingDecksTabItem';
+import EditingCardsTabItem from './EditingCardsTabItem';
+import EditingDecksTabItemMobile from './EditingDecksTabItemMobile';
 
 function EditCollectionsItem(props) {
   // State for editing an individual deck
@@ -40,6 +42,7 @@ function EditCollectionsItem(props) {
     deleteDeckFilter,
     handleAddCardClick,
     setIsAddingCard,
+    isMobile,
   } = props;
   const { setName, category, iconClass, mastery } = userCardSet;
 
@@ -204,93 +207,45 @@ function EditCollectionsItem(props) {
   }
   if (isEditingCardsTab) {
     return (
-      <div className={classes.EditCollectionsItemCard}>
-        <div className={classes.setNameWrapper}>
-          <p className={classes.info}>{setName}</p>
-        </div>
-        <div className={classes.categoryWrapper}>
-          <p className={classes.info}>{category}</p>
-        </div>
-        <div className={classes.iconWrapper}>
-          <div className={classes.EditCollectionsItemIcon}>
-            <i className={iconClass} />
-          </div>
-        </div>
-        <div className={classes.masteryWrapper}>
-          <div className={classes.masteryWrapperInner}>
-            {mastery && mastery.masteryPercentage ? (
-              <ProgressBarVert progressPercent={mastery.masteryPercentage} width={12} height={25} />)
-              : <ProgressBarVert progressPercent={0} width={12} height={25} />}
-            <p className={classes.masteryInfo}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
-          </div>
-        </div>
-        <div className={classes.totalCardsWrapper}>
-          <p className={classes.info}>{totalCards}</p>
-        </div>
-        {isViewingCardsState.isViewing
-          ? (
-            <>
-              <div className={classes.buttonWrapper}>
-                <button className={classes.button} type="button" onClick={handleViewCardsClick}>Hide Cards</button>
-              </div>
-              <div className={classes.buttonWrapper}>
-                <button className={classes.button} type="button" onClick={handleAddCardClick}>Add Card</button>
-              </div>
-            </>
-          )
-          : (
-            <div className={classes.buttonWrapperSingle}>
-              <div className={classes.buttonWrapperSingleInner}>
-                <button className={classes.button} type="button" onClick={handleViewCardsClick}>Edit Cards</button>
-              </div>
-            </div>
-
-          )}
-
-      </div>
+      <EditingCardsTabItem
+        userCardSet={userCardSet}
+        handleViewCardsClick={handleViewCardsClick}
+        handleAddCardClick={handleAddCardClick}
+        isViewingCardsState={isViewingCardsState}
+        isShowingModal={isShowingModal}
+        isMobile={isMobile}
+        totalCards={totalCards}
+      />
     );
   }
   if (isEditingDecksTab) {
     return (
-      <div className={classes.EditCollectionsItemCard}>
-        <div className={classes.setNameWrapper}>
-          <p className={classes.info}>{setName}</p>
-        </div>
-        <div className={classes.categoryWrapper}>
-          <p className={classes.info}>{category}</p>
-        </div>
-        <div className={classes.iconWrapper}>
-          <div className={classes.EditCollectionsItemIcon}>
-            <i className={iconClass} />
-          </div>
-        </div>
-        <div className={classes.masteryWrapper}>
-          <div className={classes.masteryWrapperInner}>
-            {mastery && mastery.masteryPercentage ? (
-              <ProgressBarVert progressPercent={mastery.masteryPercentage} width={12} height={25} />)
-              : <ProgressBarVert progressPercent={0} width={12} height={25} />}
-            <p className={classes.masteryInfo}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
-          </div>
-        </div>
-        <div className={classes.totalCardsWrapper}>
-          <p className={classes.info}>{totalCards}</p>
-        </div>
-        <div className={classes.buttonWrapper}>
-          <button className={classes.deleteButton} type="button" onClick={handleDeleteClick}>Delete</button>
-        </div>
-        <div className={classes.buttonWrapper}>
-          <button className={classes.button} type="button" onClick={handleEditClick}>Edit</button>
-        </div>
-        <Modal
-          isShowing={isShowingModal}
-          buttonText={<i className="fas fa-thumbs-up" style={{ fontSize: '1.2rem' }} />}
-          secondButton
-          secondButtonText={<i className="fas fa-thumbs-down" style={{ fontSize: '1.2rem' }} />}
-          messageText={`Are you sure you want to delete the ${setName} deck from your collection?`}
-          buttonAction={handleDeleteConfirm}
-          hide={handleModalHide}
+      <>
+        {isMobile && (
+        <EditingDecksTabItemMobile
+          userCardSet={userCardSet}
+          handleDeleteClick={handleDeleteClick}
+          handleDeleteConfirm={handleDeleteConfirm}
+          handleEditClick={handleEditClick}
+          handleModalHide={handleModalHide}
+          isShowingModal={isShowingModal}
+          isMobile={isMobile}
+          totalCards={totalCards}
         />
-      </div>
+        )}
+        {!isMobile && (
+        <EditingDecksTabItem
+          userCardSet={userCardSet}
+          handleDeleteClick={handleDeleteClick}
+          handleDeleteConfirm={handleDeleteConfirm}
+          handleEditClick={handleEditClick}
+          handleModalHide={handleModalHide}
+          isShowingModal={isShowingModal}
+          isMobile={isMobile}
+          totalCards={totalCards}
+        />
+        )}
+      </>
     );
   }
 }

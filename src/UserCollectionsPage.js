@@ -76,11 +76,9 @@ function UserCollectionsPage(props) {
     }
     function handleMobileResize() {
       if (window.innerWidth <= 950) {
-        console.log('mobile size');
         setIsMobile(true);
       }
       if (window.innerWidth > 950) {
-        console.log('desktop size');
         setIsMobile(false);
       }
     }

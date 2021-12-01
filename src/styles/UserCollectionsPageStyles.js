@@ -11,7 +11,6 @@ export default {
     maxWidth: '100vw',
     maxHeight: '100vh',
     height: '100vh',
-    // border: '1px solid black',
     margin: '0px 0px 0px 0px',
     [sizes.down('xs')]: {
       width: '100vw',
@@ -45,7 +44,6 @@ export default {
     [sizes.down('xs')]: {
       width: '92vw',
       height: '80vh',
-      overflow: 'hidden',
     },
   },
   menuBar: {
@@ -186,6 +184,9 @@ export default {
     alignItems: 'center',
     border: '2px solid rgba(0, 0, 0, 0.04)',
     width: '90.67%',
+    [sizes.down('xs')]: {
+      backgroundColor: 'var(--background-collection-mobile)',
+    },
     // borderRadius: '6px',
   },
   headerCardWrapper: {

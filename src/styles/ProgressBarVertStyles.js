@@ -4,6 +4,7 @@ export default {
     justifyContent: 'center',
     alignItems: 'flex-end',
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    margin: props => (`${props.margin}`),
     width: props => (`${props.width}px`),
     height: props => (`${props.height}px`),
     borderRadius: props => (`${props.borderRadius}px`),

@@ -21,6 +21,7 @@ code {
   --background-collection-main: rgb(255, 255, 255);
   --background-collection-item: rgb(254, 254, 254);
   --background-collection-container: rgba(201, 201, 201, 0.043);
+  --background-collection-mobile: rgb(245, 244, 244);
 
   /* TEXT COLORS */
   --text-primary: rgba(0, 0, 0, 0.7);
