@@ -43,6 +43,7 @@ function EditCollectionsEditDecks(props) {
         setIsAddingDeck={setIsAddingDeck}
         setOpenSnackbar={setOpenSnackbar}
         setSnackbarMessage={setSnackbarMessage}
+        isMobile={isMobile}
       />
       )}
       {/* Renders the sorted database */}

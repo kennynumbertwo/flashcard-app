@@ -5,7 +5,6 @@ import Modal from './Modal';
 
 const styles = {
   EditingDecksTabItemMobile: {
-    // height: '1000px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -135,6 +134,7 @@ const styles = {
   },
   mobileCardsLabel: {
     fontWeight: '500',
+    padding: '0px 10px 0px 0px',
   },
   mobileButtonWrapper: {
     width: '100%',
@@ -157,6 +157,36 @@ const styles = {
     width: '125px',
     height: '35px',
     border: 'none',
+    transition: 'all 0.4s ease 0s',
+    marginLeft: '5px',
+    borderRadius: '2px',
+    '&.disabled': {
+      backgroundColor: 'var(--button-primary-disabled)',
+      '&:hover': {
+        cursor: 'default',
+        backgroundColor: 'var(--button-primary-disabled)',
+      },
+    },
+    '&:hover': {
+      background: 'var(--button-accept-primary)',
+      transition: 'all 0.4s ease 0s',
+      cursor: 'pointer',
+    },
+  },
+  mobileDeleteButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
+    textDecoration: 'none',
+    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    fontSize: 'var(--button-fontSize-primary)',
+    fontWeight: '500',
+    background: 'var(--button-primary)',
+    width: '125px',
+    height: '35px',
+    border: 'none',
+    marginRight: '5px',
     transition: 'all 0.4s ease 0s',
     borderRadius: '2px',
     '&.disabled': {
@@ -222,10 +252,10 @@ function EditingDecksTabItem(props) {
         </div>
         <div className={classes.mobileBottomWrapper}>
           <div className={classes.buttonWrapper}>
-            <button className={classes.deleteButton} type="button" onClick={handleDeleteClick}>Delete</button>
+            <button className={classes.mobileDeleteButton} type="button" onClick={handleDeleteClick}>Delete</button>
           </div>
           <div className={classes.buttonWrapper}>
-            <button className={classes.button} type="button" onClick={handleEditClick}>Edit Deck</button>
+            <button className={classes.mobileButton} type="button" onClick={handleEditClick}>Edit Deck</button>
           </div>
         </div>
       </div>

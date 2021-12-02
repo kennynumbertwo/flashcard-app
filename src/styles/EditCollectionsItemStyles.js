@@ -44,7 +44,7 @@ export default {
     justifyContent: 'flex-start',
     width: '25%',
     height: '50px',
-    padding: '0px 0px 0px 22px',
+    padding: '3px 0px 0px 22px',
     '& p': {
       whiteSpace: 'no-wrap',
       overflow: 'hidden',
@@ -57,7 +57,7 @@ export default {
     justifyContent: 'flex-start',
     width: '25%',
     height: '50px',
-    padding: '0px 0px 0px 0px',
+    padding: '3px 0px 0px 0px',
     '& .MuiInputBase-root.MuiOutlinedInput-root': {
       borderRadius: '2px',
     },
@@ -68,7 +68,7 @@ export default {
     justifyContent: 'flex-start',
     width: '25%',
     height: '50px',
-    padding: '0px 0px 0px 22px',
+    padding: '3px 0px 0px 22px',
     '& p': {
       whiteSpace: 'no-wrap',
       overflow: 'hidden',
@@ -81,7 +81,7 @@ export default {
     justifyContent: 'flex-start',
     width: '25%',
     height: '50px',
-    padding: '0px 0px 0px 0px',
+    padding: '3px 0px 0px 0px',
     '& .MuiInputBase-root.MuiOutlinedInput-root': {
       borderRadius: '2px',
       '&: focus': {
@@ -107,7 +107,7 @@ export default {
     height: '50px',
   },
   masteryInfo: {
-    padding: '0px 0px 0px 8px',
+    padding: '3px 0px 0px 8px',
   },
   totalCardsWrapper: {
     display: 'flex',
@@ -115,6 +115,7 @@ export default {
     justifyContent: 'center',
     width: '10%',
     height: '50px',
+    padding: '3px 0px 0px 0px',
   },
   iconWrapper: {
     display: 'flex',

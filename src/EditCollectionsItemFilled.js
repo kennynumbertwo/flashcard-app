@@ -5,46 +5,41 @@ import TextField from '@mui/material/TextField';
 import db from './firebase.config';
 import IconListModal from './IconListModal';
 import IconCard from './IconCard';
+import ProgressBarVert from './ProgressBarVert';
 import styles from './styles/EditCollectionsItemBlankStyles';
 
-function EditCollectionsItemBlank(props) {
-  // State for the IconListModal
-  const [isShowingIconList, setIsShowingIconList] = useState(false);
-  const [isAnimatingModal, setIsAnimatingModal] = useState(false);
-  const [selectedIcon, setSelectedIcon] = useState('');
-  const [selectedIconClass, setSelectedIconClass] = useState('');
-  const [deckFields, setDeckFields] = useState({
-    setName: '',
-    category: '',
-    iconClass: '',
-    id: '',
-    owner: props.uid,
-    cards: '',
-    mastery: {},
-  });
-
+function EditCollectionsItemFilled(props) {
   // Destructured Props
   const {
     classes,
     uid,
+    userCardSet,
     fetchUserCardSets,
-    setIsAddingDeck,
     setOpenSnackbar,
     setSnackbarMessage,
     isMobile,
+    selectedIcon,
+    setSelectedIcon,
+    setSelectedIconClass,
+    selectedIconClass,
+    totalCards,
+    mastery,
+    setIsEditing,
+    setNameInput,
+    updateSetNameInput,
+    categoryInput,
+    updateCategoryInput,
   } = props;
+  const { setName } = userCardSet;
+  // State for the IconListModal
 
-  useEffect(() => {
-    setDeckFields({ ...deckFields,
-      id: deckFields.setName.replace(/\s+/g, '-').toLowerCase(),
-      iconClass: selectedIconClass,
-    });
-  }, [deckFields.setName, selectedIconClass]);
+  const [isShowingIconList, setIsShowingIconList] = useState(false);
+  const [isAnimatingModal, setIsAnimatingModal] = useState(false);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeydown);
     return () => window.removeEventListener('keydown', handleKeydown);
-  }, [deckFields]);
+  }, [setNameInput, categoryInput]);
 
   const handleKeydown = (e) => {
     if (e.key === 'Enter') {
@@ -53,11 +48,6 @@ function EditCollectionsItemBlank(props) {
     if (e.key === 'Escape') {
       handleCancelClick();
     }
-  };
-
-  // Click handler for the Add Cards button
-  const handleCancelClick = () => {
-    setIsAddingDeck(false);
   };
 
   // Click handler for showing the IconListModal when Editing Deck
@@ -74,17 +64,48 @@ function EditCollectionsItemBlank(props) {
     }, 140);
   };
 
-  const handleSaveDeck = async () => {
-    const userRef = doc(db, 'users', uid);
-    await setDoc(userRef, { [deckFields.id]: deckFields }, { merge: true });
-    fetchUserCardSets();
-    setIsAddingDeck(false);
-    setOpenSnackbar(true);
-    setSnackbarMessage('Deck Added');
+  // Click handler for the Cancel Button
+  const handleCancelClick = () => {
+    setIsEditing(false);
   };
 
-  const handleChange = (e) => {
-    setDeckFields({ ...deckFields, [e.target.id]: e.target.value });
+  // Click handler for the Save button when editing a deck
+  const handleSaveDeck = async () => {
+    setOpenSnackbar(true);
+    setSnackbarMessage('Deck Saved');
+    let updatedCardSet = {
+      ...userCardSet,
+      setName: setNameInput,
+      category: categoryInput,
+      id: setNameInput.replace(/\s+/g, '-').toLowerCase(),
+      iconClass: selectedIconClass,
+    };
+    if (updatedCardSet.cards.length) {
+      let updatedCards = [];
+      updatedCardSet.cards.forEach(card => {
+        card = { ...card,
+          setName: setNameInput,
+          category: categoryInput,
+          iconClass: selectedIconClass,
+        };
+        updatedCards.push(card);
+      });
+      updatedCardSet = { ...updatedCardSet, cards: updatedCards };
+    }
+    try {
+      const userRef = doc(db, 'users', uid);
+      await setDoc(userRef, { [updatedCardSet.id]: updatedCardSet }, { merge: true });
+      if (updatedCardSet.setName !== setName) {
+        const updateString = `${setName.toLowerCase().replace(/\s+/g, '-')}`;
+        await updateDoc(
+          userRef, { [updateString]: deleteField() },
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsEditing(false);
+    fetchUserCardSets();
   };
 
   if (isMobile) {
@@ -104,8 +125,8 @@ function EditCollectionsItemBlank(props) {
           <TextField
             label="Set Name"
             id="setName"
-            value={deckFields.setName}
-            onChange={handleChange}
+            value={setNameInput}
+            onChange={updateSetNameInput}
             size="small"
           />
         </div>
@@ -113,8 +134,8 @@ function EditCollectionsItemBlank(props) {
           <TextField
             label="Category"
             id="category"
-            value={deckFields.category}
-            onChange={handleChange}
+            value={categoryInput}
+            onChange={updateCategoryInput}
             size="small"
           />
         </div>
@@ -169,8 +190,8 @@ function EditCollectionsItemBlank(props) {
           <TextField
             label="Set Name"
             id="setName"
-            value={deckFields.setName}
-            onChange={handleChange}
+            value={setNameInput}
+            onChange={updateSetNameInput}
             size="small"
           />
         </div>
@@ -178,8 +199,8 @@ function EditCollectionsItemBlank(props) {
           <TextField
             label="Category"
             id="category"
-            value={deckFields.category}
-            onChange={handleChange}
+            value={categoryInput}
+            onChange={updateCategoryInput}
             size="small"
           />
         </div>
@@ -206,10 +227,15 @@ function EditCollectionsItemBlank(props) {
             )}
         </div>
         <div className={classes.masteryWrapper}>
-          <p className={classes.info}>-</p>
+          <div className={classes.masteryWrapperInner}>
+            {mastery && mastery.masteryPercentage ? (
+              <ProgressBarVert progressPercent={mastery.masteryPercentage} width={12} height={25} />)
+              : <ProgressBarVert progressPercent={0} width={12} height={25} />}
+            <p className={classes.masteryInfo}>{mastery && mastery.masteryPercentage ? `${mastery.masteryPercentage}%` : '-'}</p>
+          </div>
         </div>
         <div className={classes.totalCardsWrapper}>
-          <p className={classes.info}>-</p>
+          <p className={classes.info}>{totalCards}</p>
         </div>
         <div className={classes.buttonWrapper}>
           <button className={classes.buttonCancel} type="button" onClick={handleCancelClick}>Cancel</button>
@@ -222,4 +248,4 @@ function EditCollectionsItemBlank(props) {
   }
 }
 
-export default withStyles(styles)(EditCollectionsItemBlank);
+export default withStyles(styles)(EditCollectionsItemFilled);
