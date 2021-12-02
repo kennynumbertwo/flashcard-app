@@ -9,6 +9,7 @@ import styles from './styles/EditCollectionsItemStyles';
 import EditingDecksTabItem from './EditingDecksTabItem';
 import EditingCardsTabItem from './EditingCardsTabItem';
 import EditingDecksTabItemMobile from './EditingDecksTabItemMobile';
+import EditingCardsTabItemMobile from './EditingCardsTabItemMobile';
 import EditCollectionsItemFilled from './EditCollectionsItemFilled';
 
 function EditCollectionsItem(props) {
@@ -119,15 +120,30 @@ function EditCollectionsItem(props) {
   }
   if (isEditingCardsTab) {
     return (
-      <EditingCardsTabItem
-        userCardSet={userCardSet}
-        handleViewCardsClick={handleViewCardsClick}
-        handleAddCardClick={handleAddCardClick}
-        isViewingCardsState={isViewingCardsState}
-        isShowingModal={isShowingModal}
-        isMobile={isMobile}
-        totalCards={totalCards}
-      />
+      <>
+        {isMobile && (
+        <EditingCardsTabItemMobile
+          userCardSet={userCardSet}
+          handleViewCardsClick={handleViewCardsClick}
+          handleAddCardClick={handleAddCardClick}
+          isViewingCardsState={isViewingCardsState}
+          isShowingModal={isShowingModal}
+          isMobile={isMobile}
+          totalCards={totalCards}
+        />
+        )}
+        {!isMobile && (
+        <EditingCardsTabItem
+          userCardSet={userCardSet}
+          handleViewCardsClick={handleViewCardsClick}
+          handleAddCardClick={handleAddCardClick}
+          isViewingCardsState={isViewingCardsState}
+          isShowingModal={isShowingModal}
+          isMobile={isMobile}
+          totalCards={totalCards}
+        />
+        )}
+      </>
     );
   }
   if (isEditingDecksTab) {

@@ -407,6 +407,7 @@ function EditCollections(props) {
                       setSnackbarMessage={setSnackbarMessage}
                       getTotalMasteryRating={getTotalMasteryRating}
                       getDeletedCardArray={getDeletedCardArray}
+                      isMobile={isMobile}
                     />
                   )
                     : (

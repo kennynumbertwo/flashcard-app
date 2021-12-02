@@ -24,6 +24,7 @@ function CardsView(props) {
     setSnackbarMessage,
     getTotalMasteryRating,
     getDeletedCardArray,
+    isMobile,
 
   } = props;
   return (
@@ -44,6 +45,7 @@ function CardsView(props) {
         setIsAnimatingCardItem={setIsAnimatingCardItem}
         handleAddCardClick={handleAddCardClick}
         setIsAddingCard={setIsAddingCard}
+        isMobile={isMobile}
       />
       {isAddingCard && (
       <EditCollectionsNewCard

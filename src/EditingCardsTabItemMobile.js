@@ -4,7 +4,7 @@ import ProgressBarVert from './ProgressBarVert';
 import Modal from './Modal';
 
 const styles = {
-  EditingDecksTabItemMobile: {
+  EditingCardsTabItemMobile: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -207,22 +207,22 @@ const styles = {
   },
 };
 
-function EditingDecksTabItem(props) {
+function EditingCardsTabItem(props) {
   const {
     classes,
     totalCards,
     userCardSet,
-    handleDeleteClick,
-    handleDeleteConfirm,
-    handleEditClick,
-    handleModalHide,
+    isViewingCardsState,
+    handleViewCardsClick,
+    handleAddCardClick,
     isShowingModal,
+    isMobile,
   } = props;
   const { setName, category, iconClass, mastery } = userCardSet;
 
   return (
     <>
-      <div className={classes.EditingDecksTabItemMobile}>
+      <div className={classes.EditingCardsTabItemMobile}>
         <div className={classes.mobileTopWrapper}>
           <div className={classes.mobileSetNameWrapper}>
             <p className={classes.mobileSetNameLabel}>Deck Name:</p>
@@ -251,25 +251,28 @@ function EditingDecksTabItem(props) {
           </div>
         </div>
         <div className={classes.mobileBottomWrapper}>
-          <div className={classes.buttonWrapper}>
-            <button className={classes.mobileDeleteButton} type="button" onClick={handleDeleteClick}>Delete</button>
-          </div>
-          <div className={classes.buttonWrapper}>
-            <button className={classes.mobileButton} type="button" onClick={handleEditClick}>Edit Deck</button>
-          </div>
+          {isViewingCardsState.isViewing
+            ? (
+              <>
+                <div className={classes.buttonWrapper}>
+                  <button className={classes.mobileButton} type="button" onClick={handleViewCardsClick}>Hide Cards</button>
+                </div>
+                <div className={classes.buttonWrapper}>
+                  <button className={classes.mobileButton} type="button" onClick={handleAddCardClick}>Add Card</button>
+                </div>
+              </>
+            )
+            : (
+              <div className={classes.mobileButtonWrapperSingle}>
+                <div className={classes.mobileButtonWrapperSingleInner}>
+                  <button className={classes.mobileButton} type="button" onClick={handleViewCardsClick}>Edit Cards</button>
+                </div>
+              </div>
+            )}
         </div>
       </div>
-      <Modal
-        isShowing={isShowingModal}
-        buttonText={<i className="fas fa-thumbs-up" style={{ fontSize: '1.2rem' }} />}
-        secondButton
-        secondButtonText={<i className="fas fa-thumbs-down" style={{ fontSize: '1.2rem' }} />}
-        messageText={`Are you sure you want to delete the ${setName} deck from your collection?`}
-        buttonAction={handleDeleteConfirm}
-        hide={handleModalHide}
-      />
     </>
   );
 }
 
-export default withStyles(styles)(EditingDecksTabItem);
+export default withStyles(styles)(EditingCardsTabItem);

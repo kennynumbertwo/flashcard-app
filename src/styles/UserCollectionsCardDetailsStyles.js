@@ -307,7 +307,7 @@ export default {
     height: '35px',
     border: 'none',
     transition: 'all 0.4s ease 0s',
-    borderRadius: '2px',
+    borderRadius: '5px',
     '&.disabled': {
       backgroundColor: 'var(--button-primary-disabled)',
       '&:hover': {
