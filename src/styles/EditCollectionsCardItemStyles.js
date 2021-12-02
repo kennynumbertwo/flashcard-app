@@ -1,3 +1,5 @@
+import sizes from './sizes';
+
 export default {
   CardItemWrapperOuter: {
     display: 'flex',
@@ -7,6 +9,18 @@ export default {
     height: '55px',
     color: 'var(--text-primary)',
     fontSize: '.88rem',
+    [sizes.down('md')]: {
+      height: '125px',
+      // flexDirection: 'column',
+      // justifyContent: 'flex-start',
+      // paddingTop: '15px',
+    },
+    [sizes.down('sm')]: {
+      height: '175px',
+    },
+    [sizes.down('xs')]: {
+      height: '175px',
+    },
   },
   CardItemWrapperInner: {
     display: 'flex',
@@ -22,6 +36,29 @@ export default {
     animationDuration: props => (`${props.card.cardNumber * 70}ms`),
     animationTimingFunction: 'ease-in-out',
     animationIterationCount: props => (props.isAnimatingCardItem ? 1 : 0),
+    [sizes.down('md')]: {
+      height: '120px',
+      alignItems: 'flex-start',
+      paddingTop: '15px',
+      // flexDirection: 'column',
+      // justifyContent: 'flex-start',
+      // paddingTop: '15px',
+    },
+    [sizes.down('sm')]: {
+      width: '95%',
+      height: '170px',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      paddingTop: '15px',
+    },
+    [sizes.down('xs')]: {
+      width: '95%',
+      height: '170px',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+    },
     '&:hover': {
       boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, 0.1)',
     },
@@ -53,12 +90,41 @@ export default {
     alignItems: 'center',
     width: '45%',
     padding: '0px 0px 0px 10px',
+    // border: '1px solid black',
+    [sizes.down('md')]: {
+      alignItems: 'flex-start',
+    },
+    [sizes.down('sm')]: {
+      width: '95%',
+      height: '60px',
+      alignItems: 'flex-start',
+    },
+    [sizes.down('xs')]: {
+      width: '95%',
+      height: '60px',
+      alignItems: 'flex-start',
+    },
   },
   CardItemAnswerWrapper: {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
     width: '30%',
+    [sizes.down('md')]: {
+      alignItems: 'flex-start',
+    },
+    [sizes.down('sm')]: {
+      width: '95%',
+      padding: '5px 0px 0px 10px',
+      height: '50px',
+      alignItems: 'flex-start',
+    },
+    [sizes.down('xs')]: {
+      width: '95%',
+      padding: '5px 0px 0px 10px',
+      height: '50px',
+      alignItems: 'flex-start',
+    },
   },
   CardItemQuestion: {
     display: 'flex',
@@ -68,6 +134,21 @@ export default {
     width: '100%',
     textAlign: 'left',
     padding: '0px 20px 0px 0px',
+    [sizes.down('md')]: {
+      alignItems: 'flex-start',
+      marginTop: '0px',
+    },
+    [sizes.down('sm')]: {
+      width: '95%',
+      maxHeight: '80px',
+      padding: '0px 0px 0px 0px',
+      margin: '0px 0px 0px 0px',
+    },
+    [sizes.down('xs')]: {
+      width: '95%',
+      maxHeight: '80px',
+      margin: '0px 0px 0px 0px',
+    },
   },
   CardItemNum: {
     display: 'flex',
@@ -82,6 +163,24 @@ export default {
     width: '100%',
     textAlign: 'left',
     padding: '0px 20px 0px 0px',
+    [sizes.down('md')]: {
+      padding: '0px 5px 0px 0px',
+
+      marginTop: '0px',
+      alignItems: 'flex-start',
+    },
+    [sizes.down('sm')]: {
+      width: '95%',
+      padding: '0px 0px 0px 0px',
+      margin: '0px 0px 0px 0px',
+      alignItems: 'flex-start',
+    },
+    [sizes.down('xs')]: {
+      width: '95%',
+      margin: '0px 0px 0px 0px',
+      padding: '0px 0px 0px 10px',
+      alignItems: 'flex-start',
+    },
   },
   deleteButtonWrapper: {
     display: 'flex',
@@ -111,6 +210,7 @@ export default {
     },
   },
   label: {
+    height: '100%',
     fontWeight: '600',
     marginRight: '10px',
   },

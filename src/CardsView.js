@@ -62,6 +62,7 @@ function CardsView(props) {
         isAnimatingCardItem={isAnimatingCardItem}
         setIsAnimatingCardItem={setIsAnimatingCardItem}
         handleAddCardClick={handleAddCardClick}
+        isMobile={isMobile}
       />
       )}
       {isViewingCardsState.cardSet.cards && isViewingCardsState.cardSet.cards
@@ -80,6 +81,7 @@ function CardsView(props) {
             setSnackbarMessage={setSnackbarMessage}
             isAnimatingCardItem={isAnimatingCardItem}
             setIsAnimatingCardItem={setIsAnimatingCardItem}
+            isMobile={isMobile}
           />
         ))}
     </>

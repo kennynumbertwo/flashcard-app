@@ -15,6 +15,7 @@ function CardItem(props) {
     setOpenSnackbar,
     setSnackbarMessage,
     setIsAnimatingCardItem,
+    isMobile,
   } = props;
 
   const handleDelete = async () => {
@@ -37,18 +38,28 @@ function CardItem(props) {
     <>
       <div className={classes.CardItemWrapperOuter}>
         <div className={classes.CardItemWrapperInner}>
+          {!isMobile && (
           <div className={classes.CardItemNumWrapper}>
             <p className={classes.CardItemNum}>{cardNumber}</p>
           </div>
+          )}
           <div className={classes.CardItemQuestionWrapper}>
             <span className={classes.label}>Question:</span>
             <p className={classes.CardItemQuestion}>
-              {question.length > 80 ? `${question.slice(0, 80)}...` : question}
+              {isMobile ? (
+                question.length > 75 ? `${question.slice(0, 75)}...` : question
+              ) : (
+                question.length > 80 ? `${question.slice(0, 80)}...` : question
+              )}
             </p>
           </div>
           <div className={classes.CardItemAnswerWrapper}>
             <span className={classes.label}>Answer:</span>
-            <p className={classes.CardItemAnswer}>{answer.length > 30 ? `${answer.slice(0, 30)}...` : answer}</p>
+            { isMobile ? (
+              <p className={classes.CardItemAnswer}>{answer.length > 50 ? `${answer.slice(0, 50)}...` : answer}</p>
+            ) : (
+              <p className={classes.CardItemAnswer}>{answer.length > 30 ? `${answer.slice(0, 30)}...` : answer}</p>
+            )}
           </div>
           <div className={classes.deleteButtonWrapper}>
             <button className={classes.deleteButton} onClick={handleDelete} type="button">Delete</button>
