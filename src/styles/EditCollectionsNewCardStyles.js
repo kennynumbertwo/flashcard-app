@@ -1,3 +1,5 @@
+import sizes from './sizes';
+
 export default {
   cardItemWrapperOuter: {
     display: 'flex',
@@ -11,6 +13,20 @@ export default {
     animationDuration: '300ms',
     animationTimingFunction: 'ease-in-out',
     animationIterationCount: '1',
+    [sizes.down('md')]: {
+      height: '125px',
+      // flexDirection: 'column',
+      // justifyContent: 'flex-start',
+      // paddingTop: '15px',
+    },
+    [sizes.down('sm')]: {
+      height: '175px',
+      width: '96.5%',
+    },
+    [sizes.down('xs')]: {
+      height: '175px',
+      width: '96.5%',
+    },
   },
 
   '@keyframes newCardSlide': {
@@ -32,6 +48,15 @@ export default {
     // borderRadius: '3px',
     border: '1px solid rgba(0, 0, 0, 0.1)',
     boxShadow: '0px 1px 7px 0px rgba(0, 0, 0, 0.1)',
+    [sizes.down('sm')]: {
+      flexDirection: 'column',
+      height: '175px',
+      justifyContent: 'flex-start',
+      paddingTop: '10px',
+    },
+    [sizes.down('xs')]: {
+      height: '175px',
+    },
 
   },
   cardItemNumWrapper: {
@@ -55,6 +80,14 @@ export default {
     '& .MuiInputBase-root.MuiOutlinedInput-root': {
       borderRadius: '2px',
     },
+    [sizes.down('sm')]: {
+      width: '95%',
+      height: '50px',
+    },
+    [sizes.down('xs')]: {
+      width: '95%',
+      height: '50px',
+    },
   },
   cardItemAnswerWrapper: {
     display: 'flex',
@@ -66,6 +99,14 @@ export default {
     },
     '& .MuiInputBase-root.MuiOutlinedInput-root': {
       borderRadius: '2px',
+    },
+    [sizes.down('sm')]: {
+      width: '95%',
+      height: '50px',
+    },
+    [sizes.down('xs')]: {
+      width: '95%',
+      height: '50px',
     },
   },
   cardItemNum: {
@@ -83,7 +124,11 @@ export default {
     justifyContent: 'space-evenly',
     alignItems: 'center',
     width: '20%',
-
+    [sizes.down('sm')]: {
+      width: '95%',
+      justifyContent: 'center',
+      paddingTop: '10px',
+    },
   },
   saveButton: {
     display: 'flex',
@@ -100,6 +145,9 @@ export default {
     transition: 'all 0.4s ease 0s',
     border: 'none',
     borderRadius: '5px',
+    [sizes.down('sm')]: {
+      marginLeft: '5px',
+    },
     '&:hover': {
       background: 'var(--button-accept-primary)',
       transition: 'all 0.4s ease 0s',
@@ -125,6 +173,9 @@ export default {
       background: 'var(--button-deny-primary)',
       transition: 'all 0.4s ease 0s',
       cursor: 'pointer',
+    },
+    [sizes.down('sm')]: {
+      marginRight: '5px',
     },
   },
 };

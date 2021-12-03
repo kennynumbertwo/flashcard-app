@@ -16,6 +16,7 @@ function EditCollectionsNewCard(props) {
     setOpenSnackbar,
     setSnackbarMessage,
     setIsAnimatingCardItem,
+    isMobile,
   } = props;
   // Default state for New Cards
   const [newCardFields, setNewCardFields] = useState({
@@ -71,9 +72,11 @@ function EditCollectionsNewCard(props) {
     <>
       <div className={classes.cardItemWrapperOuter}>
         <div className={classes.cardItemWrapperInner}>
+          {!isMobile && (
           <div className={classes.cardItemNumWrapper}>
             <p className={classes.cardItemNum}>{newCardFields.cardNumber}</p>
           </div>
+          )}
           <div className={classes.cardItemQuestionWrapper}>
             <TextField
               label="Question"

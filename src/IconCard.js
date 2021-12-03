@@ -11,6 +11,7 @@ function IconCard(props) {
     setSelectedIcon,
     setSelectedIconClass,
     handleHideIcons,
+    isMobile,
   } = props;
 
   const handleClick = () => {
@@ -41,13 +42,17 @@ function IconCard(props) {
       {selectedIcon === iconName && (
       <div className={classes.IconCardInnerSelected} onClick={handleClick}>
         <i className={iconClass} />
-        <p>{iconName}</p>
+        {!isMobile && (
+          <p>{iconName}</p>
+        )}
       </div>
       )}
       {selectedIcon !== iconName && (
       <div className={classes.IconCardInner} onClick={handleClick}>
         <i className={iconClass} />
-        <p>{iconName}</p>
+        {!isMobile && (
+          <p>{iconName}</p>
+        )}
       </div>
       )}
     </div>

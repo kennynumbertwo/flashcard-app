@@ -1,3 +1,5 @@
+import sizes from './sizes';
+
 export default {
   IconCardOuter: {
     display: 'flex',
@@ -6,6 +8,10 @@ export default {
     alignItems: 'center',
     width: props => (props.isEditDeckButton ? '50px' : '110px'),
     height: props => (props.isEditDeckButton ? '50px' : '110px'),
+    [sizes.down('sm')]: {
+      width: props => (props.isEditDeckButton ? '50px' : '50px'),
+      height: props => (props.isEditDeckButton ? '50px' : '50px'),
+    },
 
   },
   IconCardInner: {
@@ -18,6 +24,10 @@ export default {
     color: 'var(--text-primary)',
     borderRadius: '10px',
     transition: 'all .2s',
+    [sizes.down('sm')]: {
+      width: props => (props.isEditDeckButton ? '50px' : '45px'),
+      height: props => (props.isEditDeckButton ? '50px' : '45px'),
+    },
     '& i': {
       display: 'flex',
       alignItems: 'center',
@@ -26,6 +36,9 @@ export default {
       fontSize: props => (props.isEditDeckButton ? '1.5rem' : '36px'),
       margin: '0px 0px 0px 0px',
       height: '60%',
+      [sizes.down('sm')]: {
+        fontSize: props => (props.isEditDeckButton ? '1.5rem' : '28px'),
+      },
     },
     '& p': {
       display: 'flex',
@@ -49,6 +62,10 @@ export default {
     boxShadow: '0px 2px 5px 1px rgba(0, 0, 0, 0.3)',
     borderRadius: '10px',
     transition: 'all .2s',
+    [sizes.down('sm')]: {
+      width: props => (props.isEditDeckButton ? '50px' : '45px'),
+      height: props => (props.isEditDeckButton ? '50px' : '45px'),
+    },
     '& i': {
       display: 'flex',
       alignItems: 'center',

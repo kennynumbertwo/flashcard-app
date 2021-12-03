@@ -26,12 +26,14 @@ const getIconNames = (iconList) => {
 
 const options = getIconNames(icons);
 
-const pageNum = Math.ceil(icons.length / 40);
+const iconPerPage = 40;
+
+const pageNum = Math.ceil(icons.length / iconPerPage);
 
 const getPageList = (array) => {
   let pageArray = [];
   for (let i = 0; i < pageNum; i++) {
-    let page = [...array.slice((i * 40), ((i + 1) * 40))];
+    let page = [...array.slice((i * iconPerPage), ((i + 1) * iconPerPage))];
     pageArray.push(page);
   }
   return pageArray;
@@ -55,6 +57,7 @@ function IconList(props) {
     setSelectedIconClass,
     handleHideIcons,
     isAnimatingModal,
+    isMobile,
   } = props;
 
   const handleClick = (event) => {
@@ -160,6 +163,7 @@ function IconList(props) {
                 setSelectedIcon={setSelectedIcon}
                 setSelectedIconClass={setSelectedIconClass}
                 handleHideIcons={handleHideIcons}
+                isMobile={isMobile}
               />
             ))}
             {isFiltered && filteredArray.map(icon => (
@@ -172,6 +176,7 @@ function IconList(props) {
                 setSelectedIcon={setSelectedIcon}
                 setSelectedIconClass={setSelectedIconClass}
                 handleHideIcons={handleHideIcons}
+                isMobile={isMobile}
               />
             ))}
           </div>

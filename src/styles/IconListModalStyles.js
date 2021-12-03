@@ -1,3 +1,5 @@
+import sizes from './sizes';
+
 export default {
   IconListModal: {
     zIndex: '1201',
@@ -61,6 +63,12 @@ export default {
     backgroundColor: 'var(--background-white)',
     borderRadius: '5px',
     boxShadow: '0px 5px 10px 3px rgba(0, 0, 0, 0.3)',
+    [sizes.down('sm')]: {
+      height: '70vh',
+      width: '90vw',
+      padding: '20px 10px 20px 10px',
+
+    },
   },
   filterWrapper: {
     display: 'flex',
@@ -88,6 +96,9 @@ export default {
     alignItems: 'flex-start',
     width: '100%',
     height: '600px',
+    [sizes.down('sm')]: {
+      height: '100%',
+    },
   },
   iconsWrapperOuter: {
     display: 'flex',
@@ -96,6 +107,9 @@ export default {
     alignItems: 'flex-start',
     width: '100%',
     height: '552px',
+    [sizes.down('sm')]: {
+      height: '100%',
+    },
   },
   iconsWrapperInner: {
     display: 'flex',
@@ -103,6 +117,9 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    [sizes.down('sm')]: {
+      height: '100%',
+    },
   },
 
   pageNavWrapper: {

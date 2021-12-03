@@ -98,6 +98,7 @@ function EditCollectionsItemBlank(props) {
           handleShowIcons={handleShowIcons}
           handleHideIcons={handleHideIcons}
           isAnimatingModal={isAnimatingModal}
+          isMobile={isMobile}
         />
         )}
         <div className={classes.setNameWrapperInput}>

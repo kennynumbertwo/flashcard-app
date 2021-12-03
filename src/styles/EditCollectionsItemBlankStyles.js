@@ -144,8 +144,9 @@ export default {
     },
   },
   EditCollectionsItemBlankIcon: {
-    height: props => (props.isMobile ? '100px' : '40px'),
-    width: props => (props.isMobile ? '100px' : '50px'),
+    height: props => (props.isMobile ? '60px' : '40px'),
+    width: props => (props.isMobile ? '60px' : '50px'),
+    marginTop: props => (props.isMobile ? '10px' : null),
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
