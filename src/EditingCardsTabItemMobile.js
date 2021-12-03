@@ -22,9 +22,6 @@ const styles = {
     animationDuration: props => (`${props.cardNumber * 100}ms`),
     animationTimingFunction: 'ease-in-out',
     animationIterationCount: props => (props.isAnimatingCardDetails ? 1 : 0),
-    '&:hover': {
-      boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, 0.1)',
-    },
   },
   mobileTopWrapper: {
     width: '100%',
@@ -34,7 +31,6 @@ const styles = {
     justifyContent: 'center',
     flexDirection: 'column',
     marginTop: '5px',
-    // border: '1px solid red',
   },
   mobileBottomWrapper: {
     width: '100%',
@@ -42,7 +38,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // border: '1px solid red',
   },
   mobileSetNameWrapper: {
     width: '100%',
@@ -50,7 +45,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // border: '1px solid black',
   },
   mobileSetNameLabel: {
     fontWeight: '500',
@@ -67,7 +61,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // border: '1px solid black',
   },
   categoryLabel: {
     padding: '0px 10px 0px 0px',
@@ -89,8 +82,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // flexDirection: 'column',
-    // border: '1px solid black',
     '& i': {
       fontSize: '1.4rem',
     },
@@ -111,8 +102,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // flexDirection: 'column',
-    // border: '1px solid black',
   },
   mobileMasteryLabel: {
     fontWeight: '500',
@@ -129,8 +118,6 @@ const styles = {
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'center',
-    // flexDirection: 'column',
-    // border: '1px solid black',
   },
   mobileCardsLabel: {
     fontWeight: '500',
@@ -142,7 +129,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // border: '1px solid black',
   },
   mobileButton: {
     display: 'flex',
@@ -162,15 +148,6 @@ const styles = {
     borderRadius: '5px',
     '&.disabled': {
       backgroundColor: 'var(--button-primary-disabled)',
-      '&:hover': {
-        cursor: 'default',
-        backgroundColor: 'var(--button-primary-disabled)',
-      },
-    },
-    '&:hover': {
-      background: 'var(--button-accept-primary)',
-      transition: 'all 0.4s ease 0s',
-      cursor: 'pointer',
     },
   },
   mobileDeleteButton: {
@@ -191,15 +168,6 @@ const styles = {
     borderRadius: '5px',
     '&.disabled': {
       backgroundColor: 'var(--button-primary-disabled)',
-      '&:hover': {
-        cursor: 'default',
-        backgroundColor: 'var(--button-primary-disabled)',
-      },
-    },
-    '&:hover': {
-      background: 'var(--button-accept-primary)',
-      transition: 'all 0.4s ease 0s',
-      cursor: 'pointer',
     },
   },
   mobileButtonLink: {
@@ -215,8 +183,6 @@ function EditingCardsTabItem(props) {
     isViewingCardsState,
     handleViewCardsClick,
     handleAddCardClick,
-    isShowingModal,
-    isMobile,
   } = props;
   const { setName, category, iconClass, mastery } = userCardSet;
 

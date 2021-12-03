@@ -1,3 +1,5 @@
+import sizes from './sizes';
+
 export default {
   EditCollectionsItemBlankCard: {
     display: 'flex',
@@ -200,8 +202,8 @@ export default {
     fontSize: 'var(--button-fontSize-primary)',
     fontWeight: '500',
     background: 'var(--button-deny-dark)',
-    width: props => (props.isMobile ? '125px' : '80px'),
-    height: props => (props.isMobile ? '35px' : '30px'),
+    width: '80px',
+    height: '30px',
     border: 'none',
     transition: 'all 0.4s ease 0s',
     borderRadius: props => (props.isMobile ? '5px' : '5px'),
@@ -210,6 +212,13 @@ export default {
       background: 'var(--button-deny-primary)',
       transition: 'all 0.4s ease 0s',
       cursor: 'pointer',
+    },
+    [sizes.down('lg')]: {
+      width: '80%',
+    },
+    [sizes.down('md')]: {
+      width: '125px',
+      height: '35px',
     },
   },
   buttonSave: {
@@ -222,8 +231,8 @@ export default {
     fontSize: 'var(--button-fontSize-primary)',
     fontWeight: '500',
     background: 'var(--button-accept-dark)',
-    width: props => (props.isMobile ? '125px' : '80px'),
-    height: props => (props.isMobile ? '35px' : '30px'),
+    width: '80px',
+    height: '30px',
     marginLeft: props => (props.isMobile ? '5px' : '0px'),
     border: 'none',
     transition: 'all 0.4s ease 0s',
@@ -232,6 +241,13 @@ export default {
       background: 'var(--button-accept-primary)',
       transition: 'all 0.4s ease 0s',
       cursor: 'pointer',
+    },
+    [sizes.down('lg')]: {
+      width: '80%',
+    },
+    [sizes.down('md')]: {
+      width: '125px',
+      height: '35px',
     },
   },
   buttonLink: {

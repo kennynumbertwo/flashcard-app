@@ -2,6 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core';
 import Tooltip from '@mui/material/Tooltip';
 import Zoom from '@mui/material/Zoom';
+import sizes from './styles/sizes';
 
 const styles = {
   buttonBottomWrapper: {
@@ -22,10 +23,12 @@ const styles = {
       fontSize: '.9rem',
       margin: '0px 0px 0px 0px',
     },
-    '&:hover': {
-      backgroundColor: 'var(--button-accept-primary)',
-      transition: 'all 0.4s ease 0s',
-      cursor: 'pointer',
+    [sizes.up('md')]: {
+      '&:hover': {
+        backgroundColor: 'var(--button-accept-primary)',
+        transition: 'all 0.4s ease 0s',
+        cursor: 'pointer',
+      },
     },
     '&.highlighted': {
       animation: '1500ms ease-in-out infinite $buttonHighlight',
