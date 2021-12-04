@@ -365,11 +365,6 @@ function FlashcardTray(props) {
           </Tooltip>
         </div>
       </div>
-      {/* {highlightText && (
-        <div>
-          <p className={classes.highlightText}>{highlightText}</p>
-        </div>
-      )} */}
       <Modal
         isShowing={isShowingModal}
         buttonText={<i className="fas fa-thumbs-up" style={{ fontSize: '1.2rem' }} />}

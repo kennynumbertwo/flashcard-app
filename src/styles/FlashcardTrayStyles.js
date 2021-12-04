@@ -1,11 +1,13 @@
+import sizes from './sizes';
+
 export default {
   root: {
     display: 'flex',
     justifyContent: 'flext-start',
     alignItems: 'center',
     flexDirection: 'column',
-    maxWidth: '100%',
-    maxHeight: '100%',
+    maxWidth: '100vw',
+    maxHeight: '100vh',
     margin: '0px 0px 0px 0px',
     overflow: 'hidden',
     '& button': {
@@ -20,6 +22,9 @@ export default {
     alignItems: 'flex-start',
     height: '125px',
     width: '100%',
+    [sizes.down('sm')]: {
+      width: '99vw',
+    },
   },
   flashcardWrapper: {
     display: 'flex',
@@ -71,6 +76,14 @@ export default {
     },
     '50%': {
       transform: 'translateX(250%)',
+    },
+  },
+  '@-webkit-keyframes flashcardSlideInFirst': {
+    '0%': {
+      '-webkit-transform': 'translateX(250%)',
+    },
+    '50%': {
+      '-webkit-transform': 'translateX(250%)',
     },
   },
 

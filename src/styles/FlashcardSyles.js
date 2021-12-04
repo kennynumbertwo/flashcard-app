@@ -1,3 +1,5 @@
+import sizes from './sizes';
+
 export default {
   Flashcard: {
     height: '350px',
@@ -10,6 +12,12 @@ export default {
     backgroundColor: 'var(--background-white)',
     boxShadow: '5px 5px 10px 5px rgba(0, 0, 0, .1)',
     color: 'var(--text-primary-dark)',
+    [sizes.down('sm')]: {
+      width: '90vw',
+      height: '220px',
+      justifyContent: 'flex-start',
+      fontSize: '16px',
+    },
   },
   questionWrapper: {
     height: '50%',
@@ -17,12 +25,17 @@ export default {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    [sizes.down('sm')]: {
+    },
   },
   questionText: {
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-end',
+    [sizes.down('sm')]: {
+      alignItems: 'center',
+    },
   },
   answerWrapper: {
     height: '50%',
@@ -38,6 +51,9 @@ export default {
     justifyContent: 'center',
     alignItems: 'flex-start',
     color: 'var(--text-primary-dark)',
+    [sizes.down('sm')]: {
+      alignItems: 'flex-start',
+    },
     '&.answerIn': {
       animationName: '$answerIn',
       animationDuration: '300ms',

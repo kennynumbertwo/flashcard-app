@@ -1,3 +1,5 @@
+import sizes from './sizes';
+
 export default {
   masteryWrapper: {
     display: 'flex',
@@ -29,12 +31,14 @@ export default {
         color: 'var(--icon-star-filled-clicked)',
         transform: 'translateY(-4px)',
       },
-      '&:hover': {
-        color: props => (props.disabled ? null : 'var(--icon-star-filled-hover)'),
-        transform: 'translateY(-2px)',
-        '&.starClickedMain': {
-          color: 'var(--icon-star-filled-clicked)',
-          transform: 'translateY(-4px)',
+      [sizes.up('md')]: {
+        '&:hover': {
+          color: props => (props.disabled ? null : 'var(--icon-star-filled-hover)'),
+          transform: 'translateY(-2px)',
+          '&.starClickedMain': {
+            color: 'var(--icon-star-filled-clicked)',
+            transform: 'translateY(-4px)',
+          },
         },
       },
     },
@@ -72,12 +76,14 @@ export default {
         color: 'var(--icon-star-filled-clicked)',
         transform: 'translateY(-4px)',
       },
-      '&:hover': {
-        color: props => (props.disabled ? null : 'var(--icon-star-filled-hover)'),
-        transform: 'translateY(-2px)',
-        '&.starClickedMain': {
-          color: 'var(--icon-star-filled-clicked)',
-          transform: 'translateY(-4px)',
+      [sizes.up('md')]: {
+        '&:hover': {
+          color: props => (props.disabled ? null : 'var(--icon-star-filled-hover)'),
+          transform: 'translateY(-2px)',
+          '&.starClickedMain': {
+            color: 'var(--icon-star-filled-clicked)',
+            transform: 'translateY(-4px)',
+          },
         },
       },
     },
@@ -97,12 +103,14 @@ export default {
         color: 'var(--icon-star-filled-clicked)',
         transform: 'translateY(-4px)',
       },
-      '&:hover': {
-        color: props => (props.disabled ? null : 'var(--icon-star-filled-hover)'),
-        transform: 'translateY(-2px)',
-        '&.starClickedMain': {
-          color: 'var(--icon-star-filled-clicked)',
-          transform: 'translateY(-4px)',
+      [sizes.up('md')]: {
+        '&:hover': {
+          color: props => (props.disabled ? null : 'var(--icon-star-filled-hover)'),
+          transform: 'translateY(-2px)',
+          '&.starClickedMain': {
+            color: 'var(--icon-star-filled-clicked)',
+            transform: 'translateY(-4px)',
+          },
         },
       },
     },

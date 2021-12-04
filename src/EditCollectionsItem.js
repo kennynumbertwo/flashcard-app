@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core';
-import { doc, updateDoc, deleteField, setDoc } from 'firebase/firestore/lite';
+import { doc, updateDoc, deleteField } from 'firebase/firestore/lite';
 import useInputState from './hooks/useInputState';
 import db from './firebase.config';
-import IconListModal from './IconListModal';
-import IconCard from './IconCard';
 import styles from './styles/EditCollectionsItemStyles';
 import EditingDecksTabItem from './EditingDecksTabItem';
 import EditingCardsTabItem from './EditingCardsTabItem';
@@ -19,8 +17,6 @@ function EditCollectionsItem(props) {
   const [categoryInput, updateCategoryInput, setCategoryValue] = useInputState(props.category);
 
   // State for the IconListModal
-  const [isShowingIconList, setIsShowingIconList] = useState(false);
-  const [isAnimatingModal, setIsAnimatingModal] = useState(false);
   const [selectedIcon, setSelectedIcon] = useState('');
   const [selectedIconClass, setSelectedIconClass] = useState(props.userCardSet.iconClass);
   const [isShowingModal, setIsShowingModal] = useState(false);

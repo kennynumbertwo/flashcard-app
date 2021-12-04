@@ -1,3 +1,5 @@
+import sizes from './sizes';
+
 export default {
   FlashcardStatsWrapper: {
     display: 'flex',
@@ -6,6 +8,9 @@ export default {
     width: '650px',
     height: '100%',
     color: 'var(--text-primary)',
+    [sizes.down('sm')]: {
+      width: '100vw',
+    },
   },
   mainCard: {
     display: 'flex',
@@ -51,6 +56,9 @@ export default {
     animationIterationCount: '1',
     animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
     animationDuration: '1000ms',
+    [sizes.down('sm')]: {
+      width: '27%',
+    },
   },
   statsMiddleWrapper: {
     display: 'flex',
@@ -69,6 +77,9 @@ export default {
     animationIterationCount: '1',
     animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
     animationDuration: '750ms',
+    [sizes.down('sm')]: {
+      width: '46%',
+    },
   },
 
   '@keyframes statsMidSlideIn': {
@@ -103,6 +114,9 @@ export default {
     animationIterationCount: '1',
     animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
     animationDuration: '1050ms',
+    [sizes.down('sm')]: {
+      width: '27%',
+    },
   },
   setNameWrapper: {
     display: 'flex',
@@ -160,6 +174,12 @@ export default {
       '& span': {
         fontWeight: '600',
       },
+      [sizes.down('sm')]: {
+        fontSize: '.9rem',
+      },
+    },
+    [sizes.down('sm')]: {
+      paddingLeft: '10px',
     },
   },
   masteryText: {
@@ -179,6 +199,12 @@ export default {
       '& span': {
         fontWeight: '600',
       },
+      [sizes.down('sm')]: {
+        fontSize: '.9rem',
+      },
+    },
+    [sizes.down('sm')]: {
+      paddingRight: '10px',
     },
   },
 };

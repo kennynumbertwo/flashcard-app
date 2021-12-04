@@ -1,7 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 import ProgressBarVert from './ProgressBarVert';
-import Modal from './Modal';
 
 const styles = {
   EditingCardsTabItemMobile: {
