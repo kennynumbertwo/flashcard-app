@@ -77,13 +77,8 @@ export default {
     '50%': {
       transform: 'translateX(250%)',
     },
-  },
-  '@-webkit-keyframes flashcardSlideInFirst': {
-    '0%': {
-      '-webkit-transform': 'translateX(250%)',
-    },
-    '50%': {
-      '-webkit-transform': 'translateX(250%)',
+    '100%': {
+      transform: 'translateX(0%)',
     },
   },
 
@@ -126,7 +121,9 @@ export default {
       opacity: '1',
     },
     '50%': {
-
+      opacity: '0',
+    },
+    '100%': {
       opacity: '0',
     },
   },
@@ -169,6 +166,9 @@ export default {
     '60%': {
       width: '0px',
     },
+    '100%': {
+      width: '0px',
+    },
   },
   actionsWrapper: {
     width: '100%',
@@ -201,6 +201,9 @@ export default {
     },
     '50%': {
       opacity: '0',
+    },
+    '100%': {
+      opacity: '1',
     },
   },
   restartButton: {

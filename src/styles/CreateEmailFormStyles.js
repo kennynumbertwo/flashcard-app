@@ -6,6 +6,10 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    [sizes.down('xs')]: {
+      alignItems: 'flex-start',
+      marginTop: '75px',
+    },
   },
   CreateEmailFormCard: {
     height: '600px',
@@ -26,7 +30,8 @@ export default {
       margin: '0px 0px 0px 0px',
     },
     [sizes.down('xs')]: {
-      maxWidth: '85vw',
+      maxWidth: '80vw',
+      maxHeight: '70vh',
     },
     '&.animateOut': {
       animationName: '$CreateEmailFormCardAnimateOut',
@@ -122,6 +127,11 @@ export default {
     border: 'none',
     transition: 'all 0.4s ease 0s',
     borderRadius: '5px',
+    [sizes.down('xs')]: {
+      width: '110px',
+      height: '40px',
+      fontSize: '14px',
+    },
     '& svg': {
       fontSize: '30px',
     },

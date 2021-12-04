@@ -29,4 +29,7 @@ export default {
   dividerWrapper: {
     paddingBottom: '10px',
   },
+  popper: {
+    zIndex: 1500,
+  },
 };

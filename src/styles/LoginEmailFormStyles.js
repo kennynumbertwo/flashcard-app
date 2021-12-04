@@ -6,6 +6,10 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    [sizes.down('xs')]: {
+      alignItems: 'flex-start',
+      marginTop: '75px',
+    },
   },
   LoginEmailFormCard: {
     height: '600px',
@@ -38,7 +42,8 @@ export default {
       animationDuration: '0.5s',
     },
     [sizes.down('xs')]: {
-      maxWidth: '85vw',
+      maxWidth: '80vw',
+      maxHeight: '70vh',
     },
   },
   '@keyframes LoginCardEmailFormAnimateIn': {
@@ -160,6 +165,11 @@ export default {
       background: 'var(--button-accept-primary)',
       transition: 'all 0.4s ease 0s',
       cursor: 'pointer',
+    },
+    [sizes.down('xs')]: {
+      width: '110px',
+      height: '40px',
+      fontSize: '14px',
     },
   },
   noAccountWrapper: {

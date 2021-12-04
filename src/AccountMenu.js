@@ -19,14 +19,13 @@ function AccountMenu(props) {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-    if (event.target.innerText === 'Logout') {
-      setOpen(false);
-      logoutUser();
-    }
+  const handleClose = () => {
+    setOpen(false);
+    logoutUser();
+    setOpen(false);
+  };
+
+  const handleClickAway = (event) => {
     setOpen(false);
   };
 
@@ -61,11 +60,12 @@ function AccountMenu(props) {
           aria-expanded={open ? 'true' : undefined}
           aria-haspopup="true"
           onClick={handleToggle}
-          sx={{ width: '30px', height: '36px', minWidth: '36px', borderRadius: '50px', zIndex: 1 }}
+          sx={{ width: '30px', height: '36px', minWidth: '36px', borderRadius: '50px' }}
         >
           <AccountCircleIcon className={classes.accountIcon} sx={{ fontSize: '1.9rem' }} />
         </Button>
         <Popper
+          className={classes.popper}
           open={open}
           anchorEl={anchorRef.current}
           role={undefined}
@@ -82,7 +82,7 @@ function AccountMenu(props) {
               }}
             >
               <Paper>
-                <ClickAwayListener onClickAway={handleClose}>
+                <ClickAwayListener onClickAway={handleClickAway}>
                   <MenuList
                     autoFocusItem={open}
                     id="composition-menu"
