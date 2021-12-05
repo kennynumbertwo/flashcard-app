@@ -15,11 +15,6 @@ function FlashcardStats(props) {
   return (
     <div className={classes.FlashcardStatsWrapper}>
       <div className={classes.mainCard}>
-        {/* <div className={classes.statsHeaderWrapper}>
-          <div className={classes.setNameWrapper}>
-            <h4>{currentCardSetName}</h4>
-          </div>
-        </div> */}
         <div className={classes.statsBodyWrapper}>
           <div className={classes.statsLeftWrapper}>
             <div className={classes.cardCountWrapper}>

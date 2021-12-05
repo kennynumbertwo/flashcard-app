@@ -14,6 +14,7 @@ function Modal(props) {
     secondButtonText,
   } = props;
 
+  // Click handler for the modal Button Click
   const handleButtonClick = (e) => {
     if (e.currentTarget.id === 'accept' && buttonAction) {
       buttonAction();

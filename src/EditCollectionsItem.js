@@ -75,6 +75,7 @@ function EditCollectionsItem(props) {
     );
   };
 
+  // Click handler for hiding modal
   const handleModalHide = () => {
     setIsShowingModal(false);
   };

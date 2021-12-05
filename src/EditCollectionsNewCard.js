@@ -18,6 +18,7 @@ function EditCollectionsNewCard(props) {
     setIsAnimatingCardItem,
     isMobile,
   } = props;
+
   // Default state for New Cards
   const [newCardFields, setNewCardFields] = useState({
     question: '',
@@ -29,11 +30,13 @@ function EditCollectionsNewCard(props) {
     masteryRating: 0,
   });
 
+  // Event listener for keydown event when adding a new card
   useEffect(() => {
     window.addEventListener('keydown', handleKeydown);
     return () => window.removeEventListener('keydown', handleKeydown);
   }, [newCardFields]);
 
+  // Handler for the keydown event listener
   const handleKeydown = (e) => {
     if (e.key === 'Enter') {
       handleSaveCard();
@@ -43,10 +46,12 @@ function EditCollectionsNewCard(props) {
     }
   };
 
+  // Handler for new card text fields
   const handleChange = (e) => {
     setNewCardFields({ ...newCardFields, [e.target.id]: e.target.value });
   };
 
+  // Save card event handler
   const handleSaveCard = async () => {
     setIsAnimatingCardItem(false);
     setSnackbarMessage('Card Added');
@@ -64,6 +69,7 @@ function EditCollectionsNewCard(props) {
     fetchUserCardSets();
   };
 
+  // Click handlers for canceling a new card
   const handleCancel = () => {
     setIsAddingCard(false);
   };

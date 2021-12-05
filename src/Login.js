@@ -63,6 +63,7 @@ function Login(props) {
     console.log(docRef);
   };
 
+  // Authentication function for Github
   const authenticateGithub = () => {
     const provider = new GithubAuthProvider();
     provider.setCustomParameters({
@@ -91,6 +92,7 @@ function Login(props) {
       });
   };
 
+  // Authentication Function for Facebook
   const authenticateFacebook = () => {
     const provider = new FacebookAuthProvider();
     provider.setCustomParameters({
@@ -119,6 +121,7 @@ function Login(props) {
       });
   };
 
+  // Authentication function for Google
   const authenticateGoogle = () => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({
@@ -226,17 +229,14 @@ function Login(props) {
         if (errorCode === 'auth/wrong-password') {
           errorText = 'Incorrect password';
           setPasswordErrorState(errorCode, errorMessage, errorText);
-        // Handle linking here if your app allows it.
         }
         if (errorCode === 'auth/user-not-found') {
           errorText = 'Account not found';
           setPasswordErrorState(errorCode, errorMessage, errorText);
-        // Handle linking here if your app allows it.
         }
         if (errorCode === 'auth/invalid-email') {
           errorText = 'Account not found';
           setEmailErrorState(errorCode, errorMessage, errorText);
-        // Handle linking here if your app allows it.
         } else {
           console.log(
             `Error Code: ${errorCode}`,

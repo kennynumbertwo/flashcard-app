@@ -59,6 +59,7 @@ function LoginEmailForm(props) {
     }
   }, [props.userToLogIn]);
 
+  // Sets the error text to the page
   useEffect(() => {
     if (errorState.errorMessage) {
       setErrorAnimation('errorIn');
@@ -71,6 +72,7 @@ function LoginEmailForm(props) {
     }
   }, [errorState.errorMessage]);
 
+  // Click handler for create account
   const handleCreateEmailLogin = () => {
     setErrorState({
       errorMessage: '',
@@ -140,7 +142,6 @@ function LoginEmailForm(props) {
           <FormControl variant="standard">
             <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
             <Input
-              // sx={{ width: '275px' }}
               id="standard-adornment-password"
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}

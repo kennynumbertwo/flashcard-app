@@ -24,12 +24,15 @@ function EditCollections(props) {
     sortId: 'setName',
     sortAsc: true,
   });
-    // State for filter
+
+  // State for filter
   const [filterState, setFilterState] = useState({
     isFiltered: false,
     showClearFilter: false,
     filtered: [],
   });
+
+  // State for which components should be displayed based on click events
   const [isAddingDeck, setIsAddingDeck] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [isEditingDecksTab, setIsEditingDecksTab] = useState(true);
@@ -58,16 +61,10 @@ function EditCollections(props) {
   // State for window size
   const [isMobile, setIsMobile] = useState(false);
 
+  // State for React Router History
   let history = useHistory();
 
-  const handleCloseSnackbar = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpenSnackbar(false);
-  };
-
+  // Action for Material UI Snackbar
   const action = (
     <React.Fragment>
       <CheckIcon sx={{ paddingRight: '10px' }} />
@@ -87,6 +84,8 @@ function EditCollections(props) {
     logoutUser,
     user,
   } = props;
+
+  //  <---------------   useEffect Functions   --------------->
 
   // Listen for the window size
   useEffect(() => {
@@ -134,37 +133,26 @@ function EditCollections(props) {
     }
   }, [userCardSetDatabase]);
 
-  // Updates the state when Viewing a decks and adding or deleting cards
-  const getUpdatedViewState = () => {
-    let updatedViewState = {};
-    userCardSetDatabase.forEach(cardSet => {
-      if (cardSet.setName === isViewingCardsState.setName) {
-        updatedViewState = { ...cardSet };
-      }
-    });
-    return updatedViewState;
-  };
-
   //  <---------------  Filter functions for Material UI Dropdown   --------------->
 
   // Close handler for the Material UI sort dropdown
-  const handleClose = (e) => {
+  const handleClose = (id) => {
+    console.log(id);
     let filtered = [];
-    if (e.target.role === 'menuitem') {
-      if (e.target.innerText === 'Clear Filter') {
-        setSelectedFilter('');
-        setFilterState({ ...filterState, filtered: [], isFiltered: false });
-      }
-      if (e.target.innerText !== 'Clear Filter') {
-        sortState.sortedDatabase.forEach(cardSet => {
-          if (cardSet.category === e.target.innerText) {
-            filtered.push(cardSet);
-          }
-        });
-        setSelectedFilter(e.target.innerText);
-        setFilterState({ ...filterState, filtered, isFiltered: true });
-      }
+    if (id === 'Clear Filter') {
+      setSelectedFilter('');
+      setFilterState({ ...filterState, filtered: [], isFiltered: false });
     }
+    if (id !== 'Clear Filter') {
+      sortState.sortedDatabase.forEach(cardSet => {
+        if (cardSet.category === id) {
+          filtered.push(cardSet);
+        }
+      });
+      setSelectedFilter(id);
+      setFilterState({ ...filterState, filtered, isFiltered: true });
+    }
+
     setAnchorEl(null);
   };
 
@@ -231,12 +219,22 @@ function EditCollections(props) {
     setIsAddingCard(true);
   };
 
+  // Click handler for My Collections button
   const handleRunDecksClick = () => {
     history.push('/my-collections');
   };
 
+  // Click handler for Material UI Snackbar
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
+
   //  <---------------  Utility Functions for EditCollections   --------------->
 
+  // Gets the mastery rating for all card in an indivual deck
   const getTotalMasteryRating = (array) => {
     let totalMasteryRating = 0;
     array.forEach(flashcard => {
@@ -251,6 +249,7 @@ function EditCollections(props) {
     return mastery;
   };
 
+  // Updates the card number when a card is deleted from a deck
   const getDeletedCardArray = (cardToDelete) => {
     let cardNum = 1;
     let deletedArray = isViewingCardsState.cardSet.cards.filter(card => card !== cardToDelete);
@@ -263,6 +262,7 @@ function EditCollections(props) {
     return finalArray;
   };
 
+  // Sorts the decks in ascended and descending order based on an ID
   const sortCollections = (id) => {
     const dbCopy = [...userCardSetDatabase];
     if (sortState.sortAsc) {
@@ -271,6 +271,17 @@ function EditCollections(props) {
     }
     const sorted = dbCopy.sort((a, b) => (a[id] > b[id] ? -1 : 1));
     return setSortState({ ...sortState, isSorted: true, sortedDatabase: sorted });
+  };
+
+  // Updates the state when Viewing a decks and adding or deleting cards
+  const getUpdatedViewState = () => {
+    let updatedViewState = {};
+    userCardSetDatabase.forEach(cardSet => {
+      if (cardSet.setName === isViewingCardsState.setName) {
+        updatedViewState = { ...cardSet };
+      }
+    });
+    return updatedViewState;
   };
 
   // Render

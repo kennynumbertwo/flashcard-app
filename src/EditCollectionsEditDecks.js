@@ -1,17 +1,7 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core';
 import EditCollectionsItemBlank from './EditCollectionsItemBlank';
 import EditCollectionsItem from './EditCollectionsItem';
 
-const styles = {
-  // EditDecksWrapper: {
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //   alignItems: 'flex-start',
-  //   flexDirection: 'column',
-  //   width: '100%',
-  // },
-};
 function EditCollectionsEditDecks(props) {
   const {
     isAddingDeck,
@@ -95,4 +85,4 @@ function EditCollectionsEditDecks(props) {
   );
 }
 
-export default withStyles(styles)(EditCollectionsEditDecks);
+export default EditCollectionsEditDecks;

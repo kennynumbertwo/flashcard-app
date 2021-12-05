@@ -80,12 +80,12 @@ function CategoryFilter(props) {
         }}
       >
         {filterState.showClearFilter && (
-        <MenuItem key="clear-filter" onClick={handleClose}>
+        <MenuItem key="clear-filter" onClick={() => handleClose('Clear Filter')}>
           Clear Filter
         </MenuItem>
         )}
         {filterOptions.map((option) => (
-          <MenuItem key={option} selected={option === selectedFilter} onClick={handleClose}>
+          <MenuItem key={option} selected={option === selectedFilter} onClick={() => handleClose(option)}>
             {option}
           </MenuItem>
         ))}

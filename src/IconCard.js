@@ -14,6 +14,7 @@ function IconCard(props) {
     isMobile,
   } = props;
 
+  // Click handler for selecting an icon
   const handleClick = () => {
     setSelectedIcon(iconName);
     setSelectedIconClass(iconClass);

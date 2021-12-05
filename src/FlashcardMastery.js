@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/styles';
 import StarIcon from '@mui/icons-material/Star';
-import styles from './styles/FlashcardMasterStyles';
+import styles from './styles/FlashcardMasteryStyles';
 
 function Mastery(props) {
   const [starTwoClass, setStarTwoClass] = useState('starNotFilled');
@@ -11,18 +11,19 @@ function Mastery(props) {
   const { classes, starState, handleStarClick, disabled } = props;
   const { starOne, starTwo, starThree } = starState;
 
+  // Handler for mouse hover on a star
   const handleStarHover = (e) => {
     if (!disabled) {
       if (e._reactName === 'onMouseEnter') {
         if (e.currentTarget.id === 'starThree') {
           setStarTwoClass('starFilled');
-          // setHighlightText('Mastery Rating');
         }
       }
       if (e._reactName === 'onMouseLeave') { setStarTwoClass('starNotFilled'); }
     }
   };
 
+  // Click handler for star rating click
   const handleStarClickAnimation = (e) => {
     if (!disabled) {
       handleStarClick(e);

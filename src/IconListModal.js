@@ -13,6 +13,7 @@ import styles from './styles/IconListModalStyles';
 
 const ITEM_HEIGHT = 48;
 
+// Function for setting the names of the filter selection
 const getIconNames = (iconList) => {
   let filters = [];
   iconList.forEach(icon => {
@@ -30,6 +31,7 @@ const iconPerPage = 40;
 
 const pageNum = Math.ceil(icons.length / iconPerPage);
 
+// Function for creating the total number of pages for the icons
 const getPageList = (array) => {
   let pageArray = [];
   for (let i = 0; i < pageNum; i++) {
@@ -60,10 +62,12 @@ function IconList(props) {
     isMobile,
   } = props;
 
+  // Click handler for the filter menu
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  // Function for filtering the icons based on category
   const filterPage = (array, filter) => {
     let filtered = [];
     array.forEach(icon => {
@@ -74,18 +78,21 @@ function IconList(props) {
     return filtered;
   };
 
+  // Click handler for the right button
   const handleRightClick = () => {
     if (showPageNum < pageNum - 1) {
       setShowPageNum(showPageNum + 1);
     }
   };
 
+  // Click handler for the left button
   const handleLeftClick = () => {
     if (showPageNum > 0) {
       setShowPageNum(showPageNum - 1);
     }
   };
 
+  // Click handler for the close button
   const handleClose = (e) => {
     if (e.target.role === 'menuitem') {
       if (e.target.innerText === 'Clear Filter') {

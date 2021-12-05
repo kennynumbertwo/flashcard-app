@@ -18,6 +18,7 @@ function CardItem(props) {
     isMobile,
   } = props;
 
+  // Click handler for deleting a card from a deck
   const handleDelete = async () => {
     setIsAnimatingCardItem(false);
     let updatedCards = getDeletedCardArray(card);

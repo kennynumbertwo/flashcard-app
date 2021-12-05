@@ -42,10 +42,12 @@ export default function Routes(props) {
     fetchStockCards,
   } = props;
 
+  // Fetches the a users collections when the user object is updated
   useEffect(() => {
     fetchUserCardSets();
   }, [user]);
 
+  // Fetches a users collections from Firestore
   const fetchUserCardSets = async () => {
     try {
       setUserDeckState({ isLoading: true, errorMessage: '', userCardSetDatabase: null });
@@ -68,12 +70,14 @@ export default function Routes(props) {
     }
   };
 
+  // Function for deleting a setname from the useDeckState
   const deleteUserDatabaseSet = (setNameToDelete) => {
     const databaseCopy = [...userDeckState.userCardSetDatabase];
     const updatedDatabase = databaseCopy.filter(cardSet => cardSet.setName !== setNameToDelete);
     setUserDeckState({ ...userDeckState, userCardSetDatabase: updatedDatabase });
   };
 
+  // Sets Card Collections when the UserDeckState is updated
   useEffect(() => {
     if (userDeckState.userCardSetDatabase) {
       setUserCardCollections(getCardCollections(userDeckState.userCardSetDatabase));

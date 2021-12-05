@@ -97,9 +97,6 @@ export default {
     '& .MuiFormControl-root.MuiTextField-root': {
       width: '75%',
     },
-    // '&. MuiInput-root.MuiInput-underline.MuiInputBase-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd': {
-    //   width: '75%',
-    // },
   },
   buttonWrapper: {
     display: 'flex',
@@ -108,8 +105,6 @@ export default {
     flexDirection: 'column',
     height: '15%',
     width: '100%',
-    // border: '1px solid black',
-    // marginBottom: '20px',
   },
   loginButton: {
     display: 'flex',

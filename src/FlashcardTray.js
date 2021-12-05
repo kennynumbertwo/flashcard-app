@@ -50,6 +50,7 @@ function FlashcardTray(props) {
     setIsShowingModal,
   } = props;
 
+  // Shows a modal when a dock deck is selected. Gives the user an option to add the deck to their collection
   useEffect(() => {
     if (stockCardSet) {
       setIsShowingModal(true);
@@ -70,6 +71,7 @@ function FlashcardTray(props) {
     }
   }, [userCardSetDatabase, flashcards.length, currentCardSetName], isLoading);
 
+  // Shuffles the selected deck on render
   useEffect(() => {
     if (shuffledDeck.length > 0) {
       setIsLoading(false);
@@ -149,7 +151,7 @@ function FlashcardTray(props) {
     }
   };
 
-  // Function to toggle viewing the answer
+  // Click handler for the show answer button
   const handleShowAnswer = () => {
     if (showAnswer) {
       setAnswerAnimation('answerOut');
@@ -163,7 +165,7 @@ function FlashcardTray(props) {
     }
   };
 
-  // Reshuffles the deck once you've drawn all cards
+  // Click handler for restarting the selected deck
   const handleStartOver = () => {
     if (userCardSet) {
       setCardAnimation('animateStartOver');
@@ -185,10 +187,12 @@ function FlashcardTray(props) {
     }
   };
 
+  // Click handler for back to collections button
   const handleBackButton = () => {
     history.push('/my-collections');
   };
 
+  // Click handler for setting the updated deck rating on star click
   const handleStarClick = (e) => {
     let shuffledCopy = [...shuffledDeck];
     let flashcardsCopy = [...flashcards];
@@ -220,6 +224,7 @@ function FlashcardTray(props) {
     updateMastery(mastery);
   };
 
+  // Function to get the total masters rating for the full deck
   const getTotalMasteryRating = (array) => {
     let totalMasteryRating = 0;
     array.forEach(flashcard => {
@@ -234,6 +239,7 @@ function FlashcardTray(props) {
     return mastery;
   };
 
+  // Function for getting the mastery percentage for the current deck
   const getMasteryPercentage = (array) => {
     let totalMasteryRating = 0;
     array.forEach(flashcard => {
@@ -243,6 +249,7 @@ function FlashcardTray(props) {
     return percentage;
   };
 
+  // Function that updated the mastery rating on all cards for the selected deck in Firestore
   const updateMasteryRating = async (updatedFlashcards) => {
     const userRef = doc(db, 'users', uid);
     const updateString = `${currentCardSetName.toLowerCase().replace(/\s+/g, '-')}.cards`;
@@ -251,6 +258,7 @@ function FlashcardTray(props) {
     );
   };
 
+  // function for updateing the the overall master rating for the deck
   const updateMastery = async (mastery) => {
     const userRef = doc(db, 'users', uid);
     const updateString = `${currentCardSetName.toLowerCase().replace(/\s+/g, '-')}.mastery`;
@@ -259,6 +267,7 @@ function FlashcardTray(props) {
     );
   };
 
+  // Saves a stock deck to a users collection if approved in the modal
   const handleModalYes = async () => {
     let deckToSave = {};
     userCardSetDatabase.forEach(cardSet => {
@@ -271,6 +280,7 @@ function FlashcardTray(props) {
     setIsShowingMastery(true);
   };
 
+  // Hides modal on decline
   const handleModalHide = () => {
     setIsShowingModal(false);
   };

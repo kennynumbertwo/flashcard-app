@@ -118,36 +118,7 @@ function UserCollectionsPage(props) {
     });
   };
 
-  // Close handler for the Material UI sort dropdown
-  const handleClose = (e) => {
-    let filtered = [];
-    if (e.target.role === 'menuitem') {
-      if (e.target.innerText === 'Clear Filter') {
-        setSelectedFilter('');
-        setFilterState({ ...filterState, filtered: [], isFiltered: false });
-      }
-      if (e.target.innerText !== 'Clear Filter') {
-        if (myDecksTab) {
-          sortState.sortedDatabase.forEach(cardSet => {
-            if (cardSet.category === e.target.innerText) {
-              filtered.push(cardSet);
-            }
-          });
-        }
-        if (stockDecksTab) {
-          stockSortState.sortedStockDatabase.forEach(cardSet => {
-            if (cardSet.category === e.target.innerText) {
-              filtered.push(cardSet);
-            }
-          });
-        }
-        setSelectedFilter(e.target.innerText);
-        setFilterState({ ...filterState, filtered, isFiltered: true });
-      }
-    }
-    setAnchorEl(null);
-  };
-
+  // Gets the filter options for the category filter
   const getFilterOptions = () => {
     let options = [];
     if (myDecksTab) {
@@ -212,6 +183,36 @@ function UserCollectionsPage(props) {
         filtered: [],
       });
     }
+  };
+
+  // Close handler for the Material UI sort dropdown
+  const handleClose = (id) => {
+    let filtered = [];
+
+    if (id === 'Clear Filter') {
+      setSelectedFilter('');
+      setFilterState({ ...filterState, filtered: [], isFiltered: false });
+    }
+    if (id !== 'Clear Filter') {
+      if (myDecksTab) {
+        sortState.sortedDatabase.forEach(cardSet => {
+          if (cardSet.category === id) {
+            filtered.push(cardSet);
+          }
+        });
+      }
+      if (stockDecksTab) {
+        stockSortState.sortedStockDatabase.forEach(cardSet => {
+          if (cardSet.category === id) {
+            filtered.push(cardSet);
+          }
+        });
+      }
+      setSelectedFilter(id);
+      setFilterState({ ...filterState, filtered, isFiltered: true });
+    }
+
+    setAnchorEl(null);
   };
 
   //  <---------------  Utility Functions for EditDeckList   --------------->

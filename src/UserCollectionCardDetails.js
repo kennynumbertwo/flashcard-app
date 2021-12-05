@@ -27,6 +27,7 @@ function UserCollectionCardDetails(props) {
 
   const [cardQuantity, setCardQuantity] = React.useState(totalCards);
 
+  // Click handler for starting a run on a deck
   const handleStart = () => {
     setRoundState({ cardQuantity });
     setCurrentCardSetName(setName);
@@ -39,6 +40,7 @@ function UserCollectionCardDetails(props) {
     setCardQuantity(event.target.value);
   };
 
+  // Function for setting the card quantity on a run
   const getCardQuantity = (num) => {
     let cardQuantityArray = [];
     if (num < 30) {

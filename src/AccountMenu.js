@@ -25,7 +25,7 @@ function AccountMenu(props) {
     setOpen(false);
   };
 
-  const handleClickAway = (event) => {
+  const handleClickAway = () => {
     setOpen(false);
   };
 
@@ -44,7 +44,6 @@ function AccountMenu(props) {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
-
     prevOpen.current = open;
   }, [open]);
 
@@ -98,7 +97,6 @@ function AccountMenu(props) {
                         <div className={classes.dividerWrapper}>
                           <Divider />
                         </div>
-                        {/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
                         <MenuItem onClick={handleClose}>Logout</MenuItem>
                       </div>
                     )}

@@ -34,6 +34,7 @@ function EditCollectionsItemBlank(props) {
     isMobile,
   } = props;
 
+  // Sets the deck fields for the selected card
   useEffect(() => {
     setDeckFields({ ...deckFields,
       id: deckFields.setName.replace(/\s+/g, '-').toLowerCase(),
@@ -41,11 +42,13 @@ function EditCollectionsItemBlank(props) {
     });
   }, [deckFields.setName, selectedIconClass]);
 
+  // Event listener for keydown event when creating a new deck
   useEffect(() => {
     window.addEventListener('keydown', handleKeydown);
     return () => window.removeEventListener('keydown', handleKeydown);
   }, [deckFields]);
 
+  // Handler for the keydown event listener
   const handleKeydown = (e) => {
     if (e.key === 'Enter') {
       handleSaveDeck();
@@ -74,6 +77,7 @@ function EditCollectionsItemBlank(props) {
     }, 140);
   };
 
+  // Click handler for saving a deck
   const handleSaveDeck = async () => {
     const userRef = doc(db, 'users', uid);
     await setDoc(userRef, { [deckFields.id]: deckFields }, { merge: true });
@@ -83,6 +87,7 @@ function EditCollectionsItemBlank(props) {
     setSnackbarMessage('Deck Added');
   };
 
+  // Handles the change in the deck name and category fields
   const handleChange = (e) => {
     setDeckFields({ ...deckFields, [e.target.id]: e.target.value });
   };

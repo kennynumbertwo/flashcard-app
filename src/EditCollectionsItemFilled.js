@@ -31,16 +31,18 @@ function EditCollectionsItemFilled(props) {
     updateCategoryInput,
   } = props;
   const { setName } = userCardSet;
-  // State for the IconListModal
 
+  // State for the IconListModal
   const [isShowingIconList, setIsShowingIconList] = useState(false);
   const [isAnimatingModal, setIsAnimatingModal] = useState(false);
 
+  // Event listener for keydown event when updating new deck
   useEffect(() => {
     window.addEventListener('keydown', handleKeydown);
     return () => window.removeEventListener('keydown', handleKeydown);
   }, [setNameInput, categoryInput]);
 
+  // Handler for the keydown event listener
   const handleKeydown = (e) => {
     if (e.key === 'Enter') {
       handleSaveDeck();

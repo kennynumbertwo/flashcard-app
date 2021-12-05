@@ -16,18 +16,6 @@ function FlashcardActions(props) {
     setHighlightText,
   } = props;
 
-  // const handleHover = (e) => {
-  //   if (e._reactName === 'onMouseEnter') {
-  //     if (e.currentTarget.id === 'previous' && cardCount > 0) {
-  //       setHighlightText('Previous Card');
-  //     }
-  //     if (e.currentTarget.id === 'next' && (cardCount + 1) !== cardQuantity) {
-  //       setHighlightText('Next Card');
-  //     }
-  //   }
-  //   if (e._reactName === 'onMouseLeave') { setHighlightText(''); }
-  // };
-
   return (
     <div className={classes.FlashcardActionsWrapper}>
       <div className={classes.FlashcardActionsWrapperInner}>
