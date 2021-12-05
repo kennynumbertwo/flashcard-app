@@ -5,7 +5,10 @@ import {
   FacebookAuthProvider,
   GithubAuthProvider,
   GoogleAuthProvider,
-  createUserWithEmailAndPassword, signInWithEmailAndPassword }
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+}
   from 'firebase/auth';
 import { Redirect } from 'react-router-dom';
 import { doc } from 'firebase/firestore/lite';
@@ -213,6 +216,31 @@ function Login(props) {
       });
   };
 
+  const sendPasswordReset = (email) => {
+    const auth = getAuth();
+    console.log(auth);
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        setEmailErrorState('', '', 'Email Sent!');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        let errorText = '';
+        if (errorCode === 'auth/invalid-email') {
+          errorText = 'Account not found';
+          setEmailErrorState(errorCode, errorMessage, errorText);
+        }
+        if (errorCode === 'auth/missing-email') {
+          errorText = 'Please enter your email';
+          setEmailErrorState(errorCode, errorMessage, errorText);
+        } else {
+          errorText = errorMessage;
+          setEmailErrorState(errorCode, errorMessage, errorText);
+        }
+      });
+  };
+
   const signInWithEmail = (email, password) => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
@@ -287,6 +315,7 @@ function Login(props) {
         firstSignIn={firstSignIn}
         errorState={errorState}
         setErrorState={setErrorState}
+        sendPasswordReset={sendPasswordReset}
       />
     );
   }

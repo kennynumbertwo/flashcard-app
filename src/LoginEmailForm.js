@@ -39,6 +39,7 @@ function LoginEmailForm(props) {
     signInWithEmail,
     setErrorState,
     errorState,
+    sendPasswordReset,
   } = props;
 
   // Checks if there is a user to login AND if there is an authenticated user already signed in
@@ -120,6 +121,10 @@ function LoginEmailForm(props) {
     event.preventDefault();
   };
 
+  const handleSendPasswordResetEmail = () => {
+    sendPasswordReset(email);
+  };
+
   return (
     <nav className={classes.Login}>
       <div className={isAnimatingOut ? `${classes.LoginEmailFormCard} animateOut${animateClass}` : `${classes.LoginEmailFormCard}`}>
@@ -178,6 +183,13 @@ function LoginEmailForm(props) {
             className={classes.noAccountText}
             onClick={handleCreateEmailLogin}
           >Don&apos;t Have An Account? <ArrowRightAltIcon className="navArrow" />
+          </a>
+        </div>
+        <div className={classes.noAccountWrapper}>
+          <a
+            className={classes.noAccountText}
+            onClick={handleSendPasswordResetEmail}
+          >Forgot Password? <ArrowRightAltIcon className="navArrow" />
           </a>
         </div>
         <div className={classes.dividerBlock}>
