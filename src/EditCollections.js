@@ -137,7 +137,6 @@ function EditCollections(props) {
 
   // Close handler for the Material UI sort dropdown
   const handleClose = (id) => {
-    console.log(id);
     let filtered = [];
     if (id === 'Clear Filter') {
       setSelectedFilter('');
@@ -149,8 +148,10 @@ function EditCollections(props) {
           filtered.push(cardSet);
         }
       });
-      setSelectedFilter(id);
-      setFilterState({ ...filterState, filtered, isFiltered: true });
+      if (filtered.length > 0) {
+        setSelectedFilter(id);
+        setFilterState({ ...filterState, filtered, isFiltered: true });
+      }
     }
 
     setAnchorEl(null);

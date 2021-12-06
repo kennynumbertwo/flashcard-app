@@ -188,7 +188,6 @@ function UserCollectionsPage(props) {
   // Close handler for the Material UI sort dropdown
   const handleClose = (id) => {
     let filtered = [];
-
     if (id === 'Clear Filter') {
       setSelectedFilter('');
       setFilterState({ ...filterState, filtered: [], isFiltered: false });
@@ -208,8 +207,10 @@ function UserCollectionsPage(props) {
           }
         });
       }
-      setSelectedFilter(id);
-      setFilterState({ ...filterState, filtered, isFiltered: true });
+      if (filtered.length > 0) {
+        setSelectedFilter(id);
+        setFilterState({ ...filterState, filtered, isFiltered: true });
+      }
     }
 
     setAnchorEl(null);
