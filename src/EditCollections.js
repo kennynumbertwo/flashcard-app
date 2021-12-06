@@ -459,7 +459,14 @@ function EditCollections(props) {
         <div className={classes.dividerEnd} />
         {/* Footer controls when viewing cards */}
         {isViewingCardsState.isViewing ? (
-          <div className={classes.viewingButtonWrapperEmpty} />
+          <div className={classes.viewingButtonWrapper}>
+            <ButtonBottom
+              icon={<LibraryBooksIcon />}
+              handleButtonClick={handleRunDecksClick}
+              tooltipText="To My Collections"
+              isHighlighted={false}
+            />
+          </div>
         )
           : (
             <div className={classes.viewingButtonWrapper}>
