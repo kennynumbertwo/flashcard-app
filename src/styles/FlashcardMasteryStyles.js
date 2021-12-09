@@ -5,10 +5,20 @@ export default {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'column',
     height: '100%',
     width: '180px',
     '& h4': {
       fontSize: '1.2rem',
+    },
+    '& p': {
+      margin: '15px 0px 0px 0px',
+      color: 'var(--text-primary)',
+      letterSpacing: '1.01px',
+      animationName: '$starSlideUp',
+      animationIterationCount: '1',
+      animationTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+      animationDuration: '1250ms',
     },
   },
   starsWrapper: {

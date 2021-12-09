@@ -109,6 +109,7 @@ function Mastery(props) {
             )}
         </div>
       </div>
+      <p>Mastery Rating</p>
     </div>
   );
 }

@@ -4,6 +4,7 @@ export default {
     justifyContent: 'flex-end',
     alignItems: 'center',
     flexDirection: 'column',
+    marginTop: '10px',
     width: '100%',
     height: props => (`${props.height}px`),
   },

@@ -18,6 +18,9 @@ export default {
       justifyContent: 'flex-start',
       fontSize: '16px',
     },
+    [sizes.down('xs')]: {
+      fontSize: '14px',
+    },
   },
   questionWrapper: {
     height: '50%',
@@ -34,7 +37,7 @@ export default {
     justifyContent: 'center',
     alignItems: 'flex-end',
     [sizes.down('sm')]: {
-      alignItems: 'center',
+      alignItems: 'flex-end',
     },
   },
   answerWrapper: {
