@@ -157,7 +157,9 @@ function UserCollectionCardDetails(props) {
           >
             {getCardQuantity(totalCards)
               .map(num => <MenuItem key={`cardQuantity${num}`} value={num}>{num}</MenuItem>)}
-            <MenuItem value={totalCards}>{totalCards}</MenuItem>
+            {totalCards % 5 !== 0 && (
+              <MenuItem value={totalCards}>{totalCards}</MenuItem>
+            )}
           </Select>
         </FormControl>
       </div>

@@ -38,13 +38,13 @@ export default {
       cursor: props => (props.disabled ? null : 'pointer'),
       transition: 'all 200ms ease-in-out',
       '&.starClickedMain': {
-        color: 'var(--icon-star-filled-clicked)',
-        transform: 'translateY(-4px)',
+        color: props => (props.disabled ? null : 'var(--icon-star-filled-clicked)'),
+        transform: props => (props.disabled ? null : 'translateY(-4px)'),
       },
       [sizes.up('md')]: {
         '&:hover': {
           color: props => (props.disabled ? null : 'var(--icon-star-filled-hover)'),
-          transform: 'translateY(-2px)',
+          transform: props => (props.disabled ? null : 'translateY(-2px)'),
           '&.starClickedMain': {
             color: 'var(--icon-star-filled-clicked)',
             transform: 'translateY(-4px)',
@@ -89,7 +89,7 @@ export default {
       [sizes.up('md')]: {
         '&:hover': {
           color: props => (props.disabled ? null : 'var(--icon-star-filled-hover)'),
-          transform: 'translateY(-2px)',
+          transform: props => (props.disabled ? null : 'translateY(-2px)'),
           '&.starClickedMain': {
             color: 'var(--icon-star-filled-clicked)',
             transform: 'translateY(-4px)',
@@ -116,7 +116,7 @@ export default {
       [sizes.up('md')]: {
         '&:hover': {
           color: props => (props.disabled ? null : 'var(--icon-star-filled-hover)'),
-          transform: 'translateY(-2px)',
+          transform: props => (props.disabled ? null : 'translateY(-2px)'),
           '&.starClickedMain': {
             color: 'var(--icon-star-filled-clicked)',
             transform: 'translateY(-4px)',
