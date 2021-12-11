@@ -25,6 +25,7 @@ function EditCollectionsItem(props) {
   const {
     totalCards,
     uid,
+    index,
     deleteUserDatabaseSet,
     userCardSet,
     fetchUserCardSets,
@@ -112,6 +113,7 @@ function EditCollectionsItem(props) {
         fetchUserCardSets={fetchUserCardSets}
         setIsEditing={setIsEditing}
         userCardSet={userCardSet}
+        index={index}
       />
     );
   }
@@ -127,6 +129,7 @@ function EditCollectionsItem(props) {
           isShowingModal={isShowingModal}
           isMobile={isMobile}
           totalCards={totalCards}
+          index={index}
         />
         )}
         {!isMobile && (
@@ -138,6 +141,7 @@ function EditCollectionsItem(props) {
           isShowingModal={isShowingModal}
           isMobile={isMobile}
           totalCards={totalCards}
+          index={index}
         />
         )}
       </>
@@ -156,6 +160,7 @@ function EditCollectionsItem(props) {
           isShowingModal={isShowingModal}
           isMobile={isMobile}
           totalCards={totalCards}
+          index={index}
         />
         )}
         {!isMobile && (
@@ -168,6 +173,7 @@ function EditCollectionsItem(props) {
           isShowingModal={isShowingModal}
           isMobile={isMobile}
           totalCards={totalCards}
+          index={index}
         />
         )}
       </>

@@ -14,28 +14,11 @@ export default {
     transition: 'all .2s',
     textDecoration: 'none',
     border: '1px solid rgba(0, 0, 0, 0.1)',
-    animationName: props => (props.isEditing ? null : '$new-deck-slide'),
-    animationDuration: '400ms',
-    animationIterationCount: 1,
-    animationTimingFunction: 'ease-in-out',
     width: props => (props.isMobile ? '93%' : '98.53%'),
     height: props => (props.isMobile ? '300px' : '50px'),
     flexDirection: props => (props.isMobile ? 'column' : 'row'),
     '&:hover': {
       boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, 0.1)',
-    },
-  },
-  '@keyframes new-deck-slide': {
-    '0%': {
-      transform: 'translateY(15%)',
-      opacity: 0,
-    },
-    '50%': {
-      opacity: 0.5,
-    },
-    '100%': {
-      transform: 'translateY(0%)',
-      opacity: 1,
     },
   },
   setNameWrapper: {
