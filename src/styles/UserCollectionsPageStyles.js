@@ -169,7 +169,7 @@ export default {
     backgroundColor: 'var(--background-collection-main)',
     width: '100%',
     height: '100%',
-    overflow: 'scroll',
+    overflowY: 'overlay',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -178,7 +178,7 @@ export default {
   itemsWrapper: {
     backgroundColor: 'var(--background-collection-container)',
     height: '99%',
-    overflow: 'scroll',
+    overflowY: 'overlay',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
