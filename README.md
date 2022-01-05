@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+# Flashcard Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the beta version of my flashcard application.
 
-## Available Scripts
 
-In the project directory, you can run:
+## About
 
-### `npm start`
+This is a full featured flashcard application I built with React and Firebase Firestore. The application allows individual users to create, edit and delete decks within their personal collection. The user can also track their knowledge through the mastery rating tracked on each run through a specific deck. On top of that, there are a large number of stock decks a user can choose from and add to their collection. I wrote Python web scrapers to collect and catalog all of the stock decks currently in the collection in the application.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* User authentication and login page provided through Firebase
+* User created flashcard decks stored under My Collections page
+* Stock flashcard decks allow you to test your knowledge on a variety of topics
+* Stock flashcard decks can be added to the users collection and modified to their liking
+* Track your deck mastery to keep track of how well you know the decks in your collection
+* Desktop and mobile friendly
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Create an account with an email and password or through Gitbhub, Google or Facebook
+2. *My Collections* will start off empty. Click the pencil icon at the bottom of the page to navigate to the *Edit Collections* page and create your first deck.
+3. Once a deck has been created, navigate to the *Edit Cards* tab to start adding cards to the deck.
+4. To run your newly created deck, navigate back to *My Collections* by clicking the button at the bottom of the page. 
+5. Click *Start* on the deck you'd like to run. Be sure to click the stars to track your mastery for that deck.
+6. *Stock Decks* can be found from the *My Collections* page under the *Stock Decks* tab.
+7. The mastery rating for a stock deck cannot be tracked unless it is added to your collection. To add it to your collection, start the deck and click the thumbs up on the pop up asking if you'd like to add the deck to your collection.
 
-### `npm run build`
+## Planned updates and bug fixes
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+*Features*
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
