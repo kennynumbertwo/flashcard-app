@@ -26,8 +26,10 @@ This is a full featured flashcard application I built with React and Firebase Fi
 6. *Stock Decks* can be found from the *My Collections* page under the *Stock Decks* tab.
 7. The mastery rating for a stock deck cannot be tracked unless it is added to your collection. To add it to your collection, start the deck and click the thumbs up on the pop up asking if you'd like to add the deck to your collection.
 
-## Planned updates and bug fixes
+## Planned updates
 
-*Features*
-
-
+***Features and Changes***
+* *Deck Sharing* - send another user a link to your deck so they can add it to their collection
+* *Create Deck Interface* - The create deck button will show a new interface displaying the deck fields. It will also include a section for adding cards upon deck creation instead of needing to navigate to the *Edit Cards* page.
+* *Edit Decks* and *Edit Cards* will be combined. Any deck editing the user wants to do will happen from a single page.
+* *Card Editing* - This will allow you to edit the information on a card that has already been created. Currently, a user can only add a new card or delete a card.
