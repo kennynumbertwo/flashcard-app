@@ -7,7 +7,6 @@ export default {
     height: '50px',
     padding: '0px 0px 0px 0px',
     margin: '5px 0px 0px 0px',
-    // borderRadius: '3px',
     color: 'var(--text-primary)',
     backgroundColor: 'var(--background-white)',
     fontSize: '1rem',
@@ -184,7 +183,6 @@ export default {
     justifyContent: 'center',
     flexDirection: 'column',
     marginTop: '5px',
-    // border: '1px solid red',
   },
   mobileBottomWrapper: {
     width: '100%',
@@ -192,7 +190,6 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // border: '1px solid red',
   },
   mobileSetNameWrapper: {
     width: '100%',
@@ -200,7 +197,6 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // border: '1px solid black',
   },
   mobileSetNameLabel: {
     fontWeight: '500',
@@ -217,7 +213,6 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // border: '1px solid black',
   },
   categoryLabel: {
     padding: '0px 10px 0px 0px',
@@ -239,8 +234,6 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // flexDirection: 'column',
-    // border: '1px solid black',
     '& i': {
       fontSize: '1.4rem',
     },
@@ -261,8 +254,6 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // flexDirection: 'column',
-    // border: '1px solid black',
   },
   mobileMasteryLabel: {
     fontWeight: '500',
@@ -279,8 +270,6 @@ export default {
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'center',
-    // flexDirection: 'column',
-    // border: '1px solid black',
   },
   mobileCardsLabel: {
     fontWeight: '500',
@@ -291,7 +280,6 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // border: '1px solid black',
   },
   mobileButton: {
     display: 'flex',

@@ -61,7 +61,6 @@ export default {
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingLeft: '10px',
-    // border: '1px solid black',
     [sizes.down('lg')]: {
       width: '25%',
     },
@@ -93,7 +92,6 @@ export default {
     display: 'flex',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    // border: '1px solid black',
     [sizes.down('lg')]: {
       width: '60%',
     },
@@ -141,7 +139,6 @@ export default {
     alignItems: 'center',
     paddingRight: '5px',
     marginLeft: 'auto',
-    // border: '1px solid black',
     [sizes.down('lg')]: {
       width: '25%',
     },
@@ -155,15 +152,12 @@ export default {
     borderBottom: '1px solid rgba(0, 0, 0, 0.2)',
     margin: '0px 0px 5px 0px',
     padding: '0px 0px 2px 0px',
-    // boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
   },
   dividerEnd: {
-    // height: '1px',
     width: '90.67%',
     borderTop: '1px solid rgba(0, 0, 0, 0.2)',
     margin: '0px 0px 0px 0px',
     padding: '0px 0px 0px 0px',
-    // boxShadow: '0px 1px 3px 0px rgba(0, 0, 0, 0.1)',
   },
   itemsWrapperOuter: {
     backgroundColor: 'var(--background-collection-main)',
@@ -173,7 +167,6 @@ export default {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // border: '1px solid black',
   },
   itemsWrapper: {
     backgroundColor: 'var(--background-collection-container)',
@@ -187,7 +180,6 @@ export default {
     [sizes.down('xs')]: {
       backgroundColor: 'var(--background-collection-mobile)',
     },
-    // borderRadius: '6px',
   },
   headerCardWrapper: {
     display: 'flex',
@@ -198,7 +190,6 @@ export default {
     backgroundColor: 'white',
   },
   headerCard: {
-    // border: '1px solid black',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -206,7 +197,6 @@ export default {
     height: '55px',
     padding: '0px 0px 0px 0px',
     margin: '0px 0px 0px 0px',
-    // borderRadius: '5px',
     color: 'var(--text-primary)',
     backgroundColor: 'var(--background-white)',
     fontSize: '1rem',
@@ -284,7 +274,6 @@ export default {
     width: '300px',
     height: '85px',
     marginBottom: '5px',
-    // border: '1px solid black',
   },
   loadingSpinnerWrapper: {
     height: '610px',

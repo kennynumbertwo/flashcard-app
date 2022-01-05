@@ -11,9 +11,6 @@ export default {
     fontSize: '.88rem',
     [sizes.down('md')]: {
       height: '125px',
-      // flexDirection: 'column',
-      // justifyContent: 'flex-start',
-      // paddingTop: '15px',
     },
     [sizes.down('sm')]: {
       height: '175px',
@@ -30,7 +27,6 @@ export default {
     width: '98.53%',
     backgroundColor: 'var(--background-white)',
     height: '50px',
-    // borderRadius: '3px',
     border: '1px solid rgba(0, 0, 0, 0.1)',
     animationName: '$card-item-slide',
     animationDuration: props => (`${props.card.cardNumber * 70}ms`),
@@ -40,9 +36,6 @@ export default {
       height: '120px',
       alignItems: 'flex-start',
       paddingTop: '15px',
-      // flexDirection: 'column',
-      // justifyContent: 'flex-start',
-      // paddingTop: '15px',
     },
     [sizes.down('sm')]: {
       width: '95%',
@@ -90,7 +83,6 @@ export default {
     alignItems: 'center',
     width: '45%',
     padding: '0px 0px 0px 10px',
-    // border: '1px solid black',
     [sizes.down('md')]: {
       alignItems: 'flex-start',
     },

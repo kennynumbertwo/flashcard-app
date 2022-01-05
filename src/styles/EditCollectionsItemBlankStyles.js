@@ -7,7 +7,6 @@ export default {
     justifyContent: 'space-evenly',
     padding: '0px 0px 0px 0px',
     margin: props => (props.isMobile ? '15px 0px 0px 0px' : '5px 0px 0px 0px'),
-    // borderRadius: '3px',
     color: 'var(--text-primary)',
     backgroundColor: 'var(--background-white)',
     fontSize: '1rem',

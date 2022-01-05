@@ -242,7 +242,6 @@ export default {
     width: '300px',
     justifyContent: 'space-evenly',
     alignItems: 'flex-end',
-    // border: '1px solid black',
   },
   bottomActionWrapperInner: {
     width: '100%',
@@ -250,7 +249,6 @@ export default {
     justifyContent: 'space-evenly',
     alignItems: 'center',
     marginBottom: '5px',
-    // border: '1px solid black',
   },
   highlightText: {
     fontSize: '1rem',
@@ -265,7 +263,6 @@ export default {
     animationDuration: '300ms',
     animationTimingFunction: 'ease-in-out',
     animationIterationCount: 1,
-    // border: '1px solid black',
     padding: '0px 0px 7px 0px',
     margin: '0px 0px 0px 0px',
   },
