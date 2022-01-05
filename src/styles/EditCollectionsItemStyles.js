@@ -9,7 +9,6 @@ export default {
     height: '50px',
     padding: '0px 0px 0px 0px',
     margin: '5px 0px 0px 0px',
-    // borderRadius: '3px',
     color: 'var(--text-primary)',
     backgroundColor: 'var(--background-collection-item)',
     fontSize: '1rem',

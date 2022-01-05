@@ -15,9 +15,7 @@ export default {
     animationIterationCount: '1',
     [sizes.down('md')]: {
       height: '125px',
-      // flexDirection: 'column',
-      // justifyContent: 'flex-start',
-      // paddingTop: '15px',
+
     },
     [sizes.down('sm')]: {
       height: '175px',

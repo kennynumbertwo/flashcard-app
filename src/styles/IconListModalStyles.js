@@ -13,7 +13,6 @@ export default {
     height: '100vh',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     opacity: '1',
-    // animationName: props => (props.isAnimatingModal ? 'IconModalFadeIn' : 'IconModalFadeOut'),
     '&.IconModalFadeIn': {
       animationName: '$IconModalFadeIn',
       animationIterationCount: '1',
@@ -50,7 +49,6 @@ export default {
     alignItems: 'center',
     width: '100%',
     height: '100%',
-    // border: '1px solid black',
   },
   IconListCard: {
     display: 'flex',

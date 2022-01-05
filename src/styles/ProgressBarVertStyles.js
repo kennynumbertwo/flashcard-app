@@ -8,7 +8,6 @@ export default {
     width: props => (`${props.width}px`),
     height: props => (`${props.height}px`),
     borderRadius: props => (`${props.borderRadius}px`),
-    // border: '1px solid rgba(0, 0, 0, 0.2)',
   },
   progress: {
     display: 'flex',
