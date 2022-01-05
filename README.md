@@ -19,8 +19,8 @@ This is a full featured flashcard application I built with React and Firebase Fi
 ## Getting Started
 
 1. Create an account with an email and password or through Gitbhub, Google or Facebook
-2. *My Collections* will start off empty. Click the pencil icon at the bottom of the page to navigate to the *Edit Collections* page and create your first deck.
-3. Once a deck has been created, navigate to the *Edit Cards* tab to start adding cards to the deck.
+2. *My Collections* will start off empty. Click the pencil icon at the bottom of the page to navigate to *Edit Collections* and create your first deck.
+3. Once a deck has been created, navigate to the *Edit Cards* tab and start adding cards to the deck.
 4. To run your newly created deck, navigate back to *My Collections* by clicking the button at the bottom of the page. 
 5. Click *Start* on the deck you'd like to run. Be sure to click the stars to track your mastery for that deck.
 6. *Stock Decks* can be found from the *My Collections* page under the *Stock Decks* tab.
