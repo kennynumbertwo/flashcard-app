@@ -2,6 +2,7 @@
 
 Welcome to the beta version of my flashcard application.
 
+[Go to the App](https://trusting-easley-bb7a76.netlify.app/)
 
 ## About
 
