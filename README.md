@@ -33,3 +33,4 @@ This is a full featured flashcard application I built with React and Firebase Fi
 * *Create Deck Interface* - The create deck button will show a new interface displaying the deck fields. It will also include a section for adding cards upon deck creation instead of needing to navigate to the *Edit Cards* page.
 * *Edit Decks* and *Edit Cards* will be combined. Any deck editing the user wants to do will happen from a single page.
 * *Card Editing* - This will allow you to edit the information on a card that has already been created. Currently, a user can only add a new card or delete a card.
+* **Application name coming soon!**
